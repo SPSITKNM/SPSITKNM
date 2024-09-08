@@ -1,12 +1,12 @@
-### Hi there 👋, Predmet PRO
-#### GitHub slúžiacia pre predmet PRO na SPŠIT v KNM 
-![GitHub slúžiacia pre predmet PRO na SPŠIT v KNM ](https://arturssmirnovs.github.io/github-profile-readme-generator/images/banner.png)
+### Hi there 👋, Tomaš Mucha
+#### Som jeden z učiteľov zodpovedajúcich za predmet PRO 
+![Som jeden z učiteľov zodpovedajúcich za predmet PRO ](https://www.spsknm.sk/ssknm/sites/default/files/slideshow/1.jpg)
 
-I made this project just for fun, it allows you to create nice and simple GitHub Readme files that you can copy/paste and use in your profile.
+Hi there 👋  Som GitHub určený pre vyučovanie predmetu PRO pre Strednú priemyselnú školu informačných a sieťových technológií... Budem slúžiť na uchovanie poznámok k paradigmatám a preberaným témem na hodinách...  Podstatné linky ktoré by ste mali sledovať :  1. YT kanál - programovací kurz pre náš predmet 2. Discord server, kde sú uverejňované aktuality o našom predmete, všetko je pod ikonkami nižšie...  
 
-Skills: VUE JS / REACT / JS / HTML / CSS
-
-- 🔭 I’m currently working on this page. 
+- 📫 How to reach me: Edupage, Spoločný discord server 
+- 😄 Pronouns: 📚 H(x)  = f(g(x)) = Bitch composite 📚 
+- ⚡ Fun fact: 🕹️ UE Developer 🔮 
 
 
 
