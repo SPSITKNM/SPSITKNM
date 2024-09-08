@@ -124,6 +124,23 @@ Vytlačí zadanú hodnotu a presunie kurzor na ďalší riadok.
 ```csharp
 Console.WriteLine("Hello, World!");
 ```
+### 2. `Console.Write()`
+Vytlačí zadanú hodnotu bez presunu kurzora na nový riadok. Ďalší výstup bude pokračovať na rovnakom riadku.
+
+**Príklad 2**:
+```csharp
+Console.Write("Hello, ");
+Console.Write("World!");
+```
+### 3. `String.Format()`
+Vloží premenné alebo výrazy do reťazca. Často sa kombinuje s Console.WriteLine().
+
+**Príklad 2**:
+```csharp
+int age = 25;
+Console.WriteLine(String.Format("I am {0} years old.", age));
+```
+
 
 
 
