@@ -147,6 +147,21 @@ int age = 25;
 Console.WriteLine($"I am {age} years old.");
 
 ```
+# Premenné 
+
+# Premenné v Programovaní
+
+Aby programy mohli riešiť nejaký úkol, tak si skoro vždy musím niečo zapamätať. K tomu slúži tzv. **premenné** (variables). Premenné nám umožňujú pracovať s pamäťou počítača (RAM) intuitívnym spôsobom - časť pamäte si pomenujeme nejakým menom a ďalej sa na ňu týmto menom odkazujeme. Do tejto zmeny potom môžeme uložiť nejakú hodnotu, čím si ju počítač "zapamätá". Túto hodnotu môžeme neskôr v programe prečítať alebo ju zmeniť.
+
+## Príklady použitia premenných:
+
+1. **Webová aplikácia**: Číselná premenná si pamätá počet návštevníkov. Pri zobrazení stránok sa hodnota zvyšuje o 1.
+   
+2. **Hra**: Číselná premenná si pamätá počet životov hráčovej postavy. Ak dôjde k zásahu postavy nepriateľom, tak sa počet životov zníži o poškodenie nepriateľovej zbrane. Ak hráč získa liekárničku, tak sa počet jeho životov opäť zvýši.
+
+3. **Terminál**: Premenná reprezentujúca znaky si pamätá text, ktorý bol zadaný na klávesnici.
+
+
 
 
 
