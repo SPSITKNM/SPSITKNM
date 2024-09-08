@@ -432,5 +432,77 @@ Ak chcete vypísať hodnotu dátového typu `float` alebo `double`, môžete pou
 
 ```csharp
 Console.WriteLine("Desatinné číslo: {0:F}", 1.0);
+```
+
+# Pravdivostní typy
+
+Posledným základným dátovým typom, ktorý si ukážeme, je pravdivostný typ Booleovskej logiky. Hodnoty tohto dátového typu majú iba dve možné varianty - pravda (true) alebo nepravda (false). Tento typ sa hodí najmä pre rôzne logické operácie, napríklad porovnávanie hodnôt (Je a menšie ako b? - áno/nie).
+
+V C# sa Booleovský dátový typ nazýva _Bool. Avšak tento názov je celkom krkolomný, obvykle sa preto používa skôr názov bool.
+
+```csharp
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        bool venkuJeHezky = true;
+        bool uprJeSlozite = false;
+
+        // Vytlačiť hodnoty priamo
+        Console.WriteLine(venkuJeHezky ? 1 : 0);
+        Console.WriteLine(uprJeSlozite ? 1 : 0);
+    }
+}
+
+```
+
+Ako je možné v ukážke vyššie vidieť, true reprezentuje pravdivý Booleovský výraz a false nepravdivý Booleovský výraz a bool hodnoty je možné vytlačiť na výstup rovnakým spôsobom ako celočíselné hodnoty.1 Hodnoty Booleovského typu obvykle zaberajú v pamäti jeden byte.
+
+# Logické operácie
+
+## Logické operace
+
+V (Booleovské) logice existují tři základní operátory:
+
+- **Logický součin (AND):** Platí X a zároveň Y.
+- **Logický součet (OR):** Platí X nebo Y.
+- **Logická negace (NOT):** Neplatí X.
+
+### Operátory v C#
+
+V jazyce C# se tyto logické operace provádějí pomocí následujících operátorů:
+
+- **AND:** `&&`
+- **OR:** `||`
+- **NOT:** `!`
+
+### Příklad použití v C#
+
+```csharp
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        bool x = true;
+        bool y = false;
+
+        // Logické operace
+        bool andResult = x && y; // true && false -> false
+        bool orResult = x || y;  // true || false -> true
+        bool notResult = !x;     // !true -> false
+
+        // Výpis výsledků
+        Console.WriteLine($"AND (x && y): {andResult}");
+        Console.WriteLine($"OR (x || y): {orResult}");
+        Console.WriteLine($"NOT (!x): {notResult}");
+    }
+}
+```
+
+
 
 
