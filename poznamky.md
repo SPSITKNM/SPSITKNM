@@ -350,6 +350,9 @@ Ktorý štýl budete používať záleží na vašej osobnej preferencii, ale d�
 
 # Dátové typy
 
+Pamäť počítača pracuje s jednotlivými bytmi, avšak pre ľudí je žiaduce používať popis dát v pamäti na oveľa vyššej úrovni abstrakcie, aby sa nám o dátach jednoduchšie premýšľalo. Pokiaľ programujeme textový editor, chceme sa baviť o znakoch, odsekoch, fontoch či farbách, pokiaľ programujeme počítačovú hru, chceme sa baviť o zbraniach, brnení, kúzlach či pixeloch.
 
+Presne na to slúžia dátové typy, ktoré popisujú, ako budeme interpretovať konkrétne hodnoty daného typu v pamäti, koľko bytov budú zaberať a aké operácie nad nimi budeme môcť vykonávať. Jazyk Najprv sa pozrieme na niekoľko dátových typov, ktoré sú vstavané v jazyku C#, a neskôr si ukážeme, ako si vytvoriť svoje vlastné dátové typy.
 
+# Celočíselné datové typy
 
