@@ -115,6 +115,17 @@ V C# môžeme s výrazmi vykonávať rôzne operácie pomocou operátorov. Môž
 
 Aby ste si zo začiatku mohli jednoducho zobraziť hodnoty výrazov, tak si ukážeme kód, pomocou ktorého môžete vypísať text na výstup programu (do terminálu). Na výpis textu môžete použiť jednu z týchto metód : 
 
+V C#, je viacero metód ako vypísať výraz do konzoly. Tu je zhrnutie tých najčastejších :
+
+### 1. `Console.WriteLine()`
+Vytlačí zadanú hodnotu a presunie kurzor na ďalší riadok.
+
+**Príklad 1**:
+```csharp
+Console.WriteLine("Hello, World!");
+```
+
+
 
 
 
