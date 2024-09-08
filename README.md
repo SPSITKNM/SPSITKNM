@@ -1,6 +1,6 @@
 # Tomaš Mucha 👋
 
-## Vyučujúci predmetu PRO 💻
+## 💻 Vyučujúci predmetu PRO 💻
 
 ![Stredná priemyselná škola informačných a sieťových technológií](https://www.spsknm.sk/ssknm/sites/default/files/slideshow/1.jpg)
 
