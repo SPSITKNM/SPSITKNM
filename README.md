@@ -4,10 +4,10 @@
 
 ![Stredná priemyselná škola informačných a sieťových technológií](https://www.spsknm.sk/ssknm/sites/default/files/slideshow/1.jpg)
 
-Vitajte na stránke venovanej predmetu **PRO** na Strednej priemyselnej škole informačných a sieťových technológií. Tento GitHub repository slúži na uchovávanie poznámok k paradigmatám a preberaným témam na hodinách.
+Vitajte na Gite venovanom predmetu **PRO** na Strednej priemyselnej škole informačných a sieťových technológií. 
 
 ## Čo je predmet PRO?
-Predmet **PRO** (Programovanie a Rozvoj) sa zameriava na základy programovania, softvérového inžinierstva a moderných technológií. Tento repo je navrhnutý na uchovávanie poznámok, zdrojov a materiálov, ktoré sa budú používať počas hodín.
+Predmet **PRO**  sa zameriava na základy OOP programovania, algorizmizácia a paradigmat tomu náležiacich. Tento repo je navrhnutý na uchovávanie poznámok, zdrojov a materiálov, ktoré sa budú používať počas hodín PRO.
 
 ### 🗂️ Obsah tohto repozitára
 - **Poznámky z hodín**: Dôležité koncepty a paradigmy preberané na hodinách.
@@ -39,9 +39,5 @@ Predmet **PRO** (Programovanie a Rozvoj) sa zameriava na základy programovania,
 ---
 
 ### 📝 Ako prispieť
-Ak chcete prispieť do tohto repozitára, prosím, vytvorte pull request s vašimi zmenami alebo navrhnite vylepšenia. V prípade otázok alebo problémov nás kontaktujte cez Edupage alebo Discord server.
+Ak chcete prispieť do tohto repozitára, prosím, vytvorte pull request s vašimi zmenami alebo navrhnite vylepšenia. V prípade otázok alebo problémov ma kontaktujte cez Edupage alebo Discord server.
 
----
-
-### O mne
-Som Tomaš Mucha, učiteľ predmetu PRO so záujmom o programovanie a technológie. Rád sa zdieľam o svoje poznatky a pomáham študentom v ich vzdelávaní.
