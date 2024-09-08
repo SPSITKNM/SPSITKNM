@@ -1,6 +1,6 @@
 ### Hi there 👋, Tomaš Mucha
 #### Som jeden z učiteľov zodpovedajúcich za predmet PRO 
-![Som jeden z učiteľov zodpovedajúcich za predmet PRO ]([[[https://www.spsknm.sk/ssknm/sites/default/files/slideshow/1.jpg](https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.vecteezy.com%2Ffree-vector%2Fcoding-banner&psig=AOvVaw1kNaCAUFRR7TYgQkOiS624&ust=1725902705116000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCPDzyd_us4gDFQAAAAAdAAAAABAJ)](https://static.vecteezy.com/system/resources/previews/017/383/808/non_2x/coding-system-minimal-infographic-banner-vector.jpg)](https://www.google.com/url?sa=i&url=http%3A%2F%2Fwww.spsknm.sk%2Fssknm%2F&psig=AOvVaw2FDsmxkrZ9QOYjJvGmFLWh&ust=1725903235263000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCIDbw_LVs4gDFQAAAAAdAAAAABAE))
+![Som jeden z učiteľov zodpovedajúcich za predmet PRO ]![I am GitHub Readme Generator's creator](https://www.spsknm.sk/ssknm/sites/default/files/slideshow/1.jpg)
 
 Hi there 👋  Som GitHub určený pre vyučovanie predmetu PRO :computer: pre Strednú priemyselnú školu informačných a sieťových technológií... 
 :scroll: Budem slúžiť na uchovanie poznámok k paradigmatám a preberaným témem na hodinách... :scroll:  
