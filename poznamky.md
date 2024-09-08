@@ -590,7 +590,7 @@ class Program
         Console.WriteLine($"Osoba je spôsobilá: {isEligible}");
     }
 }
-
+```
 ## Tabuľka logických operátorov
 
 Pre lepšiu orientáciu je tu tabuľka s logickými operátormi. Typ výsledku týchto operátorov je vždy `bool`.
