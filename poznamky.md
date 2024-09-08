@@ -68,8 +68,20 @@ class Program
     }
 }
 ```
-##Viacriadkový komentár 
+## Viacriadkový komentár 
 
-
+```csharp
+class Program
+{
+    static void Main()
+    {
+        /*
+         Toto je viacriadkový komentár.
+         Môže sa použiť na dlhšie vysvetlenia kódu.
+        */
+        Console.WriteLine("Hello, World!");
+    }
+}
+```
 
 
