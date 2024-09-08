@@ -502,6 +502,18 @@ class Program
     }
 }
 ```
+## Pravdivostná tabuľka
+
+Pre pripomenutie, tu je pravdivostná tabuľka pre logické operátory:
+
+| X     | Y     | X && Y | X || Y | !X   |
+|-------|-------|--------|--------|------|
+| false | false | false  | false  | true |
+| false | true  | false  | true   | true |
+| true  | false | false  | true   | false|
+| true  | true  | true   | true   | false|
+
+Táto tabuľka zobrazuje výsledky logických operácií AND, OR a NOT pre všetky možné kombinácie vstupných hodnôt `X` a `Y`.
 
 
 
