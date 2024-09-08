@@ -515,6 +515,105 @@ Pre pripomenutie, tu je pravdivostná tabuľka pre logické operátory:
 
 Táto tabuľka zobrazuje výsledky logických operácií AND, OR a NOT pre všetky možné kombinácie vstupných hodnôt `X` a `Y`.
 
+## Porovnávanie hodnôt
 
+Pri programovaní často potrebujete porovnať hodnoty medzi sebou:
 
+- Má Jarda viac bodov než Kamil?
+- Má používateľovo heslo viac než 5 znakov?
+- Má Lenka na účte aspoň 100 dolárov?
+
+Na tento účel slúži šesť základných porovnávacích operátorov:
+
+- **Rovná sa:** `==`
+  > Pozor na rozdiel medzi `=` (priradenie hodnoty) a `==` (porovnanie dvoch hodnôt). Zámena týchto dvoch operátorov je častou začiatočníckou chybou a môže viesť k ťažko nájdeným chybám.
+- **Nerovná sa:** `!=`
+- **Väčšie:** `>`
+- **Väčšie alebo rovné:** `>=`
+- **Menšie:** `<`
+- **Menšie alebo rovné:** `<=`
+
+Porovnávať medzi sebou môžete akékoľvek hodnoty dvoch rovnakých dátových typov. Výsledkom porovnania je výraz dátového typu `bool`.
+
+### Príklad v C#
+
+```csharp
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        int jardaPoints = 10;
+        int kamilPoints = 8;
+        string password = "mypassword";
+        int accountBalance = 150;
+
+        // Porovnanie hodnôt
+        bool isJardaHigher = jardaPoints > kamilPoints;        // 10 > 8 -> true
+        bool isPasswordLongEnough = password.Length > 5;       // "mypassword".Length > 5 -> true
+        bool hasSufficientBalance = accountBalance >= 100;     // 150 >= 100 -> true
+
+        // Výpis výsledkov
+        Console.WriteLine($"Jarda má viac bodov než Kamil: {isJardaHigher}");
+        Console.WriteLine($"Heslo má viac než 5 znakov: {isPasswordLongEnough}");
+        Console.WriteLine($"Lenka má na účte aspoň 100 dolárov: {hasSufficientBalance}");
+    }
+}
+```
+
+## Pozor na použitie operátorov
+
+Dávajte si ovšem pozor na to, že iba operátory `==` a `!=` môžete použiť univerzálne na všetky dátové typy. Napríklad použiť operátor `<` pre porovnanie dvoch Booleovských hodnôt obvykle nedáva veľký zmysel. Operátory `<`, `<=`, `>` a `>=` sú obvykle využívané iba pre porovnanie čísel.
+
+## Kombinovanie porovnávania s logickými operátormi
+
+Porovnávanie hodnôt môžete kombinovať s logickými operátormi pre vyhodnocovanie komplexných pravdivostných výrazov:
+
+### Príklad v C#
+
+```csharp
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        int age = 25;
+        double balance = 120.50;
+        bool hasJob = true;
+
+        // Kombinovanie porovnávania s logickými operátormi
+        bool isEligible = (age > 18 && balance >= 100) || hasJob;
+
+        // Výpis výsledku
+        Console.WriteLine($"Osoba je spôsobilá: {isEligible}");
+    }
+}
+
+## Tabuľka logických operátorov
+
+Pre lepšiu orientáciu je tu tabuľka s logickými operátormi. Typ výsledku týchto operátorov je vždy `bool`.
+
+| Operátor | Popis                           | Príklad                     |
+|----------|---------------------------------|-----------------------------|
+| `&&`     | Logický súčin (AND)              | `a == b && c >= d`          |
+| `||`     | Logický súčet (OR)               | `a < b || c == d`           |
+| `!`      | Logická negácia (NOT)            | `!(a > b && c < d)`         |
+| `==`     | Rovná sa                         | `a == 5`                    |
+| `!=`     | Nerovná sa                       | `a != 5`                    |
+| `>`      | Väčší než                        | `a > 5`                     |
+| `>=`     | Väčší alebo rovný                | `a >= 5`                    |
+| `<`      | Menší než                        | `a < 5`                     |
+| `<=`     | Menší alebo rovný                | `a <= 5`                    |
+
+## Skrátené vyhodnocovanie
+
+Pri vyhodnocovaní Booleovských výrazov s logickými operátormi sa v jazyku C používa tzv. skrátané vyhodnocovanie (short-circuit evaluation). Napríklad, ak sa vyhodnocuje výraz `a || b`, môže dôjsť k nasledujúcej situácii:
+
+1. Počítač vykonáva vyhodnocovanie krok po kroku, tj. najprv vyhodnotí `a`.
+2. Ak má výraz `a` hodnotu `true`, je už jasné, že celý výraz `a || b` bude mať hodnotu `true`.
+3. Vyhodnotenie výrazu `b` sa teda nevykoná, pretože je to zbytočné.
+
+Toto správanie môže zrýchliť vykonávanie programu, pretože preskočí vykonávanie zbytočných príkazov. Môže to však tiež spôsobiť neočakávané chyby. Ak by napríklad vyhodnocovanie výrazu `b` obsahovalo nejaké vedľajšie efekty, ktoré sa prejavia pri jeho vykonaní (napríklad zmena hodnoty v pamäti), môže byť problém, ak sa vyhodnotenie tohto výrazu úplne preskočí. Ak si pamätáte na inkrementáciu, tá je jedným z prípadov výrazov, ktoré majú vedľajší efekt (zmenu hodnoty premennej).
 
