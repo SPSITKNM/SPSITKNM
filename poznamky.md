@@ -14,8 +14,11 @@ V tomto repozitári pre predemt PRO pre 4.ročník nájdete stručnú oporu vo f
   - [ ] Celočíselné typy
   - [ ] Desatinné typy
   - [ ] Pravdivostné typy
+  - [ ] Text
+    - [ ] ASCI, Znaky, Reťazec
   - [ ] Konverzie
   - [ ] Auto pri C++ vs Var pri C#
+  - [ ] Vlastné dátové typy
   - [ ] Práca s pameťou, padding, zarovananie
 - [ ] Riadenie toku
   - [ ] Podmienky
