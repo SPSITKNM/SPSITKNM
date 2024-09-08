@@ -4,7 +4,9 @@
 
 Hi there 👋  Som GitHub určený pre vyučovanie predmetu PRO :computer: pre Strednú priemyselnú školu informačných a sieťových technológií... 
 :scroll: Budem slúžiť na uchovanie poznámok k paradigmatám a preberaným témem na hodinách... :scroll:  
-:exclamation: Podstatné linky ktoré by ste mali sledovať : 1. YT kanál - programovací kurz pre náš predmet 2. Discord server, kde sú uverejňované aktuality o našom predmete, všetko je pod ikonkami nižšie... :exclamation: 
+:exclamation: Podstatné linky ktoré by ste mali sledovať : :exclamation: 
+:bar_chart: 1. YT kanál - programovací kurz pre náš predmet :bar_chart: 
+:e_mail: 2. Discord server, kde sú uverejňované aktuality o našom predmete, všetko je pod ikonkami nižšie... :e_mail: 
 
 
 
