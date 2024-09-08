@@ -127,7 +127,7 @@ Console.WriteLine("Hello, World!");
 ### 2. `Console.Write()`
 Vytlačí zadanú hodnotu bez presunu kurzora na nový riadok. Ďalší výstup bude pokračovať na rovnakom riadku.
 
-**Príklad 2**:
+**Príklad 3**:
 ```csharp
 Console.Write("Hello, ");
 Console.Write("World!");
@@ -135,11 +135,19 @@ Console.Write("World!");
 ### 3. `String.Format()`
 Vloží premenné alebo výrazy do reťazca. Často sa kombinuje s Console.WriteLine().
 
-**Príklad 2**:
+**Príklad 4**:
 ```csharp
 int age = 25;
 Console.WriteLine(String.Format("I am {0} years old.", age));
 ```
+### 4. `Pužitie string interpolacie`
+**Príklad 5**:
+```csharp
+int age = 25;
+Console.WriteLine($"I am {age} years old.");
+
+```
+
 
 
 
