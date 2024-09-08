@@ -10,6 +10,7 @@ V tomto repozitári pre predemt PRO pre 4.ročník nájdete stručnú oporu vo f
   - [ ] Čo je to Stack a Heap, kde je aká premenná ukladaná ?
   - [ ] Globálne premenné v jazykoch ako je C a C++ kde je rozdiel oproti jazyku C#
   - [ ] Functionl, Curly Bracet notácia a assigment notácia.
+  - [ ] LifeTime, živnostnosť premennej, čo je to Garbage collector
 - [ ] Predefinované dátové typy
   - [ ] Celočíselné typy
   - [ ] Desatinné typy
@@ -20,6 +21,10 @@ V tomto repozitári pre predemt PRO pre 4.ročník nájdete stručnú oporu vo f
   - [ ] Auto pri C++ vs Var pri C#
   - [ ] Vlastné dátové typy
   - [ ] Práca s pameťou, padding, zarovananie
+- [ ] Operácie na dátach
+  - [ ] Aritmetické operácie na číslach
+  - [ ] Operácie na reťazcoch
+  - [ ] Logické operácie
 - [ ] Riadenie toku
   - [ ] Podmienky
   - [ ] Cykly
