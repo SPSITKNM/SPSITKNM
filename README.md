@@ -7,11 +7,11 @@
 Vitajte na Gite venovanom predmetu **PRO** na Strednej priemyselnej škole informačných a sieťových technológií. 
 
 ## Čo je predmet PRO?
-Predmet **PRO**  sa zameriava na základy OOP programovania, algorizmizácia a paradigmat tomu náležiacich. Tento repo je navrhnutý na uchovávanie poznámok, zdrojov a materiálov, ktoré sa budú používať počas hodín PRO.
+Predmet **PRO**  sa zameriava na základy OOP programovania, algorizmizácie, návrhu oop programu a paradigmat tomu náležiacich v objektovo orientovanom programovaciom jazyku. Implemntácia samotných paradigmat bude prebiehať v jazyku C# ako aj C++, Python ( tento repozitár neobsahuje implementáciu v Pythone, tak aby neviedol k nekorektnosti a zamieňaniu jednotlivých predefinicií). Tento repo je navrhnutý na uchovávanie poznámok, zdrojov a materiálov, ktoré sa budú používať počas hodín PRO.
 
 ### 🗂️ Obsah tohto repozitára
-- **Poznámky z hodín**: Dôležité koncepty a paradigmatá preberané na hodinách PRO.
-- **Príklady kódu**: Praktické príklady a cvičenia.
+- **Skriptá z hodín**: Dôležité koncepty a paradigmatá preberané na hodinách PRO, vrátane základov programovania. 
+- **Príklady kódu**: Praktické príklady, vysvetlené časti kódov a cvičenia na overenie nadobudnutej znalosti.
 - **Zdroje**: Odkazy na užitočné nástroje a dokumentáciu.
 
 ### 📚 Podstatné linky, ktoré by ste mali sledovať 📚
