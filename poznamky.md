@@ -247,6 +247,33 @@ float vypocitaj_odvod(float celkova_cena, bool dph) {
 ```
 Druhá varianta kódu je jasne čitatelnejšia 
 
+# Zložený zápis 
+
+Často potrebujeme hodnotu premennej iba trochu poupraviť, a nie do nej vyložene zapísať novú hodnotu. Bežná je napríklad operácia zvýšenia hodnoty premennej o 1 (tzv. inkrementácia premennej). Na to môžeme použiť tento príkaz:
+
+```csharp
+pocet = pocet + 1; // zvýšenie hodnoty premennej o `pocet` o 1
+```
+jedné o zdĺhavý proces, jazyk nám ponúka zložený zápis (compound assignment) 
+
+- [ ] **+=**
+- [ ] **-=**
+- [ ] ***=**
+- [ ] **/=**
+
+Príklad : 
+
+```csharp
+int pocet = 0;
+pocet += 1;   // rovnaké ako pocet = pocet + 1;
+pocet *= 3;   // rovnaké ako pocet = pocet * 3; 
+
+```
+# Inkrementácia a dekriminácia 
+
+Špeciálnym prípadom zloženého zápisu je tzv. inkrementácia (zvýšenie hodnoty premennej o jedničku) a dekrementácia (zníženie hodnoty premennej o jedničku). Tieto operácie sú tak časté, že C# obsahuje špeciálne "skratky" na ich vykonanie. Aby to nebolo také jednoduché, tak tieto skratky existujú v dvoch variantoch:
+
+  - [ ] Postfixová: <premenná>++. Tento výraz sa najprv vyhodnotí ako hodnota danej premennej, a potom (vykoná vedľajší efekt, ktorý) zvýši hodnotu premennej o jedničku. Skúste uhádnuť, čo vypíše nasledujúci program:
 
 
 
