@@ -633,7 +633,15 @@ Aj keď sa to možno nezdá, tak použitie výrazov, premenných, podmienok a cy
 
 Avšak, ak by sme využívali iba tieto konštrukcie, vo väčších programoch by bolo náročné sa orientovať a boli by dosť neefektívne. V nasledujúcich sekciách sa preto dozviete o niekoľkých ďalších konštrukciách, ktoré vám môžu programovanie uľahčiť.
 
+# Podmienky
 
+V programoch sa často potrebujeme rozhodnúť, čo by sa malo stať v závislosti od hodnoty nejakého výrazu:
+
+- Ak používateľ nakúpil tovar v poslednom týždni, pošli mu e-mail.
+- Zadal používateľ správne heslo? Ak áno, presmeruj ho na jeho profil. Ak nie, zobraz chybové hlásenie.
+- Aké má používateľ konto? Ak je kladné, vykresli ho zelenou farbou, ak je záporné, tak červenou a ak nulové, tak čiernou.
+
+V jazyku C# môžeme vykonávať takéto rozhodnutia pomocou podmienených príkazov (`if` a `switch`), prípadne pomocou ternárneho operátora.
 
 
 
