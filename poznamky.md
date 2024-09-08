@@ -617,3 +617,25 @@ Pri vyhodnocovaní Booleovských výrazov s logickými operátormi sa v jazyku C
 
 Toto správanie môže zrýchliť vykonávanie programu, pretože preskočí vykonávanie zbytočných príkazov. Môže to však tiež spôsobiť neočakávané chyby. Ak by napríklad vyhodnocovanie výrazu `b` obsahovalo nejaké vedľajšie efekty, ktoré sa prejavia pri jeho vykonaní (napríklad zmena hodnoty v pamäti), môže byť problém, ak sa vyhodnotenie tohto výrazu úplne preskočí. Ak si pamätáte na inkrementáciu, tá je jedným z prípadov výrazov, ktoré majú vedľajší efekt (zmenu hodnoty premennej).
 
+# Riadenie toku 
+
+Ak by počítače program vždy iba vykonávali od začiatku do konca a vykonávali by zakaždým tie isté operácie, neboli by veľmi užitočné. Síce by zvládli niečo rýchlo vypočítať, ale už by sa nevedeli rozhodnúť, akú operáciu majú vykonať, alebo vykonať operáciu opakovane, čo sú veľmi užitočné vlastnosti.
+
+Inštrukcie programu sa bežne vykonávajú ("tečú") jedna po druhej ("zhora nadol"). Jazyk C# obsahuje príkazy na tzv. riadenie toku (control flow), ktoré môžu toto vykonávanie inštrukcií ovplyvniť:
+
+## Podmienky
+Podmienky umožňujú vykonať kus kódu iba vtedy, ak platí nejaký výraz (Booleovského typu). Vďaka tomu sa program môže rozhodnúť, či má nejakú operáciu vykonať alebo nie, v závislosti od vstupu.
+
+## Cykly
+Cykly umožňujú vykonávať kus kódu opakovane. Vďaka tomu môžeme napríklad vykonať nejakú operáciu pre všetky prvky zo vstupu programu alebo ju vykonávať, až kým nedôjde k splneniu nejakej podmienky.
+
+Aj keď sa to možno nezdá, tak použitie výrazov, premenných, podmienok a cyklov bohato stačí na to, aby ste boli schopní napísať ľubovoľný počítačový program. Pomocou týchto troch jednoduchých konštrukcií by ste tak teoreticky mohli vytvoriť napríklad textový editor, hru alebo aj celý operačný systém.
+
+Avšak, ak by sme využívali iba tieto konštrukcie, vo väčších programoch by bolo náročné sa orientovať a boli by dosť neefektívne. V nasledujúcich sekciách sa preto dozviete o niekoľkých ďalších konštrukciách, ktoré vám môžu programovanie uľahčiť.
+
+
+
+
+
+
+
