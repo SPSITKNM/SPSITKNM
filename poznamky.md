@@ -161,8 +161,45 @@ Aby programy mohli riešiť nejaký úkol, tak si skoro vždy musím niečo zapa
 
 3. **Terminál**: Premenná reprezentujúca znaky si pamätá text, ktorý bol zadaný na klávesnici.
 
+## Definícia 
 
+Premenné sú z najzákladnejších a najčastejšie používaných stavebných kameňov väčšinou programov, počas semestra sa s nimi budeme neustále setkávať. Nie je tak náhodou, že jeden z najzákladnejších príkazov v C je práve vytvorenie proměnné. Tím povieme počítač, aby vyčlenil (tzv. naalokoval) miesto v pamäti, ktoré si v programe nejako pomenujeme a ďalej sa naňho pomocou jeho mien môžeme odkazovať1.
 
+Takto vypadá príkaz definicie (vytvorený) premenne s názvom vek s dátovým typom int : 
+
+```csharp
+int age;
+```
+Hneď teraz nadefinujeme, tak z nej môžeme buď čítať alebo zapisovať pamäť, ktorú táto premenná reprezentuje, podľa jej názvu (zde vek).
+
+## Dátový typ 
+
+int pred promennými udáva jej datový typ, o ktorom pojednáva nasledujúcu kapitolu. Prozatím si řekněme, že int je zkratka pro integer, tedy celé číslo. Tím říkáme programu, že má túto premennú (resp. pamäť, ktorú premenná reprezentuje) interpretovať ako celé číslo sa známym.
+
+## Inicializácia 
+
+Do premennej by sme mali pri jej vytvorení rovno uložiť nejaký výraz, ktorý musí byť rovnakého dátového typu ako je typ premennej:
+
+```csharp
+int a = 10;
+int b = 10 + 15;
+```
+Obecná syntax pre definíciu premennej je : 
+
+```csharp
+<dátový typ> <názov> = <výraz>;
+```
+! Nikdy nezabudnúť bodkočiarku na konci príkazu ! 
+
+## Vždy inicializujte premenné 
+
+Je naozaj dôležité do premennej vždy pri jej definícii priradiť nejakú úvodnú hodnotu. Pokiaľ to neurobíme, tak jej hodnota bude nedefinovaná (undefined). Čítanie hodnoty takejto nedefinovanej premennej spôsobuje nedefinované správanie (undefined behaviour, UB)2 programu. Pokiaľ k tomu dôjde, tak si prekladač s vaším programom môže urobiť, čo sa mu zachce, a váš program sa potom môže správať nepredvídateľne.
+
+## Definícia viacerých premenných rovnakého typu
+
+```csharp
+<int x = 10, y = 20, z = 30;
+```
 
 
 
