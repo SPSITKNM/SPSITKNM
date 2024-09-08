@@ -1,4 +1,6 @@
-# Project Notes
+# Úvod do programovania 
+
+V tomto repozitári pre predemt PRO pre 4.ročník nájdete stručnú oporu vo formáte skrípt k preberanej problematike.
 
 ## Features
 
