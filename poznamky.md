@@ -14,6 +14,8 @@ V tomto repozitári pre predemt PRO pre 4.ročník nájdete stručnú oporu vo f
   - [ ] Desatinné typy
   - [ ] Pravdivostné typy
   - [ ] Konverzie
+  - [ ] Auto pri C++ vs Var pri C#
+  - [ ] Práca s pameťou, padding, zarovananie
 - [ ] Riadenie toku
   - [ ] Podmienky
   - [ ] Cykly
