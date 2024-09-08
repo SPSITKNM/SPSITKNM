@@ -7,7 +7,7 @@ V tomto repozitári pre predemt PRO pre 4.ročník nájdete stručnú oporu vo f
 - [ ] **Syntax** 
 - [ ] Príkazy a výrazy 
 - [ ] Premenné 
-  - [ ] Čo je to Stack a Heap, kde je aká premenná ukladaná ?1
+  - [ ] Čo je to Stack a Heap, kde je aká premenná ukladaná ?
   - [ ] Globálne premenné v jazykoch ako je C a C++ kde je rozdiel oproti jazyku C#
   - [ ] Functionl, Curly Bracet notácia a assigment notácia.
 - [ ] Predefinované dátové typy
