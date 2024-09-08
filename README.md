@@ -20,11 +20,11 @@ Vitajte na stránke venovanej predmetu **PRO** na Strednej priemyselnej škole i
 - 🕹️ UE Developer
 
 ### Odkazy
-[![GitHub](https://cdn.jsdelivr.net/npm/simple-icons@3.0.1/icons/github.svg)](https://github.com/SPSITKNM)  
-[![Instagram](https://cdn.jsdelivr.net/npm/simple-icons@3.0.1/icons/instagram.svg)](https://www.instagram.com/https://discord.gg/eSQDsna4d7/)  
-[![YouTube](https://cdn.jsdelivr.net/npm/simple-icons@3.0.1/icons/youtube.svg)](https://www.youtube.com/channel/UC0TOfJp6MtFlLSgfdhnlS9g)  
-[![Website](https://cdn.jsdelivr.net/npm/simple-icons@3.0.1/icons/icloud.svg)](http://www.spsknm.sk/ssknm/)  
+<a href="https://github.com/SPSITKNM"><img src="https://cdn.jsdelivr.net/npm/simple-icons@3.0.1/icons/github.svg" alt="GitHub" width="30" height="30"></a>  
+<a href="https://www.instagram.com/https://discord.gg/eSQDsna4d7/"><img src="https://cdn.jsdelivr.net/npm/simple-icons@3.0.1/icons/instagram.svg" alt="Instagram" width="30" height="30"></a>  
+<a href="https://www.youtube.com/channel/UC0TOfJp6MtFlLSgfdhnlS9g"><img src="https://cdn.jsdelivr.net/npm/simple-icons@3.0.1/icons/youtube.svg" alt="YouTube" width="30" height="30"></a>  
+<a href="http://www.spsknm.sk/ssknm/"><img src="https://cdn.jsdelivr.net/npm/simple-icons@3.0.1/icons/icloud.svg" alt="Website" width="30" height="30"></a>  
 
 ### Odznaky
-[![Dev Badge](https://raw.githubusercontent.com/acervenky/animated-github-badges/master/assets/devbadge.gif)](https://docs.github.com/en/developers)  
-[![Star Badge](https://raw.githubusercontent.com/acervenky/animated-github-badges/master/assets/starbadge.gif)](https://stars.github.com/)
+<a href="https://docs.github.com/en/developers"><img src="https://raw.githubusercontent.com/acervenky/animated-github-badges/master/assets/devbadge.gif" width="30" height="30"></a>  
+<a href="https://stars.github.com/"><img src="https://raw.githubusercontent.com/acervenky/animated-github-badges/master/assets/starbadge.gif" width="30" height="30"></a>
