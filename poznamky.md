@@ -274,7 +274,79 @@ pocet *= 3;   // rovnaké ako pocet = pocet * 3;
 Špeciálnym prípadom zloženého zápisu je tzv. inkrementácia (zvýšenie hodnoty premennej o jedničku) a dekrementácia (zníženie hodnoty premennej o jedničku). Tieto operácie sú tak časté, že C# obsahuje špeciálne "skratky" na ich vykonanie. Aby to nebolo také jednoduché, tak tieto skratky existujú v dvoch variantoch:
 
   - [ ] Postfixová: <premenná>++. Tento výraz sa najprv vyhodnotí ako hodnota danej premennej, a potom (vykoná vedľajší efekt, ktorý) zvýši hodnotu premennej o jedničku. Skúste uhádnuť, čo vypíše nasledujúci program:
+        
+   ```csharp
+int a = 1;
+int b = a++;
+```
+  - [ ] Prefixová: ++<premenná>. Tento výraz najprv zvýši hodnotu premennej a až potom sa vyhodnotí ako (nová, už zvýšená) hodnota danej premennej. Skúste uhádnuť, čo vypíše nasledujúci program:
+        
+```csharp
+int a = 1;
+int b = ++a;
+```
+Dekriminácia sa chová totožne ako inkriminácia, len s tým rodielom, že sa použije --         
 
+# Pomenovanie premenných 
+
+# Pravidlá pre Pomenovanie Premenných v C#
+
+V C# existujú určité pravidlá pre pomenovanie premenných:
+
+1. **Premenné sa nesmú volať rovnako ako kľúčové slová**: Inak by prekladač nevedel rozlíšiť, čo je názov premennej a čo kľúčové slovo (napríklad `int int;`).
+
+2. **Názov premennej môže obsahovať iba malé (a-z) a veľké (A-Z) písmená anglickej abecedy, číslice (0-9) a podčiarknutie (_)**.
+
+3. **Názov premennej nesmie začínať číslicou**: Tj. `5x` nie je validný názov premennej.
+
+## Dôležité Praktiky pri Pomenovaní Premenných
+
+V programoch je nutné neustále priraďovať názvy, čo zďaleka nie je také jednoduché, ako sa môže na prvý pohľad zdať. Okrem vyššie uvedených pravidiel je vhodné voliť názvy tak, aby boli prehľadné pre vás (a ostatných programátorov, ktorí váš zdrojový kód budú čítať). Názvy premenných ako `a` alebo `x` sú nič nehovoriace a kód s podobnými názvami je potom zložitejšie pochopiť.
+
+### Porovnanie Kódu s Rôznymi Názvami Premenných
+
+Porovnajte nasledujúce dva úseky kódu, ktoré sa líšia iba v použitých názvoch premenných:
+
+#### Príklad 1: Nezrozumiteľné názvy
+```csharp
+int a = 5;
+int b = 10;
+int c = a + b;
+
+```
+VS
+
+```csharp
+int zakladna_cena = 1337;
+int  zakladna_cena =  zakladna_cena - zľava;
+int finalna_cenaa = zlavnena_cena * dph;
+```
+# Viacslovne názvy
+
+# Štylistické Konvencie pre Názvy v C#
+
+Existuje niekoľko zabehnutých štylistických spôsobov na zápis názvov v C, ktoré obsahujú viac slov. Tu je zoznam najpoužívanejších konvencií:
+
+1. **Camel Case**: `mójUcet`, `prvýKlikUzivatele`
+   - Prvý znak slova je malý, nasledujúce slová začínajú veľkým písmenom.
+   
+2. **Pascal Case**: `MójUcet`, `PrvýKlikUzivatele`
+   - Všetky slová začínajú veľkým písmenom.
+
+3. **Snake Case**: `mój_ucet`, `prvý_klik_uzivatela`
+   - Slová sú oddelené podčiarknutím.
+
+4. **Screaming Snake Case**: `MUJ_UCET`, `PRVNI_KLIK_UZIVATELE`
+   - Všetky písmená sú veľké a slová sú oddelené podčiarknutím.
+
+## Používanie Štylov v C# 
+
+Rôzne konštrukcie v C môžu využívať rôzne štýly. Napríklad:
+
+- **Snake Case** je častou konvenciou pre názvy premenných a funkcií.
+- **Pascal Case** je častou konvenciou pre názvy štruktúr.
+
+Ktorý štýl budete používať záleží na vašej osobnej preferencii, ale dôležité je najmä držať sa jednotného štýlu a nekombinovať rôzne štýly (pre rovnaký typ konštrukcií) v jednom programe.
 
 
 
