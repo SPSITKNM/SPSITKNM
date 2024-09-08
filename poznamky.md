@@ -352,7 +352,59 @@ Ktorý štýl budete používať záleží na vašej osobnej preferencii, ale d�
 
 Pamäť počítača pracuje s jednotlivými bytmi, avšak pre ľudí je žiaduce používať popis dát v pamäti na oveľa vyššej úrovni abstrakcie, aby sa nám o dátach jednoduchšie premýšľalo. Pokiaľ programujeme textový editor, chceme sa baviť o znakoch, odsekoch, fontoch či farbách, pokiaľ programujeme počítačovú hru, chceme sa baviť o zbraniach, brnení, kúzlach či pixeloch.
 
-Presne na to slúžia dátové typy, ktoré popisujú, ako budeme interpretovať konkrétne hodnoty daného typu v pamäti, koľko bytov budú zaberať a aké operácie nad nimi budeme môcť vykonávať. Jazyk Najprv sa pozrieme na niekoľko dátových typov, ktoré sú vstavané v jazyku C#, a neskôr si ukážeme, ako si vytvoriť svoje vlastné dátové typy.
+Presne na to slúžia `dátové typy`, ktoré popisujú, ako budeme interpretovať konkrétne hodnoty daného typu v pamäti, koľko bytov budú zaberať a aké operácie nad nimi budeme môcť vykonávať. Jazyk Najprv sa pozrieme na niekoľko dátových typov, ktoré sú vstavané v jazyku C#, a neskôr si ukážeme, ako si vytvoriť svoje vlastné dátové typy.
 
 # Celočíselné datové typy
+
+# Celočíselné datové typy v C#
+
+V jazyce C# se běžně používají celočíselné datové typy k práci s celými čísly. Tyto typy mají různou velikost v bytech, což určuje rozsah hodnot, které mohou obsahovat. Zde je přehled základních celočíselných typů v C#:
+
+## Datové typy a jejich rozsahy
+
+| Název      | Počet bytů | Rozsah hodnot                     | Znaménko      |
+|------------|------------|----------------------------------|---------------|
+| `byte`      | 1          | 0 až 255                          | Bez znaménka  |
+| `sbyte`     | 1          | -128 až 127                       | Se znaménkem  |
+| `short`     | 2          | -32 768 až 32 767                 | Se znaménkem  |
+| `ushort`    | 2          | 0 až 65 535                       | Bez znaménka  |
+| `int`       | 4          | -2 147 483 648 až 2 147 483 647   | Se znaménkem  |
+| `uint`      | 4          | 0 až 4 294 967 295               | Bez znaménka  |
+| `long`      | 8          | -9 223 372 036 854 775 808 až 9 223 372 036 854 775 807 | Se znaménkem  |
+| `ulong`     | 8          | 0 až 18 446 744 073 709 551 615 | Bez znaménka  |
+
+**Poznámka:** V C# jsou všechny celočíselné typy implicitně se znaménkem, kromě `byte`, `ushort`, `uint` a `ulong`, které jsou bez znaménka.
+
+## Operace s celočíselnými typy
+
+V C# lze provádět běžné aritmetické operace s celočíselnými typy:
+
+- **Sčítání:** `a + b`
+- **Odečítání:** `a - b`
+- **Násobení:** `a * b`
+- **Dělení:** `a / b` (celé číslo, zaokrouhleno dolů)
+- **Zbytek po dělení:** `a % b`
+
+### Pozor na přetečení
+
+Při operacích s celočíselnými typy může dojít k přetečení (overflow), pokud výsledek operace přesáhne maximální nebo minimální hodnotu typu. V C# můžete použít metody jako `checked` a `unchecked` pro řízení, jak se přetečení bude zpracovávat.
+
+### Bitové operace
+
+C# také podporuje bitové operace:
+
+- **AND:** `a & b`
+- **OR:** `a | b`
+- **XOR:** `a ^ b`
+- **NOT:** `~a`
+- **Bitový posun vlevo:** `a << b`
+- **Bitový posun vpravo:** `a >> b`
+
+## Důležité poznámky
+
+- **Implicitní konverze:** C# provádí implicitní konverzi mezi kompatibilními celočíselnými typy, ale může být potřeba provést explicitní konverzi.
+- **Priorita operátorů:** Stejně jako v matematice, operátory mají různé priority, které ovlivňují pořadí, ve kterém se operace provádějí. Používejte závorky pro jasné určení pořadí operací.
+
+Tento přehled by měl poskytnout základní přehled o celočíselných typech a operacích v C#.
+
 
