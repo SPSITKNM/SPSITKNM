@@ -9,6 +9,7 @@ V tomto repozitári pre predemt PRO pre 4.ročník nájdete stručnú oporu vo f
 - [ ] Premenné 
   - [ ] Čo je to Stack a Heap, kde je aká premenná ukladaná ?1
   - [ ] Globálne premenné v jazykoch ako je C a C++ kde je rozdiel oproti jazyku C#
+  - [ ] Functionl, Curly Bracet notácia a assigment notácia.
 - [ ] Predefinované dátové typy
   - [ ] Celočíselné typy
   - [ ] Desatinné typy
