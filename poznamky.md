@@ -407,5 +407,30 @@ C# tiež podporuje bitové operácie:
 
 Tento prehľad by mal poskytnúť základný prehľad o celočíselných typoch a operáciách v C#.
 
+# Desatinné číselné typy v C#
+
+Ak chcete vykonávať výpočty s desatinnými číslami, môžete využiť dátové typy s tzv. plávajúcou desatinnou čiarkou (floating point numbers). Hodnoty týchto dátových typov umožňujú pracovať s číslami, ktoré sa skladajú z celej a desatinnej časti. Tieto čísla dokážu reprezentovať veľmi malé i veľmi veľké hodnoty, avšak za cenu nižšej presnosti desatinnej časti.
+
+V C# sú dva základné zabudované dátové typy pre prácu s desatinnými číslami, ktoré sa líšia veľkosťou (a teda aj presnosťou, s ktorou dokážu reprezentovať desatinné čísla). Oba typy sú znamienkové:
+
+## Dátové typy a ich rozsahy
+
+| Názov    | Počet bajtov | Rozsah hodnôt                         | Presnosť        | Znamienko     |
+|----------|--------------|--------------------------------------|-----------------|---------------|
+| `float`  | 4            | [-3.4 × 10^38; 3.4 × 10^38]          | ~7 des. miest   | So znamienkom |
+| `double` | 8            | [-1.7 × 10^308; 1.7 × 10^308]        | ~16 des. miest  | So znamienkom |
+
+Slovo `double` pochádza z pojmu "double precision" (dvojitá presnosť). Typ `float` sa niekedy označuje ako "single precision" (jednoduchá presnosť).
+
+## Používanie desatinných čísel
+
+Ak chcete v programe vytvoriť výraz dátového typu `double`, stačí napísať desatinné číslo (ako desatinný oddeľovač sa používa bod, nie čiarka): `10.5`, `-0.73`. Ak chcete vytvoriť výraz typu `float`, pridajte za číslo znak `f`: `10.5f`, `-0.73f`.
+
+## Formátovaný výstup desatinných čísel
+
+Ak chcete vypísať hodnotu dátového typu `float` alebo `double`, môžete použiť formátovací reťazec:
+
+```csharp
+Console.WriteLine("Desatinné číslo: {0:F}", 1.0);
 
 
