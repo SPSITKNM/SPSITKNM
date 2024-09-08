@@ -201,6 +201,52 @@ Je naozaj dôležité do premennej vždy pri jej definícii priradiť nejakú ú
 <int x = 10, y = 20, z = 30;
 ```
 
+## Konštanty 
+
+V určitých prípadoch môžeme chcieť mať premenné s konštantnou hodnotou, ktoré by sa nemali v priebehu programu meniť. Také premenné sa nazývajú konštanty (constants).
+
+Aby sme zamedzili nechcenej zmene hodnoty konštanty, môžeme dátový typ premennej označiť kľúčovým slovom const, ktorý umiestnime pred1 názov dátového typu. Pokiaľ by sme sa snažili o zmenu premennej s takýmto dátovým typom, prekladač nám to nedovolí.
+
+```csharp
+const int a = 5;
+a = a + 1; // chyba nejde preložiť 
+```
+### Dôvod používania konštant
+
+V programoch niekedy opakovane používame konštantné hodnoty, ktoré majú pevne danú hodnotu. Pri čítaní zdrojového kódu nemusí byť jasné, čo také hodnoty znamenajú (v takom prípade sa hanlivo označujú ako "magické konštanty"). 
+
+Aby sme takéto hodnoty pomenovali, môžeme ich uložiť do konštantnej premennej. Pri čítaní programu potom bude zrejmé, čo reprezentujú. Porovnajte variant s nepopísanými číselnými hodnotami:
+
+```csharp
+float vypocitaj_cenu(float cena) {
+    return cena * (1 + 0.21);
+}
+float vypocitaj_odvod(float celkova_cena, bool dph) {
+    if (dph) {
+        return celkova_cena * 0.21;
+    } else {
+        return 0;
+    }
+}
+```
+Varianta využívajúca pomenovanie konštanty 
+
+```csharp
+const float DPH = 0.21; 
+
+float vypocitaj_cenu(float cena) {
+    return cena * (1 + DPH);
+}
+float vypocitaj_odvod(float celkova_cena, bool dph) {
+    if (dph) {
+        return celkova_cena * DPH;
+    } else {
+        return 0;
+    }
+}
+```
+Druhá varianta kódu je jasne čitatelnejšia 
+
 
 
 
