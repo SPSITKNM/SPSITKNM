@@ -33,3 +33,22 @@ V tomto repozitári pre predemt PRO pre 4.ročník nájdete stručnú oporu vo f
   - [ ] Statické
   - [ ] Dynamické
   - [ ] Viacrozmerné
+
+# Syntax
+
+C,C++ či C# ( V tychto skriptách sa Pythonu venovať nebudeme, ten bude implementovaný na hodinách tak aby nás nemiatol ) ma svoje pravidlá, napr v slovenčine musíme dodržať nijaký formát pravidiel aby nám bol text pochopiteľný... takisto v jazykoch C,C++, C# musíme tieto náležitosti dodržať... Poďme sa teda spoločne pozrieť na najkradší program v jazyku C#
+
+Jednoduchý program, ktorý vracia `0` na indikaciu úspešného dokončenia.
+
+```csharp
+class Program
+{
+    static int Main()
+    {
+        return 0;
+    }
+}
+
+
+
+
