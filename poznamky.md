@@ -348,6 +348,7 @@ Rôzne konštrukcie v C môžu využívať rôzne štýly. Napríklad:
 
 Ktorý štýl budete používať záleží na vašej osobnej preferencii, ale dôležité je najmä držať sa jednotného štýlu a nekombinovať rôzne štýly (pre rovnaký typ konštrukcií) v jednom programe.
 
+# Dátové typy
 
 
 
