@@ -1,23 +1,30 @@
-### Hi there 👋, Tomaš Mucha
-#### Som jeden z učiteľov zodpovedajúcich za predmet PRO 
-![Som jeden z učiteľov zodpovedajúcich za predmet PRO ]![I am GitHub Readme Generator's creator](https://www.spsknm.sk/ssknm/sites/default/files/slideshow/1.jpg)
+# Tomaš Mucha 👋
 
-Hi there 👋  Som GitHub určený pre vyučovanie predmetu PRO :computer: pre Strednú priemyselnú školu informačných a sieťových technológií... 
-:scroll: Budem slúžiť na uchovanie poznámok k paradigmatám a preberaným témem na hodinách... :scroll:  
+## Vyučujúci predmetu PRO 💻
 
-:exclamation: Podstatné linky ktoré by ste mali sledovať : :exclamation: 
+![Stredná priemyselná škola informačných a sieťových technológií](https://www.spsknm.sk/ssknm/sites/default/files/slideshow/1.jpg)
 
-1. YT kanál - programovací kurz pre náš predmet 
-2. Discord server, kde sú uverejňované aktuality o našom predmete, všetko je pod ikonkami nižšie... :bar_chart: 
+Vitajte na stránke venovanej predmetu **PRO** na Strednej priemyselnej škole informačných a sieťových technológií. Tento GitHub repository slúži na uchovávanie poznámok k paradigmatám a preberaným témam na hodinách.
 
+### 📚 Podstatné linky, ktoré by ste mali sledovať 📚
 
+1. **YouTube kanál**: Programovací kurz pre náš predmet
+2. **Discord server**: Aktuality o našom predmete a ďalšie informácie
 
-- 📫 How to reach me: Edupage, Spoločný discord server 
-- 😄 Pronouns: 📚 H(x)  = f(g(x)) = Bitch composite 📚 
-- ⚡ Fun fact: 🕹️ UE Developer 🔮 
+### 📫 Ako ma kontaktovať
+- Edupage
+- Spoločný Discord server
 
+### 😄 Zaujímavé fakty
+- 📚 **F(x) = g(h(x)) = Kompozitná funkcia**
+- 🕹️ UE Developer
 
-[<img src='https://cdn.jsdelivr.net/npm/simple-icons@3.0.1/icons/github.svg' alt='github' height='40'>](https://github.com/SPSITKNM)  [<img src='https://cdn.jsdelivr.net/npm/simple-icons@3.0.1/icons/instagram.svg' alt='instagram' height='40'>](https://www.instagram.com/https://discord.gg/eSQDsna4d7/)  [<img src='https://cdn.jsdelivr.net/npm/simple-icons@3.0.1/icons/youtube.svg' alt='YouTube' height='40'>](https://www.youtube.com/channel/UC0TOfJp6MtFlLSgfdhnlS9g)  [<img src='https://cdn.jsdelivr.net/npm/simple-icons@3.0.1/icons/icloud.svg' alt='website' height='40'>](http://www.spsknm.sk/ssknm/)  
+### Odkazy
+[![GitHub](https://cdn.jsdelivr.net/npm/simple-icons@3.0.1/icons/github.svg)](https://github.com/SPSITKNM)  
+[![Instagram](https://cdn.jsdelivr.net/npm/simple-icons@3.0.1/icons/instagram.svg)](https://www.instagram.com/https://discord.gg/eSQDsna4d7/)  
+[![YouTube](https://cdn.jsdelivr.net/npm/simple-icons@3.0.1/icons/youtube.svg)](https://www.youtube.com/channel/UC0TOfJp6MtFlLSgfdhnlS9g)  
+[![Website](https://cdn.jsdelivr.net/npm/simple-icons@3.0.1/icons/icloud.svg)](http://www.spsknm.sk/ssknm/)  
 
-<a href='https://docs.github.com/en/developers'><img src='https://raw.githubusercontent.com/acervenky/animated-github-badges/master/assets/devbadge.gif' width='40' height='40'></a> <a href='https://stars.github.com/'><img src='https://raw.githubusercontent.com/acervenky/animated-github-badges/master/assets/starbadge.gif' width='35' height='35'></a> 
-
+### Odznaky
+[![Dev Badge](https://raw.githubusercontent.com/acervenky/animated-github-badges/master/assets/devbadge.gif)](https://docs.github.com/en/developers)  
+[![Star Badge](https://raw.githubusercontent.com/acervenky/animated-github-badges/master/assets/starbadge.gif)](https://stars.github.com/)
