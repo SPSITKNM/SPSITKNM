@@ -49,8 +49,26 @@ class Program
     }
 }
 
-## Komentáre
+```
+## Komentáre 
 
+Aby sme mohli v nasledujúcich sekciách popisovať kusy kódu, ukážeme si teraz komentáre. Ide o text v zdrojovom kóde, ktorý je určený pre programátorov, a nie pre prekladač, ktorý ich úplne ignoruje. Bez komentárov by sme nemohli do zdrojového kódu dodávať poznámky, pretože prekladač by inak mal snahu ich interpretovať ako C# kód. Komentáre v kóde zvyčajne spoznáte ľahko, pretože ich váš editor bude vykresľovať inou farbou ako zvyšok kódu.
+
+Na našich hodinách budeme používať extension pre farebnosť so znakmy ako ! či ? 
+
+## Jednoriadkový komentár
+
+```csharp
+class Program
+{
+    static void Main()
+    {
+        // Toto je jednoriadkový komentár
+        Console.WriteLine("Hello, World!"); // Tento komentár je za kódom
+    }
+}
+```
+##Viacriadkový komentár 
 
 
 
