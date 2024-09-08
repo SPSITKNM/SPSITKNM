@@ -1,7 +1,19 @@
-# Ahoj
+# Project Notes
 
+## Features
 
-| Column 1 | Column 2 | Column 3 |
-|----------|----------|----------|
-| Data 1   | Data 2   | Data 3   |
-| More Data| More Data| More Data|
+- [x] **Login** system implemented
+- [ ] Payment gateway integration
+  - [x] Stripe
+  - [ ] PayPal
+
+## Tasks
+
+- [ ] Write documentation
+- [ ] Complete testing
+
+## Code Snippet
+
+```python
+def hello_world():
+    print("Hello, World!")
