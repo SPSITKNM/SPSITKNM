@@ -1084,3 +1084,20 @@ while (i < 3)
 Console.WriteLine("Konec programu");
 ```
 Pre každú iteráciu "vonkajšieho" cyklu while sa vykonajú štyri iterácie "vnútorného" cyklu while. Dohromady sa tak vykoná celkom 3 * 4 iterácií
+
+# Cyklus do while v C#
+
+Cyklus `while` má aj alternatívu nazvanú `do while`. Tento cyklus má nasledujúcu syntaxu:
+
+```csharp
+do
+{
+    // telo cyklu
+}
+while (<výraz typu bool>);
+```
+Tento kód môžeme čítať ako: "Vykonávaj <telo cyklu>, pokým platí <výraz>".
+
+Jediný rozdiel medzi while a do while je ten, že v cykle do while sa výraz, ktorý určuje, či sa má vykonať ďalšia iterácia cyklu, vyhodnocuje až na konci cyklu. Telo cyklu sa tak vykoná vždy aspoň raz (aj keď je výraz na začiatku nepravdivý).
+
+Ak na to nemáte zvláštny dôvod, asi nie je potrebné tento typ cyklu používať.
