@@ -1101,3 +1101,64 @@ Tento kód môžeme čítať ako: `"Vykonávaj <telo cyklu>, pokým platí <výr
 Jediný rozdiel medzi while a do `while` je ten, že v cykle `do while` sa výraz, ktorý určuje, či sa má vykonať ďalšia iterácia cyklu, vyhodnocuje až na konci cyklu. Telo cyklu sa tak vykoná vždy aspoň raz (aj keď je výraz na začiatku nepravdivý).
 
 Ak na to nemáte zvláštny dôvod, asi nie je potrebné tento typ cyklu používať.
+
+# Cyklus for 
+
+V programoch veľmi často potrebujeme vykonať nejaký blok kódu presne n-krát:
+
+- Prejdi n riadkov zo vstupného súboru a spočítaj ich hodnoty.
+- Pošli správu všetkým n účastníkom chatu.
+- Vystreľ presne trikrát zo zbrane.
+
+Aj keď pomocou cyklu `while` môžeme vyjadriť vykonanie n iterácií, je to relatívne zdĺhavé, pretože je k tomu potrebné aspoň tri riadky kódu:
+
+1. **Inicializácia cyklu:** vytvorenie riadiacej premennej, ktorá sa bude kontrolovať v cykle.
+2. **Kontrola výrazu:** kontrola, či už riadiaca premenná dosiahla požadovanú hodnotu.
+3. **Operácia na konci cyklu:** zmena hodnoty riadiacej premennej.
+
+Pre zjednodušenie takýchto úloh ponúka jazyk C# cyklus `for`, ktorý umožňuje všetky tieto úkony skombinovať do jedného príkazu. 
+
+Tento cyklus má nasledujúcu syntax:
+
+```csharp
+int i = 0; 
+while (i < 10) { 
+    // tělo cyklu
+    i += 1; 
+}
+
+```
+Cyklus `for` existuje, aby túto častú situáciu zjednodušil. Kód vyššie by sa dal pomocou cyklu `for` prepisovať takto:
+
+```csharp
+for (int i = 0; i < 10; i++)
+{
+    // telo cyklu
+}
+```
+
+Ako je vidieť, cyklus `for` kombinuje inicializáciu cyklu, kontrolu výrazu a vykonanie príkazu po každej iterácii. Všeobecná syntax tohto cyklu vyzerá takto:
+
+```csharp
+for (<príkaz A>; <výraz typu bool>; <príkaz B>)
+{
+    // telo cyklu
+}
+```
+
+Takýto cyklus sa vykonáva nasledovne:
+
+1. Ako prvé sa vykoná príkaz A. Tu sa typicky vytvorí riadiaca premenná s nejakou počiatočnou hodnotou.
+2. Skontroluje sa výraz. Ak nie je pravdivý, cyklus končí a program pokračuje za cyklom `for`. Ak je pravdivý, vykoná sa telo cyklu a program pokračuje bodom 3.
+3. Vykoná sa príkaz B a program pokračuje bodom 2.
+
+Výraz v príkaze `for` môže chýbať, v takom prípade sa automaticky predpokladá ako `true`. Rovnako platí, že bodkočiarka (`;`) môže vyjadrovať tzv. prázdny príkaz, ktorý nič nevykoná. Všetky tri časti cyklu `for` môžu teda chýbať, a v tom prípade sa jedná o nekonečný cyklus:
+
+```csharp
+for (;;)
+{
+    // telo cyklu
+}
+```
+
+
