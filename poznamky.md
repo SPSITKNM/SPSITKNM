@@ -1096,8 +1096,8 @@ do
 }
 while (<výraz typu bool>);
 ```
-Tento kód môžeme čítať ako: "Vykonávaj <telo cyklu>, pokým platí <výraz>".
+Tento kód môžeme čítať ako: `"Vykonávaj <telo cyklu>, pokým platí <výraz>"`.
 
-Jediný rozdiel medzi while a do while je ten, že v cykle do while sa výraz, ktorý určuje, či sa má vykonať ďalšia iterácia cyklu, vyhodnocuje až na konci cyklu. Telo cyklu sa tak vykoná vždy aspoň raz (aj keď je výraz na začiatku nepravdivý).
+Jediný rozdiel medzi while a do `while` je ten, že v cykle `do while` sa výraz, ktorý určuje, či sa má vykonať ďalšia iterácia cyklu, vyhodnocuje až na konci cyklu. Telo cyklu sa tak vykoná vždy aspoň raz (aj keď je výraz na začiatku nepravdivý).
 
 Ak na to nemáte zvláštny dôvod, asi nie je potrebné tento typ cyklu používať.
