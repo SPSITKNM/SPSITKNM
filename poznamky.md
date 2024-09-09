@@ -643,6 +643,115 @@ V programoch sa často potrebujeme rozhodnúť, čo by sa malo stať v závislos
 
 V jazyku C# môžeme vykonávať takéto rozhodnutia pomocou podmienených príkazov (`if` a `switch`), prípadne pomocou ternárneho operátora.
 
+# Príkaz if v C#
+
+Základným príkazom pre tzv. podmienené vykonanie kódu v C# je príkaz `if`:
+
+```csharp
+if (<výraz typu bool>) {
+    // blok kódu
+}
+```
+Ak sa výraz v zátvorke za `if` vyhodnotí ako `true` (pravda), tak sa vykoná blok kódu za zátvorkou a potom bude program ďalej pokračovať za príkazom if. Ak sa však výraz vyhodnotí ako `false` (nepravda), tak sa blok kódu za zátvorkou vôbec nevykoná.
+
+V nasledujúcom programe skúste zmeniť výraz v zátvorkách za `if`, aby sa blok v podmienke vykonal:
+
+```csharp
+string heslo = "tajneheslo";
+
+if (heslo.Length > 5) {
+    Console.WriteLine("Heslo je dostatočne dlhé.");
+}
+
+```
+
+Booleovské výrazy použité v podmienených príkazoch sa označujú ako podmienky (conditions), pretože podmieňujú vykonávanie programu.
+
+Anglické slovo `if` znamená v slovenčine "Ak". Všimnite si, že kód vyššie môžete prečítať ako vetu: Ak je dĺžka hesla väčšia než päť, tak vykonaj kód v bloku.
+
+# Prevod medzi rôznymi dátovými typmi
+
+Niekedy je potrebné previesť hodnoty medzi rôznymi dátovými typmi. Na tento účel slúži operátor pretypovania (cast operator), ktorý má syntax `(typ) výraz` a prevedie výraz na daný dátový typ. Napríklad `(short)1` prevedie výraz `1` z typu `int` na `short`. Je dobré si uvedomiť, čo sa môže stať pri prevode medzi rôznymi dátovými typmi:
+
+## Oseknutie hodnoty pri menšom cieľovom dátovom type
+
+Ak je cieľový dátový typ menší a prevádzanú hodnotu v ňom nemožno reprezentovať, dôjde k oseknutiu hodnoty. V dôsledku spôsobu reprezentácie hodnôt v počítači táto operácia zodpovedá zvyšku po delení:
+
+```csharp
+ushort a = 256;
+byte b = (byte)a; // hodnota tohto výrazu je 0 (256 % 256)
+```
+
+# Vykonávanie alternatív v C#
+
+Často v programe chceme vykonať práve jednu z dvoch (alebo viacerých) alternatív, opäť v závislosti od hodnoty nejakého výrazu (podmienky). To síce môžeme vykonať pomocou niekoľkých `if` príkazov za sebou:
+
+```csharp
+if (body > 90) { znamka = 1; }
+if (body <= 90 && body > 80) { znamka = 2; }
+if (body <= 80 && body > 50) { znamka = 3; }
+```
+
+To však môže byť často dosť zdĺhavé, pretože sa musíme v každej podmienke uistiť, že už nebola splnená predchádzajúca podmienka, inak by sa mohla vykonať viac než jedna alternatíva.
+
+V C# môžeme pridať k príkazu `if` ďalší príkaz `else`, ktorý sa vykoná, iba ak podmienka if nie je splnená. Takto možno reťaziť viacero podmienok za sebou, kde v každej nasledujúcej podmienke vieme, že žiadna z predchádzajúcich nebola splnená:
+
+```csharp
+if (<výraz typu bool>) {
+    // blok kódu
+} else {
+    // alternatívny blok
+}
+```
+Ak za blok podmienky `if` pridáte `else`, program sa začne vykonávať za `else`, ak výraz podmienky nie je splnený. Za `else` môže nasledovať:
+
+```csharp
+if (body > 90) {
+    // blok A
+} else {
+    // blok B
+}
+// X
+```
+Ak platí `body > 90`, vykoná sa blok A, ak nie, vykoná sa blok B. V oboch prípadoch bude program ďalej vykonávať kód od bodu X.
+
+## Ďalšia podmienka if, ktorá je opäť vyhodnotená:
+
+Takýchto podmienok môže nasledovať ľubovoľný počet:
+
+```csharp
+if (body > 90) {
+    // blok A, viac než 90 bodov
+} else if (body > 80) {
+    // blok B, menej než 91 bodov, ale viac než 80 bodov
+} else if (body > 70) {
+    // blok C, menej než 81 bodov, ale viac než 70 bodov
+}
+// X
+
+```
+Takéto spojené podmienky sa vyhodnocujú postupne zhora nadol. Prvá podmienka `if`, ktorej výraz je vyhodnotený ako `true`, spôsobí, že sa vykoná blok tejto podmienky, a následne program pokračuje za celou spojenou podmienkou (bod X).
+
+## Použitie else na konci:
+
+Na koniec spojenej podmienky môžete pridať kľúčové slovo else s blokom bez podmienky. Tento blok sa vykoná iba v prípade, že žiadna z predchádzajúcich podmienok nie je splnená:
+
+```csharp
+if (body > 90) {
+    // blok A, viac než 90 bodov
+} else if (body > 80) {
+    // blok B, menej než 90 bodov, ale viac než 80 bodov
+} else {
+    // blok C, menej než 81 bodov
+}
+
+
+```
+Tento kód môžeme prečítať ako vetu: Ak je počet bodov vyšší než 90, vykonaj A. Ak nie, ale je vyšší než 80, vykonaj B. Inak vykonaj C.
+
+
+
+
 
 
 
