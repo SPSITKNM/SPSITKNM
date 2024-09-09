@@ -1063,7 +1063,7 @@ Nemusíte hneď zo začiatku vymýšľať výraz pre `while`, na čom by ste sa 
 
 Namiesto `while (1)` môžete použiť aj `while (true)`. Nezabudnite ale na vloženie príkazu `break` na ukončenie cyklu, keď bude podmienka splnená.
 
-# Vnořování cyklů
+# Vnorovanie cyklov
 
 Rovnako ako podmienky, aj cykly sú príkazy a môžete ich používať ľubovoľne v blokoch C kódu a tiež ich vnoriať. Chovanie vnorených cyklov môže byť zo začiatku trochu neintuitívne, preto je dobré si ich precvičiť. Skúste si pomocou debuggéra krokovať nasledujúci kód, aby ste pochopili, ako sa vykonáva, a skúste odhadnúť, aké hodnoty budú postupne nabývať premenné `i` a `j`. Potom odkomentujte výpisy `printf` a overte, či bol váš odhad správny:
 
