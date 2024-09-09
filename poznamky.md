@@ -846,3 +846,51 @@ Použitie príkazu switch
 
 Výraz v zátvorke za `switch` musí byť vstavaný dátový typ, v podstate sa tu dá použiť iba celé číslo. Nie je možné ho použiť napríklad na porovnávanie štruktúr či reťazcov. Jeho správanie môže byť tiež mätúce, ak sa za jednotlivými klauzulami `case` nepoužije príkaz break. Preto odporúčame na podmienené vykonávanie na začiatku používať skôr príkaz `if`.
 
+## Ternárny operátor 
+
+Preklad do slovenčiny:
+
+Občas sa nám môže hodiť vytvoriť výraz, ktorý bude mať hodnotu jedného z dvoch konkrétnych výrazov, v závislosti od hodnoty nejakej podmienky. Napríklad, ak by sme chceli priradiť minimum z dvoch hodnôt do premennej, môžeme to napísať takto:
+
+# Ternárny operátor v C#
+
+Občas sa nám môže hodiť vytvoriť výraz, ktorý bude mať hodnotu jedného z dvoch konkrétnych výrazov, v závislosti od hodnoty nejakej podmienky. Napríklad, ak by sme chceli priradiť minimum z dvoch hodnôt do premennej, môžeme to napísať takto:
+
+```csharp
+int a = 1;
+int b = 5;
+
+int c = 0;
+if (a < b) {
+    c = a;
+} else {
+    c = b;
+}
+```
+
+Všimnite si, že do premennej `c` ukladáme buď výraz `a` alebo výraz `b`, v závislosti od toho, aká je hodnota podmienky `a < b`.
+
+Keďže je táto situácia relatívne častá a jej riešenie pomocou príkazu `if` je zdĺhavé, jazyk C# obsahuje skratku v podobe `ternárneho operátora`. Tento výraz má nasledujúcu syntax:
+
+```csharp
+<výraz X typu bool> ? <výraz A> : <výraz B>
+
+```
+
+Ak je výraz `X` pravdivý, ternárny operátor sa vyhodnotí ako hodnota výrazu `A`. V opačnom prípade sa vyhodnotí ako hodnota výrazu `B`.
+
+## Príklad
+
+Uhádnete, čo vypíše nasledujúci program?
+
+```csharp
+int a = 1;
+int b = 5;
+int c = (a < b) ? a : b;
+
+Console.WriteLine(c);  // Výstup: 1
+
+```
+
+V tomto príklade ternárny operátor porovnáva hodnoty `a` a `b`. Ak je `a` menšie ako `b`, tak sa do premennej `c` priradí hodnota `a`. Inak sa priradí hodnota `b`.
+
