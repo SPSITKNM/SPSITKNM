@@ -998,3 +998,89 @@ while (i < 5) {
 
 Riadiaca premenná je v tomto prípade `i` – tento názov sa pre riadiace premenné často používa z dôvodu jednoduchosti.
 
+# Riadenie toku cyklu
+
+V cykloch môžete využiť dva špeciálne príkazy, ktoré fungujú iba vnútri tela (bloku kódu) nejakého cyklu:
+
+- Príkaz `continue;` spôsobí, že sa prestane vykonávať telo cyklu a program bude pokračovať vo vykonávaní na začiatku cyklu (t.j. pri `while` na vyhodnotenie výrazu). `continue` možno chápať ako skok na ďalšiu iteráciu cyklu. Skúste uhádnuť, čo vypíše nasledujúci kód:
+
+```csharp
+for (int i = 0; i < 5; i++) {
+    if (i == 2) {
+        continue;
+    }
+    Console.WriteLine($"Hodnota i={i}");
+}
+```
+
+Tento kód v C# vykoná nasledujúce:
+
+- [ ] Keď i je rovné 2, príkaz continue spôsobí preskočenie zvyšku tela cyklu a pokračovanie na začiatok cyklu.
+
+- [ ] Všetky ostatné hodnoty i budú vypísané.
+
+```csharp
+int pocet = 0;
+while (pocet < 10) {
+    pocet = pocet + 1;
+
+    if (pocet < 5) {
+        continue;
+    }
+
+    Console.WriteLine($"Hodnota: {pocet}");
+}
+```
+
+
+Príkaz `break;` spôsobí, že sa cyklus prestane vykonávať a program začne vykonávať kód, ktorý nasleduje za cyklom. Cyklus sa tak úplne preruší. Skúste uhádnuť, čo vypíše nasledujúci kód:
+
+```csharp
+for (int i = 0; i < 10; i++) {
+    if (i == 5) {
+        break;
+    }
+    Console.WriteLine($"Hodnota i={i}");
+}
+```
+## Typ pre návh cyklu while
+
+# Riadenie toku cyklu
+
+Príkaz `break` môžete tiež niekedy použiť na uľahčenie návrhu cyklov. Ak potrebujete napísať `while` cyklus s nejakou zložitou podmienkou ukončenia, z ktorej sa vám točí hlava, skúste najprv vytvoriť "nekonečný" cyklus pomocou `while (1) { … }`, ďalej vytvorte telo cyklu a až nakoniec vymyslite podmienku, ktorá cyklus ukončí pomocou príkazu `break`:
+
+```csharp
+while (true) {
+    // Telo cyklu
+
+    if (/* podmienka na ukončenie cyklu */) {
+        break;
+    }
+}
+```
+
+Nemusíte hneď zo začiatku vymýšľať výraz pre `while`, na čom by ste sa mohli zaseknúť.
+
+Namiesto `while (1)` môžete použiť aj `while (true)`. Nezabudnite ale na vloženie príkazu `break` na ukončenie cyklu, keď bude podmienka splnená.
+
+# Vnořování cyklů
+
+Rovnako ako podmienky, aj cykly sú príkazy a môžete ich používať ľubovoľne v blokoch C kódu a tiež ich vnoriať. Chovanie vnorených cyklov môže byť zo začiatku trochu neintuitívne, preto je dobré si ich precvičiť. Skúste si pomocou debuggéra krokovať nasledujúci kód, aby ste pochopili, ako sa vykonáva, a skúste odhadnúť, aké hodnoty budú postupne nabývať premenné `i` a `j`. Potom odkomentujte výpisy `printf` a overte, či bol váš odhad správny:
+
+```csharp
+int i = 0;
+while (i < 3)
+{
+    // Console.WriteLine($"i: {i}");
+    int j = 0;
+    while (j < 4)
+    {
+        // Console.WriteLine($"  j: {j}");
+        j = j + 1;
+    }
+
+    i = i + 1;
+}
+Console.WriteLine("Konec programu");
+```
+Pre každú iteráciu "vonkajšieho" cyklu while sa vykonajú štyri iterácie "vnútorného" cyklu while. Dohromady sa tak vykoná celkom 3 * 4 iterácií
