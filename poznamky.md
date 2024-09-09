@@ -894,3 +894,107 @@ Console.WriteLine(c);  // Výstup: 1
 
 V tomto príklade ternárny operátor porovnáva hodnoty `a` a `b`. Ak je `a` menšie ako `b`, tak sa do premennej `c` priradí hodnota `a`. Inak sa priradí hodnota `b`.
 
+# Cykly
+
+Vo svojich programoch budete často chcieť vykonávať nejakú operáciu opakovane, napríklad:
+
+- Pre každý záznam v databáze vypíš riadok do súboru.
+- Pošli správu každému účastníkovi chatu.
+- Načítavaj riadky zo súboru, pokiaľ nedôjdeš na koniec súboru.
+
+Ak by sme vždy iba pridávali nové príkazy pod seba, tak, ako to zatiaľ poznáme, aby sme nejaký príkaz vykonali viackrát, tak by naše programy jednak boli pravdepodobne dosť dlhé. Pravdepodobne by sme neustále kopírovali („copy-pastovali“) veľmi podobný kód:
+
+```csharp
+Console.WriteLine("0");
+Console.WriteLine("1");
+Console.WriteLine("2");
+```
+
+čo by viedlo k neprehľadným programom. Ak by sme navyše našli v programe chybu, museli by sme ju opraviť na všetkých miestach, kam sme kód skopírovali.
+
+Predstavte si, že chcete na výstup programu alebo do súboru vypísať napríklad tisíc rôznych riadkov textu.
+
+Ani s kopírovaním kódu by sme si však nevystačili, ak by sme potrebovali vykonávať kód opakovane v závislosti na vstupe programu. Predstavte si situáciu, kedy nám užívateľ na vstup programu zadá číslo, koľkokrát má náš program vypísať nejaký riadok textu na výstup. Užívateľ sa pri každom spustení programu môže rozhodnúť pre iné číslo, 0, 1, 42, 1000. Program však zostáva stále rovnaký – už pri tvorbe (písaní) programu sa musíme rozhodnúť, koľko príkazov pre výpis do neho vložíme. Potom sa program preloží na spustiteľný súbor a už našu voľbu nemôžeme jednoducho zmeniť. Takýto program by sme teda zatiaľ (iba pomocou premenných a podmienok) nemali ako naprogramovať.
+
+Preto programovacie jazyky ponúkajú tzv. `cykly` (loops), pomocou ktorých môžeme jednoducho povedať počítaču, aby určitý blok kódu opakoval, koľkokrát budeme chcieť. Vďaka tomu môže program aj s iba niekoľkými riadkami kódu povedať počítaču, aby vykonal množstvo inštrukcií. Jazyk C# ponúka dva základné typy cyklov, `while` a `for`.
+
+Ďalšou motiváciou pre využitie cyklov je to, že moderné procesory počítačov majú bežne frekvencie od 1 do 4 GHz, takže za sekundu zvládnu vykonať niekoľko miliárd `taktov` a počas každého taktu navyše až `desiatky` rôznych operácií. Iste si dokážete predstaviť, že s iba sekvenčným zápisom kódu by sme tento potenciál nemohli naplno využiť. Aj keď jeden riadok C# kódu môže byť preložený až na desiatky procesorových inštrukcií, tak aj keby sme zvládli napísať program so stovkami miliónov riadkov, stále by sme takýmto programom „zabavili“ procesor na iba jednu sekundu. Bežiace programy tak obvykle trávia väčšinu času práve vykonávaním nejakého cyklu.
+
+# Cyklus while
+
+Najjednoduchším cyklom v C je cyklus `while` ("dokým"):
+
+```csharp
+while (<výraz typu bool>) {
+    // blok cyklu
+}
+```
+
+
+Tu je aktualizovaný obsah naformátovaný do .md súboru:
+
+md
+Kopírovať kód
+# Cyklus while
+
+Najjednoduchším cyklom v C je cyklus `while` ("dokým"):
+
+```csharp
+while (<výraz typu bool>) {
+    // blok cyklu
+}
+```
+
+Funguje nasledovne:
+
+- [ ] Najprv sa vyhodnotí (Booleovský) výraz v zátvorke za while a vykoná sa bod 2.
+  
+  - [ ] Ak je výraz pravdivý, tak sa vykoná blok cyklu a ďalej sa pokračuje opäť bodom 1.
+
+  - [ ] Blok cyklu sa tiež často nazýva ako telo (body) cyklu.
+
+- [ ] Ak nie je výraz pravdivý, tak sa vykoná bod 3. Program pokračuje za cyklom while.
+
+Inak povedané, pokiaľ bude podmienka za while splnená, budú sa opakovane vykonávať príkazy vo vnútri tela cyklu. Skúste si to na nasledujúcom príklade:
+
+```csharp
+int pocet = 0;
+while (pocet < 5) {
+    Console.WriteLine($"Telo cyklu sa vykonalo, hodnota premennej pocet={pocet}");
+    pocet = pocet + 1;
+}
+
+```
+
+Tento kód opäť môžeme prečítať ako vetu: Dokým je hodnota premennej `pocet` menšia než päť, vykonávaj telo cyklu. Jedno vykonanie tela cyklu sa nazýva iterácia. Cyklus v ukážke vyššie teda vykoná päť iterácií, pretože sa telo cyklu vykoná päťkrát.
+
+Ak výraz za `while` nie je vyhodnotený ako pravdivý v momente, keď sa `while` začne vykonávať, tak sa telo cyklu nemusí vykonať ani raz (t.j. bude mať nula iterácií).
+
+# Nekonečný cyklus
+
+Je dôležité dávať si pozor na to, aby cyklus, ktorý použijeme, nebol nechcene nekonečný (infinite loop), inak by náš program nikdy neskončil. Skúste v kóde vyššie zakomentovať alebo odstrániť riadok `pocet = pocet + 1;` a skúste program spustiť. Keďže sa hodnota premennej `pocet` nebude nijak meniť, tak výraz `pocet < 5` bude stále pravdivý a cyklus sa bude vykonávať neustále dokola. Této situácii sa ľudovo hovorí "zacyklenie".
+
+Ak program spúšťate v termináli a zacyklí sa, môžete ho prerušiť pomocou klávesovej skratky `Ctrl + C`. Ak ho spustíte v prehliadači, tak radšej reštartujte túto stránku pomocou `F5` :)
+
+Ak sa vám niekedy stalo, že sa program, ktorý ste práve používali, "zasekol" a prestal reagovať na váš vstup, mohlo to byť práve tým, že v ňom nechcene došlo k vykonaniu nekonečného cyklu (došlo k zacykleniu).
+
+# Riadiaca premenná
+
+Vykonávať úplne identický kód opakovane sa niekedy hodí, ale väčšinou chceme vykonať v tele cyklu trochu iné príkazy, v závislosti na tom, ktorá iterácia sa práve vykonáva. Na tento účel môžeme použiť premennú, ktorá si bude pamätať, v akej iterácii cyklu sa nachádzame, a podľa nej sa potom vykoná príslušná operácia. Takáto premenná sa zvyčajne označuje ako riadiaca premenná (index variable).
+
+Napríklad, ak chceme niečo vykonať iba v prvej iterácii cyklu, môžeme použiť príkaz `if` s podmienkou, v ktorej skontrolujeme aktuálnu hodnotu riadiacej premennej:
+
+```csharp
+int i = 0;
+while (i < 5) {
+    if (i == 0) {
+        Console.WriteLine("Prvá iterácia");
+    }
+    Console.WriteLine($"Hodnota i={i}");
+    i += 1;
+}
+
+```
+
+Riadiaca premenná je v tomto prípade `i` – tento názov sa pre riadiace premenné často používa z dôvodu jednoduchosti.
+
