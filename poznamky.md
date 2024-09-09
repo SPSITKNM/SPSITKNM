@@ -750,9 +750,99 @@ if (body > 90) {
 Tento kód môžeme prečítať ako vetu: Ak je počet bodov vyšší než 90, vykonaj A. Ak nie, ale je vyšší než 80, vykonaj B. Inak vykonaj C.
 
 
+# Príkaz `switch` v C#
 
+V prípade, že by ste chceli vykonať odlišný kód v závislosti od hodnoty nejakého výrazu, a tento výraz (napr. hodnota premennej) môže nadobúdať väčšie množstvo rôznych hodnôt, môže byť zdĺhavé použiť množstvo `if` príkazov:
 
+```csharp
+if (a == 0) {
+    ...
+} else if (a == 1) {
+    ...
+} else if (a == 2) {
+    ...
+}
+```
+Ako skratka môže slúžiť príkaz switch. Ten má nasledujúcu syntax:
 
+```csharp
+switch (a) {
+    case 0:
+        // blok kódu
+        break;
+    case 1:
+        // blok kódu
+        break;
+    case 2:
+        // blok kódu
+        break;
+    default:
+        // blok kódu
+        break;
+}
+```
+Tento príkaz vyhodnotí výraz v zátvorke za kľúčovým slovom `switch`. Ak sa v bloku kódu nachádza klauzula `case` s hodnotou zodpovedajúcou hodnote výrazu, program začne vykonávať blok kódu, ktorý nasleduje za touto klauzulou `case`. Potom program pokračuje sekvenčne až do konca bloku switch. Toto správanie sa nazýva `fallthrough`.
 
+## Príklad
 
+```csharp
+int a = 5;
+
+switch (a) {
+    case 5:
+        Console.WriteLine(52);
+        break;
+    case 6:
+        Console.WriteLine(63);
+        break;
+}
+
+```
+Tento program vypíše `52`, pretože výraz má hodnotu `5`, takže program skočí na blok za klauzulou `case 5` a vykoná príkaz `Console.WriteLine(52)`;.
+
+## Kľúčové slovo `default`
+
+Do bloku príkazu `switch` je možné pridať blok označený ako `default`, na ktorý program skočí v prípade, že sa nenájde žiadna klauzula `case` s odpovedajúcou hodnotou:
+
+```csharp
+switch (a) {
+    case 1:
+        Console.WriteLine("Hodnota je 1");
+        break;
+    default:
+        Console.WriteLine("Iná hodnota");
+        break;
+}
+```
+Ak hodnota premennej `a` nie je `1`, vykoná sa blok `default` a vypíše "Iná hodnota".
+
+## Kľúčové slovo `default
+
+Veľmi často chceme vykonať iba jeden blok kódu u jedného `case ` a nepokračovať ďalej až do konca celého bloku `switch `. Preto sa bežne za každým blokom case používa príkaz `break`, ktorý ukončí vykonávanie celého príkazu `switch`:
+
+```csharp
+switch (a) {
+    case 0:
+        Console.WriteLine("Nula");
+        break;
+    case 1:
+        Console.WriteLine("Jedna");
+        break;
+    default:
+        Console.WriteLine("Iná hodnota");
+        break;
+}
+
+```
+Ak hodnota premennej `a` je `0`, vykoná sa prvý blok a program následne ukončí príkaz `switch` príkazom `break`.
+
+## Hodnota za case
+
+Hodnota za kľúčovým slovom `case` musí byť konštantná, čo znamená, že musí byť známa už v čase prekladu programu, napríklad literál. Za `case` teda nemôže byť uvedený výraz obsahujúci názov premennej.
+
+## Použitie príkazu switch
+
+Použitie príkazu switch
+
+Výraz v zátvorke za `switch` musí byť vstavaný dátový typ, v podstate sa tu dá použiť iba celé číslo. Nie je možné ho použiť napríklad na porovnávanie štruktúr či reťazcov. Jeho správanie môže byť tiež mätúce, ak sa za jednotlivými klauzulami `case` nepoužije príkaz break. Preto odporúčame na podmienené vykonávanie na začiatku používať skôr príkaz `if`.
 
