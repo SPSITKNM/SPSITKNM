@@ -1714,4 +1714,61 @@ class Program
 }
 ```
 
+# Zubaté pole v C#
+
+Občas môžete naraziť na situáciu, kedy potrebujete vytvoriť viacrozmerné pole, kde niektoré dimenzie nemajú fixnú veľkosť. Napríklad, prvý riadok môže mať dva stĺpce, druhý riadok tri stĺpce, tretí riadok žiadny stĺpec a pod.
+
+V takom prípade môžete vytvoriť tzv. zubaté pole (jagged array alebo ragged array). Zubaté pole je v podstate "pole polí" – vytvoríte (dynamické) pole riadkov, pričom každý riadok bude opäť dynamické pole stĺpcov. 
+
+## Vytvorenie a prístup k zubatému poľu
+
+V C# sa zubaté pole vytvára pomocou dvojitého syntaxu poľa. Najprv vytvoríte pole riadkov a potom každému riadku priradíte pole stĺpcov.
+
+### Príklad vytvorenia a použitia zubatého poľa
+
+Nasledujúci kód vytvorí pole piatich študentov, kde každý študent má rôzny počet ID predmetov:
+
+```csharp
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        // Vytvorenie zubatého poľa s 5 študentmi
+        int[][] studenti = new int[5][];
+
+        // Priradenie rôzne veľkých polí predmetov pre každého študenta
+        studenti[0] = new int[] { 101, 102 };
+        studenti[1] = new int[] { 201, 202, 203 };
+        studenti[2] = new int[] { 301 };
+        studenti[3] = new int[] { 401, 402, 403, 404 };
+        studenti[4] = new int[] { };  // Tento študent nemá žiadne predmety
+
+        // Výpis predmetov pre každého študenta
+        for (int i = 0; i < studenti.Length; i++)
+        {
+            Console.Write($"Študent {i + 1} predmety: ");
+            for (int j = 0; j < studenti[i].Length; j++)
+            {
+                Console.Write($"{studenti[i][j]} ");
+            }
+            Console.WriteLine();
+        }
+    }
+}
+```
+
+## Prístup k prvkom zubatého poľa
+
+K prvkom zubatého poľa pristupujeme klasicky cez hranaté zátvorky. Napríklad studenti[2] vráti pole predmetov tretieho študenta, a nad týmto poľom môžeme opäť použiť hranaté zátvorky na prístup k konkrétnemu predmetu.
+
+```csharp
+int tretieID = studenti[1][2];  // Získa tretí predmet druhého študenta (ID = 203)
+```
+
+## Uvoľňovanie pamäti
+
+V C# sa správa o pamäť vykonáva automaticky prostredníctvom garbage collectora, takže nie je potrebné manuálne uvoľňovať pamäť ako v C. Je však dobré mať na pamäti, že ak vytvárate a manipulujete s dynamickými poľami, garbage collector sa postará o uvoľnenie pamäti, keď už nebude používaná.
+
 
