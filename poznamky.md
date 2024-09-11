@@ -1,4 +1,4 @@
-# Úvod do programovania pre 4. ročník 
+![image](https://github.com/user-attachments/assets/03175d24-e0a3-4a28-ae55-b5af2b9bb98d)# Úvod do programovania pre 4. ročník 
 
 V tomto repozitári pre predemt PRO pre 4.ročník nájdete stručnú oporu vo formáte skrípt k preberanej problematike na hodinách PRO... Ďalšou podstatnou oporou je YT kanál nášho predmetu na ktorom teoretické poznatky aplikujeme v praxi tak aby študent bol schopný zvládnuť úlohy a projekty v priebehu roka... 
 
@@ -1158,6 +1158,559 @@ Výraz v príkaze `for` môže chýbať, v takom prípade sa automaticky predpok
 for (;;)
 {
     // telo cyklu
+}
+```
+
+# Relatívna cesta
+
+Cesta k súboru zadávaná v `#include` by mala byť relatívna, čiže nie je dobrý nápad používať niečo podobné ako:
+
+```cpp
+#include "C:/Users/Kamil/Desktop/upr/muj_soubor.h"
+```
+
+Takýto program by totiž určite nefungoval na inom počítači než na vašom. Z ktorého adresára sa táto relatívna cesta vyhodnotí, je popísané nižšie.
+
+# Rozdiel medzi `#include <…>` a `#include "…"`
+
+Rozdiel medzi týmito dvoma variantami nie je pevne definovaný, avšak väčšina preprocesorov (resp. prekladačov) funguje nasledovne:
+
+- **`#include <…>`** najprv hľadá zadanú cestu v tzv. systémových cestách. Ide o známe adresáre, v ktorých sú uložené súbory štandardnej knižnice C a ďalšie knižnice, ktoré máte nainštalované v systéme. Ak sa daný súbor nenájde v systémových cestách, až potom sa cesta vyhodnotí relatívne k zdrojovému súboru, v ktorom bol `#include` použitý.
+
+  Zoznam systémových ciest si môžete vypísať pomocou príkazu:
+
+  ```bash
+  echo | gcc -E -Wp,-v -
+  ```
+v Linuxovom termináli. Do tohto zoznamu môžete pridať ďalšie adresáre, ak `gcc` odovzdáte parameter `-I`.
+
+Ak sa súbor, ktorý chcete vložiť do vášho kódu, nachádza v externej knižnici, ktorá nepatrí do vášho projektu, je bežné používať práve `#include <>`.
+
+`#include "…"` sa nepozerá do systémových ciest, ale rovno hľadá zadanú cestu relatívne k súboru, v ktorom bol #include použitý. Tento formát používajte, ak vkladáte súbory z vášho projektu.
+
+# Práca s pamäťou
+
+V sekcii o pamäti sme sa dozvedeli, že operačnú pamäť počítača je možné adresovať pomocou číselných adries. Zatiaľ sme však v našich programoch s adresami výslovne nepracovali, iba sme vytvárali premenné, ktorých pamäť bola spravovaná automaticky. V tejto sekcii sa dozviete základy toho, ako tzv. správa pamäte (*memory management*) funguje.
+
+Práca s pamäťou je kľúčovou časťou programovacích jazykov, ako je napríklad C. V jazyku C# však správa pamäte funguje odlišne vďaka automatickému uvoľňovaniu pamäte (*garbage collection*). V C# sa o alokáciu a uvoľňovanie pamäte stará práve tento mechanizmus, čím odpadá potreba manuálne riadiť pamäť ako v jazyku C. Napriek tomu je dôležité chápať základy správy pamäte, aby vaše programy fungovali efektívne a správne.
+
+
+# Adresný priestor programu
+
+Keď spustíte svoj program, operačný systém pre neho vytvorí tzv. adresný priestor (*address space*), čo je oblasť pamäte, s ktorou môže program pracovať. Tento priestor je vďaka mechanizmu virtuálnej pamäte súkromný pre váš bežiaci program – ostatné bežiace programy do neho nemajú prístup, pokiaľ im to výslovne nepovolíte.
+
+Typicky je tento priestor rozdelený na niekoľko častí, pričom každá z nich slúži pre rôzne typy dát. Rôzne operačné systémy alebo behové prostredia môžu umiestňovať jednotlivé oblasti v adresnom priestore rôzne, preto je obrázok adresného priestoru iba ilustratívny.
+
+### Zásobník
+Táto časť uchováva automaticky spravované dáta, najmä lokálne premenné a parametre funkcií. Túto oblasť popisuje sekcia o automatickej pamäti.
+
+### Halda
+Túto časť môžete využiť na dynamickú alokáciu pamäte. To nám umožňujú ukazovatele, vďaka ktorým môžeme explicitne pracovať s adresami v pamäti. Túto oblasť adresného priestoru popisuje sekcia o dynamickej pamäti.
+
+### Globálne dáta
+Táto časť obsahuje globálne premenné, ktoré žijú počas celej doby behu programu.
+
+### Inštrukcie programu
+Do tejto časti pamäte sa pri spustení programu skopírujú jeho inštrukcie zo spustiteľného súboru na disku. Nachádza sa v nej preložený kód funkcií vášho programu. Procesor potom číta inštrukcie, ktoré má vykonať, práve z tejto časti pamäte. Táto pamäť je obvykle chránená proti zápisu a slúži iba na čítanie.
+
+# Pole
+
+Teraz už poznáme základy alokovania pamäte v jazyku C, avšak stále pracujeme iba s jednotlivými premennými. Počítače slúžia na (rýchle) spracovanie veľkého objemu dát a aby sme ich naplno využili, potrebujeme spracovávať mnoho premenných naraz. Napríklad:
+
+- V dokumente otvorenom vo Worde môžeme mať uložené tisíce rôznych znakov.
+- Na server v online hre môže byť v danom momente pripojené veľké množstvo hráčov a všetkým musíme posielať informácie o stave hry.
+- Obrázky sa bežne v programoch reprezentujú ako dvojrozmerná mriežka pixelov. Napríklad obrázok v odtieňoch šedej s rozmermi 1024x1024 vyžaduje v pamäti 1048576 bajtov (čísel) reprezentujúcich jednotlivé pixely.
+
+V jazyku C# môžeme pracovať s týmito veľkými objemami dát pomocou polí. Pole je dátová štruktúra, ktorá nám umožňuje uchovávať viacero hodnôt rovnakého typu pohromade a pristupovať k nim pomocou indexov.
+
+#### Príklad použitia poľa v C#:
+
+```csharp
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        // Pole celých čísel s 5 prvkami
+        int[] cisla = new int[5];
+
+        // Priraďovanie hodnôt do poľa
+        cisla[0] = 10;
+        cisla[1] = 20;
+        cisla[2] = 30;
+        cisla[3] = 40;
+        cisla[4] = 50;
+
+        // Výpis hodnôt poľa
+        for (int i = 0; i < cisla.Length; i++)
+        {
+            Console.WriteLine($"Hodnota na indexe {i} je {cisla[i]}");
+        }
+
+        // Môžeme vytvoriť aj pole s preddefinovanými hodnotami
+        int[] preddefinovaneCisla = { 1, 2, 3, 4, 5 };
+
+        // Pole znakov (napr. na uchovávanie textu)
+        char[] znaky = { 'A', 'B', 'C', 'D', 'E' };
+
+        // Dvojrozmerné pole (napr. na reprezentáciu obrázka)
+        int[,] obrazok = new int[1024, 1024];  // 1024x1024 pixelov
+    }
+}
+```
+
+# Pole
+
+Predstavte si, že pre reprezentáciu obrázka by sme si s premennými, ktoré sme používali doposiaľ, nevystačili. Ak by sme po jednej vytvárali premenné `pixel1`, `pixel2`, `pixel3`, náš zdrojový kód by bol obrovský a ťažko čitateľný. Navyše, veľkosť obrázka by nemohla závisieť na vstupe programu, pretože počet premenných (pixelov) by bol "zakódovaný" priamo v zdrojovom kóde.
+
+Chceli by sme teda napísať kód, ktorý zvládne spracovať ľubovoľný počet hodnôt – či už 1, 2, 100, alebo 1000 – bez toho, aby sme museli kód meniť.
+
+Najjednoduchším a najbežnejším spôsobom, ako v pamäti počítača uchovávať väčšie množstvo hodnôt, je uložiť ich jednu za druhou v pamäti. Tento koncept ukladania dát sa nazýva **pole** (*array*), a je tak bežný, že ho programovacie jazyky priamo podporujú vo svojej syntaxi. Jazyk C#, podobne ako jazyk C, nie je výnimkou.
+
+# Statické polia
+
+Polia v automatickej pamäti (na zásobníku) sa označujú ako **statické polia** (*static arrays*). Môžeme ich vytvoriť tak, že pri definícii premennej za jej názov pridáme hranaté zátvorky s číslom udávajúcim počet prvkov v poli. Napríklad takto vytvoríme pole celých čísel s tromi prvkami:
+
+```csharp
+int[] pole = new int[3];
+```
+
+# Statické polia
+
+Takáto premenná bude obsahovať pamäť pre 3 celé čísla (teda pravdepodobne na vašom počítači dohromady 12 bajtov). Počet prvkov v poli sa označuje ako jeho veľkosť (*size*).
+
+Dôležité je si dávať pozor, že hranaté zátvorky sa uvádzajú za názov premennej, nie za názov dátového typu. Preto je `int[3] pole;` nesprávne.
+
+#### Príklad:
+
+```csharp
+int[] pole = new int[3]; // Správne: deklarácia poľa s 3 prvkami
+```
+
+# Statické polia
+
+V určitom zmysle je pole iba zobecnením bežnej premennej. Ak vytvoríte pole o veľkosti jedna (`int a[1];`), v pamäti bude reprezentované úplne rovnako ako klasická premenná (`int a;`).
+
+Pole je možné vytvoriť aj na halde pomocou dynamickej alokácie pamäte. Všetky nižšie popísané koncepty sú platné aj pre dynamické polia, avšak budeme ich demonštrovať na statických poliach, pretože ich je jednoduchšie vytvoriť.
+
+# Statické polia
+
+Hodnota zadaná v hranatých zátvorkách by mala byť **konstantným výrazom**, teda buď priamo číselná hodnota, alebo číselná hodnota pochádzajúca z makra. Ak budete potrebovať pole dynamickej veľkosti, mali by ste použiť dynamickú alokáciu pamäte.
+
+**Poznámka:** Dokonca ani **konštantná premenná** nie je v jazyku C považovaná za "konstantný výraz".
+
+Jazyk C od verzie C99 síce umožňuje dávať do hranatých zátvoriek aj "dynamické" hodnoty, teda výrazy, ktorých hodnota nemusí byť známa v čase prekladu:
+
+```csharp
+int velikost = ...; // velikost sa načíta napr. zo súboru
+int[] pole = new int[velikost];
+```
+Táto funkcionalita, nazývaná VLA (variable-length array), je však určená pre veľmi špecifické použitie a nesie so sebou rôzne nevýhody.
+
+# Počítanie od nuly
+
+Pozície jednotlivých prvkov v poli sa označujú ako ich **indexy** (*array indices*). Tieto pozície sa číslujú od hodnoty 0 (teda nie od jednotky, ako možno poznáte z iných oblastí). Prvý prvok poľa je teda na nultej pozícii (indexe), druhý na prvej pozícii atď. (pozri obrázok vyššie). Počítanie od nuly (*zero-based indexing*) je vo svete programovania bežné a budete si naň musieť zvyknúť. Jeden z dôvodov, prečo sa prvky počítajú práve od nuly, sa dozviete nižšie.
+
+Z tohto vyplýva jedna dôležitá vlastnosť: posledný prvok poľa je vždy na indexe `<veľkosť poľa> - 1`. Ak by ste sa pokúsili pristúpiť k prvku na indexe `<veľkosť poľa>`, pristupujete mimo pamäť poľa, čo spôsobí pamäťovú chybu.
+
+# Inicializácia poľa
+
+Rovnako ako pri bežných lokálnych premenných platí, že ak pole neinicializujete, bude obsahovať nedefinované hodnoty. V takom prípade nesmiete hodnoty v poli žiadnym spôsobom čítať, inak by došlo k nedefinovanému správaniu 💣! Na inicializáciu poľa môžete použiť zložené zátvorky so zoznamom hodnôt oddelených čiarkami, ktoré budú do poľa uložené. Ak nezadáte dostatok hodnôt na vyplnenie celého poľa, zvyšok hodnôt bude nastavený na nulu.
+
+#### Príklady:
+
+```csharp
+int[] a = new int[3];         // pole bez definovanej hodnoty, nepoužívať!
+int[] b = { 0, 0, 0 };        // pole s hodnotami 0, 0, 0
+int[] c = { 1, 0, 0, 0 };     // pole s hodnotami 1, 0, 0, 0
+int[] d = { 2, 3 };           // pole s hodnotami 2, 3
+```
+Hodnoty samozrejme nemôžete zadať viac, než je veľkosť poľa.
+
+Ak využijete inicializáciu statického poľa, môžete vynechať veľkosť poľa v hranatých zátvorkách. Kompilátor v tomto prípade dopočíta veľkosť za vás:
+
+```csharp
+int[] p = { 1, 2, 3 }; // p je pole s tromi číslami, kompilátor si odvodí int p[3]
+```
+
+# Prístup k prvkom poľa
+
+Aby sme využili toho, že nám pole umožňuje vytvoriť väčšie množstvo pamäte naraz, musíme mať možnosť pristupovať k jednotlivým prvkom v poli. V C# sa na prístup k prvkom poľa používa priamo syntaktická notácia s hranatými zátvorkami.
+
+V C# sa pole správa ako sekvencia prvkov a každý prvok je prístupný pomocou indexu. Prvok na i-tom indexe môžeme získať prístupom cez hranaté zátvorky. Napríklad, ak máme pole `pole` a chceme pristúpiť k prvku na druhom indexe, použijeme `pole[2]`.
+
+#### Príklad v C#:
+
+```csharp
+int[] pole = { 10, 20, 30, 40, 50 };
+
+// Prístup k prvkom poľa
+int prvyPrvek = pole[0]; // Prvý prvok: 10
+int druhyPrvek = pole[1]; // Druhý prvok: 20
+int tretiPrvek = pole[2]; // Tretí prvok: 30
+
+// Môžeme priamo priraďovať hodnoty
+pole[3] = 100; // Zmena štvrtého prvku na 100
+
+Console.WriteLine(pole[3]); // Výpis štvrtého prvku: 100
+```
+
+Všimnite si, že na prístup k ďalším prvkom v poli používame jednoducho indexy, a preto nie je potrebné pracovať s ukazateľmi ako v jazyku C. C# automaticky spravuje interné podrobnosti.
+
+Prečo počítať od nuly?
+Indexovanie od nuly má svoje výhody, najmä pri práci s ukazateľmi v nižších programovacích jazykoch. Indexovanie od nuly znamená, že prístup k prvkom sa stáva veľmi jednoduchým výpočtom: ak máte ukazateľ na začiatok poľa a chcete prístup k prvku na i-tom indexe, adresa tohto prvku sa jednoducho vypočíta ako začiatok poľa plus i.
+
+V C# to však zjednodušuje prístup k prvkom a prácu s poľami, pretože sa nevyžaduje manuálne spravovanie ukazateľov.
+
+# Operátor prístupu k poľu
+
+V C# sa prístup k prvkom poľa uskutočňuje pomocou operátora prístupu k poľu, ktorý využíva hranaté zátvorky. Tento operátor, známy ako "array subscription operator", umožňuje jednoducho a prehľadne pristupovať k jednotlivým prvkom v poli. 
+
+Syntax operátora prístupu k poľu je:
+
+```csharp
+<výraz a>[<výraz b>]
+```
+
+Kde `<výraz a>` predstavuje pole a `<výraz b>` predstavuje index prvku, ku ktorému chceme pristúpiť.
+
+```csharp
+int[] pole = { 1, 2, 3 };
+
+// Prístup k prvkom poľa
+pole[0] = 5;     // Nastavíme prvý prvok poľa na hodnotu 5
+int c = pole[2]; // Nastavíme c na hodnotu posledného (tretieho) prvku poľa
+
+```
+
+`V tomto príklade : `
+
+- [ ] pole[0] je ekvivalentné výraz *(pole + 0) v jazyku C, kde pole je ukazovateľ na začiatok poľa.
+- [ ] pole[5] je ekvivalentné výraz *(pole + 5).
+      
+Používanie hranatých zátvoriek je prehľadnejšie a jednoduchšie než používanie ukazovateľov a operátora dereferencovania. Preto sa odporúča používať túto syntaktickú skratku na prístup k prvkom poľa, pokiaľ je to možné.
+
+Je dôležité si uvedomiť, že operátor prístupu k poľu a definícia poľa používajú hranaté zátvorky, ale ide o odlišné kontexty. Zatiaľ čo hranaté zátvorky pri definícii poľa určujú veľkosť poľa, pri prístupe k prvkom poľa označujú konkrétny index.
+
+# Použitie polí s cyklami
+
+Ak by sme k poľu pristupovali po jednotlivých prvkoch, nemohli by sme využiť jeho plný potenciál. Aj keď môžeme jedným riadkom kódu vytvoriť napríklad 100 rôznych hodnôt (napr. `int[] pole = new int[100];`), ak by sme museli písať `pole[0]`, `pole[1]` atď. pre prístup k jednotlivým prvkom, efektívna práca s poľom by bola veľmi zložitá. Účelom polí je umožniť spracovanie veľkého množstva dát jednotným spôsobom pomocou krátkeho kódu. Inými slovami, chceme mať rovnaký kód, ktorý dokáže spracovať pole veľkosti 2 aj 1000. K tomu môžeme efektívne využiť cykly.
+
+Často je praktické použiť riadiacu premennú cyklu na indexovanie poľa. Napríklad, ak máme pole s veľkosťou 10, môžeme ho "prechádzať" pomocou cyklu `for`:
+
+#### Príklad v C#:
+
+```csharp
+int[] pole = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+
+// Prechádzame celé pole a vypisujeme jeho hodnoty
+for (int i = 0; i < pole.Length; i++)
+{
+    Console.WriteLine(pole[i]);
+}
+```
+
+V tomto príklade:
+
+- [ ] pole.Length nám poskytuje veľkosť poľa, čo je 10 v tomto prípade.
+- [ ] Cyklus for prechádza celé pole a prístupom k prvkom pole[i] vykonáva požadované operácie (v tomto prípade vypisuje hodnoty na konzolu).
+      
+Situácie, kedy pomocou cyklu prechádzame pole, sú veľmi časté a určite sa s nimi mnohokrát stretnete a využijete ich. Odporúča sa túto techniku precvičiť napríklad pomocou rôznych úloh.
+
+# Predávanie polí do funkcií
+
+Pole môžeme (rovnako ako hodnoty iných dátových typov) predávať ako argumenty do funkcií. Pri tom si však musíme dávať pozor najmä na dve veci:
+
+1. **Pole sa predáva ako ukazateľ**: Keď predávame pole do funkcie, nepredávame celé pole, ale iba ukazateľ na jeho prvý prvok. To znamená, že ak zmeníme hodnoty v poli vo funkcii, tieto zmeny sa prejavia aj v pôvodnom poli.
+
+2. **Nemáme informáciu o veľkosti poľa**: Funkcia, ktorá prijíma pole ako argument, nepozná jeho veľkosť. Je na nás, aby sme veľkosť poľa predali ako samostatný argument alebo použili iný spôsob, ako funkcii oznámiť, ako dlho má s poľom pracovať.
+
+# Výpočet veľkosti poľa
+
+Aby ste pri zmene veľkosti statického poľa nemuseli ručne upravovať jeho veľkosť na viacerých miestach v kóde, môžete vo funkcii, kde definujete statické pole, vypočítať jeho veľkosť pomocou operátora `sizeof`:
+
+```csharp
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        int[] pole = { 1, 2, 3 };
+        
+        // Veľkosť poľa v bajtoch
+        Console.WriteLine("Veľkosť poľa v bajtoch: " + (pole.Length * sizeof(int)));
+        
+        // Počet prvkov v poli
+        Console.WriteLine("Počet prvkov v poli: " + pole.Length);
+    }
+}
+```
+
+V tomto príklade:
+
+- [ ] sizeof(int) vracia veľkosť typu int v bajtoch. V C# sa však priamo sizeof nepoužíva na polia ako v C/C++, preto použijeme pole.Length na získanie počtu prvkov.
+- [ ] Veľkosť poľa môžete vypočítať ako pole.Length * sizeof(int), kde sizeof(int) je veľkosť typu int.
+
+`Poznámka` : V C# sa operátor sizeof používa na získanie veľkosti základných dátových typov, ale nie na polia. Preto v C# na získanie počtu prvkov v poli použijeme vlastnosť Length poľa.
+
+# Dynamické pole v C#
+
+V C# se dynamická pole vytvářejí pomocí kolekcí z .NET knihovny, jako je `List<T>`. Na rozdíl od C, kde se dynamická paměť alokuje přímo na haldě pomocí funkce `malloc`, C# poskytuje vyšší úroveň abstrakce a automatickou správu paměti.
+
+## Příklady použití `List<T>`:
+
+### 1. Vytvoření a inicializace dynamického pole:
+
+```csharp
+using System;
+using System.Collections.Generic;
+
+class Program
+{
+    static void Main()
+    {
+        // Vytvoření dynamického pole typu int
+        List<int> pole = new List<int>();
+
+        // Přidání prvků do pole
+        pole.Add(1);
+        pole.Add(2);
+        pole.Add(3);
+
+        // Výpis prvků
+        foreach (int prvek in pole)
+        {
+            Console.WriteLine(prvek);
+        }
+    }
+}
+```
+
+# Viacerozměrná pole v C#
+
+Někdy potřebujeme v programech reprezentovat struktury, které jsou přirozeně vícerozměrné. Typickým příkladem jsou obrázky, které lze reprezentovat jako dvourozměrnou mřížku pixelů. V C# to lze jednoduše dosáhnout pomocí vícerozměrných polí.
+
+Paměťové adresy mají pouze jeden rozměr, protože jsou reprezentovány jedním číslem. Jak tedy můžeme do jednorozměrné paměti uložit vícerozměrné hodnoty? Jednoduchým způsobem je "vyskládat" jednotlivé rozměry za sebou v paměti. Například, pokud máme dvojrozměrné pole s rozměry 5x5, uložíme data do paměti řádek po řádku.
+
+## Příklady:
+
+### 1. Dvourozměrné pole
+
+```csharp
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        // Vytvoření dvourozměrného pole 5x5
+        int[,] matice = new int[5, 5];
+
+        // Inicializace prvků
+        for (int i = 0; i < 5; i++)
+        {
+            for (int j = 0; j < 5; j++)
+            {
+                matice[i, j] = i * 5 + j + 1;
+            }
+        }
+
+        // Výpis prvků
+        for (int i = 0; i < 5; i++)
+        {
+            for (int j = 0; j < 5; j++)
+            {
+                Console.Write(matice[i, j] + "\t");
+            }
+            Console.WriteLine();
+        }
+    }
+}
+```
+
+# Spôsob vyskladania dimenzií v C#
+
+Pri práci s viacrozmernými poľami môžeme zvoliť rôzne spôsoby, ako ich uložiť do pamäte. Dva najbežnejšie prístupy sú:
+
+1. **Row Major Ordering (Ukladanie po riadkoch)**:
+   - Pri tomto spôsobe sú prvky ukladané do pamäte po riadkoch. To znamená, že najprv uložíme všetky prvky prvého riadku, potom druhého riadku a tak ďalej.
+
+2. **Column Major Ordering (Ukladanie po stĺpcoch)**:
+   - Pri tomto spôsobe sú prvky ukladané do pamäte po stĺpcoch. To znamená, že najprv uložíme všetky prvky prvého stĺpca, potom druhého stĺpca a tak ďalej.
+
+Oba prístupy majú svoje výhody a nevýhody, ale je dôležité sa držať jedného prístupu, aby sa predišlo zmätkom v indexovaní. Nižšie predpokladáme používanie `row major ordering`.
+
+## Příklady:
+
+### 1. Row Major Ordering
+
+```csharp
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        // Vytvorenie dvojrozmerného poľa 3x3
+        int[,] pole = new int[3, 3];
+
+        // Inicializácia prvkov
+        int hodnota = 1;
+        for (int i = 0; i < 3; i++)
+        {
+            for (int j = 0; j < 3; j++)
+            {
+                pole[i, j] = hodnota++;
+            }
+        }
+
+        // Výpis prvkov
+        Console.WriteLine("Row Major Ordering:");
+        for (int i = 0; i < 3; i++)
+        {
+            for (int j = 0; j < 3; j++)
+            {
+                Console.Write(pole[i, j] + "\t");
+            }
+            Console.WriteLine();
+        }
+    }
+}
+```
+
+# Indexovanie v C#
+
+Pri práci s viacrozmernými poľami musíme často prevádzať medzi viacrozmerným a jednorozmerným indexom. Tento postup je dôležitý, keď pracujeme s 1D poliami v jazykoch, ktoré ukladajú viacrozmerné polia ako jednorozmerné polia. Pre ilustráciu si ukážeme, ako prevádzať medzi 2D a 1D indexmi.
+
+## Prevody medzi 2D a 1D indexmi
+
+**Prevádzanie z 2D do 1D**
+
+Pre prevod 2D indexu na 1D index použijeme nasledujúci vzorec:
+- `index_2d_na_1d` = radek * sirka + sloupec
+
+Tento vzorec nám umožňuje previesť dvojrozmerný index (radek, sloupec) na jednorozmerný index, kde `sirka` je počet stĺpcov v dvojrozmernom poli.
+
+**Prevádzanie z 1D do 2D**
+
+Pre prevod 1D indexu na 2D index použijeme nasledujúci vzorec:
+- radek = index / sirka
+- sloupec = index % sirka
+
+Tento vzorec nám umožňuje zistiť, na akom riadku a stĺpci sa nachádzame, ak máme jednorozmerný index a počet stĺpcov.
+
+## Příklady v C#
+
+### Prevádzanie z 2D do 1D
+
+```csharp
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        int radek = 2;
+        int sloupec = 3;
+        int sirka = 5; // Počet stĺpcov
+
+        int index1D = Index2DNa1D(radek, sloupec, sirka);
+        Console.WriteLine($"2D index ({radek}, {sloupec}) na 1D index: {index1D}");
+    }
+
+    static int Index2DNa1D(int radek, int sloupec, int sirka)
+    {
+        return radek * sirka + sloupec;
+    }
+}
+```
+
+# Viacrozmerné pole na zásobníku v C#
+
+V C# môžeme vytvárať viacrozmerné polia podobným spôsobom ako v C. Ak poznáme rozmer a veľkosť viacrozmerného poľa v čase prekladu, môžeme použiť viacrozmerné statické polia. Tieto polia sa vytvárajú pomocou hranatých zátvoriek pre každý rozmer.
+
+## Vytváranie a používanie viacrozmerného poľa
+
+Ak chceme vytvoriť 2D pole s rozmermi 3x3, môžeme to urobiť nasledovne:
+
+```csharp
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        // Vytvorenie 2D poľa s rozmermi 3x3
+        int[,] pole = new int[3, 3];
+        
+        // Priradenie hodnôt do poľa
+        pole[0, 0] = 1;
+        pole[1, 1] = 2;
+        pole[2, 2] = 3;
+
+        // Výpis hodnôt z poľa
+        for (int i = 0; i < pole.GetLength(0); i++)
+        {
+            for (int j = 0; j < pole.GetLength(1); j++)
+            {
+                Console.Write($"{pole[i, j]} ");
+            }
+            Console.WriteLine();
+        }
+    }
+}
+```
+
+Vyskladanie polí v pamäti
+Viacrozmerné polia sú v pamäti uložené postupne podľa jednotlivých dimenzií zľava. Pre 2D pole, kde považujeme prvý index za index riadku, je toto vyskladanie v súlade s "row-major" poriadkom. To znamená, že prvky sú uložené po riadkoch. Napríklad v poli int[,] pole = new int[3, 3]; bude v pamäti uložené nasledovne:
+
+- [ ] pole[0, 0], pole[0, 1], pole[0, 2]
+- [ ] pole[1, 0], pole[1, 1], pole[1, 2]
+- [ ] pole[2, 0], pole[2, 1], pole[2, 2]
+
+# Viacrozmerné pole na halde v C#
+
+Ak potrebujeme dynamické viacrozmerné pole, môžeme alokovať pamäť na haldě pre všetky rozměry. V C# sa používa dynamická alokácia pamäti pre viacrozmerné polia trochu odlišne než v C. Tu je spôsob, ako môžeme vytvoriť dynamické viacrozmerné pole a manipulovať s ním.
+
+## Vytvorenie dynamického 2D poľa
+
+V C# sa na alokáciu pamäti pre viacrozmerné polia používa `new` operátor. Môžeme vytvoriť dynamické 2D pole, ktoré umožňuje priradiť hodnoty a pristupovať k nim podobne ako v C.
+
+```csharp
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        // Rozmery 2D poľa
+        int vyska = 4;
+        int sirka = 5;
+
+        // Vytvorenie dynamického 2D poľa
+        int[,] pole = new int[vyska, sirka];
+
+        // Priradenie hodnôt do poľa
+        for (int i = 0; i < vyska; i++)
+        {
+            for (int j = 0; j < sirka; j++)
+            {
+                pole[i, j] = i * sirka + j;
+            }
+        }
+
+        // Výpis hodnôt z poľa
+        for (int i = 0; i < vyska; i++)
+        {
+            for (int j = 0; j < sirka; j++)
+            {
+                Console.Write($"{pole[i, j]} ");
+            }
+            Console.WriteLine();
+        }
+    }
 }
 ```
 
