@@ -58,3 +58,21 @@ X2345X
 X6789X
 XXXXXX
 ```
+
+### 3 - Diagonála
+
+Ak má obrazec hodnotu 3, program by mal vypísať diagonálu smerujúcu doprava dole, ktorá obsahuje A bodov. Parameter B je v tomto prípade ignorovaný.
+
+```plaintext
+3 5 0
+```
+
+```plaintext
+X    
+ X   
+  X  
+   X 
+    X
+```
+
+
