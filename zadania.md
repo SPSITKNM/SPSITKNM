@@ -33,11 +33,13 @@ Ak má obrazec hodnotu 1, program by mal vypísať dutý obdĺžnik s šírkou A
 1 4 5
 ```
 
+```plaintext
 XXXX
 X  X
 X  X
 X  X
 XXXX
+```
 
 ### 2 - Číselný obdĺžnik
 
@@ -47,6 +49,7 @@ Ak má obrazec hodnotu 2, program by mal vypísať obdĺžnik s šírkou A a vý
 2 6 7
 ```
 
+```plaintext
 XXXXXX
 X0123X
 X4567X
@@ -54,3 +57,4 @@ X8991X
 X2345X
 X6789X
 XXXXXX
+```
