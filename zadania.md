@@ -15,12 +15,13 @@ Ak má **obrazec** hodnotu `0`, program by mal vypísať plný obdĺžnik s ší
 ```plaintext
 0 3 5
 ```
-
+```plaintext
 XXX
 XXX
 XXX
 XXX
 XXX
+```
 
 ### 1 - Dutinový obdĺžnik
 
