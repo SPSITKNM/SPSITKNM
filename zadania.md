@@ -77,7 +77,11 @@ X
 
 ### 3 - Písmeno T 
 
-Ak zadáme hodnoty 6 5 4 (pre písmeno T), výstup bude nasledovný:
+Ak má obrazec hodnotu 6, program by mal vykresliť písmeno T, ktoré bude mať šírku A bodov a výšku B bodov. Môžete predpokladať, že hodnota A bude vždy nepárna, aby bolo možné písmeno T vycentrovať.
+
+```plaintext
+6 5 4
+```
 
 ```plaintext
 XXXXX
@@ -86,4 +90,21 @@ XXXXX
   X  
 ```
 
+### 9 - Číselný obdĺžnik po stĺpcoch 
+
+Ak má obrazec hodnotu 9, program by mal vypísať obdĺžnik s šírkou A a výškou B, ktorý bude mať v strede číselný vzor. Čísla sa budú zvyšovať po stĺpcoch. Čísla začínajú od nuly a zvyšujú sa o jednotku. Pri prekročení hodnoty 9 sa čísla "prelejú" na nulu.
+
+```plaintext
+9 5 6
+```
+
+
+```plaintext
+XXXXX
+X048X
+X159X
+X260X
+X371X
+XXXXX
+```
 
