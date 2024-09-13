@@ -75,4 +75,15 @@ X
     X
 ```
 
+### 3 - Písmeno T 
+
+Ak zadáme hodnoty 6 5 4 (pre písmeno T), výstup bude nasledovný:
+
+```plaintext
+XXXXX
+  X  
+  X  
+  X  
+```
+
 
