@@ -75,7 +75,7 @@ X
     X
 ```
 
-### 3 - Písmeno T 
+### 6 - Písmeno T 
 
 Ak má obrazec hodnotu 6, program by mal vykresliť písmeno T, ktoré bude mať šírku A bodov a výšku B bodov. Môžete predpokladať, že hodnota A bude vždy nepárna, aby bolo možné písmeno T vycentrovať.
 
