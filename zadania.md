@@ -1,23 +1,55 @@
-# Zadanie: Rozmenenie peňazí
+# Zadanie: Program na vykreslenie geometrických tvarov
 
-Vytvorte program, ktorý bude rozmieňať zadanú sumu peňazí na jednotlivé bankovky a mince. Na začiatku programu (vo funkcii `main`) si vytvorte celočíselnú premennú, do ktorej uložíte sumu, ktorú váš program bude rozmieňať. Program potom vypočíta, aký je **najmenší počet európskych bankoviek a mincí** potrebný na rozmenenie tejto čiastky. Nakoniec program vypíše potrebný počet každej bankovky aj mince, pokiaľ budú potrebné.
+## Popis
 
-## Nápoveda:
+Vašou úlohou je vytvoriť program, ktorý bude vedieť vypísať rôzne geometrické tvary na výstup. Pri spustení program načíta zo štandardného vstupu tri čísla (obrazec, A, B). V závislosti od hodnoty čísla obrazec program vykreslí daný geometrický tvar, ktorý bude ovplyvnený hodnotami parametrov **A** (šírka) a **B** (výška).
 
-Nápoveda : Pozrite sa do tabulky našich skript na `GitHube` sekcia arit. operatorov, zamyslite sa nad tým ktorá operacia by sa Vám na tento výpočet mohla hodiť. Akou matematickou operáciou zaistíme koľko bankoviek potrebujeme na dosiahnutie danej čiastky a akou matematickou operáciou zistíme koľko potom z čiastky ostan ? 
+### Typy obrazcov
 
-## Požiadavky:
-- Program musí byť schopný rozmeniť zadanú sumu pomocou bankoviek a mincí eur (500 €, 200 €, 100 €, 50 €, 20 €, 10 €, 5 €, 2 €, 1 €).
-- Program musí vypočítať a vypísať počet jednotlivých bankoviek a mincí potrebných na dosiahnutie zadanej sumy.
+Nižšie nájdete zoznam obrazcov, ktoré by mal váš program podporovať:
 
-# Výstup programu
+### 0 - Plný obdĺžnik
+Ak má **obrazec** hodnotu `0`, program by mal vypísať plný obdĺžnik s šírkou **A** a výškou **B**.
 
-Zadajte sumu na rozmenenie: 1234
+#### Ukážkový výstup pre vstup: 
+```plaintext
+0 3 5
+```
 
-## Rozmenené bankovky a mince:
-- 500 €: 2 kusy
-- 200 €: 1 kus
-- 20 €: 1 kus
-- 10 €: 1 kus
-- 2 €: 2 kusy
+XXX
+XXX
+XXX
+XXX
+XXX
 
+### 1 - Dutinový obdĺžnik
+
+Ak má obrazec hodnotu 1, program by mal vypísať dutý obdĺžnik s šírkou A a výškou B. Dutý obdĺžnik obsahuje X po svojom obvode, ale vo vnútri je prázdny (vypíše sa medzera).
+
+#### Ukážkový výstup pre vstup: 
+
+```plaintext
+1 4 5
+```
+
+XXXX
+X  X
+X  X
+X  X
+XXXX
+
+### 2 - Číselný obdĺžnik
+
+Ak má obrazec hodnotu 2, program by mal vypísať obdĺžnik s šírkou A a výškou B, ktorý bude mať v strede číselný vzor. Čísla začínajú od nuly a zvyšujú sa o jednotku. Pri prekročení hodnoty 9 sa čísla "prelejú" na nulu. Číselný vzor je uprostred, s okrajom z písmen X.
+
+```plaintext
+2 6 7
+```
+
+XXXXXX
+X0123X
+X4567X
+X8991X
+X2345X
+X6789X
+XXXXXX
