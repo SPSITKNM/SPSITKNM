@@ -1,13 +1,13 @@
 # UML Zadania na hodinu PRO 
 
 Tento dokument obsahuje 15 zadání, každý z Vás si vyberie jedno zadanie, ktoré bude spracovávať na hodine... z výslednej práce na každý diagram vytvoríte snímok obrazovky a vložíte ho do word dokumentu.
-Dokument buse niesť v názve Vaše meno, triedu a číslo zadania, ktoré spracováate. 
+Dokument buse niesť v názve Vaše `meno`, `triedu` a `číslo zadania`, ktoré spracováate. 
 
 # Riaďte sa špecifikami uvedenými nižšie.
 
 # 1. Use Case Diagram
 
-Use case diagram - obsahující minimálně 5 modulů a 2 aktéry, doporučené maximum 5 modulů s využitím `include` a `extend`.
+Use case diagram - obsahující minimálně `5 modulů` a `2 aktéry`, doporučené maximum 5 modulů s využitím `include` a `extend`.
 
 # 2. Use Case Diagram
 
