@@ -1,7 +1,7 @@
 # UML Zadania na hodinu PRO 
 
 Tento dokument obsahuje 15 zadání, každý z Vás si vyberie jedno zadanie, ktoré bude spracovávať na hodine... z výslednej práce na každý diagram vytvoríte snímok obrazovky a vložíte ho do word dokumentu.
-Dokument buse niesť v názve Vaše `meno`, `triedu` a `číslo zadania`, ktoré spracováate. 
+Dokument buse niesť v názve Vaše `meno`, `triedu` a `číslo zadania`, ktoré spracovávate. 
 
 # Riaďte sa špecifikami uvedenými nižšie.
 
