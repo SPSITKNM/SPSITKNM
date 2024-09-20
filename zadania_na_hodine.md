@@ -9,7 +9,7 @@ Dokument buse niesť v názve Vaše `meno`, `triedu` a `číslo zadania`, ktoré
 
 Use case diagram - obsahující minimálně `5 modulů` a `2 aktéry`, doporučené maximum 5 modulů s využitím `include` a `extend`.
 
-# 2. Use Case Diagram
+# 2. Triedny diagram
 
 - **Schéma triedneho diagramu**
 - Diagram musí obsahovať výpočet všetkých atribútov (dbajte na atomické rozdelenie obsahu, napríklad: meno rozpísať na `Meno`, `Prostredné meno`, `Priezvisko`, `Titul pred`, `Titul za`, ak to vaša evidencia vyžaduje, to isté pre poštové adresy atď.) a metód. Doplňte, či sa jedná o `public`, `private` alebo `protected`.
