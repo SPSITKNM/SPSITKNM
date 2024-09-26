@@ -1,4 +1,4 @@
-# Program na počítanie histogramu čísel
+# Program na počítanie histogramu čísel - PRO - 27.9.2024
 
 Program bude počítať histogram čísel. Histogram bude mať 9 košov a bude zaznamenávať četnosť jednotlivých hodnôt, ktoré budú v rozsahu zadanom na vstupe programu.
 
