@@ -107,6 +107,8 @@ invalid : #
 ### Plagiát
 - Plagiát štýlu 1:1 od kolegu je hodnotený automaticky známkou 5.
 - Využitie zdrojov je voľné, vrátane AI je povolené.
+- RealTime testy budú písané bez skrípt a prístupu na internet... preto využitie dostupných zdrojov pri vypracovávaní Vašich DÚ nechávam na Vašom posúdení...
+- Prístup štýlu CTRL + C a CTRL + V do AI neodporúčam, úlohy sú nastavené tak aby riešenie cez AI trvalo rovnako ako dĺžka Vami implementovanej logiky... 
 
 ### Termíny
 - Každý deň po deadline znamená o stupeň horšiu známku!
