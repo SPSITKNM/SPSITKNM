@@ -44,3 +44,31 @@ _99: **
 106: *
 Počet neplatných čísel: 0
 ```
+
+## Skúste popremýšľať
+
+Skúste popremýšľať, ako môžeme spočítať, koľko má číslo číslic, a teda aj koľko zaberie znakov.
+
+## Horizontálny histogram
+
+Ak sa dané číslo vyskytlo na vstupe, tak za neho vykreslite medzeru a znak `#` toľkokrát, koľkokrát sa vyskytlo dané číslo na vstupe.
+
+Ak sa na vstupe vyskytli nejaké neplatné čísla, tak za posledným riadkom vypísaného histogramu vypíšte ďalší riadok s textom **invalid** a za ním vypíšte znak `#` toľkokrát, koľko bolo neplatných čísel na vstupe.
+
+## 5. Bonus - Vertikálny histogram
+
+Ak bol na vstupe znak `v`, vykreslite vertikálny histogram na výstup.
+
+- Vykreslite čísla `m` až `m + 8` vedľa seba.
+- Ak sa dané číslo vyskytlo na vstupe, nad ním by mal byť vykreslený stĺpec so znakom `#`.
+- Stĺpec bude tak vysoký, koľkokrát sa dané číslo vyskytlo na vstupe.
+
+Pri vertikálnom histograme môžeme predpokladať, že rozsah čísel histogramu bude vždy od 1 do 9.
+
+### Neplatné čísla
+
+Neplatné čísla vypíšte v prvom stĺpci a tento stĺpec označte znakom **i**.
+
+### Zložitosti vertikálneho histogramu
+
+Vertikálny histogram je bonus, pretože je zložitejší na implementáciu než horizontálny. Pokiaľ nebude bonus implementovaný, predpokladajte, že na začiatku vstupu programu bude vždy znak `h`.
