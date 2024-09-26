@@ -106,7 +106,7 @@ invalid : #
 
 ### Plagiát
 - Plagiát štýlu 1:1 od kolegu je hodnotený automaticky známkou 5.
-- Využitie zdrojov je voľné, vrátane AI; je povolené.
+- Využitie zdrojov je voľné, vrátane AI je povolené.
 
 ### Termíny
 - Každý deň po deadline znamená o stupeň horšiu známku!
