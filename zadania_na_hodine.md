@@ -72,3 +72,30 @@ Neplatné čísla vypíšte v prvom stĺpci a tento stĺpec označte znakom **i*
 ### Zložitosti vertikálneho histogramu
 
 Vertikálny histogram je bonus, pretože je zložitejší na implementáciu než horizontálny. Pokiaľ nebude bonus implementovaný, predpokladajte, že na začiatku vstupu programu bude vždy znak `h`.
+
+## Príklad vstupu
+
+```cpp
+h
+10 1
+3 3 2 3 7 1 10 4 9 9 
+```
+- Hodnota 10 udáva, že na vstupe bude 10 čísel.
+- Hodnota 1 udáva, že histogram bude počítať výsledky 1 až 9.
+
+### Odpovedajúci výstup 
+
+```cpp
+1 #
+2 #
+3 ###
+4 #
+5
+6
+7 #
+8
+9 ##
+invalid : #
+```
+
+
