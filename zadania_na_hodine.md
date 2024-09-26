@@ -97,5 +97,5 @@ h
 9 ##
 invalid : #
 ```
-
-
+# ! Riešenia žiadam odovzdávať do otvorenej úlohy na EduPage... Plagiát štýlu 1 : 1 od kolegu je hodnotený automaticky 5m využitie zdrojov je voľné, vrátane AI je povolené... Každý deň po deadline znamená o stupeň horšiu známky !
+## Veľa šťastia, TM. 
