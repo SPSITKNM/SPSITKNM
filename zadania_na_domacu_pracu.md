@@ -1,46 +1,46 @@
-# Klasická herní zadání v C#
+# Klasické herné zadania v C#
 
 ## 1. Space Invaders
-Vytvoř klasickou arkádovou hru, kde hráč ovládá vesmírnou loď a střílí mimozemšťany, kteří postupně sestupují dolů. Hra končí, když se mimozemšťané dostanou k hráči nebo pokud hráč zničí všechny nepřátele.
+Vytvor klasickú arkádovú hru, kde hráč ovláda vesmírnu loď a strieľa mimozemšťanov, ktorí postupne zostupujú dole. Hra končí, keď sa mimozemšťania dostanú k hráčovi alebo ak hráč zničí všetkých nepriateľov.
 
 ## 2. Pac-Man
-Hráč ovládá postavu v bludišti a snaží se sníst všechny body, zatímco ho honí duchové. Hráč může sbírat power-upy, které mu umožní dočasně zneškodnit duchy.
+Hráč ovláda postavu v bludisku a snaží sa zjesť všetky body, zatiaľ čo ho prenasledujú duchovia. Hráč môže zbierať power-upy, ktoré mu dočasne umožnia zneškodniť duchov.
 
 ## 3. Arkanoid
-Hráč ovládá plošinku, odráží míč a ničí zdi složené z cihel. Cílem je rozbít všechny cihly, aniž by míč spadl mimo herní plochu.
+Hráč ovláda plošinku, odráža loptu a ničí steny zložené z tehál. Cieľom je rozbiť všetky tehly bez toho, aby lopta spadla mimo hernú plochu.
 
 ## 4. Pong
-Jednoduchá dvouhráčová hra, kde každý hráč ovládá plošinku a odráží míč. Cílem je skórovat tím, že míč projde kolem soupeřovy plošinky.
+Jednoduchá dvojhráčová hra, kde každý hráč ovláda plošinku a odráža loptu. Cieľom je skórovať tým, že lopta prejde okolo súperovej plošinky.
 
 ## 5. Frogger
-Hráč musí přeskočit žabou přes silnici plnou aut a poté přes řeku s pohyblivými překážkami, aby se dostal na druhou stranu. Pokud hráč spadne do řeky nebo ho přejede auto, hra končí.
+Hráč musí preskočiť žabou cez cestu plnú áut a potom cez rieku s pohyblivými prekážkami, aby sa dostal na druhú stranu. Ak hráč spadne do rieky alebo ho prejde auto, hra končí.
 
 ## 6. Tetris
-Klasická puzzle hra, kde hráč skládá padající bloky různých tvarů tak, aby vytvořil horizontální řady bez mezer. Jakmile je řada plná, zmizí a hráč získává body.
+Klasická puzzle hra, kde hráč skladá padajúce bloky rôznych tvarov tak, aby vytvoril horizontálne rady bez medzier. Keď je rada plná, zmizne a hráč získava body.
 
 ## 7. Asteroids
-Hráč ovládá vesmírnou loď, která se může otáčet a střílet asteroidy. Cílem je zničit všechny asteroidy na obrazovce, přičemž se hráč musí vyhnout srážce s nimi.
+Hráč ovláda vesmírnu loď, ktorá sa môže otáčať a strieľať asteroidy. Cieľom je zničiť všetky asteroidy na obrazovke, pričom sa hráč musí vyhnúť zrážke s nimi.
 
 ## 8. Snake (Had)
-Hráč ovládá hada, který se pohybuje po hrací ploše a sbírá jídlo. S každým jídlem had roste a hra končí, pokud narazí do stěny nebo do svého vlastního těla.
+Hráč ovláda hada, ktorý sa pohybuje po hracej ploche a zbiera jedlo. S každým jedlom had rastie a hra končí, ak narazí do steny alebo do svojho vlastného tela.
 
 ## 9. Bomberman
-Hráč umisťuje bomby, aby zničil překážky a porazil nepřátele v bludišti. Cílem je eliminovat všechny nepřátele a najít cestu k východu, aniž by se hráč sám zranil.
+Hráč umiestňuje bomby, aby zničil prekážky a porazil nepriateľov v bludisku. Cieľom je eliminovať všetkých nepriateľov a nájsť cestu k východu, bez toho, aby sa hráč zranil.
 
 ## 10. Donkey Kong
-Hráč ovládá postavu, která se musí vyšplhat po žebřících a vyhnout se padajícím sudům, aby zachránila postavu v zajetí na vrcholu obrazovky.
+Hráč ovláda postavu, ktorá sa musí vyšplhať po rebríkoch a vyhnúť sa padajúcim sudom, aby zachránila postavu uväznenú na vrchole obrazovky.
 
 ## 11. Galaga
-Pokračování Space Invaders. Hráč ovládá vesmírnou loď a bojuje proti vlnám nepřátel. Nepřátelé mají složitější vzorce útoku a mohou hráči zajmout loď, kterou lze zachránit.
+Pokračovanie Space Invaders. Hráč ovláda vesmírnu loď a bojuje proti vlnám nepriateľov. Nepriatelia majú zložitejšie vzorce útoku a môžu hráčovi zajmúť loď, ktorú môže zachrániť.
 
 ## 12. Breakout
-Hráč ovládá plošinku, která odráží míč a ničí zdi. Cílem je odstranit všechny cihly bez ztráty míče. Různé druhy cihel mohou vyžadovat více zásahů nebo udělit hráči bonusy.
+Hráč ovláda plošinku, ktorá odráža loptu a ničí steny. Cieľom je odstrániť všetky tehly bez straty lopty. Rôzne druhy tehál môžu vyžadovať viac zásahov alebo udeliť hráčovi bonusy.
 
 ## 13. Street Fighter
-Bojová hra, kde hráč ovládá postavu, která bojuje proti soupeři. Můžeš vytvořit systém útoků, blokování a speciálních pohybů a zahrnout různé úrovně a soupeře.
+Bojová hra, kde hráč ovláda postavu, ktorá bojuje proti súperovi. Môžeš vytvoriť systém útokov, blokovania a špeciálnych pohybov a zahrnúť rôzne úrovne a súperov.
 
 ## 14. Super Mario Bros.
-Hráč ovládá Maria (nebo jinou postavu), která běhá, skáče a sbírá mince, přičemž se snaží vyhnout nepřátelům a dosáhnout konce úrovně. Můžeš zahrnout různé světy a úrovně s různými překážkami a nepřáteli.
+Hráč ovláda Maria (alebo inú postavu), ktorý behá, skáče a zbiera mince, pričom sa snaží vyhnúť nepriateľom a dosiahnuť koniec úrovne. Môžeš zahrnúť rôzne svety a úrovne s rôznymi prekážkami a nepriateľmi.
 
 ## 15. Tank 1990 (Battle City)
-Hráč ovládá tank, který chrání svou základnu a ničí nepřátelské tanky. Hra končí, když je hráčův tank zničen nebo pokud nepřátelé zničí jeho základnu.
+Hráč ovláda tank, ktorý chráni svoju základňu a ničí nepriateľské tanky. Hra končí, keď je hráčov tank zničený alebo ak nepriatelia zničia jeho základňu.
