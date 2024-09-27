@@ -1,129 +1,46 @@
-# UML Zadania na hodinu PRO `20.9.2024`
+# Klasická herní zadání v C#
 
-Tento dokument obsahuje 15 zadání, každý z Vás si vyberie jedno zadanie, ktoré bude spracovávať na hodine... z výslednej práce na každý diagram vytvoríte snímok obrazovky a vložíte ho do word dokumentu.
-Dokument buse niesť v názve Vaše `meno`, `triedu` a `číslo zadania`, ktoré spracovávate. 
+## 1. Space Invaders
+Vytvoř klasickou arkádovou hru, kde hráč ovládá vesmírnou loď a střílí mimozemšťany, kteří postupně sestupují dolů. Hra končí, když se mimozemšťané dostanou k hráči nebo pokud hráč zničí všechny nepřátele.
 
-# Riaďte sa špecifikami uvedenými nižšie.
+## 2. Pac-Man
+Hráč ovládá postavu v bludišti a snaží se sníst všechny body, zatímco ho honí duchové. Hráč může sbírat power-upy, které mu umožní dočasně zneškodnit duchy.
 
-# 1. Use Case Diagram
+## 3. Arkanoid
+Hráč ovládá plošinku, odráží míč a ničí zdi složené z cihel. Cílem je rozbít všechny cihly, aniž by míč spadl mimo herní plochu.
 
-Use case diagram - obsahující minimálně `5 modulů` a `2 aktéry`, doporučené maximum 5 modulů s využitím `include` a `extend`.
+## 4. Pong
+Jednoduchá dvouhráčová hra, kde každý hráč ovládá plošinku a odráží míč. Cílem je skórovat tím, že míč projde kolem soupeřovy plošinky.
 
-# 2. Triedny diagram
+## 5. Frogger
+Hráč musí přeskočit žabou přes silnici plnou aut a poté přes řeku s pohyblivými překážkami, aby se dostal na druhou stranu. Pokud hráč spadne do řeky nebo ho přejede auto, hra končí.
 
-- **Schéma triedneho diagramu**
-- Diagram musí obsahovať výpočet všetkých atribútov (dbajte na atomické rozdelenie obsahu, napríklad: meno rozpísať na `Meno`, `Prostredné meno`, `Priezvisko`, `Titul pred`, `Titul za`, ak to vaša evidencia vyžaduje, to isté pre poštové adresy atď.) a metód. Doplňte, či sa jedná o `public`, `private` alebo `protected`.
-- Je vhodné do schémy zahrnúť triedu `System (main)`.
-- Pomenovanie tried, atribútov a metód v jednotnom jazyku (slovensky alebo anglicky) podľa požiadaviek na vývoj SW (žiadne slovenské znaky, medzery atď.).
-- Pri vlastnostiach a metódach vyznačte `Public`, `Private`, `Protected`.
-- **Slovný popis významu jednotlivých väzieb** uveďte pod diagramom.
-- Dbajte na správne určenie kardinality a zápis na správnu stranu, na stranách s diamantom (agregácia, kompozícia), kde je kardinalita zvyčajne 1, ju písať nemusíte.
-- Je vhodné, aby v diagramoch boli použité okrem klasických asociácií aj dedičnosti, kompozícia a agregácia – nie je to však nutné.
+## 6. Tetris
+Klasická puzzle hra, kde hráč skládá padající bloky různých tvarů tak, aby vytvořil horizontální řady bez mezer. Jakmile je řada plná, zmizí a hráč získává body.
 
-## 2. Deklarácia tried vrátane výčtu atribútov a metód
+## 7. Asteroids
+Hráč ovládá vesmírnou loď, která se může otáčet a střílet asteroidy. Cílem je zničit všechny asteroidy na obrazovce, přičemž se hráč musí vyhnout srážce s nimi.
 
-- Je vhodné deklarovať minimálne **tri najdôležitejšie triedy** z triedneho diagramu.
-- Deklaráciu vpíšte priamo do odovzdaného dokumentu s formátovaním (nie ako ďalší súbor).
+## 8. Snake (Had)
+Hráč ovládá hada, který se pohybuje po hrací ploše a sbírá jídlo. S každým jídlem had roste a hra končí, pokud narazí do stěny nebo do svého vlastního těla.
 
-# 3. Sekvenčný diagram
+## 9. Bomberman
+Hráč umisťuje bomby, aby zničil překážky a porazil nepřátele v bludišti. Cílem je eliminovat všechny nepřátele a najít cestu k východu, aniž by se hráč sám zranil.
 
-- **Navrhnite tri netriviálne diagramy** s kódom odvodeným z diagramu, pričom aspoň 2 netriviálne metódy obsahujú prvky ako `if`, `loop` atď.
-- Ak sa vo vašom riešení nevyskytuje dostatok vhodných situácií na popis stavovým diagramom, vymyslite si tému mimo systému.
-- V diagramoch by sa mali objaviť prvky rozhodovania a prípadne cyklu.
-- Uvedomte si, kedy do popisu vstupuje konkrétny aktér a kedy nejaká časť systému (systém ako celok alebo trieda prostredníctvom definovaných metód).
+## 10. Donkey Kong
+Hráč ovládá postavu, která se musí vyšplhat po žebřících a vyhnout se padajícím sudům, aby zachránila postavu v zajetí na vrcholu obrazovky.
 
-# 4. Aktivitný diagram
+## 11. Galaga
+Pokračování Space Invaders. Hráč ovládá vesmírnou loď a bojuje proti vlnám nepřátel. Nepřátelé mají složitější vzorce útoku a mohou hráči zajmout loď, kterou lze zachránit.
 
-- **Nakreslite tri diagramy**.
-- Ak sa vo vašom systéme nevyskytujú vhodné problematiky, popíšte inú aktivitu mimo váš systém.
+## 12. Breakout
+Hráč ovládá plošinku, která odráží míč a ničí zdi. Cílem je odstranit všechny cihly bez ztráty míče. Různé druhy cihel mohou vyžadovat více zásahů nebo udělit hráči bonusy.
 
+## 13. Street Fighter
+Bojová hra, kde hráč ovládá postavu, která bojuje proti soupeři. Můžeš vytvořit systém útoků, blokování a speciálních pohybů a zahrnout různé úrovně a soupeře.
 
-## 1. Rezervačný systém hotelov
-- **Use Case:** Rezervácia izby, kontrola dostupnosti, zrušenie rezervácie, platba.
-- **Class:** Triedy pre `Rezervácia`, `Izba`, `Zákazník`, `Platba`, `Správca`.
-- **Stavový:** Stavy rezervácie, ako `Vytvorená`, `Potvrdená`, `Zaplatená`, `Zrušená`.
-- **Activity:** Proces rezervácie, od zadania údajov po potvrdenie a platbu.
+## 14. Super Mario Bros.
+Hráč ovládá Maria (nebo jinou postavu), která běhá, skáče a sbírá mince, přičemž se snaží vyhnout nepřátelům a dosáhnout konce úrovně. Můžeš zahrnout různé světy a úrovně s různými překážkami a nepřáteli.
 
-## 2. Internetový obchod (E-shop)
-- **Use Case:** Prehliadanie produktov, pridávanie do košíka, vytvorenie objednávky, platba, sledovanie zásielky.
-- **Class:** `Produkt`, `Košík`, `Objednávka`, `Používateľ`, `Platba`.
-- **Stavový:** Stavy objednávky, ako `Vytvorená`, `Zaplatená`, `Zaslaná`, `Doručená`.
-- **Activity:** Proces nákupu od výberu produktu cez platbu až po doručenie.
-
-## 3. Systém internetového bankovníctva
-- **Use Case:** Prihlásenie, kontrola zostatku, prevod peňazí, platby faktúr, zablokovanie účtu.
-- **Class:** `Účet`, `Transakcia`, `Klient`, `Kreditná karta`.
-- **Stavový:** Životný cyklus účtu, ako `Aktívny`, `Blokovaný`, `Zatvorený`.
-- **Activity:** Proces realizácie platby, od zadania údajov po potvrdenie transakcie.
-
-## 4. Správa knižnice
-- **Use Case:** Požičanie knihy, vrátenie knihy, pridanie novej knihy, registrácia člena.
-- **Class:** `Kniha`, `Člen`, `Knižník`, `Požičanie`.
-- **Stavový:** Stav knihy, ako `Dostupná`, `Vypožičaná`, `Rezervovaná`.
-- **Activity:** Proces vypožičania knihy od výberu až po vrátenie.
-
-## 5. Systém správy zdravotných záznamov
-- **Use Case:** Registrácia pacienta, záznam návštevy, predpis liekov, plánovanie kontrol.
-- **Class:** `Pacient`, `Lekár`, `Záznam o návšteve`, `Predpis`.
-- **Stavový:** Stavy pacienta, ako `Registrovaný`, `Na liečbe`, `Vyliečený`.
-- **Activity:** Proces vytvorenia zdravotného záznamu, od diagnostiky po liečbu.
-
-## 6. Systém riadenia študentov
-- **Use Case:** Registrácia študenta, zápis na predmet, zadanie známok, vydávanie certifikátov.
-- **Class:** `Študent`, `Predmet`, `Skúška`, `Zamestnanec školy`.
-- **Stavový:** Stav študenta, ako `Registrovaný`, `Aktívny`, `Absolvent`.
-- **Activity:** Proces zápisu študenta na predmet a získavanie hodnotenia.
-
-## 7. Systém online učenia (E-learning)
-- **Use Case:** Registrácia, prihlásenie do kurzu, absolvovanie lekcií, ukončenie kurzu.
-- **Class:** `Používateľ`, `Kurz`, `Lekcia`, `Certifikát`.
-- **Stavový:** Stavy kurzu, ako `Otvorený`, `Prebiehajúci`, `Dokončený`.
-- **Activity:** Proces absolvovania kurzu od registrácie po získanie certifikátu.
-
-## 8. Systém správy úloh (Task Management)
-- **Use Case:** Vytvorenie úlohy, aktualizácia úlohy, priradenie úlohy, ukončenie úlohy.
-- **Class:** `Úloha`, `Používateľ`, `Projekt`, `Komentár`.
-- **Stavový:** Stav úlohy, ako `Nová`, `Priradená`, `Dokončená`.
-- **Activity:** Proces priradenia úlohy a jej dokončenia.
-
-## 9. Systém na rezerváciu leteniek
-- **Use Case:** Rezervácia letenky, zrušenie rezervácie, kontrola letu, online check-in.
-- **Class:** `Letenka`, `Cestujúci`, `Let`, `Rezervácia`.
-- **Stavový:** Stav rezervácie, ako `Rezervovaná`, `Zaplatená`, `Zrušená`.
-- **Activity:** Proces rezervácie letenky od výberu letu po potvrdenie rezervácie.
-
-## 10. Personálny systém
-- **Use Case:** Registrácia zamestnanca, plánovanie zmien, správa pracovného času.
-- **Class:** `Zamestnanec`, `Oddelenie`, `Plán zmien`, `Výplata`.
-- **Stavový:** Stav zamestnanca, ako `Aktívny`, `Na dovolenke`, `Vypovedaný`.
-- **Activity:** Proces schvaľovania dovolenky.
-
-## 11. Systém rezervácie reštaurácie
-- **Use Case:** Rezervácia stola, úprava rezervácie, zrušenie rezervácie, objednávka jedla.
-- **Class:** `Rezervácia`, `Stôl`, `Zákazník`, `Objednávka`.
-- **Stavový:** Stavy rezervácie, ako `Vytvorená`, `Potvrdená`, `Zrušená`.
-- **Activity:** Proces rezervácie stola a následná objednávka jedla.
-
-## 12. Systém predaja vstupeniek
-- **Use Case:** Prehliadanie udalostí, nákup vstupeniek, storno vstupenky, kontrola vstupu.
-- **Class:** `Vstupenka`, `Udalosť`, `Zákazník`, `Platba`.
-- **Stavový:** Stav vstupenky, ako `Rezervovaná`, `Zaplatená`, `Použitá`.
-- **Activity:** Proces nákupu vstupenky od výberu udalosti po platbu.
-
-## 13. Systém sledovania zásielok
-- **Use Case:** Vytvorenie zásielky, sledovanie zásielky, doručenie zásielky.
-- **Class:** `Zásielka`, `Kuriér`, `Zákazník`, `Sklad`.
-- **Stavový:** Stav zásielky, ako `Na sklade`, `Na ceste`, `Doručená`.
-- **Activity:** Proces sledovania a doručenia zásielky.
-
-## 14. Systém riadenia skladu
-- **Use Case:** Príjem tovaru, uskladnenie, vyskladnenie, kontrola zásob.
-- **Class:** `Tovar`, `Sklad`, `Dodávateľ`, `Objednávka`.
-- **Stavový:** Stav tovaru, ako `Na sklade`, `Rezervovaný`, `Vyskladnený`.
-- **Activity:** Proces vyskladnenia tovaru.
-
-## 15. Systém na správu udal
-- **Use Case:** Organizácia udalosti, registrácia účastníka, zasielanie pozvánok, zrušenie udalosti.
-- **Class:** `Udalosť`, `Účastník`, `Organizátor`, `Pozvánka`.
-- **Stavový:** Stavy udalosti, ako `Naplánovaná`, `Prebiehajúca`, `Zrušená`.
-- **Activity:** Proces registrácie a účasti na udalosti.
+## 15. Tank 1990 (Battle City)
+Hráč ovládá tank, který chrání svou základnu a ničí nepřátelské tanky. Hra končí, když je hráčův tank zničen nebo pokud nepřátelé zničí jeho základnu.
