@@ -39,5 +39,5 @@ Vo **štvrtok** budú predstavené **nové usmernenia** pre tvorbu projektu, kto
 
 Ďakujem vám za pozornosť a teším sa na vašu prácu na najbližších cvičeniach. 
 
-S pozdravom,  
+S pozdravom
 **Tomáš Mucha**
