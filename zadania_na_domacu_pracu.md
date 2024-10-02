@@ -92,6 +92,7 @@ Hráč ovláda Maria (alebo inú postavu), ktorý behá, skáče a zbiera mince,
 ## 15. Tank 1990 (Battle City)
 Hráč ovláda tank, ktorý chráni svoju základňu a ničí nepriateľské tanky. Hra končí, keď je hráčov tank zničený alebo ak nepriatelia zničia jeho základňu.
 
+---
 
 # Herné požiadavky pre vývoj projektov
 
