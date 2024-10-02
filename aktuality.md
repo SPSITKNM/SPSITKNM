@@ -1,4 +1,4 @@
-# Oznámenie: Voľba výuky pre piatkové cvičenia 4.10.2024 a usmernenia k projekto :) 
+# Oznámenie: Voľba výuky pre piatkové cvičenia 4.10.2024 a usmernenia k projektom.
 
 Dobrý deň všetkým,
 
