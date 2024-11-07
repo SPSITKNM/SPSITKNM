@@ -1,118 +1,77 @@
-# Program na počítanie histogramu čísel - PRO - 27.9.2024
+# Zadanie pre konzolovú aplikáciu v .NET 8
 
-Program bude počítať histogram čísel. Histogram bude mať 9 košov a bude zaznamenávať četnosť jednotlivých hodnôt, ktoré budú v rozsahu zadanom na vstupe programu.
+Vašou úlohou je vytvoriť konzolovú aplikáciu, ktorá bude načítavať pole produktov zo súboru, vykoná nad týmto poľom výpočty a výsledok vypíše na štandardný výstup (do konzoly). Vstupný súbor sa načíta ako argument pri spustení aplikácie.
 
-## Požiadavky na program
+## Metóda Main
 
-### 1. Voľba vykreslenia
-Načítate zo vstupu znak, ktorý bude udávať, či sa má vykresliť horizontálny (pokiaľ bol na vstupe znak `h`) alebo vertikálny (pokiaľ bol na vstupe znak `v`) histogram.
+Vstupný súbor bude predaný ako parameter pri spustení aplikácie. Vaša metóda `Main` by mala začínať nasledovným kódom:
 
-- Ak bude zadaný iný znak ako `v` alebo `h`, vypíšte riadok **"Neplatný mód vykreslenia"** na štandardný výstup a ukončite program s chybovým kódom `1`.
+```csharp
+Thread.CurrentThread.CurrentCulture = CultureInfo.GetCultureInfo("sk-SK");
+Console.OutputEncoding = System.Text.Encoding.UTF8;
 
-### 2. Načítanie vstupných hodnôt
-Načítate zo vstupu dve nezáporné čísla `n` a `m`.
+string data = File.ReadAllText(args[0]);
 
-- `n` udáva, koľko čísel program načíta, z ktorých bude počítať histogram.
-- `m` udáva rozsah čísel, pre ktoré máte počítať histogram. Tento rozsah bude daný intervalom \[`m`, `m + 8`\].
+Product[] products = ParseData(data);
 
-Napríklad, ak bude `m = 5`, histogram bude počítať výskyty čísel od 5 až po 13 vrátane.
+double sum = GetTotalProductsPrice(products);
+double averageWeight = GetAverageItemWeight(products);
 
-### 3. Výpočet histogramu
-Načítate od používateľa `n` celých čísel oddelených medzerou a vypočítate pre ne histogram.
-
-- Ak bude číslo na vstupe mimo intervalu \[`m`, `m + 8`\], považujte také číslo za neplatné. Počet neplatných čísel si v programe pamätajte.
-- Histogram počíta, koľkokrát sa jednotlivé hodnoty z intervalu `m` až `m + 8` vyskytli vo vstupe.
-- Histogram reprezentujte poľom.
-- Ideálne riešenie na výpočet histogramu by nemalo obsahovať 9x `if-else` vetvy. Zamyslite sa, ako histogram spočítať bez podmienok, dá sa to vykonať jedným riadkom.
-
-### 4. Výstup - Horizontálny histogram
-Ak bol na vstupe znak `h`, vykreslite horizontálny histogram na výstup:
-
-- Vypíšte pod seba čísla od `m` až po `m + 8`, každé číslo na jednom riadku.
-- Zarovnajte čísla doprava tak, aby počty výskytov pre jednotlivé čísla začínali vždy v tom istom stĺpci. Napríklad, ak bude `m = 98`, tak `m + 8` bude 106, a toto číslo má viac číslic ako 98. Preto musíte pred výpisom pred 98 a 99 vypísať jednu medzeru, inak by čísla pod sebou nesedeli správne.
-- Tu je znak `_`, ktorý reprezentuje medzeru.
-
-```cpp
-_98: **
-_99: **
-100: *
-101: 
-102: *
-103: 
-104: 
-105: *
-106: *
-Počet neplatných čísel: 0
+// TODO: doplniť ďalší kód...
 ```
 
-## Skúste popremýšľať
+## Trieda Product
+Vytvorte triedu `Product`, ktorá bude reprezentovať jeden produkt. Vlastnosti produktu:
+- **Názov produktu** – typ `string`
+- **Cena jedného kusu** – typ `double`
+- **Počet kusov** - typ `int?` (počet kusov nemusí byť známy)
+- **Váha** – štruktúra obsahujúca jednotku (výčtový typ) a hodnotu (typ `double`)
 
-Skúste popremýšľať, ako môžeme spočítať, koľko má číslo číslic, a teda aj koľko zaberie znakov.
+## Metódy
 
-## Horizontálny histogram
+1. **ParseData**
+   - Predá sa jej obsah súboru (text).
+   - Vracia pole produktov.
+   - Implementujte vlastné parsovanie vstupného súboru a mapovanie dát na produkty. Použite metódu `ParseWeight` pre parsovanie váhy.
 
-Ak sa dané číslo vyskytlo na vstupe, tak za neho vykreslite medzeru a znak `#` toľkokrát, koľkokrát sa vyskytlo dané číslo na vstupe.
+2. **ParseWeight**
+   - Predá sa jej text obsahujúci váhu.
+   - Vracia štruktúru obsahujúcu jednotku (výčtový typ) a hodnotu váhy v danej jednotke.
 
-Ak sa na vstupe vyskytli nejaké neplatné čísla, tak za posledným riadkom vypísaného histogramu vypíšte ďalší riadok s textom **invalid** a za ním vypíšte znak `#` toľkokrát, koľko bolo neplatných čísel na vstupe.
+3. **GetTotalProductsPrice**
+   - Vykonáva výpočet celkovej ceny všetkých produktov.
+   - Ak nie je počet kusov známy, produkt sa nezapočítava.
+   - Vracia číslo (`double`).
 
-## 5. Bonus - Vertikálny histogram
+4. **GetAverageItemWeight**
+   - Vykonáva výpočet priemernej hmotnosti jedného kusu produktu v kilogramoch.
+   - Vracia priemernú hmotnosť zaokrúhlenú na 3 desatinné miesta (`double`).
+   - Štruktúra reprezentujúca váhu by mala obsahovať metódu `GetNormalizedValue`, ktorá vracia váhu v kilogramoch.
 
-Ak bol na vstupe znak `v`, vykreslite vertikálny histogram na výstup.
+## Výpis výsledku
+Vypíšte do konzoly:
+- Zoznam všetkých produktov
+- Celkovú cenu
+- Priemernú váhu
 
-- Vykreslite čísla `m` až `m + 8` vedľa seba.
-- Ak sa dané číslo vyskytlo na vstupe, nad ním by mal byť vykreslený stĺpec so znakom `#`.
-- Stĺpec bude tak vysoký, koľkokrát sa dané číslo vyskytlo na vstupe.
+Ukážkový výstup:
 
-Pri vertikálnom histograme môžeme predpokladať, že rozsah čísel histogramu bude vždy od 1 do 9.
-
-### Neplatné čísla
-
-Neplatné čísla vypíšte v prvom stĺpci a tento stĺpec označte znakom **i**.
-
-### Zložitosti vertikálneho histogramu
-
-Vertikálny histogram je bonus, pretože je zložitejší na implementáciu než horizontálny. Pokiaľ nebude bonus implementovaný, predpokladajte, že na začiatku vstupu programu bude vždy znak `h`.
-
-## Príklad vstupu
-
-```cpp
-h
-10 1
-3 3 2 3 7 1 10 4 9 9 
 ```
-- Hodnota 10 udáva, že na vstupe bude 10 čísel.
-- Hodnota 1 udáva, že histogram bude počítať výsledky 1 až 9.
+Produkty:
+Jablká Golden: 100 ks; 30 €
+Banány: neznáme množstvo; 25 €
+Hrušky: 60 ks; 40,5 €
+...
 
-### Odpovedajúci výstup 
-
-```cpp
-1 #
-2 #
-3 ###
-4 #
-5
-6
-7 #
-8
-9 ##
-invalid : #
+Celková cena produktov: 65401 €
+Priemerná váha položky: 0,364 kg
 ```
-# Usmernenia
 
-## Dôležité informácie
-
-### Riešenia
-- Riešenia žiadam odovzdávať do otvorenej úlohy na EduPage.
-
-### Plagiát
-- Plagiát štýlu 1:1 od kolegu je hodnotený automaticky známkou 5.
-- Využitie zdrojov je voľné, vrátane AI je povolené.
-- RealTime testy budú písané bez skrípt a prístupu na internet... preto využitie dostupných zdrojov pri vypracovávaní Vašich DÚ nechávam na Vašom posúdení...
-- Prístup štýlu CTRL + C a CTRL + V do AI neodporúčam, úlohy sú nastavené tak aby riešenie cez AI trvalo rovnako ako dĺžka Vami implementovanej logiky... 
-
-### Termíny
-- Každý deň po deadline znamená o stupeň horšiu známku!
-
-## Veľa šťastia,
-**TM**
-
+## Metódy, ktoré sa môžu hodiť
+- `IndexOf`: [Dokumentácia](https://learn.microsoft.com/sk-sk/dotnet/api/system.string.indexof?view=net-8.0)
+- `Substring`: [Dokumentácia](https://learn.microsoft.com/sk-sk/dotnet/api/system.string.substring?view=net-8.0)
+- `IsNullOrEmpty`: [Dokumentácia](https://learn.microsoft.com/sk-sk/dotnet/api/system.string.isnullorempty?view=net-8.0)
+- `Split`: [Dokumentácia](https://learn.microsoft.com/sk-sk/dotnet/api/system.string.split?view=net-8.0)
+- `StartsWith`: [Dokumentácia](https://learn.microsoft.com/sk-sk/dotnet/api/system.string.startswith?view=net-8.0)
+- `TryParse`: [Dokumentácia](https://learn.microsoft.com/sk-sk/dotnet/api/system.int64.tryparse?view=net-8.0)
+- `Trim`: [Dokumentácia](https://learn.microsoft.com)
