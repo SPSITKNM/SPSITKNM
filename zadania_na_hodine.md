@@ -126,3 +126,132 @@ Vlastnosť "weight" obsahuje váhu jedného kusu. Táto váha môže byť v gram
 - `StartsWith`: [Dokumentácia](https://learn.microsoft.com/cs-cz/dotnet/api/system.string.startswith?view=net-8.0)
 - `TryParse`: [Dokumentácia](https://learn.microsoft.com/cs-cz/dotnet/api/system.int64.tryparse?view=net-8.0)
 - `Trim`: [Dokumentácia](https://learn.microsoft.com/cs-cz/dotnet/api/system.string.trim?view=net-8.0)
+
+--
+
+## Ako má vyzerať vstup ? 
+
+
+```Ukážkový vstup:
+
+
+products:
+	 - Jablka Golden:
+		 - price: 30
+		 - quantity: 100
+		 - weight: 200 g
+	 - Banány:
+		 - price: 25
+		 - weight: 150 g
+	 - Hrušky:
+		 - price: 40.5
+		 - quantity: 60
+		 - weight: 250 g
+	 - Jahody:
+		 - price: 60
+		 - quantity: 30
+		 - weight: 500 g
+	 - Broskve:
+		 - price: 35.2
+		 - quantity: 75
+		 - weight: 30 dkg
+	 - Avokádo:
+		 - price: 55.9
+		 - quantity: 50
+		 - weight: 250 g
+	 - Mrkev:
+		 - price: 15
+		 - quantity: 120
+		 - weight: 100 g
+	 - Brambory:
+		 - price: 20
+		 - weight: 1 kg
+	 - Cibule:
+		 - price: 18
+		 - quantity: 150
+		 - weight: 90 g
+	 - Česnek:
+		 - price: 40
+		 - quantity: 90
+		 - weight: 30 g
+	 - Rajčata:
+		 - price: 28
+		 - quantity: 180
+		 - weight: 80 g
+	 - Okurky:
+		 - price: 25
+		 - quantity: 110
+		 - weight: 350 g
+	 - Papriky:
+		 - price: 30
+		 - quantity: 70
+		 - weight: 180 g
+	 - Lilek:
+		 - price: 45.9
+		 - quantity: 50
+		 - weight: 400 g
+	 - Salát:
+		 - price: 20
+		 - quantity: 100
+		 - weight: 250 g
+	 - Špenát:
+		 - price: 40
+		 - quantity: 60
+		 - weight: 50 dkg
+	 - Kapusta:
+		 - price: 35
+		 - quantity: 90
+		 - weight: 400 g
+	 - Ředkvičky:
+		 - price: 22
+		 - weight: 50 g
+	 - Petržel:
+		 - price: 12.2
+		 - quantity: 140
+		 - weight: 80 g
+	 - Kedlubna:
+		 - price: 18
+		 - quantity: 130
+		 - weight: 300 g
+	 - Květák:
+		 - price: 50
+		 - quantity: 40
+		 - weight: 1.2 kg
+	 - Brokolice:
+		 - price: 48
+		 - weight: 1 kg
+	 - Celer:
+		 - price: 22
+		 - quantity: 90
+		 - weight: 400 g
+	 - Zázvor:
+		 - price: 80
+		 - quantity: 30
+		 - weight: 100 g
+	 - Citrony:
+		 - price: 30
+		 - quantity: 100
+		 - weight: 120 g
+	 - Pomeranče:
+		 - price: 35
+		 - quantity: 85
+		 - weight: 200 g
+	 - Grapefruit:
+		 - price: 38.9
+		 - quantity: 70
+		 - weight: 350 g
+	 - Mango:
+		 - price: 60
+		 - quantity: 40
+		 - weight: 500 g
+	 - Kiwi:
+		 - price: 25
+		 - quantity: 60
+		 - weight: 100 g
+	 - Ananas:
+		 - price: 75
+		 - quantity: 25
+		 - weight: 1.5 kg
+
+
+```
