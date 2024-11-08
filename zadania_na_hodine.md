@@ -133,8 +133,6 @@ Vlastnosť "weight" obsahuje váhu jedného kusu. Táto váha môže byť v gram
 
 
 ```Ukážkový vstup:
-
-
 products:
 	 - Jablka Golden:
 		 - price: 30
