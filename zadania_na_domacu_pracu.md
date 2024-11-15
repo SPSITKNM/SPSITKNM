@@ -17,7 +17,7 @@ vector<vector<int>> board = {
 };
 ```
 
-### Matica s výsledkom 7:
+### Matica s výsledkom 27:
 
 
 ```cpp
