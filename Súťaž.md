@@ -52,7 +52,7 @@ Zober celý kalibračný dokument. Aký je súčet všetkých kalibračných hod
 
 
 
-# --- Cesta do Ostravi ---
+# --- Cesta do Ostravy ---
 
 Trajekt ťa rýchlo prepraví na Ostrov ostrova. Po vypytovaní zistíš, že sa tu normálne nachádza veľká kopa piesku, ale nevidíš nič okrem veľa vody a malého ostrova, kde trajekt zakotvil.
 
