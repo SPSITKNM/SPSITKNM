@@ -48,6 +48,10 @@ Zober celý kalibračný dokument. Aký je súčet všetkých kalibračných hod
 
 ---
 
+
+
+
+
 # --- Cesta do Ostravi ---
 
 Trajekt ťa rýchlo prepraví na Ostrov ostrova. Po vypytovaní zistíš, že sa tu normálne nachádza veľká kopa piesku, ale nevidíš nič okrem veľa vody a malého ostrova, kde trajekt zakotvil.
@@ -101,7 +105,7 @@ Urči počet spôsobov, ako môžeš prekonať rekord v každom závode. Čo dos
 
 ---
 
-# 4. Decembrový predtermín 
+# Decembrový predtermín # 
 
 Lanovka ťa vezie hore. Čo je zvláštne, zem akoby s tebou nevystupovala; nešplháš sa na horu. Keď kruh Snehového ostrova mizne pod tebou, náhle sa nad tebou objaví úplne nový ostrov! Lanovka ťa dopraví na povrch nového ostrova a trhne vo svojej stanici.
 
@@ -174,7 +178,10 @@ Karta 6: 31 18 13 56 72 | 74 77 10 23 35 67 36 11
 
 ---
 
-# --- 3. Bouchalove termíny a záhada matematickej analýzy 1 ---
+
+
+
+# --- Bouchalove termíny a záhada matematickej analýzy 1 ---
 
 
 Stále jazdíš na ťave cez Ostrov púšte, keď zrazu spozoruješ, že sa k tebe rýchlo blíži piesočná búrka. Keď sa otočíš, aby si varoval elfku, zmizne ti priamo pred očami! Pravdupovediac, len pred pár minútami ťa varovala pred duchmi.
