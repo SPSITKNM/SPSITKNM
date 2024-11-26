@@ -430,3 +430,24 @@ int main(int args, char *argv[])
 
 }
 
+---
+
+Link List under the hood 
+
+    // ? čo je vlastne noda
+
+    // ! je to kombinacia value and the pointer
+    // * dost podobne unordered map where you have the
+    /*
+    value : 4,
+    next : nullptr
+
+    nech link list vyzera takto :
+    11 ---> 3 ----> 23 --->7
+
+    ! sedmička bude podona unorder mape
+    ? ale ako vytorime pointer z 7 nody na tu štvrtu
+
+    ! link list je teda simularny setu nested unordered maps 
+    ? a pak mame variable head ktora pointi na začiatok na headu 
+    ? pak mame tail ktora pointi na koniec 
