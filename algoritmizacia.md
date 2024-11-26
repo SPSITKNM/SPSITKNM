@@ -356,3 +356,77 @@ void printItems2(int n) // ! void funkcia preberajuca ako parameter n
         cout << j << endl; // vo forloope len outputneme i
     }
 }
+
+
+
+---
+
+
+# Úvod do DS Vector vs LinkList
+
+#include <iostream>
+using namespace std;
+
+int main(int args, char *argv[])
+{
+
+    // ! data structues najviac je porovnanavany k listu alebo arraye
+    // ako aj vector tak aj link list su dynamicke v svojej dlžke
+    // ! vector ma priamu indexiaciu kde mozno direktivne pristupit na index / toto link list mať nebude
+    // ? ďalšia vec je odlišna ze narozdiel od vectoru su jendnotlive nody na rozdielnych miestach v pamati
+    // ! čo budem mať linked list variable ktora pointi na prvu nodu tzv head
+    // ? a bude posledna ktora sa vola tail ta pointi na nodu poslednu
+    // ! a potom dalšia noda pointi na dalšiu a pak na dalšiu a potom potom posledna noda pointi na nullptr
+    // ? rozdielom je prave rozhadaznie v pamati nakolko kazda z node musi vzajomne pointit na seba
+    // * u arraye alebo vector su nasekane za sebou tzv vo formate continuos memory
+
+    // ! link list big O
+    // so we are going to start pout by adding the node at the end of it
+    // last node is going to point at the the new added node
+    // and that make the tail to point to the new node
+    // pre O in this case n ig going to be the number of nodes in this linked list
+    // ? nezalezi tak či bude mať 4 itemy alebo 1 000 000 items in it is going to be the same number of operations to add a node to the end
+    // ! čo znamena ze sa jedna o const time teda o(1)
+    // ! lets take a look at the removing of the item from the last position
+
+    // ! linke
+
+    // ! we need to start at the head than iterate throw that link list
+    // ? dovtedy kym sa nedostaneme k pointru ktory ukazuje na danu nodu
+    // ? a pak vlastne len setneme ze tail sa bude rovmať pointru ukazujucemu na danu nodu
+    // ! pretoze musime iterovať cez link list robi z toho o(n)
+
+    // ? pridavanie do link listu
+    // naopak pokial chceme pridať tak stači povedať ze priadany item bude rovny head pointru
+    // * a head pointer movneme na novo addnutu nodu
+    // jedna sa teda o totožnu operaciu kde nezaleži na počte nodes ktore su "already in"
+    // teda sa jedna o o (1) = i pri pridavani ako aj odoberani zo začiatku 
+
+
+    // ! addovanie nody niekde v strede 
+    // 11 –--> 3 ---> 23 ----> 7 
+    // ? so we want to add the 4 right after the 23 
+    // 1. preiterovať k danej node 
+    // 2. pointint four nodov na rovnake miesto ako 23 
+    // a nasledne nastavime 23 tak aby pointili na 4 
+    // ! ale nakolko musime iterovať cez link list jedna sa O of N
+
+     // ! odstranenie nody niekde v strede 
+    // 1. dostat sa k nej musime k nej preiterovať 
+    // 2 povieme ze pointer z 23 je equl pointru zo štvorky 
+    // a odstranime 4 nodu 
+    // ? ale opäť nakolko musime iterovať cez cele = O (n)
+
+    // link listy nemaju build in indexy 
+    // ? aby sme sa dostali k node 2, musi dojsť k iteraci od head y
+    // takisto na check values musime iterovať 
+    // ! pri linkliste je to vzdy o(n) či hladame by the index or by the value 
+
+    // ! base rozdiel medzi link list a vectorom 
+
+    // remove last = linked list je o(n) u vectoru je to o(1)
+
+    // ked chceš dať check by the index the vector is da way 
+
+}
+
