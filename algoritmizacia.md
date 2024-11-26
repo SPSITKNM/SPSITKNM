@@ -259,6 +259,41 @@ int main(int args, char *argv[])
     // ! ale looking up by the index, kde môžeme direktivne ist na to miesto je o(1)
 
 
+    // !!!!!!! zhrnutie !!!!!!!
+
+    /*
+    
+    ! dajme si graf kde n =100 
+    O(1) = 1 
+    O ( log n ) = 7 
+    O ( n ) = 100
+    o (n2) = 10 000
+
+
+    ? rozdiel sa stane ešte signifikantnejšim akonahle sa stane n ešte väčšim 
+    o(1 = sa meniť nebude, nie je zavysle na zmene velkosti vstupu teda nka 
+      O ( 10log 100) = pytam sa teda kolkokrat moze byt desiatka v stovke ? = 10 
+    
+        ! so as the n grows n na druhu bude rast velmi velmi rychlo 
+        takze pokial budeme napr schopy rewritnut kod tak aby bol o(n) tak to bude velke ikrimincia v efficienty of the code
+
+        o2 = je vlastne len nested loop teda loop v loope 
+        o of n je proporcional 
+        o of the (log n) = pokial počujete devide and the conquer 
+        o of 1 = is the constatn time 
+
+        najčastejšie najhorši ktory vidime je o2 ( teda na druhu ) ten je v tzv horrible cattegory 
+        O(n log n) = uvidime to v par sorting algoritmoch 
+
+        common data structure algorithms operations 
+
+
+        ! -------- array sorting algorithms 
+
+
+    */
+
+
     for (int var : myVector)
     {
         cout << var << endl;
