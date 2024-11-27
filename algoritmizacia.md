@@ -451,3 +451,76 @@ Link List under the hood
     ! link list je teda simularny setu nested unordered maps 
     ? a pak mame variable head ktora pointi na začiatok na headu 
     ? pak mame tail ktora pointi na koniec 
+
+---
+
+Konštrukcia LinkListu
+
+
+#include <iostream>
+using namespace std;
+
+int main(int args, char *argv[])
+{
+}
+
+class LinkedList
+{
+
+private:
+    Node *head; // ! this is a pointer to a node
+    Node *tail;
+    int dlzka;
+
+public:
+    LinkedList(int value)
+    {
+        // ! newNode = is a pointer to a node
+        Node *newNode = new Node(value);
+        head = newNode; // ? hovorime teda, že head pointrom ukazujeme na tuto nodu
+        tail = newNode; // ? tail is pointing to the newNode
+        dlzka = 1;      // duo to the reason, we now have one node in our linked list
+        // ! setneme teda length na 1
+    }
+
+    // LinkedList(int value){...} = create new node
+
+    // void append( int value){...} = create new node, add node to the end
+    // void prepend( int value){...} = create new node, add node to beginning
+    // bool insert(int index, int value){...} = create new node, insert node
+
+    // ? prva vec ktoru maju by common ze sa passuje value
+    // ! ďalšia ze vytvaraju novu nodu
+
+    // ! the way how would we create the a new linked list would be something like this
+
+    LinkedList *myLinkedList = new LinkedList(4);
+    // * variable name je : myLinkedList
+    // ? variable type je pointer na link list
+    // ! new naznačuje ze sa jedna o vytvaranie wanna be inštancie linkedListu
+};
+
+// ? čo je vlastne noda
+// noda je teda dosť podobna unordered maape
+
+class Node
+{
+public:
+    int value;
+    Node *next; // will be th pointer that is going to point to a node
+
+    Node(int value) // ! and the constructor will also hava the value that we pass into
+    {
+
+        this->value = value; // this is how we assing the value to a new node
+        // ? this keyworda refers to a current instance ( or object ) of the node class that the code is working on
+        // ked je parameter value rovnaky ako class member variable (value)
+        // ? this keyword pouzivame na oddelenie member variable od parametru
+        // this->value = value, refers to the value variable defined as a member of the node class
+        // ! overall pokial by sme zmenili meno na napr val = tak nemusime vyuzivať this keyword
+        // ! nakolko teda odlišujeme ze
+
+        next = nullptr; // ? this next referuje ku next var v public časti nody, this ani nemusime davať nakolko this. nemame ani ako parameter v našej funkcii
+    }
+};
+
