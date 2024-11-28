@@ -137,6 +137,72 @@ Vyhladanie 10: Nájdené
 Zoznam po zmazani prveho uzla: 10 20
 ```
 
+--
+
+# Úloha 2: Zmena poradia uzlov v linkovanom zozname
+
+## Zadanie:
+
+Implementujte funkciu, ktorá otočí poradie uzlov v jednoduchom linkovanom zozname. Funkcia by mala upravit poradie uzlov tak, aby posledný uzol zoznamu sa stal prvým a prvý uzol posledným, pričom všetky ostatné uzly zmenia svoje pozície.
+
+## Funkcie:
+
+- `reverse()` : Funkcia, ktorá otočí poradie uzlov v zozname.
+- Po otočení zoznamu vypíšte obsah zoznamu, aby ste skontrolovali správnosť.
+
+## Ukážka : 
+
+### Pred otočením zoznam:
+
+```rust
+1 -> 2 -> 3 -> 4 -> 5
+```
+
+```rust
+5 -> 4 -> 3 -> 2 -> 1
+```
+
+
+# Úloha 3: Detekcia cyklu v linkovanom zozname
+
+##Zadanie:
+
+Implementujte funkciu, ktorá deteguje, či linkovaný zoznam obsahuje cyklus. Ak sa niektorý uzol odkazuje späť na nejaký predchádzajúci uzol (cyklus), funkcia by mala vrátiť true, inak false.
+
+Tip: Použite metódu "pomalý a rýchly ukazovateľ" (Floydov cyklický algoritmus). Tento algoritmus používa dvoch ukazovateľov: jeden prechádza zoznam pomalšie (po jednom uzle), druhý rýchlejšie (po dvoch uzloch). Ak sa ukazovatele stretnú, znamená to, že zoznam obsahuje cyklus.
+
+## Funkcie:
+
+- `hasCycle()` : Funkcia, ktorá deteguje cyklus v zozname.
+- Funkcia by mala vrátiť `true`, ak zoznam obsahuje cyklus, inak `false`.
+
+## Ukážka:
+
+### Príklad so zoznamom bez cyklu:
+
+## Výstup: `false`
+
+```rust
+1 -> 2 -> 3 -> 4 -> 5 (konec)
+```
+
+## Výstup: `true`
+
+Príklad so zoznamom s cyklom:
+
+```rust
+
+1 -> 2 -> 3 -> 4 -> 5 -> 2 (cyklus začína opäť na 2)
+
+```
+
+
+
+
+
+
+
+
 
 
 
