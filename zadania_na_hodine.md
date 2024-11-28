@@ -198,6 +198,91 @@ Príklad so zoznamom s cyklom:
 
 ```
 
+--- 
+
+# Úloha 4: Spájanie dvoch zoradených linkovaných zoznamov
+
+##Zadanie:
+
+Máte dva zoradené linkované zoznamy, `list1` a `list2`, každý obsahuje celé čísla. Vašou úlohou je spojiť oba zoznamy do jedného zoradeného zoznamu.
+
+- Vstup: Dva linkované zoznamy, každý zoradený v nerastúcom poradí.
+
+- Výstup: Jeden nový linkovaný zoznam, ktorý bude obsahovať všetky prvky zo vstupných zoznamov v zoradenom poradí.
+
+##Požiadavky:
+
+- Použite iteratívnu metódu na spojenie zoznamov (vyhnite sa rekurzii).
+
+- Po skončení operácie by mal byť výsledný zoznam správne zoradený bez potreby znovu zoradovať.
+
+## Príklad:
+
+## Vstupy:
+
+- `list1: 1 -> 3 -> 5 -> 7`
+- `list2: 2 -> 4 -> 6 -> 8`
+
+## Výstup:
+
+- `1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 8`
+
+## Tip: 
+
+Môžete začať iterovať cez oba zoznamy, porovnávať hodnoty a pripojiť menšiu hodnotu k výslednému zoznamu. Keď jeden zo zoznamov skončí, pridajte zostávajúce uzly z druhého zoznamu.
+
+--- 
+
+# Úloha 5: Detekcia a odstránenie cyklu v linkovanom zozname
+
+## Zadanie:
+
+Implementujte funkciu, ktorá najprv deteguje cyklus v linkovanom zozname a následne odstráni cyklus, ak existuje.
+
+Detekcia cyklu: Ak je v zozname cyklus (t. j. nejaký uzol odkazuje späť na predchádzajúci uzol), detegujte ho. Použite Floydov algoritmus s dvoma ukazovateľmi: pomalý (ktorý prejde jeden uzol) a rýchly (ktorý prejde dva uzly).
+
+Odstránenie cyklu: Ak cyklus existuje, funkcia musí odstrániť cyklus. To znamená, že nájdete uzol, ktorý tvorí cyklus, a nastavíte jeho `next` ukazovateľ na `nullptr`.
+
+
+##Požiadavky:
+
+- Detekcia cyklu pomocou dvoch ukazovateľov.
+
+- Po zistení cyklu odstráňte spojenie, ktoré cyklus vytvára.
+  
+- Funkcia by mala mať časovú zložitosť O(n), kde n je počet uzlov v zozname.
+  
+
+## Príklad:
+
+### Vstup: Zoznam obsahuje cyklus:
+
+```rust
+1 -> 2 -> 3 -> 4 -> 5 -> 6
+                ^---------|
+
+```
+
+### Výstup: Po odstránení cyklu:
+
+```rust
+1 -> 2 -> 3 -> 4 -> 5 -> 6
+
+```
+
+## Tipy:
+
+- Použite Floydov algoritmus pre detekciu cyklu.
+
+- Po detekcii cyklu, nájdite uzol, ktorý odkazuje späť na predchádzajúci uzol, a nastavte jeho `next` na `nullptr` pre odstránenie cyklu.
+
+
+
+
+
+
+
+
 
 
 
