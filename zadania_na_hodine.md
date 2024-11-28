@@ -129,5 +129,15 @@ int main() {
 }
 ```
 
+## Očakávaný výstup:
+
+```yaml
+Zoznam po vkladani: 5 10 20 
+Vyhladanie 10: Nájdené
+Zoznam po zmazani prveho uzla: 10 20
+```
+
+
+
 
 
