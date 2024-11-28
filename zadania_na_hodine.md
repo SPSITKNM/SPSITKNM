@@ -276,21 +276,152 @@ Odstránenie cyklu: Ak cyklus existuje, funkcia musí odstrániť cyklus. To zna
 
 - Po detekcii cyklu, nájdite uzol, ktorý odkazuje späť na predchádzajúci uzol, a nastavte jeho `next` na `nullptr` pre odstránenie cyklu.
 
+--- 
+
+# Úloha 6: Zistenie dĺžky linkovaného zoznamu
+
+## Zadanie:
+
+Vytvorte funkciu, ktorá vypočíta dĺžku jednoduchého linkovaného zoznamu. Funkcia by mala prejsť celý zoznam a spočítať počet uzlov v zozname.
+
+##Požiadavky:
+
+- Implementujte funkciu `getLength()`, ktorá vráti počet uzlov v zozname.
+
+## Čiastkový kód:
 
 
+```cpp
+class LinkedList {
+public:
+    Node* head;
+
+    LinkedList() : head(nullptr) {}
+
+    // Funkcia pre zistenie dĺžky zoznamu
+    int getLength() {
+        int length = 0;
+        Node* temp = head;
+        while (temp) {
+            length++;
+            temp = temp->next;
+        }
+        return length;
+    }
+};
+
+```
+
+Tip:
+
+- Prechádzajte zoznam a počítajte uzly jeden po druhom až do konca zoznamu, kým sa temp nestane `nullptr`.
+
+--- 
+
+# Úloha 7: Zistenie dĺžky linkovaného zoznamu
+
+## Zadanie:
+
+Vytvorte funkciu, ktorá odstráni prvý uzol v linkovanom zozname, ktorý obsahuje konkrétnu hodnotu.
+
+##Požiadavky:
+
+- Implementujte funkciu `deleteNode(int value)`, ktorá vyhľadá hodnotu v zozname a odstráni prvý uzol, ktorý obsahuje túto hodnotu.
+
+## Čiastkový kód 
+  
+```cpp
+class LinkedList {
+public:
+    Node* head;
+
+    LinkedList() : head(nullptr) {}
+
+    // Funkcia na odstránenie uzla podľa hodnoty
+    void deleteNode(int value) {
+        Node* temp = head;
+        if (temp && temp->value == value) {
+            head = temp->next;
+            delete temp;
+            return;
+        }
+        while (temp && temp->next) {
+            if (temp->next->value == value) {
+                Node* toDelete = temp->next;
+                temp->next = temp->next->next;
+                delete toDelete;
+                return;
+            }
+            temp = temp->next;
+        }
+    }
+};
+
+```
+
+Tip:
+
+- Ak je prvý uzol ten, ktorý chceme odstrániť, je potrebné zmeniť `head` zoznamu.
+- Ak ho nájdeme na inej pozícii, upravíme ukazovateľ na `next` predchádzajúceho uzla.
+
+---
+
+# Úloha 8: Zistenie dĺžky linkovaného zoznamu
+
+## Zadanie:
 
 
+Máte dva zoradené linkované zoznamy. Vytvorte funkciu, ktorá spojí oba zoznamy do jedného zoradeného zoznamu.
 
 
+##Požiadavky:
 
 
+- Použite iteratívnu metódu.
+- Nezotriedte zoznam po spojení, ale priamo ho vytvorte v zoradenom poradí.
+  
 
+## Čiastkový kód  
 
+```cpp
+class LinkedList {
+public:
+    Node* head;
 
+    LinkedList() : head(nullptr) {}
 
+    // Funkcia na zlúčenie dvoch zoradených zoznamov
+    Node* mergeSortedLists(Node* list1, Node* list2) {
+        Node* dummy = new Node(0);
+        Node* tail = dummy;
 
+        while (list1 && list2) {
+            if (list1->value < list2->value) {
+                tail->next = list1;
+                list1 = list1->next;
+            } else {
+                tail->next = list2;
+                list2 = list2->next;
+            }
+            tail = tail->next;
+        }
 
+        if (list1) {
+            tail->next = list1;
+        } else {
+            tail->next = list2;
+        }
 
+        return dummy->next;
+    }
+};
 
+```
 
+Tip:
+
+- Použite pomocný uzol `dummy`, aby ste uľahčili prácu s začiatkom zoznamu.
+- Po skončení jedného zo zoznamov pripojte zvyšok druhého zoznamu k výsledku.
+
+---
 
