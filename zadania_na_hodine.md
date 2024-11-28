@@ -318,7 +318,7 @@ Tip:
 
 --- 
 
-# Úloha 7: Zistenie dĺžky linkovaného zoznamu
+# Úloha 7: Zlúčenie dvoch zoradených zoznamov
 
 ## Zadanie:
 
@@ -366,7 +366,7 @@ Tip:
 
 ---
 
-# Úloha 8: Zistenie dĺžky linkovaného zoznamu
+# Úloha 8: Detekcia cyklu v linkovanom zozname
 
 ## Zadanie:
 
@@ -424,4 +424,73 @@ Tip:
 - Po skončení jedného zo zoznamov pripojte zvyšok druhého zoznamu k výsledku.
 
 ---
+
+# Úloha 9: Zlúčenie a zoradenie k-násobného zoznamu
+
+
+## Zadanie:
+
+
+Máte k zoradených linkovaných zoznamov. Vytvorte funkciu, ktorá všetky tieto zoznamy zlúči do jedného zoradeného zoznamu.
+
+
+- Implementujte funkciu `mergeKSortedLists()`, ktorá zlúči k zoradených zoznamov do jedného.
+- Použite min-heap (prioritný front) na optimalizáciu výkonu.
+
+
+### Tip: 
+
+
+- Pre každú hodnotu z každého zoznamu môžete použiť priority queue (min-heap), aby ste udržali najmenší prvok na vrchole a efektívne ho pridali do výsledného zoznamu.
+- Použitie priority queue (min-heap) umožňuje efektívne získať najmenší uzol zo všetkých zoznamov.
+- Po spracovaní uzla, ak existuje ďalší uzol v zozname, pridajte ho do fronty.
+- 
+
+## Čiastkový kód  
+
+
+```cpp
+#include <queue>
+#include <vector>
+
+class LinkedList {
+public:
+    Node* head;
+
+    LinkedList() : head(nullptr) {}
+
+    // Funkcia na zlúčenie k zoradených zoznamov
+    Node* mergeKSortedLists(std::vector<Node*>& lists) {
+        auto cmp = [](Node* a, Node* b) { return a->value > b->value; };
+        std::priority_queue<Node*, std::vector<Node*>, decltype(cmp)> pq(cmp);
+
+        for (Node* list : lists) {
+            if (list) {
+                pq.push(list);
+            }
+        }
+
+        Node* dummy = new Node(0);
+        Node* tail = dummy;
+
+        while (!pq.empty()) {
+            Node* minNode = pq.top();
+            pq.pop();
+            tail->next = minNode;
+            tail = tail->next;
+
+            if (minNode->next) {
+                pq.push(minNode->next);
+            }
+        }
+
+        return dummy->next;
+    }
+};
+
+
+```
+
+
+
 
