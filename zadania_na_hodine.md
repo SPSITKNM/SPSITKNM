@@ -162,6 +162,8 @@ Implementujte funkciu, ktorá otočí poradie uzlov v jednoduchom linkovanom zoz
 5 -> 4 -> 3 -> 2 -> 1
 ```
 
+--
+
 
 # Úloha 3: Detekcia cyklu v linkovanom zozname
 
