@@ -198,6 +198,116 @@ Príklad so zoznamom s cyklom:
 
 ```
 
+```cpp
+### Dobrovoľný kod na test Vášho cyklu: 
+
+
+#include <iostream>
+
+using namespace std;
+
+// Struktúra uzla v linkovanom zozname
+struct Node {
+    int data;
+    Node* next;
+    Node(int val) : data(val), next(nullptr) {}
+};
+
+class LinkedList {
+public:
+    Node* head;
+
+    LinkedList() : head(nullptr) {}
+
+    // Funkcia na pripojenie nového uzla na koniec zoznamu
+    void append(int val) {
+        Node* newNode = new Node(val);
+        if (!head) {
+            head = newNode;
+        } else {
+            Node* temp = head;
+            while (temp->next) {
+                temp = temp->next;
+            }
+            temp->next = newNode;
+        }
+    }
+
+    // Funkcia na detekciu cyklu pomocou Floydovho algoritmu (pomalý a rýchly ukazovateľ)
+    bool hasCycle() {
+        if (!head) return false;  // Prázdny zoznam nemôže mať cyklus
+
+        Node* slow = head;    // Pomalý ukazovateľ
+        Node* fast = head;    // Rýchly ukazovateľ
+
+        while (fast && fast->next) {
+            slow = slow->next;            // Pomalý ukazovateľ posúva o 1 uzol
+            fast = fast->next->next;      // Rýchly ukazovateľ posúva o 2 uzly
+
+            if (slow == fast) {           // Ak sa stretnú, je tam cyklus
+                return true;
+            }
+        }
+
+        return false; // Ak rýchly ukazovateľ dosiahne koniec zoznamu, cyklus nie je
+    }
+
+    // Funkcia na vytvorenie cyklu v zozname (pre testovanie)
+    void createCycle(int pos) {
+        Node* temp = head;
+        Node* cycleStartNode = nullptr;
+        int count = 1;
+
+        while (temp->next) {
+            if (count == pos) {
+                cycleStartNode = temp;
+            }
+            temp = temp->next;
+            count++;
+        }
+        if (cycleStartNode) {
+            temp->next = cycleStartNode; // Vytvorenie cyklu
+        }
+    }
+
+    // Funkcia na vypísanie zoznamu (pomocná pre vizualizáciu)
+    void printList() {
+        Node* temp = head;
+        while (temp) {
+            cout << temp->data << " -> ";
+            temp = temp->next;
+        }
+        cout << "nullptr" << endl;
+    }
+};
+
+// Hlavná funkcia pre testovanie
+int main() {
+    LinkedList list;
+
+    // Pridanie uzlov do zoznamu
+    list.append(1);
+    list.append(2);
+    list.append(3);
+    list.append(4);
+    list.append(5);
+
+    // Vytvorenie cyklu v zozname
+    // Pre testovanie, cyklus sa vytvorí na pozícii 2 (t.j. uzol s hodnotou 2)
+    list.createCycle(2);
+
+    // Testujeme, či zoznam obsahuje cyklus
+    if (list.hasCycle()) {
+        cout << "Zoznam obsahuje cyklus!" << endl;
+    } else {
+        cout << "Zoznam neobsahuje cyklus." << endl;
+    }
+
+    return 0;
+}
+
+```
+
 --- 
 
 # Úloha 4: Spájanie dvoch zoradených linkovaných zoznamov
