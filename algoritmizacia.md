@@ -541,3 +541,148 @@ int main(int argc, char *argv[])
 
     // * ked to runneme dostaveme teda nodu ktora drži int value 4, ukazuje na nu head, tail 
 }
+
+
+# PrintList function 
+
+#include <iostream>
+#include <fstream>
+#include <unordered_map>
+#include <vector>
+#include <string>
+#include <algorithm>
+#include <iterator>
+
+using namespace std;
+
+// ! constructor for out link list
+/*
+funkcia append
+vytvori new nodu
+a addne nodu na koniec
+
+funkcia prepand
+creatne novu nodu
+a insertne ju na na začiatok
+
+inert
+creatine nodu
+a nasledne danu nodu vloži na zodpovedajuci index
+
+! jedna spoločna vec ktoru maju všetky je prave create new node
+? vytvorime teda separatnu classu ktora len creati nody , ked teda jedna z tychto function bude potrebovať create callne class Node
+
+? čo je vlastne noda ? podobna unorder map
+
+*/
+
+// ! classes are being by default private in the c++
+
+class Node
+{
+
+public:
+    int value{};
+    Node *next;
+
+    // ? dôvod prečo pouzivame this je jednoduchy potrebujeme jasne determinovať že sa jedna o value ktore je v member časti našej classy
+
+    Node(int value)
+    {
+        this->value = value; // ? je to vlastne a len this->value je z membra, vlastne berieme niečo z vonku a assignujeeme to našej member functione
+        next = nullptr;      // ? .this tam byt nemusime nemame next ako parameter funkcie
+    }
+};
+
+class LinkedLIst
+{
+
+private:
+    Node *head; // ? pointer to a node
+    Node *tail; // ? pointer to a node
+    size_t length{};
+
+    // ? vytvormne si konštruktor
+
+public:
+    void printList()
+    {
+        Node *temp = head;      // ukazujeme teda na prvu
+        while (temp != nullptr) // ! mohlo by byt aj len temp teda inymi slovami ak temp nie je null a ukazuje na platny objekt
+        {
+            cout << temp->value << endl; // ! bude sa teda jednať o hodnotu na ktoru temp pointi
+            // pokial mame teda premennu ktora ukazuje na nodu, mame pristup k atributom v tej node,
+            // ! atributy su value and the next
+            temp = temp->next; // ! movne to temp na next nodu
+        }
+
+        // ! pri poslednej iteraci dôjde k rovnosti na nullptr, čo nas breakne z while loopu
+    }
+
+    void getHead()
+    {
+        cout << "This is the head : " << head->value << endl;
+    }
+
+    void getTail()
+    {
+        cout << "This is the head : " << head->value << endl;
+    }
+
+    void getLength()
+    {
+        cout << "This is the head : " << length << endl;
+    }
+
+    LinkedLIst(int value)
+    {
+
+        Node *newNode = new Node(value); // ? vďaka new keyworde vyhradi c++ pamät na heape, kde sa bude uchovvať objekt, nemusime teda presne determinovať jej velkosť
+        head = newNode;                  // newNode, je len a len pointer ktory ukazuje na heap kde je creatnuta nova noda, čo vlastne robime je že head je tiez pointer hovorime teda ukazuj na tu istu nodu ako ukazuje newNode
+        tail = newNode;                  // newNode, je len a len pointer ktory ukazuje na heap kde je creatnuta nova noda, čo vlastne robime je že head je tiez pointer hovorime teda ukazuj na tu istu nodu ako ukazuje newNode
+        length = 1;                      // nakolko mame len jednu creatnutu nodu naša dlzka bude teda 1
+                                         // čo je teda vysledkom operacie ?
+                                         // ! adresa novo vytvoreneneho objektu
+                                         // priradi sa do ukazovatelka NODE* newnNode
+                                         // ? takže newNode ukazuje ukazuje na novy objekt typu Node na heape
+
+        // ? zhrnutie
+        // ! na pravej strane vytvarame vytvarame pointer ktory moze pointit na novo vytvorenu nodu niekde na heape
+        // 1. mame pointer, = hovori ukazuj, new Node(value) novo vytvorena noda niekde na heape
+    }
+};
+
+int main(int argc, char *argv[])
+{
+
+    LinkedLIst *myLinkedList = new LinkedLIst(4);
+    // !   LinkedLIst *myLinkedList = variable name je myLinkedList, variable type je to pointer na linked list
+    // ? new LinkedLIst(4); vytvarame teda novy linkedlist niekde na heape
+
+    // * ked to runneme dostaveme teda nodu ktora drži int value 4, ukazuje na nu head, tail
+    myLinkedList->getHead();
+    myLinkedList->getTail();
+    myLinkedList->getLength();
+    myLinkedList->printList();
+
+    /*
+
+    ! požadovany vystup
+
+    This is the head : 4
+    This is the head : 4
+    This is the head : 1
+    4
+
+
+
+    */
+}
+
+
+
+
+
+
+
+
