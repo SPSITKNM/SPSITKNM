@@ -682,6 +682,8 @@ int main(int argc, char *argv[])
 
 # LinkList destructor 
 
+```cpp
+
 ~LinkedLIst() // ! hovorime teda o deštruktore
     {
         Node *temp = head;
@@ -712,11 +714,11 @@ int main(int argc, char *argv[])
 
     */
 }
-
+```
 
 
 # LinkList append 
-
+```cpp
   void append(int value)
     {
         Node *newNode = new Node(value); // ! first thing which we need to do is to create the node
@@ -744,8 +746,11 @@ int main(int argc, char *argv[])
 
 }
 
-LL : Delete Last 
+```
 
+LL : Delete Last
+
+```cpp
 void deleteTail()
     {
         if (head = nullptr) // pokial je list prazdy
@@ -801,6 +806,5 @@ void deleteTail()
     }
 };
 
-
-
+```
 
