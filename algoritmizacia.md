@@ -715,6 +715,34 @@ int main(int argc, char *argv[])
 
 
 
+# LinkList append 
+
+  void append(int value)
+    {
+        Node *newNode = new Node(value); // ! first thing which we need to do is to create the node
+
+        if (head == nullptr) // ak je teda zoznam prazdny alebo if(length == 0 )
+        {
+            head = newNode; // novy uzol je prvy a zaroven posledny
+            tail = newNode;
+        }
+        else // ? this is for when we have items in our link list
+        {
+            tail->next = newNode; // ? ukazovatel posledneho uzla bude teraz ukazovať na novy uzol
+            tail = newNode;       // tail sa posunie na uzol noby
+        }
+
+        length++;
+    }
+
+int main(int argc, char *argv[])
+{
+
+    LinkedLIst *myLinkedList = new LinkedLIst(4);
+    myLinkedList->append(5);
+    myLinkedList->printList();
+
+}
 
 
 
