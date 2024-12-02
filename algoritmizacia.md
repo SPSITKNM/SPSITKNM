@@ -744,6 +744,62 @@ int main(int argc, char *argv[])
 
 }
 
+LL : Delete Last 
+
+void deleteTail()
+    {
+        if (head = nullptr) // pokial je list prazdy
+        {
+            cout << "the ll is empty" << endl;
+            return;
+        }
+        if (head == tail) // pokial je tam len jedna noda ( head aj tail ukazuju na danu nodu)
+        {
+            cout << " there is only one node " << endl;
+            delete head;
+        }
+        else
+        {
+
+            Node *temp = head;
+            // ! takto najdeme posledny uzol
+            while (temp->next != tail)
+            {
+                temp = temp->next;
+            }
+            delete tail;          // delete posledneho uzla
+            tail = temp;          // predposledny uzol sa stane poslednym
+            tail->next = nullptr; // novy posledny uzol bude ukazovať na nič
+        }
+    }
+
+    // ? sekundarna metoda
+
+    void deleteTail_secondary()
+    {
+        if (length == 0)
+            return;
+
+        Node *temp = head;
+        Node *pre = head;
+        while (temp->next != nullptr) // ! pôjde teda až po koniec
+        {
+            pre = temp;        // pri prvej iteraci
+            temp = temp->next; // posunie ju
+            // ? o vysledku sa deje to že temp je vzdy o jedno popredu
+        }
+        tail = pre; // v pre je ulozene predposledna pozicia
+        tail->next = nullptr;
+        length--;
+        // tento seconadary statemnet sa deje potom čo dekriminujeme dzlku, zbavujeme sa poslednej nody, ktora uz nema kde pointit 
+        if (length == 0)
+        {
+            head = nullptr;
+            tail = nullptr;
+        }
+        delete temp;
+    }
+};
 
 
 
