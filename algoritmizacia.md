@@ -680,6 +680,40 @@ int main(int argc, char *argv[])
 }
 
 
+# LinkList destructor 
+
+~LinkedLIst() // ! hovorime teda o deštruktore
+    {
+        Node *temp = head;
+        while (head != nullptr)
+        {
+            head = head->next; // muvnutie
+            delete temp;       // vymaze to prvu nodu
+            temp = head;       // opätovne potom musime posunuť temp aby bol rovny heade
+        }
+    }
+    // ! head, tail, length = nie su mazane tymto deštruktorom, su mazane dštruktorom which is called the base one
+};
+
+int main(int argc, char *argv[])
+{
+
+    LinkedLIst *myLinkedList = new LinkedLIst(4);
+    // ! new keyword znamena, že budeme runnovať konštruktor pre classu LinkedList
+
+    // delete myLinkedList
+    // ! to by runnuť deštruktor pre classu, čo sa však stane pokial kod pre deštruktor nemame definovny runne to ten deafultny
+
+    // ? čo by sa stalo pokiaľ by sme runnuli defaultny constructor
+
+    /*
+    Su tu dve rozdielne classy ktore tvoria tento linkList je tu LinkedLIst a je tu Node class
+    vymaze to len head, tail a length... avšak u node nevie ako ich odstraniť, teda všetky nody ostanu v pamäti
+
+    */
+}
+
+
 
 
 
