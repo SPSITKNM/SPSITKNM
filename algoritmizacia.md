@@ -808,3 +808,38 @@ void deleteTail()
 
 ```
 
+# LL : Delete first 
+
+```cpp
+
+    void deleteFirst()
+    {
+        Node *temp = head;
+        if (head == nullptr) // ak je prazdny
+            return;
+        if (length == 1)
+        {
+            head = nullptr;
+            tail = nullptr;
+        }
+
+        head = head->next;
+
+        delete temp;
+        length--;
+    }
+};
+
+int main(int argc, char *argv[])
+{
+
+    LinkedLIst *myLinkedList = new LinkedLIst(5);
+    myLinkedList->append(4);
+    myLinkedList->append(4);
+    myLinkedList->printList();
+    myLinkedList->deleteFirst();
+    myLinkedList->printList();
+}
+
+
+```
