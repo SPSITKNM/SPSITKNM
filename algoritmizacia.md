@@ -454,73 +454,90 @@ Link List under the hood
 
 ---
 
-Konštrukcia LinkListu
-
+# Konštrukcia linkListu 
 
 #include <iostream>
+#include <fstream>
+#include <unordered_map>
+#include <vector>
+#include <string>
+#include <algorithm>
+#include <iterator>
+
 using namespace std;
 
-int main(int args, char *argv[])
-{
-}
+// ! constructor for out link list
+/*
+funkcia append
+vytvori new nodu
+a addne nodu na koniec
 
-class LinkedList
-{
+funkcia prepand
+creatne novu nodu
+a insertne ju na na začiatok
 
-private:
-    Node *head; // ! this is a pointer to a node
-    Node *tail;
-    int dlzka;
+inert
+creatine nodu
+a nasledne danu nodu vloži na zodpovedajuci index
 
-public:
-    LinkedList(int value)
-    {
-        // ! newNode = is a pointer to a node
-        Node *newNode = new Node(value);
-        head = newNode; // ? hovorime teda, že head pointrom ukazujeme na tuto nodu
-        tail = newNode; // ? tail is pointing to the newNode
-        dlzka = 1;      // duo to the reason, we now have one node in our linked list
-        // ! setneme teda length na 1
-    }
+! jedna spoločna vec ktoru maju všetky je prave create new node
+? vytvorime teda separatnu classu ktora len creati nody , ked teda jedna z tychto function bude potrebovať create callne class Node
 
-    // LinkedList(int value){...} = create new node
+? čo je vlastne noda ? podobna unorder map
 
-    // void append( int value){...} = create new node, add node to the end
-    // void prepend( int value){...} = create new node, add node to beginning
-    // bool insert(int index, int value){...} = create new node, insert node
-
-    // ? prva vec ktoru maju by common ze sa passuje value
-    // ! ďalšia ze vytvaraju novu nodu
-
-    // ! the way how would we create the a new linked list would be something like this
-
-    LinkedList *myLinkedList = new LinkedList(4);
-    // * variable name je : myLinkedList
-    // ? variable type je pointer na link list
-    // ! new naznačuje ze sa jedna o vytvaranie wanna be inštancie linkedListu
-};
-
-// ? čo je vlastne noda
-// noda je teda dosť podobna unordered maape
+*/
 
 class Node
 {
+
 public:
-    int value;
-    Node *next; // will be th pointer that is going to point to a node
+    int value{};
+    Node *next;
 
-    Node(int value) // ! and the constructor will also hava the value that we pass into
+    // ? dôvod prečo pouzivame this je jednoduchy potrebujeme jasne determinovať že sa jedna o value ktore je v member časti našej classy
+
+    Node(int value)
     {
-
-        this->value = value; // this is how we assing the value to a new node
-        // ? this keyworda refers to a current instance ( or object ) of the node class that the code is working on
-        // ked je parameter value rovnaky ako class member variable (value)
-        // ? this keyword pouzivame na oddelenie member variable od parametru
-        // this->value = value, refers to the value variable defined as a member of the node class
-        // ! overall pokial by sme zmenili meno na napr val = tak nemusime vyuzivať this keyword
-        // ! nakolko teda odlišujeme ze
-
-        next = nullptr; // ? this next referuje ku next var v public časti nody, this ani nemusime davať nakolko this. nemame ani ako parameter v našej funkcii
+        this->value = value; // ? je to vlastne a len this->value je z membra, vlastne berieme niečo z vonku a assignujeeme to našej member functione
+        next = nullptr;      // ? .this tam byt nemusime nemame next ako parameter funkcie
     }
 };
 
+class LinkedLIst
+{
+
+private:
+    Node *head; // ? pointer to a node
+    Node *tail; // ? pointer to a node
+    size_t length{};
+
+    // ? vytvormne si konštruktor
+
+public:
+    LinkedLIst(int value)
+    {
+
+        Node *newNode = new Node(value); // ? vďaka new keyworde vyhradi c++ pamät na heape, kde sa bude uchovvať objekt, nemusime teda presne determinovať jej velkosť
+        head = newNode;                  // newNode, je len a len pointer ktory ukazuje na heap kde je creatnuta nova noda, čo vlastne robime je že head je tiez pointer hovorime teda ukazuj na tu istu nodu ako ukazuje newNode
+        tail = newNode;                  // newNode, je len a len pointer ktory ukazuje na heap kde je creatnuta nova noda, čo vlastne robime je že head je tiez pointer hovorime teda ukazuj na tu istu nodu ako ukazuje newNode
+        length = 1;                      // nakolko mame len jednu creatnutu nodu naša dlzka bude teda 1
+        // čo je teda vysledkom operacie ?
+        // ! adresa novo vytvoreneneho objektu
+        // priradi sa do ukazovatelka NODE* newnNode
+        // ? takže newNode ukazuje ukazuje na novy objekt typu Node na heape
+
+        // ? zhrnutie
+        // ! na pravej strane vytvarame vytvarame pointer ktory moze pointit na novo vytvorenu nodu niekde na heape
+        // 1. mame pointer, = hovori ukazuj, new Node(value) novo vytvorena noda niekde na heape
+    }
+};
+
+int main(int argc, char *argv[])
+{
+
+    LinkedLIst *myLinkedList = new LinkedLIst(4);
+    // !   LinkedLIst *myLinkedList = variable name je myLinkedList, variable type je to pointer na linked list 
+    // ? new LinkedLIst(4); vytvarame teda novy linkedlist niekde na heape 
+
+    // * ked to runneme dostaveme teda nodu ktora drži int value 4, ukazuje na nu head, tail 
+}
