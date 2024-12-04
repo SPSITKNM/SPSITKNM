@@ -843,3 +843,106 @@ int main(int argc, char *argv[])
 
 
 ```
+
+#LL :: Get function 
+
+```cpp
+Node* get(int index){
+        if(index < 0 && index >= length){ // test to make sure your index is in the correct range
+            return nullptr;
+        }
+        Node *temp = head; // vytvorime si temporary variable
+        for (size_t i = 0; i < index; i++) { // iteruj po dobu zadanej dzlky
+            temp = temp->next;
+        }
+        return temp;
+
+    }
+
+```
+
+
+## Get function sekundárna možnosť 
+
+```cpp
+Node* get_demo(int index) {
+        if (index < 0 && index >= length) { // indexacia je v štyle length - 1
+            return nullptr;
+        }
+        Node* temp = head;
+        for (size_t i = 0; i < index; i++) {
+            temp = temp->next;
+        }
+        if (temp != nullptr) {
+            cout << temp->value << endl;
+        }
+        return temp;
+    }
+```
+
+## Set function sekundárna implementácia 
+
+
+```cpp
+
+ Node* set_function(int index, int value) {
+        if (index < 0 && index >= length) {
+            cout << "index out of range" << endl;
+            return nullptr;
+        }
+        Node *temp = head;
+        for (size_t i  = 0; i < index; i++) {
+            temp = temp->next;
+        }
+        if (temp != nullptr) {
+            temp->value = value;
+            cout << " this is the new value " << temp->value << " of index " << temp << endl;
+        }
+    }
+
+```
+
+## LL : Set function sekundárna implementácia 
+
+```cpp
+    
+    bool set(int index, int value) {
+        Node* temp = get(index); // vyuzit function of the get which we had implemented
+        if (temp) {
+            // moze byt i temp != nullptr
+            temp->value = value;
+            return true;
+        }
+        return false; // otherwise pokial je nullptr tak falsee
+
+
+    }
+```
+
+## LL : insert funkcia 
+
+```cpp
+
+  bool insert(int index, int value) {
+        if (index < 0 || index > length) { // 1. if statement ak je out of the range
+            return false;
+        }
+        if (index == 0) { // ak je nula
+            prepand (value);
+            return true;
+        }
+        if (index == length) { // ak je na konci
+            append(value);
+            return true;
+        }
+        Node* newNode = new Node(value);
+        Node* temp = get(index - 1); // chceme ukazovať na previous one
+        newNode->next = temp; // ukazuj tam kde temp
+        temp->next = newNode;
+        length++;
+        return true;
+    }
+```
+
+
+
