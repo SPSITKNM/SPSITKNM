@@ -944,5 +944,3 @@ Node* get_demo(int index) {
     }
 ```
 
-
-
