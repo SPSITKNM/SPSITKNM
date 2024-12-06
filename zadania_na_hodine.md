@@ -602,5 +602,42 @@ public:
 ```
 
 
+# Úloha pre 6.12.2024 : Nájdi všetky podmnožiny, ktoré dávajú požadovaný súčet
+
+## Popis úlohy
+
+Tvojou úlohou je napísať program, ktorý pre danú množinu kladných celých čísel a cieľový súčet nájde všetky podmnožiny, ktorých prvky dávajú práve tento súčet. Podrobnejšie informácie nájdeš v knihe od Levittina, alebo v iných príbuzných materiáloch.
+
+Program bude postupovať nasledovne:
+
+1. **Načíta množinu čísel zo súboru.**
+2. **Nájde všetky podmnožiny, ktoré dávajú požadovaný súčet.**
+3. **Vypíše počet podmnožín, ktoré dávajú požadovaný súčet, na štandardný výstup.**
+
+Úloha je navrhnutá na vyskúšanie rekurzívneho hľadania podmnožín. Použijete algoritmus založený na prechádzaní stromu možností (backtracking):
+- Pre každý prvok rozhodnite, či bude zahrnutý do podmnožiny, alebo nie.
+- Sledujte aktuálny súčet podmnožiny, aby ste zastavili zbytočné vetvy (ak súčet presiahne cieľový súčet).
+- Ak nájdete nejaký iný pekný algoritmus na riešenie tejto úlohy, môžete ho pridať tiež.
+
+## Formát vstupu
+
+- Súbor obsahuje sekvenciu kladných celých čísel, v jednom riadku, oddelených medzerami.
+- Na príkazovej riadke bude program spustený v formáte: `./main nazov_souboru.txt suma`
+
+## Testy
+
+Pre vstupné dáta:
+
+```cpp
+2 3 5 7
+```
+
+a cieľovú sumu **10** by nemalo byť ťažké si rozmyslieť, že výstup bude **2**.
+
+Pre cieľ **50** program s týmito dátami vráti **0**.
+
+
+
+
 
 
