@@ -944,3 +944,33 @@ Node* get_demo(int index) {
     }
 ```
 
+## LL : Reverse 
+
+
+
+```cpp
+void reverse()
+    {
+
+        // ! Prva vec čo urobime je ze prehodime ukazovatel na začiatok a koniec
+        Node *temp = head;
+        head = tail;
+        tail = head;
+
+        Node *after = temp->next; // tato sa nachadza za tempim
+        Node *before = nullptr;
+
+        // before --- temp --- after
+
+        for (size_t i = 0; i < length; i++)
+        {
+            after = temp->next;
+            temp->next = before; // tymto prehdime kam ma ukazovať , ukazuje other way
+                                 // --- presne tu sme si rozbili spojitosť v linkliste
+            before = temp;       // odstranime ju z konca na prvvu
+            temp = after;        // nasledne vdaka after variable to presnunieme
+        }
+    }
+};
+```
+
