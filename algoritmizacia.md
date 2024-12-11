@@ -1280,3 +1280,192 @@ int main(int agrs, char *argv[])
 }
 
 ```
+
+# Basic quee operations / základné operácie na stacku a fronte - push / pop - enquee / dequee
+
+```cpp
+
+#include <iostream>
+using namespace std;
+
+class Node
+{
+public:
+    int value{};
+    Node *next = nullptr;
+
+    Node(int value)
+    {
+        this->value = value;
+        next = nullptr;
+    }
+};
+
+class LinkedList
+{
+private:
+    Node *tail;
+    Node *head;
+    int length = 0;
+
+public:
+    LinkedList(int value)
+    {
+        Node *newNode = new Node(value);
+        head = newNode;
+        tail = newNode;
+        length++;
+    }
+
+    void printList()
+    {
+        Node *temp = head;
+        while (temp != nullptr)
+        {
+            cout << " this is the temp value : " << temp->value << endl;
+            temp = temp->next;
+        }
+    }
+
+    void append(int value)
+    {
+        Node *newNode = new Node(value);
+        tail->next = newNode;
+        tail = newNode; // Oprava
+        length++;
+    }
+};
+
+class Stack
+{
+public:
+    Node *top;
+    int height{};
+
+    Stack() : top(nullptr), height(0) {}
+
+    void push(int value)
+    {
+        Node *newNode = new Node(value);
+        newNode->next = top;
+        top = newNode;
+        height++;
+    }
+
+    void pop()
+    {
+        if (top == nullptr)
+        {
+            return;
+        }
+        Node *temp = top;
+        top = temp->next;
+        temp->next = nullptr;
+        delete temp;
+    }
+
+    void vypisStack()
+    {
+        size_t localVar{};
+        Node *temp = top;
+        while (temp)
+        {
+            localVar++;
+            cout << "Iteration: " << localVar << " Value: " << temp->value << endl;
+            temp = temp->next;
+        }
+    }
+};
+
+class Queue
+{
+private:
+    Node *first;
+    Node *last;
+    int length;
+
+public:
+    Queue(int value)
+    {
+        Node *newNode = new Node(value);
+        first = newNode;
+        last = newNode;
+        length = 1;
+    }
+
+    void enqueue(int value)
+    { // Oprava názvu
+        Node *newNode = new Node(value);
+        if (length == 0)
+        {
+            first = newNode;
+            last = newNode;
+        }
+        else
+        {
+            last->next = newNode;
+            last = newNode;
+        }
+        length++;
+    }
+
+    void print()
+    {
+        Node *temp = first;
+        while (temp)
+        {
+            cout << temp->value << " ";
+            temp = temp->next;
+        }
+        cout << endl;
+    }
+
+    int dequeue()
+    {
+        if (length == 0)
+        {
+            return INT_MIN;
+        }
+        Node *temp = first;
+        int dequeuedValue = first->value;
+        if (length == 1)
+        {
+            first = nullptr;
+            last = nullptr;
+        }
+        else
+        {
+            first = first->next;
+        }
+        delete temp;
+        length--;
+        return dequeuedValue;
+    }
+};
+
+int main()
+{
+    LinkedList *linkList = new LinkedList(2);
+    linkList->append(3);
+    linkList->printList();
+    delete linkList; // Oprava na uvoľnenie pamäte
+
+    Stack *stack_ptr = new Stack();
+    stack_ptr->push(2);
+    stack_ptr->push(5);
+    stack_ptr->vypisStack();
+    delete stack_ptr; // Uvoľnenie pamäte
+
+    cout << "------fronta-----" << endl;
+    Queue *ptr_fronta = new Queue(5);
+    ptr_fronta->enqueue(4);
+    ptr_fronta->enqueue(7);
+    ptr_fronta->print();
+    ptr_fronta->dequeue();
+    ptr_fronta->print();
+    delete ptr_fronta; // Uvoľnenie pamäte
+
+    return 0;
+}
+
+```
