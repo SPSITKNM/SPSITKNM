@@ -1191,3 +1191,92 @@ int main(int args, char *argv[]) {
 }
 
 ```
+
+# Stack 
+
+
+```cpp
+
+
+#include <iostream>
+using namespace std;
+// ! identicke pre našu node classu pre link list
+
+class Node
+{
+public:
+    int value{};
+    Node *next;
+
+    Node(int value)
+    {
+        this->value = value;
+        next = nullptr;
+    }
+};
+
+class Stack
+{
+private:       // classes are by default private
+    Node *top; // ekvivalent headu v linkliste
+    int height;
+
+public:
+    Stack(int value)
+    {
+        Node *newNode = new Node(value); // first thing is to create the node with the value which we have passed in
+        top = newNode;                   // to iste ako ked daveme head rovny jednej node ak je len jedna v linkliste
+        height += 1;
+    }
+
+    void printStack()
+    {
+        Node *temp = top;
+        while (temp)
+        {
+            cout << temp->value << endl;
+            temp = temp->next;
+        }
+    }
+    void push(int value)
+    {
+        Node *newNode = new Node(value);
+
+        newNode->next = top;
+        top = newNode;
+        height++;
+    }
+
+    int pop()
+    { // similar to delete first
+        if (height == 0)
+        {
+            return INT_MIN; // this is the minimum number that the integer can be
+        }
+        Node *temp = top;
+        int popped_value = temp->value;
+        top = top->next;
+        temp->next = nullptr;
+        delete temp;
+        return popped_value;
+        height--;
+    }
+
+public:
+    int getHeight()
+    {
+        cout << "this is the height" << height << endl;
+    }
+};
+
+int main(int agrs, char *argv[])
+{
+    Stack *kraken = new Stack(7);
+    kraken->push(2);
+    kraken->printStack();
+    kraken->pop();
+    kraken->printStack();
+    kraken->getHeight();
+}
+
+```
