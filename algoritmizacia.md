@@ -974,3 +974,220 @@ void reverse()
 };
 ```
 
+#DLL Basics 
+
+
+```cpp
+#include <iostream>
+using namespace std;
+
+class Node
+{
+public:
+    int value;
+    Node *next;
+    Node *prev;
+
+    Node(int value)
+    {
+        this->value = value;
+        next = nullptr;
+        prev = nullptr;
+    }
+};
+
+class DoubleLinkedListto
+{
+
+private: // ? všetko je private by the default
+    Node *head;
+    Node *tail;
+    size_t length;
+
+public:
+    DoubleLinkedListto(int value)
+    {
+        Node *newNode = new Node(value);
+        head = newNode;
+        tail = newNode;
+        length = 1;
+    }
+
+    void printlist()
+    {
+        Node *temp = head;
+
+        while (temp != nullptr)
+        {
+            cout << temp->value << endl;
+            temp = temp->next;
+        }
+    }
+};
+
+int main(int args, char *argv[])
+{
+    DoubleLinkedListto *myDDL = new DoubleLinkedListto(7);
+    myDDL->printlist();
+}
+```
+
+#DDL Preberaná funkcionalita na single link listoch
+
+```cpp
+
+#include <iostream>
+using namespace std;
+
+class Node {
+public:
+    int value;
+    Node *next;
+    Node *prev;
+
+    Node(int value) {
+        this->value = value;
+        next = nullptr;
+        prev = nullptr;
+    }
+};
+
+class DoubleLinkedListto {
+private:
+    Node *head;
+    Node *tail;
+    int length;
+
+public:
+    DoubleLinkedListto(int value) {
+        Node *newNode = new Node(value);
+        head = newNode;
+        tail = newNode;
+        length = 1;
+    }
+
+    void printlist() {
+        Node *temp = head;
+        while (temp != nullptr) {
+            cout << temp->value << endl;
+            temp = temp->next;
+        }
+    }
+
+    // ! začinaju DDLka
+    void append(int value) {
+        Node *newNode = new Node(value);
+        if (length == 0) {
+            head = newNode;
+            tail = newNode;
+        } else {
+            tail->next = newNode;
+            newNode->prev = tail;
+            tail = newNode;
+        }
+        length++;
+    }
+
+    void deleteLast() {
+        if (head == nullptr || tail == nullptr) {
+            cout << "The list is empty." << endl;
+            return;
+        }
+        Node *temp = tail;
+        if (length == 1) {
+            head = nullptr;
+            tail = nullptr;
+        } else {
+            tail = tail->prev;
+            tail->next = nullptr;
+        }
+        delete temp;
+        length--;
+    }
+
+    void prepand(int value) {
+        Node *newNode = new Node(value);
+        if (head == nullptr) {
+            head = newNode;
+            tail = newNode;
+        } else {
+            newNode->next = head;
+            head->prev = newNode;
+            head = newNode;
+        }
+        length++;
+    }
+
+    Node* get(int index) {
+        if (index < 0 || index >= length) {
+            return nullptr;
+        }
+        Node *temp = head;
+        if (index < length / 2) {
+            for (int i = 0; i < index; i++) {
+                temp = temp->next;
+            }
+        } else {
+            temp = tail;
+            for (int i = length - 1; i > index; i--) {
+                temp = temp->prev;
+            }
+        }
+        return temp;
+    }
+
+    void deleteFirst() {
+        if (head == nullptr) {
+            cout << "The list is empty." << endl;
+            return;
+        }
+        Node *temp = head;
+        if (length == 1) {
+            head = nullptr;
+            tail = nullptr;
+        } else {
+            head = head->next;
+            head->prev = nullptr;
+        }
+        delete temp;
+        length--;
+    }
+    bool set( int index, int value) {
+    Node* temp = get(index);
+    if (temp != nullptr){// so the number could not be negative
+    temp->value = value;
+        return true;
+
+    }
+
+};
+
+int main(int args, char *argv[]) {
+    DoubleLinkedListto *myDDL = new DoubleLinkedListto(7);
+    myDDL->append(1);
+    myDDL->append(2);
+    myDDL->append(3);
+
+    cout << "List after appending:" << endl;
+    myDDL->printlist();
+
+    cout << "Value at index 2: " << myDDL->get(2)->value << endl;
+
+    myDDL->deleteFirst();
+    cout << "List after deleting the first node:" << endl;
+    myDDL->printlist();
+
+    myDDL->deleteLast();
+    cout << "List after deleting the last node:" << endl;
+    myDDL->printlist();
+
+    myDDL->deleteFirst();
+    myDDL->deleteFirst();
+    myDDL->deleteFirst(); // Attempt to delete from an empty list
+    cout << "List after deleting all nodes:" << endl;
+    myDDL->printlist();
+
+    return 0;
+}
+
+```
