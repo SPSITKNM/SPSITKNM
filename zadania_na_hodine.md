@@ -1,640 +1,666 @@
-# Úloha: Implementácia a manipulácia s jednoduchým linkovaným zoznamom
 
-## Zadanie
+# Developed by Tom (Starký) Muc. - Exercises for the Doubly Linked List Section
 
-Vytvorte triedu `LinkedList`, ktorá bude implementovať **jednoduchý linkovaný zoznam**. Tento zoznam bude obsahovať nasledujúce funkcie:
 
-### 1. Vloženie na začiatok zoznamu
-- Pridajte nový uzol na začiatok zoznamu.
+# 1. DoublyLinkedList: Swap First and Last
 
-### 2. Vloženie na koniec zoznamu
-- Pridajte nový uzol na koniec zoznamu.
+### Task
+Implement a member function called `swapFirstLast()` for the `DoublyLinkedList` class:
 
-### 3. Zmazanie prvého uzla
-- Zmažte prvý uzol v zozname.
+- **Functionality**:
+  - Swap the values of the first and last nodes in the list.
+  - If the length of the list is less than 2, the function should not perform any operation.
 
-### 4. Vyhľadanie hodnoty
-- Skontrolujte, či zoznam obsahuje určitú hodnotu.
+- **Input**:
+  - The function is a member of the `DoublyLinkedList` class, which has:
+    - A `head` pointer to the first node.
+    - A `tail` pointer to the last node.
+    - A `length` attribute indicating the number of elements in the list.
 
-### 5. Výpis zoznamu
-- Vytlačte všetky hodnoty v zozname.
+- **Output**:
+  - No explicit output is returned.
+  - The function should modify the doubly linked list so that the values of the first and last nodes are swapped.
 
-## Struktúra triedy
+---
 
-### 1. Trieda `Node`
-Trieda `Node` bude obsahovať:
-- `value`: hodnota uzla (celé číslo).
-- `next`: ukazovateľ na ďalší uzol v zozname.
+### Example
+#### Before `swapFirstLast()`:
+- Head value: `1`
+- Tail value: `5`
+
+#### After `swapFirstLast()`:
+- Head value: `5`
+- Tail value: `1`
+
 
 ```cpp
-class Node {
-public:
-    int value;     // Hodnota uzla
-    Node* next;    // Ukazovateľ na ďalší uzol
+#include <iostream>
+#include <iostream>
 
-    Node(int val) : value(val), next(nullptr) {}
+using namespace std;
+
+class Node { 
+    public: 
+        int value;
+        Node* next;
+        Node* prev;
+    
+        Node(int value) {
+            this->value = value;
+            next = nullptr;
+            prev = nullptr;
+        }
 };
-```
 
-## 2. Trieda `LinkedList`
-
-### Trieda LinkedList bude mať:
-
-- Ukazovateľ na prvý uzol (head), ktorý bude inicializovaný na nullptr.
-
-- Implementujte metódy pre pridávanie uzlov na začiatok aj na koniec, mazanie prvého uzla a vyhľadanie hodnoty.
-
-
-```cpp
-class LinkedList {
-public:
-    Node* head;  // Ukazovateľ na prvý uzol v zozname
-
-    LinkedList() : head(nullptr) {}
-
-    // Vloženie na začiatok zoznamu
-    void insertAtBeginning(int value) {
-        Node* newNode = new Node(value);
-        newNode->next = head;
-        head = newNode;
-    }
-
-    // Vloženie na koniec zoznamu
-    void insertAtEnd(int value) {
-        Node* newNode = new Node(value);
-        if (!head) {
+class DoublyLinkedList {
+    private:
+        Node* head;
+        Node* tail;
+        int length;
+    
+    public:
+        DoublyLinkedList(int value) {
+            Node* newNode = new Node(value);
             head = newNode;
-            return;
+            tail = newNode;
+            length = 1;
         }
-        Node* temp = head;
-        while (temp->next) {
-            temp = temp->next;
-        }
-        temp->next = newNode;
-    }
-
-    // Zmazanie prvého uzla
-    void deleteFirstNode() {
-        if (head) {
+    
+        ~DoublyLinkedList() {
             Node* temp = head;
-            head = head->next;
-            delete temp;
-        }
-    }
-
-    // Vyhľadanie hodnoty v zozname
-    bool search(int value) {
-        Node* temp = head;
-        while (temp) {
-            if (temp->value == value) {
-                return true;
+            while (head) {
+                head = head->next;
+                delete temp;
+                temp = head;
             }
-            temp = temp->next;
         }
-        return false;
-    }
+    
+        void printList() {
+            Node* temp = head;
+            if (temp == nullptr) {
+                cout << "empty" << endl;
+                return;
+            }
+            while (temp->next != nullptr) {
+                cout << temp->value << " <-> ";
+                temp = temp->next;
+            }
+            cout << temp->value << endl;
+        }
+    
+        Node* getHead() {
+            return head;
+        }
+    
+        Node* getTail() {
+            return tail;
+        }
+    
+        int getLength() {
+            return length;
+        }
 
-    // Výpis zoznamu
-    void printList() {
-        Node* temp = head;
-        while (temp) {
-            cout << temp->value << " ";
-            temp = temp->next;
+        void append(int value) {
+            Node* newNode = new Node(value);
+            if (length == 0) {
+                head = newNode;
+                tail = newNode;
+            } else {
+                tail->next = newNode;
+                newNode->prev = tail;
+                tail = newNode;
+            }
+            length++;
         }
-        cout << endl;
-    }
+        
+        //   +=====================================================+
+        //   |                 WRITE YOUR CODE HERE                |
+        //   | Description:                                        |
+        //   | - This is the swapFirstLast function.               |
+        //   | - It swaps the values of the first and last nodes   |
+        //   |   in the doubly linked list.                        |
+        //   | - Return type: void                                 |
+        //   |                                                     |
+        //   | Tips:                                               |
+        //   | - Check if the list has less than 2 nodes. If so,   |
+        //   |   just return; nothing to swap.                     |
+        //   | - Use a temporary variable to store the value of    |
+        //   |   the head node.                                    |
+        //   | - Assign the value of the tail node to the head     |
+        //   |   node.                                             |
+        //   | - Assign the stored head node value to the tail.    |
+        //   | - Check output from Test.cpp in "User logs".        |
+        //   +=====================================================+
+        
 };
+
+
 ```
 
-## Testovanie
 
-Vytvorte objekt `LinkedList` a použite implementované metódy na testovanie funkcií:
+# 2. DoublyLinkedList: Reverse
 
-```cpp
-int main() {
-    LinkedList list;
+### Task
+Implement a member function called `reverse()` for the `DoublyLinkedList` class:
 
-    list.insertAtBeginning(10);
-    list.insertAtBeginning(20);
-    list.insertAtEnd(30);
-    list.printList();  // Výstup: 20 10 30
+- **Functionality**:
+  - Reverse the order of the nodes in the doubly linked list.
+  - Update the `prev` and `next` pointers of each node to achieve the reversal.
 
-    list.deleteFirstNode();
-    list.printList();  // Výstup: 10 30
+- **Input**:
+  - The function is a member of the `DoublyLinkedList` class, which has:
+    - A `head` pointer to the first node.
+    - A `tail` pointer to the last node.
+    - A `length` attribute indicating the number of elements in the list.
 
-    cout << "Hodnota 10 v zozname: " << (list.search(10) ? "Nájdená" : "Nenájdená") << endl;
-    cout << "Hodnota 50 v zozname: " << (list.search(50) ? "Nájdená" : "Nenájdená") << endl;
-
-    return 0;
-}
-```
-
-## Očakávaný výstup:
-
-```yaml
-Zoznam po vkladani: 5 10 20 
-Vyhladanie 10: Nájdené
-Zoznam po zmazani prveho uzla: 10 20
-```
+- **Output**:
+  - No explicit output is returned.
+  - The function modifies the doubly linked list to reverse the order of its nodes.
 
 ---
 
-# Úloha 2: Zmena poradia uzlov v linkovanom zozname
-
-## Zadanie:
-
-Implementujte funkciu, ktorá otočí poradie uzlov v jednoduchom linkovanom zozname. Funkcia by mala upravit poradie uzlov tak, aby posledný uzol zoznamu sa stal prvým a prvý uzol posledným, pričom všetky ostatné uzly zmenia svoje pozície.
-
-## Funkcie:
-
-- `reverse()` : Funkcia, ktorá otočí poradie uzlov v zozname.
-- Po otočení zoznamu vypíšte obsah zoznamu, aby ste skontrolovali správnosť.
-
-## Ukážka : 
-
-### Pred otočením zoznam:
-
-```rust
-1 -> 2 -> 3 -> 4 -> 5
-```
-
-```rust
-5 -> 4 -> 3 -> 2 -> 1
-```
+### Constraints
+- The doubly linked list may:
+  - Be empty (no operation needed).
+  - Have only one node (no operation needed).
+  - Have two or more nodes.
 
 ---
 
+### Example
 
-# Úloha 3: Detekcia cyklu v linkovanom zozname
+#### Before `reverse()`:
+- **Head**: `1`
+- **Tail**: `5`
+- **Length**: `5`
 
-##Zadanie:
+**Doubly Linked List**:
+`1 <-> 2 <-> 3 <-> 4 <-> 5`
 
-Implementujte funkciu, ktorá deteguje, či linkovaný zoznam obsahuje cyklus. Ak sa niektorý uzol odkazuje späť na nejaký predchádzajúci uzol (cyklus), funkcia by mala vrátiť true, inak false.
+#### After `reverse()`:
+- **Head**: `5`
+- **Tail**: `1`
+- **Length**: `5`
 
-Tip: Použite metódu "pomalý a rýchly ukazovateľ" (Floydov cyklický algoritmus). Tento algoritmus používa dvoch ukazovateľov: jeden prechádza zoznam pomalšie (po jednom uzle), druhý rýchlejšie (po dvoch uzloch). Ak sa ukazovatele stretnú, znamená to, že zoznam obsahuje cyklus.
+**Doubly Linked List**:
+`5 <-> 4 <-> 3 <-> 2 <-> 1`
 
-## Funkcie:
+---
 
-- `hasCycle()` : Funkcia, ktorá deteguje cyklus v zozname.
-- Funkcia by mala vrátiť `true`, ak zoznam obsahuje cyklus, inak `false`.
+### Steps to Implement
+1. **Edge Cases**:
+   - If the list is empty or has only one node, return immediately as no changes are needed.
+   
+2. **Traverse and Swap**:
+   - Use a temporary pointer to traverse the list.
+   - For each node:
+     - Swap its `prev` and `next` pointers.
+   - Continue until all nodes are processed.
 
-## Ukážka:
+3. **Update Head and Tail**:
+   - After traversal, swap the `head` and `tail` pointers to reflect the new order.
 
-### Príklad so zoznamom bez cyklu:
+---
 
-## Výstup: `false`
+### Key Notes
+- Ensure the integrity of the list is maintained during pointer swapping.
+- Properly handle edge cases to avoid null pointer dereferences.
+- Verify the updated `head` and `tail` pointers after the reversal.
 
-```rust
-1 -> 2 -> 3 -> 4 -> 5 (konec)
-```
+Good luck implementing the `reverse()` function!
 
-## Výstup: `true`
 
-Príklad so zoznamom s cyklom:
-
-```rust
-
-1 -> 2 -> 3 -> 4 -> 5 -> 2 (cyklus začína opäť na 2)
-
-```
 
 ```cpp
-### Dobrovoľný kod na test Vášho cyklu: 
-
 
 #include <iostream>
 
 using namespace std;
 
-// Struktúra uzla v linkovanom zozname
-struct Node {
-    int data;
-    Node* next;
-    Node(int val) : data(val), next(nullptr) {}
+class Node { 
+    public: 
+        int value;
+        Node* next;
+        Node* prev;
+    
+        Node(int value) {
+            this->value = value;
+            next = nullptr;
+            prev = nullptr;
+        }
 };
 
-class LinkedList {
-public:
-    Node* head;
-
-    LinkedList() : head(nullptr) {}
-
-    // Funkcia na pripojenie nového uzla na koniec zoznamu
-    void append(int val) {
-        Node* newNode = new Node(val);
-        if (!head) {
+class DoublyLinkedList {
+    private:
+        Node* head;
+        Node* tail;
+        int length;
+    
+    public:
+        DoublyLinkedList(int value) {
+            Node* newNode = new Node(value);
             head = newNode;
-        } else {
+            tail = newNode;
+            length = 1;
+        }
+    
+        ~DoublyLinkedList() {
             Node* temp = head;
-            while (temp->next) {
-                temp = temp->next;
-            }
-            temp->next = newNode;
-        }
-    }
-
-    // Funkcia na detekciu cyklu pomocou Floydovho algoritmu (pomalý a rýchly ukazovateľ)
-    bool hasCycle() {
-        if (!head) return false;  // Prázdny zoznam nemôže mať cyklus
-
-        Node* slow = head;    // Pomalý ukazovateľ
-        Node* fast = head;    // Rýchly ukazovateľ
-
-        while (fast && fast->next) {
-            slow = slow->next;            // Pomalý ukazovateľ posúva o 1 uzol
-            fast = fast->next->next;      // Rýchly ukazovateľ posúva o 2 uzly
-
-            if (slow == fast) {           // Ak sa stretnú, je tam cyklus
-                return true;
+            while (head) {
+                head = head->next;
+                delete temp;
+                temp = head;
             }
         }
-
-        return false; // Ak rýchly ukazovateľ dosiahne koniec zoznamu, cyklus nie je
-    }
-
-    // Funkcia na vytvorenie cyklu v zozname (pre testovanie)
-    void createCycle(int pos) {
-        Node* temp = head;
-        Node* cycleStartNode = nullptr;
-        int count = 1;
-
-        while (temp->next) {
-            if (count == pos) {
-                cycleStartNode = temp;
-            }
-            temp = temp->next;
-            count++;
-        }
-        if (cycleStartNode) {
-            temp->next = cycleStartNode; // Vytvorenie cyklu
-        }
-    }
-
-    // Funkcia na vypísanie zoznamu (pomocná pre vizualizáciu)
-    void printList() {
-        Node* temp = head;
-        while (temp) {
-            cout << temp->data << " -> ";
-            temp = temp->next;
-        }
-        cout << "nullptr" << endl;
-    }
-};
-
-// Hlavná funkcia pre testovanie
-int main() {
-    LinkedList list;
-
-    // Pridanie uzlov do zoznamu
-    list.append(1);
-    list.append(2);
-    list.append(3);
-    list.append(4);
-    list.append(5);
-
-    // Vytvorenie cyklu v zozname
-    // Pre testovanie, cyklus sa vytvorí na pozícii 2 (t.j. uzol s hodnotou 2)
-    list.createCycle(2);
-
-    // Testujeme, či zoznam obsahuje cyklus
-    if (list.hasCycle()) {
-        cout << "Zoznam obsahuje cyklus!" << endl;
-    } else {
-        cout << "Zoznam neobsahuje cyklus." << endl;
-    }
-
-    return 0;
-}
-
-```
-
---- 
-
-# Úloha 4: Spájanie dvoch zoradených linkovaných zoznamov
-
-##Zadanie:
-
-Máte dva zoradené linkované zoznamy, `list1` a `list2`, každý obsahuje celé čísla. Vašou úlohou je spojiť oba zoznamy do jedného zoradeného zoznamu.
-
-- Vstup: Dva linkované zoznamy, každý zoradený v nerastúcom poradí.
-
-- Výstup: Jeden nový linkovaný zoznam, ktorý bude obsahovať všetky prvky zo vstupných zoznamov v zoradenom poradí.
-
-##Požiadavky:
-
-- Použite iteratívnu metódu na spojenie zoznamov (vyhnite sa rekurzii).
-
-- Po skončení operácie by mal byť výsledný zoznam správne zoradený bez potreby znovu zoradovať.
-
-## Príklad:
-
-## Vstupy:
-
-- `list1: 1 -> 3 -> 5 -> 7`
-- `list2: 2 -> 4 -> 6 -> 8`
-
-## Výstup:
-
-- `1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 8`
-
-## Tip: 
-
-Môžete začať iterovať cez oba zoznamy, porovnávať hodnoty a pripojiť menšiu hodnotu k výslednému zoznamu. Keď jeden zo zoznamov skončí, pridajte zostávajúce uzly z druhého zoznamu.
-
---- 
-
-# Úloha 5: Detekcia a odstránenie cyklu v linkovanom zozname
-
-## Zadanie:
-
-Implementujte funkciu, ktorá najprv deteguje cyklus v linkovanom zozname a následne odstráni cyklus, ak existuje.
-
-Detekcia cyklu: Ak je v zozname cyklus (t. j. nejaký uzol odkazuje späť na predchádzajúci uzol), detegujte ho. Použite Floydov algoritmus s dvoma ukazovateľmi: pomalý (ktorý prejde jeden uzol) a rýchly (ktorý prejde dva uzly).
-
-Odstránenie cyklu: Ak cyklus existuje, funkcia musí odstrániť cyklus. To znamená, že nájdete uzol, ktorý tvorí cyklus, a nastavíte jeho `next` ukazovateľ na `nullptr`.
-
-
-##Požiadavky:
-
-- Detekcia cyklu pomocou dvoch ukazovateľov.
-
-- Po zistení cyklu odstráňte spojenie, ktoré cyklus vytvára.
-  
-- Funkcia by mala mať časovú zložitosť O(n), kde n je počet uzlov v zozname.
-  
-
-## Príklad:
-
-### Vstup: Zoznam obsahuje cyklus:
-
-```rust
-1 -> 2 -> 3 -> 4 -> 5 -> 6
-                ^---------|
-
-```
-
-### Výstup: Po odstránení cyklu:
-
-```rust
-1 -> 2 -> 3 -> 4 -> 5 -> 6
-
-```
-
-## Tipy:
-
-- Použite Floydov algoritmus pre detekciu cyklu.
-
-- Po detekcii cyklu, nájdite uzol, ktorý odkazuje späť na predchádzajúci uzol, a nastavte jeho `next` na `nullptr` pre odstránenie cyklu.
-
---- 
-
-# Úloha 6: Zistenie dĺžky linkovaného zoznamu
-
-## Zadanie:
-
-Vytvorte funkciu, ktorá vypočíta dĺžku jednoduchého linkovaného zoznamu. Funkcia by mala prejsť celý zoznam a spočítať počet uzlov v zozname.
-
-##Požiadavky:
-
-- Implementujte funkciu `getLength()`, ktorá vráti počet uzlov v zozname.
-
-## Čiastkový kód:
-
-
-```cpp
-class LinkedList {
-public:
-    Node* head;
-
-    LinkedList() : head(nullptr) {}
-
-    // Funkcia pre zistenie dĺžky zoznamu
-    int getLength() {
-        int length = 0;
-        Node* temp = head;
-        while (temp) {
-            length++;
-            temp = temp->next;
-        }
-        return length;
-    }
-};
-
-```
-
-Tip:
-
-- Prechádzajte zoznam a počítajte uzly jeden po druhom až do konca zoznamu, kým sa temp nestane `nullptr`.
-
---- 
-
-# Úloha 7: Zlúčenie dvoch zoradených zoznamov
-
-## Zadanie:
-
-Vytvorte funkciu, ktorá odstráni prvý uzol v linkovanom zozname, ktorý obsahuje konkrétnu hodnotu.
-
-##Požiadavky:
-
-- Implementujte funkciu `deleteNode(int value)`, ktorá vyhľadá hodnotu v zozname a odstráni prvý uzol, ktorý obsahuje túto hodnotu.
-
-## Čiastkový kód 
-  
-```cpp
-class LinkedList {
-public:
-    Node* head;
-
-    LinkedList() : head(nullptr) {}
-
-    // Funkcia na odstránenie uzla podľa hodnoty
-    void deleteNode(int value) {
-        Node* temp = head;
-        if (temp && temp->value == value) {
-            head = temp->next;
-            delete temp;
-            return;
-        }
-        while (temp && temp->next) {
-            if (temp->next->value == value) {
-                Node* toDelete = temp->next;
-                temp->next = temp->next->next;
-                delete toDelete;
+    
+        void printList() {
+            Node* temp = head;
+            if (temp == nullptr) {
+                cout << "empty" << endl;
                 return;
             }
-            temp = temp->next;
+            while (temp->next != nullptr) {
+                cout << temp->value << " <-> ";
+                temp = temp->next;
+            }
+            cout << temp->value << endl;
         }
-    }
-};
+    
+        Node* getHead() {
+            return head;
+        }
+    
+        Node* getTail() {
+            return tail;
+        }
+    
+        int getLength() {
+            return length;
+        }
 
-```
-
-Tip:
-
-- Ak je prvý uzol ten, ktorý chceme odstrániť, je potrebné zmeniť `head` zoznamu.
-- Ak ho nájdeme na inej pozícii, upravíme ukazovateľ na `next` predchádzajúceho uzla.
-
----
-
-# Úloha 8: Detekcia cyklu v linkovanom zozname
-
-## Zadanie:
-
-
-Máte dva zoradené linkované zoznamy. Vytvorte funkciu, ktorá spojí oba zoznamy do jedného zoradeného zoznamu.
-
-
-##Požiadavky:
-
-
-- Použite iteratívnu metódu.
-- Nezotriedte zoznam po spojení, ale priamo ho vytvorte v zoradenom poradí.
-  
-
-## Čiastkový kód  
-
-```cpp
-class LinkedList {
-public:
-    Node* head;
-
-    LinkedList() : head(nullptr) {}
-
-    // Funkcia na zlúčenie dvoch zoradených zoznamov
-    Node* mergeSortedLists(Node* list1, Node* list2) {
-        Node* dummy = new Node(0);
-        Node* tail = dummy;
-
-        while (list1 && list2) {
-            if (list1->value < list2->value) {
-                tail->next = list1;
-                list1 = list1->next;
+        void append(int value) {
+            Node* newNode = new Node(value);
+            if (length == 0) {
+                head = newNode;
+                tail = newNode;
             } else {
-                tail->next = list2;
-                list2 = list2->next;
+                tail->next = newNode;
+                newNode->prev = tail;
+                tail = newNode;
             }
-            tail = tail->next;
+            length++;
         }
-
-        if (list1) {
-            tail->next = list1;
-        } else {
-            tail->next = list2;
-        }
-
-        return dummy->next;
-    }
+        
+        //   +=====================================================+
+        //   |                 WRITE YOUR CODE HERE                |
+        //   | Description:                                        |
+        //   | - This is the reverse method.                       |
+        //   | - It reverses the entire doubly linked list.        |
+        //   | - Return type: void                                 |
+        //   |                                                     |
+        //   | Tips:                                               |
+        //   | - Create two pointers: current and temp.            |
+        //   | - Loop through the list swapping next and prev      |
+        //   |   for each node.                                    |
+        //   | - After loop, swap head and tail pointers.          |
+        //   | - Check output from Test.cpp in "User logs".        |
+        //   +=====================================================+
+        
 };
+
 
 ```
 
-Tip:
+# 3. DoublyLinkedList: Palindrome Checker
 
-- Použite pomocný uzol `dummy`, aby ste uľahčili prácu s začiatkom zoznamu.
-- Po skončení jedného zo zoznamov pripojte zvyšok druhého zoznamu k výsledku.
+### Task
+Implement a member function called `isPalindrome()` for the `DoublyLinkedList` class:
+
+- **Functionality**:
+  - Check if the list is a palindrome, meaning its elements read the same forward and backward.
+  - Return `true` if the list is a palindrome, and `false` otherwise.
+
+- **Input**:
+  - The function is a member of the `DoublyLinkedList` class, which has:
+    - A `head` pointer to the first node.
+    - A `tail` pointer to the last node.
+    - A `length` attribute indicating the number of elements in the list.
+
+- **Output**:
+  - A boolean value:
+    - `true` if the doubly linked list is a palindrome.
+    - `false` otherwise.
 
 ---
 
-# Úloha 9: Zlúčenie a zoradenie k-násobného zoznamu
+### Constraints
+- The doubly linked list may:
+  - Be empty.
+  - Have only one node.
+  - Have two or more nodes.
 
+---
 
-## Zadanie:
+### Examples
 
+#### Example 1
+**Before `isPalindrome()`**:
+- **Head**: `1`
+- **Tail**: `1`
+- **Length**: `5`
 
-Máte k zoradených linkovaných zoznamov. Vytvorte funkciu, ktorá všetky tieto zoznamy zlúči do jedného zoradeného zoznamu.
+**Doubly Linked List**:
+`1 <-> 2 <-> 3 <-> 2 <-> 1`
 
+**Result**:
+- The function returns `true`, as the list is a palindrome.
 
-- Implementujte funkciu `mergeKSortedLists()`, ktorá zlúči k zoradených zoznamov do jedného.
-- Použite min-heap (prioritný front) na optimalizáciu výkonu.
+---
 
+#### Example 2
+**Before `isPalindrome()`**:
+- **Head**: `1`
+- **Tail**: `5`
+- **Length**: `5`
 
-### Tip: 
+**Doubly Linked List**:
+`1 <-> 2 <-> 3 <-> 4 <-> 5`
 
-
-- Pre každú hodnotu z každého zoznamu môžete použiť priority queue (min-heap), aby ste udržali najmenší prvok na vrchole a efektívne ho pridali do výsledného zoznamu.
-- Použitie priority queue (min-heap) umožňuje efektívne získať najmenší uzol zo všetkých zoznamov.
-- Po spracovaní uzla, ak existuje ďalší uzol v zozname, pridajte ho do fronty.
-- 
-
-## Čiastkový kód  
-
+**Result**:
+- The function returns `false`, as the list is not a palindrome.
 
 ```cpp
-#include <queue>
-#include <vector>
 
-class LinkedList {
-public:
-    Node* head;
+#include <iostream>
 
-    LinkedList() : head(nullptr) {}
+using namespace std;
 
-    // Funkcia na zlúčenie k zoradených zoznamov
-    Node* mergeKSortedLists(std::vector<Node*>& lists) {
-        auto cmp = [](Node* a, Node* b) { return a->value > b->value; };
-        std::priority_queue<Node*, std::vector<Node*>, decltype(cmp)> pq(cmp);
+class Node { 
+    public: 
+        int value;
+        Node* next;
+        Node* prev;
+    
+        Node(int value) {
+            this->value = value;
+            next = nullptr;
+            prev = nullptr;
+        }
+};
 
-        for (Node* list : lists) {
-            if (list) {
-                pq.push(list);
+class DoublyLinkedList {
+    private:
+        Node* head;
+        Node* tail;
+        int length;
+    
+    public:
+        DoublyLinkedList(int value) {
+            Node* newNode = new Node(value);
+            head = newNode;
+            tail = newNode;
+            length = 1;
+        }
+    
+        ~DoublyLinkedList() {
+            Node* temp = head;
+            while (head) {
+                head = head->next;
+                delete temp;
+                temp = head;
             }
         }
-
-        Node* dummy = new Node(0);
-        Node* tail = dummy;
-
-        while (!pq.empty()) {
-            Node* minNode = pq.top();
-            pq.pop();
-            tail->next = minNode;
-            tail = tail->next;
-
-            if (minNode->next) {
-                pq.push(minNode->next);
+    
+        void printList() {
+            Node* temp = head;
+            if (temp == nullptr) {
+                cout << "empty" << endl;
+                return;
             }
+            while (temp->next != nullptr) {
+                cout << temp->value << " <-> ";
+                temp = temp->next;
+            }
+            cout << temp->value << endl;
+        }
+    
+        Node* getHead() {
+            return head;
+        }
+    
+        Node* getTail() {
+            return tail;
+        }
+    
+        int getLength() {
+            return length;
         }
 
-        return dummy->next;
-    }
+        void append(int value) {
+            Node* newNode = new Node(value);
+            if (length == 0) {
+                head = newNode;
+                tail = newNode;
+            } else {
+                tail->next = newNode;
+                newNode->prev = tail;
+                tail = newNode;
+            }
+            length++;
+        }
+
+        //   +=====================================================+
+        //   |                 WRITE YOUR CODE HERE                |
+        //   | Description:                                        |
+        //   | - This is the isPalindrome method.                  |
+        //   | - It checks if the list is a palindrome or not.     |
+        //   | - Return type: bool                                 |
+        //   |                                                     |
+        //   | Tips:                                               |
+        //   | - A list with 0 or 1 node is a palindrome.          |
+        //   | - Create two pointers: forwardNode and backwardNode.|
+        //   | - Loop from the start to the middle of the list.    |
+        //   | - Compare forwardNode and backwardNode values.      |
+        //   | - If any pair is not equal, return false.           |
+        //   | - Otherwise, return true.                           |
+        //   | - Check output from Test.cpp in "User logs".        |
+        //   +=====================================================+
+
 };
 
 
 ```
 
 
-# Úloha pre 6.12.2024 : Nájdi všetky podmnožiny, ktoré dávajú požadovaný súčet
+# 4. DoublyLinkedList: Swap Nodes in Pairs
 
-## Popis úlohy
+### Task
+Implement a member function called `swapPairs()` for the `DoublyLinkedList` class:
 
-Tvojou úlohou je napísať program, ktorý pre danú množinu kladných celých čísel a cieľový súčet nájde všetky podmnožiny, ktorých prvky dávajú práve tento súčet. Podrobnejšie informácie nájdeš v knihe od Levittina, alebo v iných príbuzných materiáloch.
+- **Functionality**:
+  - Swap every two adjacent nodes in the list.
+  - The pointers to the nodes themselves must be updated to achieve the swapping, not just their values.
 
-Program bude postupovať nasledovne:
+- **Input**:
+  - The function is a member of the `DoublyLinkedList` class, which has:
+    - A `head` pointer to the first node.
+    - A `length` attribute indicating the number of elements in the list.
 
-1. **Načíta množinu čísel zo súboru.**
-2. **Nájde všetky podmnožiny, ktoré dávajú požadovaný súčet.**
-3. **Vypíše počet podmnožín, ktoré dávajú požadovaný súčet, na štandardný výstup.**
+- **Output**:
+  - No explicit output is returned.
+  - The function should modify the doubly linked list such that every two adjacent nodes are swapped.
 
-Úloha je navrhnutá na vyskúšanie rekurzívneho hľadania podmnožín. Použijete algoritmus založený na prechádzaní stromu možností (backtracking):
-- Pre každý prvok rozhodnite, či bude zahrnutý do podmnožiny, alebo nie.
-- Sledujte aktuálny súčet podmnožiny, aby ste zastavili zbytočné vetvy (ak súčet presiahne cieľový súčet).
-- Ak nájdete nejaký iný pekný algoritmus na riešenie tejto úlohy, môžete ho pridať tiež.
+---
 
-## Formát vstupu
+### Constraints
+- The doubly linked list may:
+  - Be empty.
+  - Have only one node.
+  - Have two or more nodes.
+- **Note**: This implementation does not require a tail pointer, simplifying the logic.
 
-- Súbor obsahuje sekvenciu kladných celých čísel, v jednom riadku, oddelených medzerami.
-- Na príkazovej riadke bude program spustený v formáte: `./main nazov_souboru.txt suma`
+---
 
-## Testy
+### Examples
 
-Pre vstupné dáta:
+#### Example 1
+**Before `swapPairs()`**:
+- **Head**: `1`
+- **Length**: `6`
+
+**Doubly Linked List**:
+`1 <-> 2 <-> 3 <-> 4 <-> 5 <-> 6`
+
+**After `swapPairs()`**:
+- **Head**: `2`
+- **Length**: `6`
+
+**Doubly Linked List**:
+`2 <-> 1 <-> 4 <-> 3 <-> 6 <-> 5`
+
+---
+
+#### Example 2
+**Before `swapPairs()`**:
+- **Head**: `1`
+- **Length**: `5`
+
+**Doubly Linked List**:
+`1 <-> 2 <-> 3 <-> 4 <-> 5`
+
+**After `swapPairs()`**:
+- **Head**: `2`
+- **Length**: `5`
+
+**Doubly Linked List**:
+`2 <-> 1 <-> 4 <-> 3 <-> 5`
+
+---
+
+### Tips for Solving
+1. **Visualize**:
+   - Draw out the list structure and simulate the pointer changes.
+2. **Plan Steps**:
+   - Traverse the list in pairs.
+   - For each pair:
+     - Update the `next` and `prev` pointers to swap the nodes.
+     - Ensure that the head pointer is updated for the new first node.
+3. **Edge Cases**:
+   - Handle cases where the list is empty or has only one node (no operation needed).
+   - Carefully check and maintain the integrity of pointers during the swap.
+
+---
+
+### Reminder
+This challenge is advanced and requires a solid understanding of doubly linked lists and pointer manipulation. Take your time, and revisit the problem if needed. Progress comes with perseverance!
+
+
+
+
 
 ```cpp
-2 3 5 7
+#include <iostream>
+
+using namespace std;
+
+class Node { 
+    public: 
+        int value;
+        Node* next;
+        Node* prev;
+    
+        Node(int value) {
+            this->value = value;
+            next = nullptr;
+            prev = nullptr;
+        }
+};
+
+class DoublyLinkedList {
+    private:
+        Node* head;
+        Node* tail;
+        int length;
+    
+    public:
+        DoublyLinkedList(int value) {
+            Node* newNode = new Node(value);
+            head = newNode;
+            tail = newNode;
+            length = 1;
+        }
+    
+        ~DoublyLinkedList() {
+            Node* temp = head;
+            while (head) {
+                head = head->next;
+                delete temp;
+                temp = head;
+            }
+        }
+    
+        void printList() {
+            Node* temp = head;
+            if (temp == nullptr) {
+                cout << "empty" << endl;
+                return;
+            }
+            while (temp->next != nullptr) {
+                cout << temp->value << " <-> ";
+                temp = temp->next;
+            }
+            cout << temp->value << endl;
+        }
+    
+        Node* getHead() {
+            return head;
+        }
+    
+        Node* getTail() {
+            return tail;
+        }
+    
+        int getLength() {
+            return length;
+        }
+
+        void append(int value) {
+            Node* newNode = new Node(value);
+            if (length == 0) {
+                head = newNode;
+                tail = newNode;
+            } else {
+                tail->next = newNode;
+                newNode->prev = tail;
+                tail = newNode;
+            }
+            length++;
+        }
+
+        //   +=====================================================+
+        //   |                 WRITE YOUR CODE HERE                |
+        //   | Description:                                        |
+        //   | - The swapPairs function swaps adjacent pairs       |
+        //   |   of nodes in a doubly linked list.                 |
+        //   | - Return type: void                                 |
+        //   |                                                     |
+        //   | Tips:                                               |
+        //   | - Utilizes a dummyNode to simplify edge cases.      |
+        //   | - Uses pointers to navigate and swap nodes.         |
+        //   | - Pay close attention to the 'next' and 'prev'      |
+        //   |   pointers of the nodes.                            |
+        //   | - Works in-place; doesn't create new nodes.         |
+        //   | - Always checks if the list is empty or has only    |
+        //   |   one node.                                         |
+        //   | - Check output from Test.cpp in "User logs".        |
+        //   +=====================================================+
+
+};
+
+
+
 ```
 
-a cieľovú sumu **10** by nemalo byť ťažké si rozmyslieť, že výstup bude **2**.
-
-Pre cieľ **50** program s týmito dátami vráti **0**.
 
 
 
