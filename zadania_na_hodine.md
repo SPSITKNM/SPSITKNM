@@ -137,6 +137,87 @@ class DoublyLinkedList {
 
 ```
 
+# CODE FOR TESTING 
+
+
+```cpp
+#include <iostream>
+#include "DoublyLinkedList.cpp"
+
+using namespace std;
+
+
+//  +=====================================================+
+//  |                                                     |
+//  |          THE TEST CODE BELOW WILL PRINT             |
+//  |              OUTPUT TO "USER LOGS"                  |
+//  |                                                     |
+//  |  Use the output to test and troubleshoot your code  |
+//  |                                                     |
+//  +=====================================================+
+
+
+static void test() {
+
+    // Test: Swap First and Last with Single Node
+    {
+        cout << "\n----- Test: Swap First and Last with Single Node -----\n";
+        DoublyLinkedList list(1);
+        cout << "DLL before swapping first and last:\n";
+        list.printList();
+        list.swapFirstLast();
+        cout << "DLL after swapping first and last:\n";
+        list.printList();
+        int headValue = list.getHead()->value;
+        int tailValue = list.getTail()->value;
+        cout << "Head value after swapping: " << headValue << " - EXPECTED: 1\n";
+        cout << "Tail value after swapping: " << tailValue << " - EXPECTED: 1\n";
+        cout << ((headValue == 1 && tailValue == 1) ? "PASS\n" : "FAIL\n");
+    }
+
+    // Test: Swap First and Last with Two Nodes
+    {
+        cout << "\n----- Test: Swap First and Last with Two Nodes -----\n";
+        DoublyLinkedList list(1);
+        list.append(2);
+        cout << "DLL before swapping first and last:\n";
+        list.printList();
+        list.swapFirstLast();
+        cout << "DLL after swapping first and last:\n";
+        list.printList();
+        int headValue = list.getHead()->value;
+        int tailValue = list.getTail()->value;
+        cout << "Head value after swapping: " << headValue << " - EXPECTED: 2\n";
+        cout << "Tail value after swapping: " << tailValue << " - EXPECTED: 1\n";
+        cout << ((headValue == 2 && tailValue == 1) ? "PASS\n" : "FAIL\n");
+    }
+
+    // Test: Swap First and Last with Multiple Nodes
+    {
+        cout << "\n----- Test: Swap First and Last with Multiple Nodes -----\n";
+        DoublyLinkedList list(1);
+        list.append(2);
+        list.append(3);
+        list.append(4);
+        cout << "DLL before swapping first and last:\n";
+        list.printList();
+        list.swapFirstLast();
+        cout << "DLL after swapping first and last:\n";
+        list.printList();
+        int headValue = list.getHead()->value;
+        int tailValue = list.getTail()->value;
+        int headNextValue = list.getHead()->next->value;
+        int tailPrevValue = list.getTail()->prev->value;
+        cout << "Head value after swapping: " << headValue << " - EXPECTED: 4\n";
+        cout << "Tail value after swapping: " << tailValue << " - EXPECTED: 1\n";
+        cout << "Value after head after swapping: " << headNextValue << " - EXPECTED: 2\n";
+        cout << "Value before tail after swapping: " << tailPrevValue << " - EXPECTED: 3\n";
+        bool pass = headValue == 4 && tailValue == 1 && headNextValue == 2 && tailPrevValue == 3;
+        cout << (pass ? "PASS\n" : "FAIL\n");
+    }
+    
+}
+```
 
 # 2. DoublyLinkedList: Reverse
 
@@ -308,6 +389,91 @@ class DoublyLinkedList {
         
 };
 
+```
+
+
+# CODE FOR TESTING
+```cpp
+
+#include <iostream>
+#include "DoublyLinkedList.cpp"
+
+using namespace std;
+
+
+//  +=====================================================+
+//  |                                                     |
+//  |          THE TEST CODE BELOW WILL PRINT             |
+//  |              OUTPUT TO "USER LOGS"                  |
+//  |                                                     |
+//  |  Use the output to test and troubleshoot your code  |
+//  |                                                     |
+//  +=====================================================+
+
+
+static void test() {
+
+    // Test: Reverse Single Node
+    {
+        cout << "\n----- Test: Reverse Single Node -----\n";
+        DoublyLinkedList list(1);
+        cout << "DLL before reversing:\n";
+        list.printList();
+        list.reverse();
+        cout << "DLL after reversing:\n";
+        list.printList();
+        int headValue = list.getHead()->value;
+        int tailValue = list.getTail()->value;
+        cout << "Head value after reversing: " << headValue << " - EXPECTED: 1\n";
+        cout << "Tail value after reversing: " << tailValue << " - EXPECTED: 1\n";
+        cout << ((headValue == 1 && tailValue == 1) ? "PASS\n" : "FAIL\n");
+    }
+
+    // Test: Reverse Two Nodes
+    {
+        cout << "\n----- Test: Reverse Two Nodes -----\n";
+        DoublyLinkedList list(1);
+        list.append(2);
+        cout << "DLL before reversing:\n";
+        list.printList();
+        list.reverse();
+        cout << "DLL after reversing:\n";
+        list.printList();
+        int headValue = list.getHead()->value;
+        int tailValue = list.getTail()->value;
+        cout << "Head value after reversing: " << headValue << " - EXPECTED: 2\n";
+        cout << "Tail value after reversing: " << tailValue << " - EXPECTED: 1\n";
+        cout << ((headValue == 2 && tailValue == 1) ? "PASS\n" : "FAIL\n");
+    }
+
+    // Test: Reverse Multiple Nodes
+    {
+        cout << "\n----- Test: Reverse Multiple Nodes -----\n";
+        DoublyLinkedList list(1);
+        list.append(2);
+        list.append(3);
+        list.append(4);
+        cout << "DLL before reversing:\n";
+        list.printList();
+        list.reverse();
+        cout << "DLL after reversing:\n";
+        list.printList();
+        int headValue = list.getHead()->value;
+        int tailValue = list.getTail()->value;
+        int headNextValue = list.getHead()->next->value;
+        int tailPrevValue = list.getTail()->prev->value;
+        cout << "Head value after reversing: " << headValue << " - EXPECTED: 4\n";
+        cout << "Tail value after reversing: " << tailValue << " - EXPECTED: 1\n";
+        cout << "Value after head after reversing: " << headNextValue << " - EXPECTED: 3\n";
+        cout << "Value before tail after reversing: " << tailPrevValue << " - EXPECTED: 2\n";
+        bool pass = headValue == 4 && tailValue == 1 && headNextValue == 3 && tailPrevValue == 2;
+        cout << (pass ? "PASS\n" : "FAIL\n");
+    }
+    
+}
+
+
+
 
 ```
 
@@ -468,6 +634,91 @@ class DoublyLinkedList {
 
 };
 
+
+```
+
+# CODE FOR TESTING
+
+```cpp
+
+#include <iostream>
+#include "DoublyLinkedList.cpp"
+
+using namespace std;
+
+
+//  +=====================================================+
+//  |                                                     |
+//  |          THE TEST CODE BELOW WILL PRINT             |
+//  |              OUTPUT TO "USER LOGS"                  |
+//  |                                                     |
+//  |  Use the output to test and troubleshoot your code  |
+//  |                                                     |
+//  +=====================================================+
+
+
+static void test() {
+
+    // Test: Is Palindrome with Single Node
+    {
+        cout << "\n----- Test: Is Palindrome with Single Node -----\n";
+        DoublyLinkedList list(1);
+        cout << "DLL:\n";
+        list.printList();
+        bool result = list.isPalindrome();
+        cout << "Is Palindrome: " << (result ? "true" : "false") << " - EXPECTED: true\n";
+        cout << (result ? "PASS\n" : "FAIL\n");
+    }
+
+    // Test: Is Palindrome with Two Nodes
+    {
+        cout << "\n----- Test: Is Palindrome with Two Nodes -----\n";
+
+        DoublyLinkedList list(1);
+        list.append(1);
+        cout << "DLL (equal values):\n";
+        list.printList();
+        bool result1 = list.isPalindrome();
+        cout << "Is Palindrome: " << (result1 ? "true" : "false") << " - EXPECTED: true\n";
+        cout << (result1 ? "PASS\n" : "FAIL\n");
+
+        DoublyLinkedList list2(1);
+        list2.append(2);
+        cout << "\nDLL (different values):\n";
+        list2.printList();
+        bool result2 = list2.isPalindrome();
+        cout << "Is Palindrome: " << (result2 ? "true" : "false") << " - EXPECTED: false\n";
+        cout << (result2 ? "FAIL\n" : "PASS\n");
+    }
+
+    // Test: Is Palindrome with Multiple Nodes
+    {
+        cout << "\n----- Test: Is Palindrome with Multiple Nodes -----\n";
+
+        DoublyLinkedList list(1);
+        list.append(2);
+        list.append(3);
+        list.append(2);
+        list.append(1);
+        cout << "DLL (palindrome):\n";
+        list.printList();
+        bool result1 = list.isPalindrome();
+        cout << "Is Palindrome: " << (result1 ? "true" : "false") << " - EXPECTED: true\n";
+        cout << (result1 ? "PASS\n" : "FAIL\n");
+
+        DoublyLinkedList list2(1);
+        list2.append(2);
+        list2.append(3);
+        list2.append(3);
+        list2.append(2);
+        cout << "\nDLL (not palindrome):\n";
+        list2.printList();
+        bool result2 = list2.isPalindrome();
+        cout << "Is Palindrome: " << (result2 ? "true" : "false") << " - EXPECTED: false\n";
+        cout << (result2 ? "FAIL\n" : "PASS\n");
+    }
+    
+}
 
 ```
 
@@ -661,9 +912,82 @@ class DoublyLinkedList {
 
 ```
 
+# CODE FOR TESTING
 
 
+```cpp
+
+#include <iostream>
+#include "DoublyLinkedList.cpp"
+
+using namespace std;
 
 
+//  +=====================================================+
+//  |                                                     |
+//  |          THE TEST CODE BELOW WILL PRINT             |
+//  |              OUTPUT TO "USER LOGS"                  |
+//  |                                                     |
+//  |  Use the output to test and troubleshoot your code  |
+//  |                                                     |
+//  +=====================================================+
+
+
+static void test() {
+
+    // Test: Swap Pairs with Single Node
+    {
+        cout << "\n----- Test: Swap Pairs with Single Node -----\n";
+        DoublyLinkedList list(1);
+        cout << "DLL before swapping pairs:\n";
+        list.printList();
+        list.swapPairs();
+        cout << "\nDLL after swapping pairs:\n";
+        list.printList();
+        int value = list.getHead()->value;
+        cout << "Head value after swapping pairs: " << value << " - EXPECTED: 1\n";
+        cout << (value == 1 ? "PASS\n" : "FAIL\n");
+    }
+
+    // Test: Swap Pairs with Two Nodes
+    {
+        cout << "\n----- Test: Swap Pairs with Two Nodes -----\n";
+        DoublyLinkedList list(1);
+        list.append(2);
+        cout << "DLL before swapping pairs:\n";
+        list.printList();
+        list.swapPairs();
+        cout << "\nDLL after swapping pairs:\n";
+        list.printList();
+        int headValue = list.getHead()->value;
+        int nextValue = list.getHead()->next->value;
+        cout << "Head value after swapping pairs: " << headValue << " - EXPECTED: 2\n";
+        cout << "Next value after swapping pairs: " << nextValue << " - EXPECTED: 1\n";
+        cout << (headValue == 2 && nextValue == 1 ? "PASS\n" : "FAIL\n");
+    }
+
+    // Test: Swap Pairs with Multiple Nodes
+    {
+        cout << "\n----- Test: Swap Pairs with Multiple Nodes -----\n";
+        DoublyLinkedList list(1);
+        list.append(2);
+        list.append(3);
+        list.append(4);
+        cout << "DLL before swapping pairs:\n";
+        list.printList();
+        list.swapPairs();
+        cout << "\nDLL after swapping pairs:\n";
+        list.printList();
+        //cout << "PASS/FAIL test: ";
+        cout << (list.getHead()->value == 2 && 
+                 list.getHead()->next->value == 1 && 
+                 list.getHead()->next->next->value == 4 &&
+                 list.getHead()->next->next->next->value == 3 ? "PASS\n" : "FAIL\n");
+    }
+
+}
+
+
+```
 
 
