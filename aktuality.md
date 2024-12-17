@@ -1,12 +1,23 @@
-# 🎄 Mikulášske programovacie koledy 🎄
+### Oznam pre žiakov
 
-Dnes, 6. decembra, je Mikuláša a preto som sa rozhodol, že dnes v rámci hodiny PRO **nebudeme napredovať v látke** ako obvykle. Namiesto toho si spoločne užijeme **programátorske koledy**! 😊
+**Vážení študenti,**
 
-Na hodine vás čaká opakovanie, samostatná práca a zábava pri programovaní. Pozrieme sa na platformu **Advent of Code**, kde spolu vyriešime aktuálnu úlohu pre dnešný deň. Pripravte sa na zaujímavé výzvy a nech sa vám darí priniesť Mikulášske programovacie darčeky! 🎁
+dovoľujem si Vás informovať o konaní obhajob Vašich videoherných projektov počas vianočných prázdnin. Táto udalosť je skvelou príležitosťou ukázať svoju prácu, kreativitu a nadšenie pre herný vývoj, ktorý ste vložili do tvorby Vášho projektu.
 
-### ⏳ Práca na úlohách:
-Dáme si chvíľku na samostatné riešenie úlohy, potom si to spoločne prejdeme.
+🌐 **Kde?**
+🕒 **Kedy?**
 
-Kto vie, možno aj Mikuláš zanechá nejaký kódový darček pod vašimi klávesnicami! 🎅💻
+Online formou – odkaz na pripojenie a podrobnosti o prezentácií Vám zašlem prostredníctvom **EduPage**, **GitHub**, alebo na **Discord školskom serveri**.
 
-**Ďakujem s pozdravom Tomáš Muha** 
+🎮 **Na čo sa treba pripraviť?**
+
+- Prezentácie herných konceptov, mechaník a grafiky.
+- Ukážky funkčných herných prototypov.
+- Priestor na diskusiu a dotazy na Váš videoherný návrh.
+
+Prosíme Vás, aby ste si na túto udalosť vyhradili čas a zodpovedne sa na ňu pripravili. Účasť na obhajobách je povinná, nakoľko ide o signifikantnú súčasť vášho vzdelávacieho procesu. Táto udalosť poskytuje priestor na prezentáciu vašich vedomostí, schopností a kreativity, ale zároveň slúži ako cenná skúsenosť, ktorá vás pripraví na podobné situácie v praxi.
+
+Teším sa na našu spoločnú spoluprácu a vaše projekty.
+
+S pozdravom,  
+**Mucha Tomáš**
