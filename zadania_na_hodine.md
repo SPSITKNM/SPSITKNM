@@ -1,10 +1,10 @@
-Zadání:
+Zadanie:
 
-Implementujte Warshalův algoritmus pro výpočet transitivního uzávěru orientovaného acyklického grafu. Algoritmus by měl být implementován jako funkce, která přijímá matici sousednosti grafu a vrací matici transitivního uzávěru. Pro ověření správnosti algoritmu použijte příklad orientovaného grafu reprezentovaného maticí sousednosti.
+Implementujte Warshallov algoritmus na výpočet tranzitívneho uzáveru orientovaného acyklického grafu. Algoritmus by mal byť implementovaný ako funkcia, ktorá prijíma maticu susednosti grafu a vracia maticu tranzitívneho uzáveru. Na overenie správnosti algoritmu použite príklad orientovaného grafu reprezentovaného maticou susednosti.
 
 Testy:
 
-Váš program bude umět načíst zadanou matici ze souboru, spočítat transitivní uzávěr a ten vypsat na standardní výstup. Rozumně malé kombinace vstupů a výstupů jsou:
+Váš program bude vedieť načítať zadanú maticu zo súboru, vypočítať tranzitívny uzáver a ten vypísať na štandardný výstup. Rozumne malé kombinácie vstupov a výstupov sú:
 
 ### Vstup a výstup
 
@@ -15,7 +15,7 @@ Váš program bude umět načíst zadanou matici ze souboru, spočítat transiti
 0 0 0 1
 0 0 0 0
 ```
-**Uzávěr:**
+**Uzáver:**
 ```
 0 1 1 1
 0 0 1 1
@@ -31,7 +31,7 @@ Váš program bude umět načíst zadanou matici ze souboru, spočítat transiti
 0 0 0 0 1
 0 0 0 0 0
 ```
-**Uzávěr:**
+**Uzáver:**
 ```
 0 0 1 1 1
 0 0 1 1 1
@@ -49,7 +49,7 @@ Váš program bude umět načíst zadanou matici ze souboru, spočítat transiti
 0 0 0 0 0 1
 0 0 0 0 0 0
 ```
-**Uzávěr:**
+**Uzáver:**
 ```
 0 0 0 0 1 1
 0 0 1 1 1 1
@@ -58,4 +58,3 @@ Váš program bude umět načíst zadanou matici ze souboru, spočítat transiti
 0 0 0 0 0 1
 0 0 0 0 0 0
 ```
-
