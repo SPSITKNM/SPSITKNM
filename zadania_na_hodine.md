@@ -74,7 +74,7 @@ Cieľom tejto práce na úlohe je implementovať Kruskalov algoritmus na nájden
    a) Vysvetlite, čo je minimálny kostrový strom (MST).
    - Pre vysvetlenie nie len Kruskalovho / Primovho algoritmu môžete využiť jedno z doučovaní algoritmov, ktoré sme realizovali na VŠB :
  - [Prvé doučovanie z algoritmov ](https://www.youtube.com/watch?v=yJjLqHZh9b0)
- - [Druhé doučovanie z algoritmov](https://www.youtube.com/watch?v=yJjLqHZh9b0)
+   
    b) Popíšte princíp Kruskalovho algoritmu.  
    c) Aký je rozdiel medzi Kruskalovým a Primovým algoritmom?  
 
