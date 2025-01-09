@@ -58,7 +58,6 @@ Váš program bude vedieť načítať zadanú maticu zo súboru, vypočítať tr
 0 0 0 0 0 1
 0 0 0 0 0 0
 ```
--- 
 
 
 # Téma: Implementácia Kruskalovho algoritmu
