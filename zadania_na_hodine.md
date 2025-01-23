@@ -41,7 +41,7 @@ Program nech na štandardný výstup postupne vypíše:
 3. Inorder,
 4. Výpis „po úrovniach“.
    
-Na formátovanie whitespaces nezáleží.
+Váš program nech postupne na štandardný výstup (`std::cout`) vypíše postorder, preorder a inorder, a následne aj výpis po úrovniach. (Na medzery vo výstupe nezáleží.)
 
 ## Príklady 
 
