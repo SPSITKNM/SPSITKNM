@@ -117,14 +117,14 @@ Napíš program, ktorý implementuje **zásobník** (stack) pomocou `std::stack`
 
 ---
 
-# Úloha 7 : Optimálne rozdelenie výrobných liniek
+## Úloha 8 : Optimálne rozdelenie výrobných liniek
 
-## Popis úlohy  
+### Popis úlohy  
 Ste inžinier v továrni a máte k dispozícii **N** výrobných liniek. Každá linka pracuje s inou rýchlosťou a môže nezávisle spracovávať objednávky. Dostali ste **M** objednávok, pričom každá objednávka vyžaduje vyrobiť určitý počet kusov produktu.
 
 Vašou úlohou je optimálne rozdeliť objednávky medzi linky tak, aby bol **celkový čas výroby minimálny**. To znamená, že najpomalšia linka, ktorá dostane úlohu, by mala mať čo najkratší možný výrobný čas.
 
-## Vstup  
+### Vstup  
 Načítajte vstup zo štandardného vstupu v nasledujúcom formáte:
 
 - Prvé číslo **N** (1 ≤ N ≤ 100) – počet výrobných liniek.
@@ -132,12 +132,12 @@ Načítajte vstup zo štandardného vstupu v nasledujúcom formáte:
 - Nasleduje **N** celých čísel, kde i-te číslo vyjadruje **rýchlosť výroby i-tej linky** (počet kusov za jednotku času).
 - Potom nasleduje **M** čísel, kde j-te číslo predstavuje **počet kusov v j-tej objednávke**.
 
-## Výstup  
+### Výstup  
 Jediné číslo – minimálny možný čas, za ktorý budú všetky objednávky dokončené.
 
 ---
 
-## Príklad  
+### Príklad  
 
 ### Vstup  
 ```
