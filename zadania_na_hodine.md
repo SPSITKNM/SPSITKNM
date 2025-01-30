@@ -142,9 +142,9 @@ Napíš program, ktorý implementuje **frontu** (queue) pomocou `std::queue` a u
 
 ---
 
-## Bonusová úloha 
+# Bonusová úloha 
 
-# Úloha : Paralelné spracovanie dát s `std::thread`
+## Úloha : Paralelné spracovanie dát s `std::thread`
 
 ## Zadanie:
 Napíš program, ktorý spracuje veľké množstvo čísel paralelne pomocou **viacerých vlákien** (`std::thread`). Program vykoná tieto operácie:
