@@ -117,7 +117,60 @@ Napíš program, ktorý implementuje **zásobník** (stack) pomocou `std::stack`
 
 ---
 
-# Úloha 8 : Implementácia fronty / rady / queue s `std::queue` a šablónami
+# Úloha 7 : Optimálne rozdelenie výrobných liniek
+
+## Popis úlohy  
+Ste inžinier v továrni a máte k dispozícii **N** výrobných liniek. Každá linka pracuje s inou rýchlosťou a môže nezávisle spracovávať objednávky. Dostali ste **M** objednávok, pričom každá objednávka vyžaduje vyrobiť určitý počet kusov produktu.
+
+Vašou úlohou je optimálne rozdeliť objednávky medzi linky tak, aby bol **celkový čas výroby minimálny**. To znamená, že najpomalšia linka, ktorá dostane úlohu, by mala mať čo najkratší možný výrobný čas.
+
+## Vstup  
+Načítajte vstup zo štandardného vstupu v nasledujúcom formáte:
+
+- Prvé číslo **N** (1 ≤ N ≤ 100) – počet výrobných liniek.
+- Druhé číslo **M** (1 ≤ M ≤ 1000) – počet objednávok.
+- Nasleduje **N** celých čísel, kde i-te číslo vyjadruje **rýchlosť výroby i-tej linky** (počet kusov za jednotku času).
+- Potom nasleduje **M** čísel, kde j-te číslo predstavuje **počet kusov v j-tej objednávke**.
+
+## Výstup  
+Jediné číslo – minimálny možný čas, za ktorý budú všetky objednávky dokončené.
+
+---
+
+## Príklad  
+
+### Vstup  
+```
+3 5  
+2 3 5  
+10 20 30 40 50  
+```  
+### Výstup  
+```
+30
+```
+
+---
+
+## Koncepty na riešenie  
+
+### 1. Binárne vyhľadávanie na odpovedi  
+- Problém možno riešiť binárnym vyhľadávaním na výsledný čas. Overujeme, či je možné dokončiť všetky objednávky v čase **T** a postupne hľadáme optimálnu hodnotu.
+
+### 2. Greedy priraďovanie úloh  
+- Pri každom možnom čase **T** môžeme greedy spôsobom prideľovať objednávky k linkám a zistiť, či je možné všetko vyrobiť do **T** jednotiek času.
+
+### 3. Simulácia s prioritnou radou (min-heap)  
+- Použitím **min-heapu** (prioritnej fronty) môžeme efektívne simulovať postup výroby a prideľovať objednávky vždy linke, ktorá sa uvoľní najskôr.
+
+### 4. Dynamické programovanie (zložitejšie riešenie)  
+- Teoreticky by sa dal problém riešiť aj pomocou DP podobného **knapsack problemu**, kde hľadáme optimálne rozloženie úloh, ale toto riešenie by bolo menej efektívne ako binárne vyhľadávanie.
+
+---
+
+# Bonusové úlohy 
+
+##  Úloha : Implementácia fronty / rady / queue s `std::queue` a šablónami
 
 ## Zadanie:
 Napíš program, ktorý implementuje **frontu** (queue) pomocou `std::queue` a umožní používateľovi vykonávať operácie:
@@ -139,10 +192,6 @@ Napíš program, ktorý implementuje **frontu** (queue) pomocou `std::queue` a u
 - **Kontajnery (`std::queue`)**
 - **Výnimky (`try-catch`)**
 - **Iterátory**
-
----
-
-# Bonusová úloha 
 
 ## Úloha : Paralelné spracovanie dát s `std::thread`
 
