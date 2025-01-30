@@ -92,9 +92,9 @@ Kontajnery (`std::map`, `std::vector`), triedenie (`std::sort`), algoritmy (`std
 
 ---
 
-# Úloha 7 : Implementácia zásobníka s `std::stack` a šablónami
+## Úloha 7 : Implementácia zásobníka s `std::stack` a šablónami
 
-## Zadanie:
+### Zadanie:
 Napíš program, ktorý implementuje **zásobník** (stack) pomocou `std::stack` a umožní používateľovi vykonávať operácie:
 
 1. **Push** – Pridať prvok na vrchol zásobníka.
