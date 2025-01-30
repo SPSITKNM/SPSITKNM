@@ -1,158 +1,172 @@
-# Zadanie 1. 
+# C++ Úlohy na precvičenie designed by Tom. (Starky) Muc.
 
-Dokončite implementáciu binárneho vyhľadávacieho stromu zo cvičenia.
+## Úloha 1: Lambda Kalkulačka s `auto`
 
-Binárny strom bude konštruovaný postupnými vkladaniami celých čísel (int).
+Napíš program, ktorý umožní používateľovi zadať dve čísla a operáciu (`+`, `-`, `*`, `/`). Program použije **lambda funkcie** s **automatickou dedukciou typu (`auto`)** na vykonanie výpočtov.
 
-Binárny strom musí vedieť nasledujúce operácie:
-- `insert(item)` – vloženie prvku,
-- výpisy `inorder`, `preorder` a `postorder` na štandardný výstup (`std::cout`),
-- odstránenie prvku pomocou `delete(item)`.
-
-Výpisy `inorder`, `preorder` a `postorder` musia byť vo formáte hodnôt oddelených medzerami.
-
-Pridajte tiež funkciu, ktorá bude vypisovať strom na štandardný výstup „po úrovniach“. Na prvom riadku bude koreň, na druhom jeho potomkovia, na treťom potomkovia potomkov atď. Usporiadanie na riadku bude rešpektovať štruktúru binárneho stromu tak, že pre riadok `A B` bude riadok pod ním vyzerať `leftChildA rightChildA leftChildB rightChildB` a analogicky pre zvyšok stromu. Na miestach, kde chýba potomek, bude `X`. Toto by nemal byť problém implementovať pomocou prehľadávania do šírky.
-
-## Mazanie (`delete(item)`)
-
-Funkcia `delete(item)` bude fungovať takto:
-- Ak hodnota `item` nie je v strome, strom sa nezmení.
-- Ak sa hodnota nachádza, odstráni jedinečný prvok `item` a správne pripojí prípadné odrezané podstromy.
-
-Správne pripojenie v prípade uzla s dvomi potomkami sa realizuje takto:
-1. Skopírujeme hodnotu in-order nasledovníka (najmenší uzol v pravom podstrome) alebo in-order predchodcu (najväčší uzol v ľavom podstrome) do uzla, ktorý chceme odstrániť.
-2. Potom odstránime uzol, ktorý obsahoval pôvodnú hodnotu tohto nasledovníka alebo predchodcu.
-
-## Testovanie
-
-### Vstupy
-Program bude brať ako vstup z príkazového riadku názov súboru, z ktorého načíta graf, tzn. `main` bude vyzerať napríklad takto:
-
-```cpp
-int main(int argc, char* argv[]) {
-    std::string filename = argv[1];
-```
-
-## Výstupy
-Program nech na štandardný výstup postupne vypíše:
-
-1. Postorder,
-2. Preorder,
-3. Inorder,
-4. Výpis „po úrovniach“.
-   
-Váš program nech postupne na štandardný výstup (`std::cout`) vypíše postorder, preorder a inorder, a následne aj výpis po úrovniach. (Na medzery vo výstupe nezáleží.)
-
-## Príklady 
-
-`Vstupy: ` 1 2 3 4 5 6 7 8 9 10
-
-`Očakávaný výstup:`
-
-```cpp
-10 9 8 7 6 5 4 3 2 1 
-1 2 3 4 5 6 7 8 9 10 
-1 2 3 4 5 6 7 8 9 10 
-1 
-X 2 
-X 3 
-X 4 
-X 5 
-X 6 
-X 7 
-X 8 
-X 9 
-X 10 
-X X 
-```
-
-`Vstupy: ` 5 1 0 6 3 2 4 8 7
-
-`Očakávaný výstup:`
-
-```cpp
-0 2 4 3 1 7 8 6 5 
-5 1 0 3 2 4 6 8 7 
-0 1 2 3 4 5 6 7 8 
-5 
-1 6 
-0 3 X 8 
-X X 2 4 7 X 
-X X X X X X 
-
-```
-
-`Vstupy: ` 15 1 14 -3 20 40 33 32 5 4 3 12 77 45 63 50 51 25
-
-`Očakávaný výstup:`
-
- ```cpp
--3 3 4 12 5 14 1 25 32 33 51 50 63 45 77 40 20 15 
-15 1 -3 14 5 4 3 12 20 40 33 32 25 77 45 63 50 51 
--3 1 3 4 5 12 14 15 20 25 32 33 40 45 50 51 63 77 
-15 
-1 20 
--3 14 X 40 
-X X 5 X 33 77 
-4 12 32 X 45 X 
-3 X X X 25 X X 63 
-X X X X 50 X 
-X 51 
-X X 
-```
-
-# Zadanie 2.
-
-Úlohou je preskúmať ďalšiu z mierne bizarných úloh na prechádzanie rieky. Na jednom brehu rieky sa nachádza `n` manželských párov, ktoré je potrebné prepraviť na druhý breh. Prevoz je možný pomocou loďky, ktorá má nasledujúce pravidlá:
-
-1. Loďka môže previezť buď jedného, alebo dvoch ľudí naraz.
-2. Loďka nemôže plávať sama, musí v nej byť vždy aspoň jedna osoba.
-3. Manželia sú veľmi žiarliví. Žiadny manžel neznesie, aby jeho žena bola v spoločnosti iného muža na rovnakom brehu, ak na tomto brehu nie je prítomná jeho manželka.
-4. Rovnaké pravidlá platia aj v loďke. Manžel a manželka sa teda môžu prepravovať spoločne na loďke iba ak patria do toho istého páru.
-5. Na začiatku sú všetky osoby na jednom brehu rieky, v cieľovom stave musia byť všetky osoby na druhom brehu.
-6. Manželia sa môžu presúvať ľubovoľne, ak sú dodržané pravidlá o žiarlivosti.
-
-Vašou úlohou je naprogramovať riešenie, ktoré určí minimálny počet prevozov potrebných na to, aby sa všetky páry úspešne prepravili na druhý breh rieky, pričom je nutné splniť všetky uvedené pravidlá. Môžete, podobne ako na cvičení, použiť prehľadávanie do šírky alebo iný spôsob, ktorý hľadá najkratšiu cestu v zodpovedajúcom stavovom grafe.
+### Rozšírenia:
+- ✅  Definuj štyri **lambda funkcie** pre základné operácie s použitím `auto`.
+- ✅  Použi **`std::map<char, auto>`** na mapovanie operácií na lambda funkcie.
+- ✅  Ošetri **delenie nulou**.
+- ✅  Použi **`try-catch` blok** na zachytávanie chýb.
+- ✅  Po výpočte program umožní **používateľovi zadať novú operáciu** bez reštartu.
 
 ---
 
-## Povolené a nepovolené konfigurácie
+## Úloha 2: Fibonacciho sekvencia so špeciálnym cyklom
 
-Nasledujúce konfigurácie znázorňujú, ako môžu byť jednotlivé osoby prítomné na brehu rieky:
+Napíš program, ktorý vypočíta prvých `n` čísel Fibonacciho sekvencie pomocou **range-based for cyklu**, ktorý je špecifický pre C++.
 
-- `wife0, wife1` – povolená konfigurácia
-- `husband1, husband0` – povolená konfigurácia
-- `wife0, husband1` – nepovolená konfigurácia (husband1 je na brehu s cudzou ženou a jeho vlastná manželka `wife1` nie je prítomná)
-- `wife0, wife1, husband0` – povolená konfigurácia (husband0 je na brehu so svojou manželkou)
-- `wife0, husband1, husband0` – povolená konfigurácia (wife0 je na brehu so svojím manželom)
-
----
-
-## Testy a riešenie pre nižšie hodnoty `n`
-
-- Pre dva manželské páry je možné dosiahnuť prevoz na druhý breh v **piatich prevozoch**.
-- Pre tri páry je potrebných **deväť prevozov**.
-- Pre štyri páry je to **trinásť prevozov**.
-
-Pomocou tužky a papiera sa dá relatívne jednoducho overiť, že každý ďalší pár zvýši počet prevozov o štyri.
+### Rozšírenia:
+- ✅ Použi **`std::vector`** na uchovávanie Fibonacciho čísel.
+- ✅  Generuj Fibonacciho čísla **pomocou range-based for loop**.
+- ✅  Program vypíše **len tie Fibonacciho čísla, ktoré sú párne**.
+- ✅  Použi **`std::transform`** na výpočet ďalších hodnôt v sekvencii.
+- ✅  Použi **`constexpr`** pre efektívnejšiu prácu s hodnotami.
 
 ---
 
-## Testovanie
+## Úloha 3: Triedenie reťazcov s vlastnou porovnávacou funkciou
 
-Test bude len jeden, nebude mať žiadny vstup a skontroluje výstup počítaný z prvých troch inštancií problému. Na konci výpisu je prázdny riadok, aby sme sa nemuseli zaoberať špeciálnym spracovaním posledného riadku výpisu.
+Napíš program, ktorý načíta `n` reťazcov a zotriedi ich pomocou vlastnej **porovnávacej funkcie**, ktorá:
 
-### Očakávaný výstup:
+1. **Prioritizuje kratšie reťazce**.
+2. Ak majú rovnakú dĺžku, zoradí ich **lexikograficky vzostupne**.
+3. Ak obsahujú **číselné hodnoty**, umiestni ich **na koniec zoznamu**.
 
- ```cpp
-2 pairs - 5 transports 3 pairs - 9 transports 4 pairs - 13 transports
- ```
+### Rozšírenia:
+- ✅ Použi **`std::sort`** s vlastným **lambda porovnávačom**.
+- ✅ Na rozpoznanie čísiel v reťazcoch použi **`std::any_of`** a `isdigit()`.
+- ✅ Použi **`std::vector<std::string>`** na uchovanie reťazcov.
+- ✅ Program umožní **používateľovi zadať ľubovoľný počet reťazcov**.
+  
+---
+
+## Úloha 4: Rozšírená práca so súbormi – Čítanie, zápis a vyhľadávanie
+
+### Zadanie:
+Napíš program, ktorý umožní používateľovi vykonávať operácie so súborom obsahujúcim mená a veky ľudí.
+
+### Rozšírenia:
+- ✅ Používateľ si vyberie režim: zápis nových údajov alebo prehľadanie súboru.
+- ✅ Použiť `std::ofstream` (append mode) na pridávanie údajov bez straty existujúcich.
+- ✅ Použiť `std::ifstream` na načítanie údajov a ich vypísanie.
+- ✅ Implementovať vyhľadávanie osoby podľa mena – ak sa nenájde, vypísať správu.
+- ✅ Ošetriť chyby pri otváraní súboru a nesprávne formátované dáta.
+
+### Koncepty:
+Súbory, streamy, vyhľadávanie v texte, spracovanie vstupu, error handling.
 
 ---
 
-## Pre zábavu
+## Úloha 5: Práca s referenciami a ukazovateľmi – Dynamická alokácia
 
-Keď budete mať prvú funkčnú verziu programu, vyskúšajte, pre aké najväčšie `n` ste schopní nájsť riešenie. Potom sa skúste zamyslieť, ako by bolo možné algoritmus vylepšiť, aby zvládol väčšie hodnoty `n`, ale stále fungoval na báze prehľadávania stavového priestoru (ak je niečo také vôbec možné).
+### Zadanie:
+Napíš program, ktorý nielen vymení hodnoty dvoch premenných, ale aj pracuje s dynamicky alokovanou pamäťou.
+
+### Rozšírenia:
+- ✅ Okrem `swapByReference` a `swapByPointer` pridaj `swapBySmartPointer`, ktorý využije `std::unique_ptr`.
+- ✅ Implementuj vstup od používateľa na výmenu hodnôt namiesto pevne definovaných premenných.
+- ✅ Použiť dynamickú alokáciu (`new` a `delete`) pri ukazovateľovej verzii.
+- ✅ Ošetriť použitie `nullptr` v ukazovateľovej verzii.
+
+### Koncepty:
+Referencie, ukazovatele, smart pointre, dynamická pamäť.
+
+---
+
+## Úloha 6: Pokročilá evidencia známok – Triedenie a štatistika
+
+### Zadanie:
+Napíš program, ktorý umožní používateľovi zadávať mená študentov a ich známky a poskytne podrobnejšie štatistiky.
+
+### Rozšírenia:
+- ✅ Použiť `std::map<std::string, std::vector<int>>`, ale s možnosťou odstránenia študenta.
+- ✅ Implementovať triedenie známok študenta pomocou `std::sort`.
+- ✅ Vypočítať medián známok spolu s priemerom.
+- ✅ Použiť `std::minmax_element` na zistenie najlepšej a najhoršej známky každého študenta.
+- ✅ Ak má študent menej ako 3 známky, upozorniť na nedostatok dát pre štatistiky.
+
+### Koncepty:
+Kontajnery (`std::map`, `std::vector`), triedenie (`std::sort`), algoritmy (`std::accumulate`, `std::minmax_element`), spracovanie dát.
+
+---
+
+# Úloha 7 : Implementácia zásobníka s `std::stack` a šablónami
+
+## Zadanie:
+Napíš program, ktorý implementuje **zásobník** (stack) pomocou `std::stack` a umožní používateľovi vykonávať operácie:
+
+1. **Push** – Pridať prvok na vrchol zásobníka.
+2. **Pop** – Odstrániť prvok z vrcholu.
+3. **Top** – Zobraziť vrchný prvok bez odstránenia.
+4. **Empty** – Skontrolovať, či je zásobník prázdny.
+
+## Rozšírenia:
+- ✅ Implementuj **šablónovú triedu (`template<class T>`)** pre zásobník.
+- ✅ Použi **`std::stack<T>`** na implementáciu interných operácií.
+- ✅ Používateľ si môže vybrať typ údajov, ktorý bude zásobník uchovávať (int, double, string).
+- ✅ Ošetri **výnimky**, keď sa pokúša vybrať prvok z prázdneho zásobníka.
+- ✅ Implementuj **iteráciu cez zásobník** pomocou vlastného iterátora.
+
+## Koncepty:
+- **Šablóny (`template`)**
+- **Kontajnery (`std::stack`)**
+- **Výnimky (`try-catch`)**
+- **Iterátory**
+
+---
+
+# Úloha 8 : Implementácia fronty / rady / queue s `std::queue` a šablónami
+
+## Zadanie:
+Napíš program, ktorý implementuje **frontu** (queue) pomocou `std::queue` a umožní používateľovi vykonávať operácie:
+
+1. **Enqueue** – Pridať prvok na koniec fronty.
+2. **Dequeue** – Odstrániť prvok zo začiatku fronty.
+3. **Front** – Zobraziť prvý prvok bez odstránenia.
+4. **Empty** – Skontrolovať, či je fronta prázdna.
+
+## Rozšírenia:
+- ✅ Implementuj **šablónovú triedu (`template<class T>`)** pre frontu.
+- ✅ Použi **`std::queue<T>`** na implementáciu interných operácií.
+- ✅ Používateľ si môže vybrať typ údajov, ktorý bude fronta uchovávať (int, double, string).
+- ✅ Ošetri **výnimky**, keď sa pokúša vybrať prvok z prázdnej fronty.
+- ✅ Implementuj **iteráciu cez frontu** pomocou vlastného iterátora.
+
+## Koncepty:
+- **Šablóny (`template`)**
+- **Kontajnery (`std::queue`)**
+- **Výnimky (`try-catch`)**
+- **Iterátory**
+
+---
+
+## Bonusová úloha 
+
+# Úloha : Paralelné spracovanie dát s `std::thread`
+
+## Zadanie:
+Napíš program, ktorý spracuje veľké množstvo čísel paralelne pomocou **viacerých vlákien** (`std::thread`). Program vykoná tieto operácie:
+
+1. **Spočíta súčet všetkých čísel**.
+2. **Spočíta počet nepárnych čísel**.
+3. **Nájde maximum v poli**.
+
+Každá operácia bude spracovaná v samostatnom vlákne.
+
+## Rozšírenia:
+- ✅ Použi **std::vector<int>** na uchovanie čísel.
+- ✅ Použi **std::thread** na paralelné výpočty.
+- ✅ Synchronizuj výstup pomocou **`std::mutex`** na zabránenie race condition.
+- ✅ Použi **std::future a std::async** na alternatívne spracovanie.
+- ✅ Generuj veľké množstvo náhodných čísel na testovanie výkonu.
+
+## Koncepty:
+- **Vlákna (`std::thread`)**
+- **Synchronizácia (`std::mutex`)**
+- **Asynchrónne operácie (`std::future`, `std::async`)**
+- **Dátové štruktúry (`std::vector`)**
 
 
 
