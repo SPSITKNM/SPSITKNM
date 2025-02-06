@@ -2,6 +2,31 @@
 
 All tasks are written in English to enhance language skills and simulate a corporate environment where English is the universal language. Mastering English is a fundamental skill for professional growth and effective communication in the global workplace.
 
+# Competition Rules  
+
+1. **Teamwork**  
+   - Participants will work in groups according to their seating rows.  
+
+2. **Restrictions on AI Usage**  
+   - The use of artificial intelligence (e.g., ChatGPT, Copilot, Gemini, Claude) is strictly prohibited.  
+
+3. **Allowed Resources**  
+   - Participants may use the following sources for reference:  
+     - Stack Overflow  
+     - Official documentation (e.g., MDN, Python Docs, W3Schools)  
+     - Textbooks and lecture notes  
+     - Any non-AI-generated online forums or articles  
+
+4. **Fair Play & Integrity**  
+   - Participants must work independently within their groups—no external help from individuals outside the competition.  
+   - Any form of cheating or rule violation will result in disqualification.  
+
+5. **Time Limit**  
+   - The competition must be completed within the given time frame. No extra time will be provided.  
+
+6. **Winner & Prize**  
+   - The winning team will receive an **Exclusive Treska** as a reward.  
+
 # 1. Hans Red-Nosed Reports
 
 Fortunately, the first location The Historians want to search isn't a long walk from the Chief Historian's office.
