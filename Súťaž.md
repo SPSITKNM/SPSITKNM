@@ -1,3 +1,7 @@
+# Announcement written by Tom. Muc. 
+
+All tasks are written in English to enhance language skills and simulate a corporate environment where English is the universal language. Mastering English is a fundamental skill for professional growth and effective communication in the global workplace.
+
 # 1. Hans Red-Nosed Reports
 
 Fortunately, the first location The Historians want to search isn't a long walk from the Chief Historian's office.
