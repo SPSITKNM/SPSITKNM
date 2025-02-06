@@ -27,6 +27,13 @@ All tasks are written in English to enhance language skills and simulate a corpo
 6. **Winner & Prize**  
    - The winning team will receive an **Exclusive Treska** as a reward.  
 
+## Language Barrier Clause  
+- In case of a language barrier, participants are required to use a translator to translate content into Slovak.  
+- Recommended translators:  
+  - [Google Translate](https://translate.google.com/)  
+  - [DeepL Translator](https://www.deepl.com/translator)  
+  - [Microsoft Translator](https://www.bing.com/translator)  
+ 
 # 1. Hans Red-Nosed Reports
 
 Fortunately, the first location The Historians want to search isn't a long walk from the Chief Historian's office.
