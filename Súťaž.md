@@ -6,7 +6,7 @@ While the Red-Nosed Reindeer nuclear fusion/fission plant appears to contain no 
 
 They're quick to add that - since you're already here - they'd really appreciate your help analyzing some unusual data from the Red-Nosed reactor. You turn to check if The Historians are waiting for you, but they seem to have already divided into groups that are currently searching every corner of the facility. You offer to help with the unusual data.
 
-The unusual data (your puzzle input) consists of many reports, one report per line. Each report is a list of numbers called levels that are separated by spaces. For example:
+## The unusual data (your puzzle input) consists of many reports, one report per line. Each report is a list of numbers called levels that are separated by spaces. For example:
 
 ```cpp
 7 6 4 2 1
@@ -31,7 +31,7 @@ In the example above, the reports can be found safe or unsafe by checking those 
 8 6 4 4 1: Unsafe because 4 4 is neither an increase or a decrease.
 1 3 6 7 9: Safe because the levels are all increasing by 1, 2, or 3.
 ```
-So, in this example, 2 reports are safe.
+`So, in this example, 2 reports are safe.`
 
 Analyze the unusual data from the engineers. How many reports are safe?
 
