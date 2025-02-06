@@ -33,6 +33,7 @@ All tasks are written in English to enhance language skills and simulate a corpo
   - [Google Translate](https://translate.google.com/)  
   - [DeepL Translator](https://www.deepl.com/translator)  
   - [Microsoft Translator](https://www.bing.com/translator)  
+  - Tomáš Mucha
  
 # 1. Hans Red-Nosed Reports
 
