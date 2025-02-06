@@ -33,7 +33,7 @@ All tasks are written in English to enhance language skills and simulate a corpo
   - [Google Translate](https://translate.google.com/)  
   - [DeepL Translator](https://www.deepl.com/translator)  
   - [Microsoft Translator](https://www.bing.com/translator)  
-  - Tomáš Mucha
+  - [Tomáš Mucha] (https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.ferex.sk%2Fdetail%2Fkontajner-na-komunalny-odpad-1100-l-cierny&psig=AOvVaw3R8uQ9uL-q0F-e9brZtSD9&ust=1738957249595000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCKiIldzmr4sDFQAAAAAdAAAAABAE) 
  
 # 1. Hans Red-Nosed Reports
 
