@@ -39,7 +39,7 @@ In the example above, the reports can be found safe or unsafe by checking those 
 
 Analyze the unusual data from the engineers. How many reports are safe?
 
-# 2. Corrupted Memory
+# 2. Adams Corrupted Memory
 
 "Our computers are having issues, so I have no idea if we have any Chief Historians in stock! You're welcome to check the warehouse, though," says the mildly flustered shopkeeper at the North Pole Toboggan Rental Shop. The Historians head out to take a look.
 
