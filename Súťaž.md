@@ -68,7 +68,7 @@ However, because the program's memory has been corrupted, there are also many in
 
 **These do nothing and should be ignored.**
 
-# Example of Corrupted Memory
+## Example of Corrupted Memory
 
 Consider the following section of corrupted memory:
 
