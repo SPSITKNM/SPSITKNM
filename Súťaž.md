@@ -1,5 +1,7 @@
 # Announcement written by Tom. Muc. 
 
+## "Non scholae, sed vitae discimus."
+
 All tasks are written in English to enhance language skills and simulate a corporate environment where English is the universal language. Mastering English is a fundamental skill for professional growth and effective communication in the global workplace.
 
 # Competition Rules  
