@@ -67,9 +67,7 @@ heap_sort([12, 11, 13, 5, 6, 7])
 ```python
 [5, 6, 7, 11, 12, 13]
 ```
-#**English verison of the assignment**
-
-# Sorting Algorithm Exercises
+# Sorting Algorithm Exercises in the english language
 
 ## 1. Merge Sort – Merging Two Sorted Lists  
 **Task:** Implement a function that merges two sorted lists into one sorted list without using built-in sorting methods.  
