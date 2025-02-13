@@ -67,3 +67,75 @@ heap_sort([12, 11, 13, 5, 6, 7])
 ```python
 [5, 6, 7, 11, 12, 13]
 ```
+#**English verison of the assignment**
+
+# Sorting Algorithm Exercises
+
+## 1. Merge Sort – Merging Two Sorted Lists  
+**Task:** Implement a function that merges two sorted lists into one sorted list without using built-in sorting methods.  
+
+**Example:**  
+```python
+merge_sorted_lists([1, 3, 5], [2, 4, 6])
+```
+**Output:**  
+```python
+[1, 2, 3, 4, 5, 6]
+```
+
+---
+
+## 2. Quick Sort – Last Element as Pivot  
+**Task:** Implement the Quick Sort algorithm using the last element as the pivot.  
+
+**Input:**  
+```python
+quick_sort([8, 4, 7, 3, 1, 9])
+```
+**Output:**  
+```python
+[1, 3, 4, 7, 8, 9]
+```
+
+---
+
+## 3. Insertion Sort – Sorting an Array of Numbers  
+**Task:** Write a program that sorts an array of numbers using Insertion Sort.  
+
+**Input:**  
+```python
+insertion_sort([9, 5, 2, 8, 1])
+```
+**Output:**  
+```python
+[1, 2, 5, 8, 9]
+```
+
+---
+
+## 4. Selection Sort – Finding the k-th Smallest Element  
+**Task:** Use Selection Sort to find the k-th smallest element in an array.  
+
+**Input:**  
+```python
+selection_sort_kth([10, 7, 4, 3, 20, 15], k=3)
+```
+**Output (3rd smallest element):**  
+```python
+7
+```
+
+---
+
+## 5. Heap Sort – Sorting an Array  
+**Task:** Implement the Heap Sort algorithm to sort an array of numbers.  
+
+**Input:**  
+```python
+heap_sort([12, 11, 13, 5, 6, 7])
+```
+**Output:**  
+```python
+[5, 6, 7, 11, 12, 13]
+```
+
