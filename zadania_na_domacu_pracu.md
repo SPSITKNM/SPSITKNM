@@ -87,7 +87,7 @@ class HashTable {
         
 };
 ```
---
+---
 
 ## HashTable Class - Set Member Function
 
