@@ -1,3 +1,6 @@
+
+# Hash Table Coding Exercises by Tom. Muc. 
+
 ## Node Class Constructor for Hash Table
 
 ### Requirements
