@@ -1,6 +1,10 @@
 
 # Hash Table Coding Exercises by Tom. Muc. 
 
+### **Teoretical Learning Material**
+[Video Tutorial](https://www.youtube.com/watch?v=yJjLqHZh9b0)
+
+
 ## Node Class Constructor for Hash Table
 
 ### Requirements
@@ -650,6 +654,6 @@ vector<int> findDuplicates(const vector<int>& nums) {
 	//   +=====================================================+
 }
 ```
-
+---
 
 
