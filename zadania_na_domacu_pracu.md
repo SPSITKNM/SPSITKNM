@@ -505,4 +505,151 @@ class HashTable {
 ```
 ---
 
+## Item In Common - Interview Question
+
+### **Functionality**
+The `itemInCommon()` function checks if two input vectors have at least one common item.
+
+### **Input Parameters**
+- `vect1`: A vector of integers.
+- `vect2`: A vector of integers.
+
+### **Output**
+- The function should return a boolean value indicating whether the two input vectors have at least one item in common.
+
+### **Constraints**
+- The input vectors may have duplicate integers.
+
+### **Examples**
+
+#### Example 1
+**Input:**
+```cpp
+vect1: {1, 2, 3, 4, 5}
+vect2: {6, 7, 8, 9, 10}
+```
+**Output:**
+```cpp
+false
+```
+
+#### Example 2
+**Input:**
+```cpp
+vect1: {1, 2, 3, 4, 5}
+vect2: {4, 5, 6, 7, 8}
+```
+**Output:**
+```cpp
+true
+```
+
+#### Example 3
+**Input:**
+```cpp
+vect1: {1, 2, 2, 4, 5}
+vect2: {6, 7, 8, 2, 10}
+```
+**Output:**
+```cpp
+true
+```
+
+```cpp
+
+#include "ItemInCommon.h"
+
+
+bool itemInCommon(vector<int> vect1, vector<int> vect2) {
+	//   +=====================================================+
+	//   |                 WRITE YOUR CODE HERE                |
+	//   | Description:                                        |
+	//   | - This function checks if two vectors have a        |
+	//   |   common element.                                   |
+	//   | - It uses an unordered_map to store elements from   |
+	//   |   the first vector.                                 |
+	//   | - Then it checks each element from the second       |
+	//   |   vector against the map.                           |
+	//   |                                                     |
+	//   | Return type: bool                                   |
+	//   |                                                     |
+	//   | Tips:                                               |
+	//   | - 'myMap' stores elements from 'vect1' as keys.     |
+	//   | - Loop through 'vect2' and check against 'myMap'.   |
+	//   | - Check output from Test.cpp in "User logs".        |
+	//   +=====================================================+
+}
+
+```
+
+---
+
+## Find Duplicates - Interview Question
+
+### **Functionality**
+The `findDuplicates()` function finds and returns all the duplicate elements in a given vector of integers.
+
+### **Input Parameters**
+- The function takes a constant reference to a vector of integers `nums`.
+
+### **Output**
+- The function should return a vector of integers containing all the duplicate elements in the input vector `nums`.
+- The order of the elements in the output vector does not matter.
+
+### **Examples**
+
+#### Example 1
+**Input:**
+```cpp
+nums: {1, 2, 3, 4, 4, 5, 5, 6, 7, 8}
+```
+**Output:**
+```cpp
+{4, 5}
+```
+
+#### Example 2
+**Input:**
+```cpp
+nums: {10, 20, 30, 20, 40, 50, 30}
+```
+**Output:**
+```cpp
+{20, 30}
+```
+
+#### Example 3
+**Input:**
+```cpp
+nums: {1, 2, 3, 4, 5, 6, 7, 8, 9, 10}
+```
+**Output:**
+```cpp
+{}
+```
+```cpp
+#include "FindDuplicates.h"
+
+
+vector<int> findDuplicates(const vector<int>& nums) {
+	//   +=====================================================+
+	//   |                 WRITE YOUR CODE HERE                |
+	//   | Description:                                        |
+	//   | - This function finds duplicate integers in a given |
+	//   |   vector.                                           |
+	//   | - It uses an unordered_map to count each integer's  |
+	//   |   occurrences.                                      |
+	//   | - Loops through the map to find duplicates.         |
+	//   |                                                     |
+	//   | Return type: vector<int>                            |
+	//   |                                                     |
+	//   | Tips:                                               |
+	//   | - 'numCounts' keeps track of each integer's count.  |
+	//   | - 'duplicates' stores duplicate integers found.     |
+	//   | - Check output from Test.cpp in "User logs".        |
+	//   +=====================================================+
+}
+```
+
+
 
