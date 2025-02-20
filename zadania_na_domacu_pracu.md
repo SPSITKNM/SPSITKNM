@@ -226,7 +226,7 @@ class HashTable {
 };
 
 ```
---
+---
 
 ## HashTable Class - Get Member Function
 
@@ -356,7 +356,7 @@ class HashTable {
 };
 
 ```
---
+---
 
 ## HashTable Class - Keys Member Function
 
@@ -500,6 +500,6 @@ class HashTable {
 };
 
 ```
-
+---
 
 
