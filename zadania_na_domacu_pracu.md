@@ -588,6 +588,120 @@ bool itemInCommon(vector<int> vect1, vector<int> vect2) {
 
 ---
 
+
+```cpp
+
+#ifndef EXERCISE_H
+#define EXERCISE_H
+
+#include <unordered_map>
+#include <vector>
+
+using namespace std;
+
+bool itemInCommon(vector<int> vect1, vector<int> vect2);
+
+#endif // _EXERCISE_H
+```
+
+---
+
+## TEST 
+
+
+```
+
+#include <iostream>
+#include "Test.h"
+
+using namespace std;
+
+void test() {
+    {
+        cout << "\n----- Test: Has Items In Common -----\n";
+        vector<int> vect1 = {1, 2, 3, 4, 5};
+        vector<int> vect2 = {5, 6, 7, 8, 9};
+        cout << "EXPECTED: True\n";
+        cout << "RETURNED: " << (itemInCommon(vect1, vect2) ? "True\n" : "False\n");
+        cout << (itemInCommon(vect1, vect2) ? "PASS\n" : "FAIL\n");
+    }
+
+    {
+        cout << "\n----- Test: No Items In Common -----\n";
+        vector<int> vect1 = {1, 2, 3, 4, 5};
+        vector<int> vect2 = {6, 7, 8, 9, 10};
+        cout << "EXPECTED: False\n";
+        cout << "RETURNED: " << (itemInCommon(vect1, vect2) ? "True\n" : "False\n");
+        cout << (!itemInCommon(vect1, vect2) ? "PASS\n" : "FAIL\n");
+    }
+
+    {
+        cout << "\n----- Test: Both Vectors Empty -----\n";
+        vector<int> vect1 = {};
+        vector<int> vect2 = {};
+        cout << "EXPECTED: False\n";
+        cout << "RETURNED: " << (itemInCommon(vect1, vect2) ? "True\n" : "False\n");
+        cout << (!itemInCommon(vect1, vect2) ? "PASS\n" : "FAIL\n");
+    }
+
+    {
+        cout << "\n----- Test: One Vector Empty -----\n";
+        vector<int> vect1 = {1, 2, 3, 4, 5};
+        vector<int> vect2 = {};
+        cout << "EXPECTED: False\n";
+        cout << "RETURNED: " << (itemInCommon(vect1, vect2) ? "True\n" : "False\n");
+        cout << (!itemInCommon(vect1, vect2) ? "PASS\n" : "FAIL\n");
+    }
+    
+}
+
+
+/* 
+    EXPECTED OUTPUT:
+    ----- Test: Has Items In Common -----
+    EXPECTED: True
+    RETURNED: True
+    PASS
+    ----- Test: No Items In Common -----
+    EXPECTED: False
+    RETURNED: False
+    PASS
+    ----- Test: Both Vectors Empty -----
+    EXPECTED: False
+    RETURNED: False
+    PASS
+    ----- Test: One Vector Empty -----
+    EXPECTED: False
+    RETURNED: False
+    PASS
+
+*/
+
+
+```
+
+---
+
+## TEST.h
+
+
+```cpp
+
+#ifndef TEST_H
+#define TEST_H
+
+#include "ItemInCommon.h"
+
+void test();
+
+#endif /* TEST_H */
+
+
+```
+
+
+---
+
 ## Find Duplicates - Interview Question
 
 ### **Functionality**
@@ -656,4 +770,139 @@ vector<int> findDuplicates(const vector<int>& nums) {
 ```
 ---
 
+```cpp
+#ifndef EXERCISE_H
+#define EXERCISE_H
 
+#include <unordered_map>
+#include <vector>
+
+using namespace std;
+
+vector<int> findDuplicates(const vector<int>& nums);
+
+#endif // _EXERCISE_H
+
+
+```
+
+## Test.cpp
+
+```cpp
+
+#include <iostream>
+#include <algorithm>
+#include "Test.h"
+
+using namespace std;
+
+void test() {
+    auto printVector = [](const vector<int>& v) {
+        cout << "(";
+        for(int i = 0; i < v.size(); i++) {
+            cout << v[i];
+            if (i < v.size() - 1) cout << ", ";
+        }
+        cout << ")";
+    };
+
+    {
+        cout << "\n----- Test: No Duplicates -----\n";
+        vector<int> nums = {1, 2, 3, 4, 5};
+        vector<int> expected = {};
+        vector<int> result = findDuplicates(nums);
+        cout << "EXPECTED: No Duplicates\n";
+        cout << "RETURNED: ";
+        printVector(result);
+        cout << "\n";
+        cout << (result == expected ? "PASS\n" : "FAIL\n");
+    }
+
+    {
+        cout << "\n----- Test: Some Duplicates -----\n";
+        vector<int> nums = {1, 2, 3, 2, 1, 4, 5, 6, 5};
+        vector<int> expected = {1, 2, 5};
+        vector<int> result = findDuplicates(nums);
+        sort(result.begin(), result.end());
+        cout << "EXPECTED: Has Duplicates: ";
+        printVector(expected);
+        cout << "\n";
+        cout << "RETURNED: ";
+        printVector(result);
+        cout << "\n";
+        cout << (result == expected ? "PASS\n" : "FAIL\n");
+    }
+
+    {
+        cout << "\n----- Test: All Duplicates -----\n";
+        vector<int> nums = {1, 1, 2, 2, 3, 3};
+        vector<int> expected = {1, 2, 3};
+        vector<int> result = findDuplicates(nums);
+        sort(result.begin(), result.end());
+        cout << "EXPECTED: Has Duplicates: (1, 2, 3)\n";
+        cout << "RETURNED: ";
+        printVector(result);
+        cout << "\n";
+        cout << (result == expected ? "PASS\n" : "FAIL\n");
+    }
+
+    {
+        cout << "\n----- Test: Empty Vector -----\n";
+        vector<int> nums = {};
+        vector<int> expected = {};
+        vector<int> result = findDuplicates(nums);
+        cout << "EXPECTED: No Duplicates\n";
+        cout << "RETURNED: ";
+        printVector(result);
+        cout << "\n";
+        cout << (result == expected ? "PASS\n" : "FAIL\n");
+    }
+}
+
+
+
+/* 
+    EXPECTED OUTPUT:
+    ----- Test: No Duplicates -----
+    EXPECTED: No Duplicates
+    RETURNED: ()
+    PASS
+    ----- Test: Some Duplicates -----
+    EXPECTED: Has Duplicates: (1, 2, 5)
+    RETURNED: (1, 2, 5)
+    PASS
+    ----- Test: All Duplicates -----
+    EXPECTED: Has Duplicates: (1, 2, 3)
+    RETURNED: (1, 2, 3)
+    PASS
+    ----- Test: Empty Vector -----
+    EXPECTED: No Duplicates
+    RETURNED: ()
+    PASS
+
+*/
+
+
+
+
+```
+
+
+## Test.h
+
+
+```cpp
+
+#ifndef TEST_H
+#define TEST_H
+
+#include "FindDuplicates.h"
+
+void test();
+
+#endif /* TEST_H */
+
+
+
+
+```
