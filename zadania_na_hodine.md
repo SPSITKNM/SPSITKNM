@@ -3,6 +3,13 @@
 
 ## Graph: Add Vertex
 
+---
+
+### **Teoretical Learning Material**
+[Video Tutorial](https://www.youtube.com/watch?v=yJjLqHZh9b0)
+
+---
+
 ## Task
 Implement the `addVertex` member function in the `Graph` class to add a new vertex to the graph's adjacency list.
 
