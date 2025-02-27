@@ -390,8 +390,6 @@ Your implementation must:
 The heap property is maintained after the insertion.
 
 ```cpp
-
-
 #include <iostream>
 #include <vector>
 #include <climits> 
@@ -518,7 +516,6 @@ int remove();
 - The heap should be adjusted to:
 ```cpp
 [20, 10, 15, 5, 6, 12]
-```
 ```
 
 ```cpp
