@@ -936,6 +936,65 @@ class Heap {
 
 ---
 
+```cpp
+
+#include <iostream>
+#include "MaxHeap.cpp"
+
+using namespace std;
+
+
+//  +=====================================================+
+//  |                                                     |
+//  |          THE TEST CODE BELOW WILL PRINT             |
+//  |              OUTPUT TO "USER LOGS"                  |
+//  |                                                     |
+//  |  Use the output to test and troubleshoot your code  |
+//  |                                                     |
+//  +=====================================================+
+
+
+static void test() {
+    Heap heap;
+
+    // Insert values into the heap
+    vector<int> values = {10, 20, 30, 5, 15, 25, 35};
+    cout << "Inserting values: ";
+    for (int value : values) {
+        cout << value << " ";
+        heap.insert(value);
+        
+        // Verify max heap property
+        const vector<int>& currentHeap = heap.getHeap();
+        bool isValidMaxHeap = true;
+        for (size_t i = 0; i < currentHeap.size(); i++) {
+            int left = 2 * i + 1;  // Calculating left child index
+            int right = 2 * i + 2; // Calculating right child index
+            if (left < currentHeap.size() && currentHeap[i] < currentHeap[left]) {
+                isValidMaxHeap = false;
+                break;
+            }
+            if (right < currentHeap.size() && currentHeap[i] < currentHeap[right]) {
+                isValidMaxHeap = false;
+                break;
+            }
+        }
+
+        cout << "\nHeap after insertion: ";
+        heap.printHeap();
+        cout << "Max Heap Property Valid? " << (isValidMaxHeap ? "Yes" : "No") << "\n";
+    }
+
+    // Final Heap structure
+    cout << "\nFinal Heap Structure: ";
+    heap.printHeap();
+}
+
+
+```
+
+---
+
 
 # Heap: Remove
 
@@ -1099,6 +1158,76 @@ class Heap {
 };
 
 ```
+
+---
+
+```cpp
+#include <iostream>
+#include "MaxHeap.cpp"
+
+using namespace std;
+
+
+//  +=====================================================+
+//  |                                                     |
+//  |          THE TEST CODE BELOW WILL PRINT             |
+//  |              OUTPUT TO "USER LOGS"                  |
+//  |                                                     |
+//  |  Use the output to test and troubleshoot your code  |
+//  |                                                     |
+//  +=====================================================+
+
+
+static void test() {
+    Heap heap;
+
+    // Insert values into the heap
+    vector<int> valuesToInsert = {10, 20, 30, 5, 15, 25, 35};
+    cout << "Inserting values: ";
+    for (int value : valuesToInsert) {
+        cout << value << " ";
+        heap.insert(value);
+    }
+    cout << "\nInitial Heap: ";
+    heap.printHeap();
+
+    // Remove values from the heap and test after each removal
+    while (!heap.getHeap().empty()) {
+        int removedValue = heap.remove();
+        cout << "\nRemoved Value: " << removedValue;
+        cout << "\nHeap after removal: ";
+        heap.printHeap();
+
+        // Verify max heap property
+        const vector<int>& currentHeap = heap.getHeap();
+        bool isValidMaxHeap = true;
+        for (size_t i = 0; i < currentHeap.size(); i++) {
+            int left = 2 * i + 1;  // Calculating left child index
+            int right = 2 * i + 2; // Calculating right child index
+            if (left < currentHeap.size() && currentHeap[i] < currentHeap[left]) {
+                isValidMaxHeap = false;
+                break;
+            }
+            if (right < currentHeap.size() && currentHeap[i] < currentHeap[right]) {
+                isValidMaxHeap = false;
+                break;
+            }
+        }
+
+        cout << "\nMax Heap Property Valid? " << (isValidMaxHeap ? "Yes" : "No") << "\n";
+    }
+
+    // Check if heap is empty at the end
+    cout << "\nFinal Heap (Should be empty): ";
+    heap.printHeap();
+}
+
+
+
+
+```
+
+
 
 ---
 
@@ -1277,6 +1406,77 @@ class Heap {
 ---
 
 
+```cpp
+
+#include <iostream>
+#include "MaxHeap.cpp"
+
+using namespace std;
+
+
+//  +=====================================================+
+//  |                                                     |
+//  |          THE TEST CODE BELOW WILL PRINT             |
+//  |              OUTPUT TO "USER LOGS"                  |
+//  |                                                     |
+//  |  Use the output to test and troubleshoot your code  |
+//  |                                                     |
+//  +=====================================================+
+
+
+static void test() {
+    Heap heap;
+
+    // Insert values into the heap
+    vector<int> valuesToInsert = {10, 20, 30, 5, 15, 25, 35};
+    cout << "Inserting values: ";
+    for (int value : valuesToInsert) {
+        cout << value << " ";
+        heap.insert(value);
+    }
+    cout << "\nInitial Heap: ";
+    heap.printHeap();
+
+    // Remove values from the heap and test after each removal
+    while (!heap.getHeap().empty()) {
+        int removedValue = heap.remove();
+        cout << "\nRemoved Value: " << removedValue;
+        cout << "\nHeap after removal: ";
+        heap.printHeap();
+
+        // Verify max heap property
+        const vector<int>& currentHeap = heap.getHeap();
+        bool isValidMaxHeap = true;
+        for (size_t i = 0; i < currentHeap.size(); i++) {
+            int left = 2 * i + 1;  // Calculating left child index
+            int right = 2 * i + 2; // Calculating right child index
+            if (left < currentHeap.size() && currentHeap[i] < currentHeap[left]) {
+                isValidMaxHeap = false;
+                break;
+            }
+            if (right < currentHeap.size() && currentHeap[i] < currentHeap[right]) {
+                isValidMaxHeap = false;
+                break;
+            }
+        }
+
+        cout << "\nMax Heap Property Valid? " << (isValidMaxHeap ? "Yes" : "No") << "\n";
+    }
+
+    // Check if heap is empty at the end
+    cout << "\nFinal Heap (Should be empty): ";
+    heap.printHeap();
+}
+
+
+
+```
+
+
+
+---
+
+
 # Heap: MinHeap Insert
 
 ## Task
@@ -1401,6 +1601,65 @@ class MinHeap {
 
 ```
 
+---
+
+```cpp
+
+#include <iostream>
+#include "MinHeap.cpp"
+
+using namespace std;
+
+
+//  +=====================================================+
+//  |                                                     |
+//  |          THE TEST CODE BELOW WILL PRINT             |
+//  |              OUTPUT TO "USER LOGS"                  |
+//  |                                                     |
+//  |  Use the output to test and troubleshoot your code  |
+//  |             Bandaskas = Baňas                                      |
+//  +=====================================================+
+
+
+static void test() {
+    MinHeap heap;
+
+    // Insert values into the heap
+    vector<int> values = {35, 25, 15, 5, 20, 30, 10};
+    cout << "Inserting values: ";
+    for (int value : values) {
+        cout << value << " ";
+        heap.insert(value);
+        
+        // Verify min heap property
+        const vector<int>& currentHeap = heap.getHeap();
+        bool isValidMinHeap = true;
+        for (size_t i = 0; i < currentHeap.size(); i++) {
+            int left = 2 * i + 1;  // Calculating left child index
+            int right = 2 * i + 2; // Calculating right child index
+            if (left < currentHeap.size() && currentHeap[i] > currentHeap[left]) {
+                isValidMinHeap = false;
+                break;
+            }
+            if (right < currentHeap.size() && currentHeap[i] > currentHeap[right]) {
+                isValidMinHeap = false;
+                break;
+            }
+        }
+
+        cout << "\nHeap after insertion: ";
+        heap.printHeap();
+        cout << "Min Heap Property Valid? " << (isValidMinHeap ? "Yes" : "No") << "\n";
+    }
+
+    // Final Heap structure
+    cout << "\nFinal Heap Structure: ";
+    heap.printHeap();
+}
+
+
+
+```
 ---
 
 
@@ -1577,6 +1836,73 @@ class MinHeap {
 
 
 ```
+
+---
+
+```cpp
+
+#include <iostream>
+#include "MinHeap.cpp"
+
+using namespace std;
+
+
+//  +=====================================================+
+//  |                                                     |
+//  |          THE TEST CODE BELOW WILL PRINT             |
+//  |              OUTPUT TO "USER LOGS"                  |
+//  |                                                     |
+//  |  Use the output to test and troubleshoot your code  |
+//  |                                                     |
+//  +=====================================================+
+
+
+static void test() {
+    MinHeap heap;
+
+    // Insert values into the heap
+    vector<int> valuesToInsert = {35, 25, 15, 5, 20, 30, 10};
+    cout << "Inserting values: ";
+    for (int value : valuesToInsert) {
+        cout << value << " ";
+        heap.insert(value);
+    }
+    cout << "\nInitial Heap: ";
+    heap.printHeap();
+
+    // Remove values from the heap and test after each removal
+    while (!heap.getHeap().empty()) {
+        int removedValue = heap.remove();
+        cout << "\nRemoved Value: " << removedValue;
+        cout << "\nHeap after removal: ";
+        heap.printHeap();
+
+        // Verify min heap property
+        const vector<int>& currentHeap = heap.getHeap();
+        bool isValidMinHeap = true;
+        for (size_t i = 0; i < currentHeap.size(); i++) {
+            int left = 2 * i + 1;  // Calculating left child index
+            int right = 2 * i + 2; // Calculating right child index
+            if (left < currentHeap.size() && currentHeap[i] > currentHeap[left]) {
+                isValidMinHeap = false;
+                break;
+            }
+            if (right < currentHeap.size() && currentHeap[i] > currentHeap[right]) {
+                isValidMinHeap = false;
+                break;
+            }
+        }
+
+        cout << "\nMin Heap Property Valid? " << (isValidMinHeap ? "Yes" : "No") << "\n";
+    }
+
+    // Check if heap is empty at the end
+    cout << "\nFinal Heap (Should be empty): ";
+    heap.printHeap();
+}
+
+```
+
 
 ---
 
@@ -1762,4 +2088,68 @@ class MinHeap {
 
 
 ```
+---
 
+```cpp
+
+#include <iostream>
+#include "MinHeap.cpp"
+
+using namespace std;
+
+
+//  +=====================================================+
+//  |                                                     |
+//  |          THE TEST CODE BELOW WILL PRINT             |
+//  |              OUTPUT TO "USER LOGS"                  |
+//  |                                                     |
+//  |  Use the output to test and troubleshoot your code  |
+//  |                                                     |
+//  +=====================================================+
+
+
+static void test() {
+    MinHeap heap;
+
+    // Insert values into the heap
+    vector<int> valuesToInsert = {35, 25, 15, 5, 20, 30, 10};
+    cout << "Inserting values: ";
+    for (int value : valuesToInsert) {
+        cout << value << " ";
+        heap.insert(value);
+    }
+    cout << "\nInitial Heap: ";
+    heap.printHeap();
+
+    // Remove values from the heap and test after each removal
+    while (!heap.getHeap().empty()) {
+        int removedValue = heap.remove();
+        cout << "\nRemoved Value: " << removedValue;
+        cout << "\nHeap after removal: ";
+        heap.printHeap();
+
+        // Verify min heap property
+        const vector<int>& currentHeap = heap.getHeap();
+        bool isValidMinHeap = true;
+        for (size_t i = 0; i < currentHeap.size(); i++) {
+            int left = 2 * i + 1;  // Calculating left child index
+            int right = 2 * i + 2; // Calculating right child index
+            if (left < currentHeap.size() && currentHeap[i] > currentHeap[left]) {
+                isValidMinHeap = false;
+                break;
+            }
+            if (right < currentHeap.size() && currentHeap[i] > currentHeap[right]) {
+                isValidMinHeap = false;
+                break;
+            }
+        }
+
+        cout << "\nMin Heap Property Valid? " << (isValidMinHeap ? "Yes" : "No") << "\n";
+    }
+
+    // Check if heap is empty at the end
+    cout << "\nFinal Heap (Should be empty): ";
+    heap.printHeap();
+}
+
+```
