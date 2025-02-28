@@ -82,6 +82,100 @@ class Graph {
 
 ---
 
+
+```cpp
+
+
+#include <iostream>
+#include "Graph.cpp"
+
+using namespace std;
+
+
+//  +=====================================================+
+//  |                                                     |
+//  |          THE TEST CODE BELOW WILL PRINT             |
+//  |              OUTPUT TO "USER LOGS"                  |
+//  |                                                     |
+//  |  Use the output to test and troubleshoot your code  |
+//  |                                                     |
+//  +=====================================================+
+
+
+static void test() {
+    
+    {
+        cout << "\n----- Test: Add New Vertex -----\n";
+        Graph g;
+        cout << "Before:\n";
+        g.printGraph();
+        cout << "Adding vertex 'A'.\n";
+        bool result = g.addVertex("A");
+        cout << "After:\n";
+        g.printGraph();
+        cout << "EXPECTED: true\n";
+        cout << "RETURNED: " << (result ? "true" : "false") << "\n";
+        cout << (result == true ? "PASS\n" : "FAIL\n");
+    }
+
+    {
+        cout << "\n----- Test: Add Duplicate Vertex -----\n";
+        Graph g;
+        g.addVertex("A");
+        cout << "Before:\n";
+        g.printGraph();
+        cout << "Adding duplicate vertex 'A'.\n";
+        bool result = g.addVertex("A");
+        cout << "After:\n";
+        g.printGraph();
+        cout << "EXPECTED: false\n";
+        cout << "RETURNED: " << (result ? "true" : "false") << "\n";
+        cout << (result == false ? "PASS\n" : "FAIL\n");
+    }
+
+    {
+        cout << "\n----- Test: Add Multiple Vertices -----\n";
+        Graph g;
+        cout << "Before:\n";
+        g.printGraph();
+        cout << "Adding vertices 'A', 'B', duplicate 'A', and duplicate 'B'.\n";
+        bool result1 = g.addVertex("A");
+        bool result2 = g.addVertex("B");
+        bool result3 = g.addVertex("A");
+        bool result4 = g.addVertex("B");
+        cout << "After:\n";
+        g.printGraph();
+        cout << "Adding 'A': EXPECTED: true, RETURNED: " << (result1 ? "true" : "false") << "\n";
+        cout << "Adding 'B': EXPECTED: true, RETURNED: " << (result2 ? "true" : "false") << "\n";
+        cout << "Adding duplicate 'A': EXPECTED: false, RETURNED: " << (result3 ? "true" : "false") << "\n";
+        cout << "Adding duplicate 'B': EXPECTED: false, RETURNED: " << (result4 ? "true" : "false") << "\n";
+        cout << (result1 && result2 && !result3 && !result4 ? "PASS\n" : "FAIL\n");
+    }
+
+    {
+        cout << "\n----- Test: Add Empty String Vertex -----\n";
+        Graph g;
+        cout << "Before:\n";
+        g.printGraph();
+        cout << "Adding empty string vertex.\n";
+        bool result = g.addVertex("");
+        cout << "After:\n";
+        g.printGraph();
+        cout << "EXPECTED: true\n";
+        cout << "RETURNED: " << (result ? "true" : "false") << "\n";
+        cout << (result == true ? "PASS\n" : "FAIL\n");
+    }
+    
+}
+
+
+
+
+
+```
+
+---
+
 # Graph: Add Edge
 
 ## Task
@@ -106,28 +200,173 @@ The function should return a `bool` value, indicating whether the edge was succe
 
 ```cpp 
 
-# Graph: Add Edge
+#include <iostream>
+#include <unordered_map>
+#include <unordered_set>
 
-## Task
-Implement the `addEdge` member function in the `Graph` class to add a new edge between two vertices in the graph's adjacency list.
+using namespace std;
 
-## Requirements
-The function should return a `bool` value, indicating whether the edge was successfully added.
 
-### Step 1: Check if both vertices exist
-- If both vertices (`vertex1` and `vertex2`) are present in the adjacency list (i.e., `adjList.count(vertex1) != 0` and `adjList.count(vertex2) != 0`), proceed to the next step.
-- Otherwise, return `false`.
+class Graph {
+    private:
+        unordered_map<string, unordered_set<string> > adjList;
+    
+    public:
+        void printGraph() {
+            unordered_map<string, unordered_set<string>>::iterator kvPair = adjList.begin();
+            while (kvPair != adjList.end()) {
+                cout << kvPair->first << ": [";
+                unordered_set<string>::iterator edge = kvPair->second.begin();
+                bool first = true;
+                while (edge != kvPair->second.end()) {
+                    if (!first) {
+                        cout << ", ";
+                    }
+                    cout << *edge;
+                    edge++;
+                    first = false;
+                }
+                cout << "]" << endl;
+                kvPair++;
+            }
+        }
 
-### Step 2: Add the new edge
-- If both vertices are present in the adjacency list, insert `vertex2` into the `unordered_set` associated with `vertex1`, and insert `vertex1` into the `unordered_set` associated with `vertex2`.
-- Return `true` to indicate that the edge was successfully added.
+        bool addVertex(string vertex) {
+            if (adjList.count(vertex) == 0) {
+                adjList[vertex];
+                return true;
+            }
+            return false;
+        }
 
-## Notes
-- Use an **unordered_map** to represent the adjacency list (`adjList`).
-- Use an **unordered_set** to store the neighboring vertices.
+		//   +=====================================================+
+		//   |                WRITE YOUR CODE HERE                 |
+		//   | Description:                                        |
+		//   | - This method adds an edge between vertex1 and      |
+		//   |   vertex2 in the graph.                             |
+		//   | - Checks if both vertices exist in the graph.       |
+		//   |                                                     |
+		//   | Return type: bool                                   |
+		//   | - Returns true if edge is successfully added.       |
+		//   | - Returns false if either vertex does not exist.    |
+		//   |                                                     |
+		//   | Tips:                                               |
+		//   | - Uses 'adjList' to hold the graph's adjacency list.|
+		//   | - Check output from Test.cpp in "User logs".        |
+		//   +=====================================================+
+        
+};
+
+
 
 
 ```
+
+---
+
+```cpp
+
+#include <iostream>
+#include "Graph.cpp"
+
+using namespace std;
+
+
+//  +=====================================================+
+//  |                                                     |
+//  |          THE TEST CODE BELOW WILL PRINT             |
+//  |              OUTPUT TO "USER LOGS"                  |
+//  |                                                     |
+//  |  Use the output to test and troubleshoot your code  |
+//  |                                                     |
+//  +=====================================================+
+
+
+static void test() {
+    
+    {
+        cout << "\n----- Test: Add Edge To Empty Graph -----\n";
+        Graph g;
+        cout << "Before:\n";
+        g.printGraph();
+        cout << "Adding edge between 'A' and 'B'.\n";
+        bool result = g.addEdge("A", "B");
+        cout << "After:\n";
+        g.printGraph();
+        cout << "EXPECTED: false\n";
+        cout << "RETURNED: " << (result ? "true" : "false") << "\n";
+        cout << (result == false ? "PASS\n" : "FAIL\n");
+    }
+
+    {
+        cout << "\n---- Test: Add Edge Between Nonexistent Vertices (C & D) ----\n";
+        Graph g;
+        g.addVertex("A");
+        g.addVertex("B");
+        cout << "Before:\n";
+        g.printGraph();
+        cout << "Adding edge between 'C' and 'D'.\n";
+        bool result = g.addEdge("C", "D");
+        cout << "After:\n";
+        g.printGraph();
+        cout << "EXPECTED: false\n";
+        cout << "RETURNED: " << (result ? "true" : "false") << "\n";
+        cout << (result == false ? "PASS\n" : "FAIL\n");
+    }
+
+    {
+        cout << "\n----- Test: Add Edge Between One Nonexistent Vertex (B) -----\n";
+        Graph g;
+        g.addVertex("A");
+        cout << "Before:\n";
+        g.printGraph();
+        cout << "Adding edge between 'A' and 'B'.\n";
+        bool result = g.addEdge("A", "B");
+        cout << "After:\n";
+        g.printGraph();
+        cout << "EXPECTED: false\n";
+        cout << "RETURNED: " << (result ? "true" : "false") << "\n";
+        cout << (result == false ? "PASS\n" : "FAIL\n");
+    }
+
+    {
+        cout << "\n----- Test: Add Edge Between Existing Vertices (A & B) -----\n";
+        Graph g;
+        g.addVertex("A");
+        g.addVertex("B");
+        cout << "Before:\n";
+        g.printGraph();
+        cout << "Adding edge between 'A' and 'B'.\n";
+        bool result = g.addEdge("A", "B");
+        cout << "After:\n";
+        g.printGraph();
+        cout << "EXPECTED: true\n";
+        cout << "RETURNED: " << (result ? "true" : "false") << "\n";
+        cout << (result == true ? "PASS\n" : "FAIL\n");
+    }
+
+    {
+        cout << "\n----- Test: Add Duplicate Edge (A & B) -----\n";
+        Graph g;
+        g.addVertex("A");
+        g.addVertex("B");
+        g.addEdge("A", "B");
+        cout << "Before:\n";
+        g.printGraph();
+        cout << "Adding edge again between 'A' and 'B'.\n";
+        bool result = g.addEdge("A", "B");
+        cout << "After:\n";
+        g.printGraph();
+        cout << "EXPECTED: true\n";  // Adjusted based on your tests. If duplicates are not allowed, this should be "false"
+        cout << "RETURNED: " << (result ? "true" : "false") << "\n";
+        cout << (result == true ? "PASS\n" : "FAIL\n");
+    }
+    
+}
+
+
+```
+
 
 ---
 
