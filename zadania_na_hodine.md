@@ -1,5 +1,7 @@
 
-# Contains
+# The tasks corresponding to the topics covered in the PRO lessons by Tom. Muc.
+
+## Contains
 
 ## Method Overview:
 
@@ -617,3 +619,837 @@ class BinarySearchTree {
 
 
 ```
+
+---
+
+
+# BST: Breadth First Search (BFS)
+
+## Method Overview:
+
+**Function Signature:** `void BFS();`
+
+### Tasks:
+The function performs a **Breadth-First Search (BFS)** traversal on the binary search tree. During the traversal, it prints the node values in the order they are visited.
+
+### Steps for BFS Implementation:
+
+1. **Create a queue:**
+   - Declare a queue `myQueue` of type `queue<Node*>` to store the nodes in the order they will be visited.
+
+2. **Enqueue the root node:**
+   - If the root pointer is not `nullptr`, push it onto `myQueue`.
+
+3. **Traverse the binary search tree:**
+   - While the queue is not empty, perform the following actions:
+     1. **Dequeue the front node** in `myQueue` and store it in a `Node*` variable called `currentNode`.
+     2. **Print the value** of `currentNode`.
+     3. If the **left child** of `currentNode` exists, enqueue it.
+     4. If the **right child** of `currentNode` exists, enqueue it.
+
+### Example of BFS Traversal:
+
+For a Binary Search Tree with the following values:
+
+```
+        10
+       /        5   15
+     / \   /     2   7 12 18
+```
+
+Performing a BFS traversal will result in the following order of node values:
+
+```
+10, 5, 15, 2, 7, 12, 18
+```
+
+The function starts at the root (10), then proceeds to its children (5 and 15), and continues level by level.
+
+### Constraints:
+- The function assumes that the tree is well-formed.
+- The tree follows the properties of a binary search tree (BST).
+
+## Expected Behavior:
+Calling `BFS()` on the tree will print the node values in the order they are visited during the BFS traversal.
+
+```cpp 
+#include <iostream>
+#include <queue>
+
+using namespace std;
+
+
+class Node { 
+    public: 
+        int value;
+        Node* left;
+        Node* right;
+
+        Node(int value) {
+            this->value = value;
+            left = nullptr;
+            right = nullptr;
+        }
+};
+
+
+class BinarySearchTree {
+    private:
+        Node* root;
+
+    public:
+        BinarySearchTree() { root = nullptr; }
+
+
+        // ---------------------------------------------------
+        //  This is a helper function used by the destructor
+        //  Deletes all nodes in BST
+        //  Similar to DFS PostOrder in Tree Traversal section
+        // ---------------------------------------------------
+        void destroy(Node* currentNode) {
+            if (currentNode == nullptr) return;
+            if (currentNode->left) destroy(currentNode->left);
+            if (currentNode->right) destroy(currentNode->right);
+            delete currentNode;
+        }
+
+        ~BinarySearchTree() { destroy(root); }
+
+        Node* getRoot() {
+            return root;
+        } 
+
+        bool insert(int value) {
+            Node* newNode = new Node(value);
+            if (root == nullptr) {
+                root = newNode;
+                return true;
+            }
+            Node* temp = root;
+            while(true) {
+                if (newNode->value == temp->value) return false;
+                if (newNode->value < temp->value) {
+                    if (temp->left == nullptr) {
+                        temp->left = newNode;
+                        return true;
+                    }
+                    temp = temp->left;
+                } else {
+                    if (temp->right == nullptr) {
+                        temp->right = newNode;
+                        return true;
+                    }
+                    temp = temp->right;
+                }
+            }
+        }
+
+		//   +=====================================================+
+		//   |                WRITE YOUR CODE HERE                 |
+		//   | Description:                                        |
+		//   | - This method performs a Breadth-First Search       |
+		//   |   (BFS) starting from the root of the tree.         |
+		//   | - Prints the value of each node as it visits it.    |
+		//   |                                                     |
+		//   | Return type: void                                   |
+		//   |                                                     |
+		//   | Tips:                                               |
+		//   | - Uses a queue (myQueue) to keep track of nodes     |
+		//   |   to visit.                                         |
+		//   | - Check output from Test.cpp in "User logs".        |
+		//   +=====================================================+
+
+};
+```
+
+---
+
+# BST: DFS PreOrder
+
+## Method Overview:
+
+**Function Signature:** `void DFSPreOrder(Node* currentNode);`
+
+### Tasks:
+The function performs a **Depth-First Search (DFS)** traversal using the **Pre-Order** method. During the traversal, it prints the node values in the order they are visited.
+
+### Steps for PreOrder DFS Implementation:
+
+1. **Print the value of the current node:**
+   - Print the value of `currentNode`.
+
+2. **Traverse the left subtree:**
+   - If the left child of `currentNode` exists (i.e., `currentNode->left` is not `nullptr`), recursively call `DFSPreOrder` with the left child as the argument.
+
+3. **Traverse the right subtree:**
+   - If the right child of `currentNode` exists (i.e., `currentNode->right` is not `nullptr`), recursively call `DFSPreOrder` with the right child as the argument.
+
+### Example of PreOrder DFS Traversal:
+
+For a Binary Search Tree with the following values:
+
+```
+        10
+       /        5   15
+     / \   /     2   7 12 18
+```
+
+Performing a DFS PreOrder traversal will result in the following order of node values:
+
+```
+10, 5, 2, 7, 15, 12, 18
+```
+
+The traversal starts at the root (10), then moves to its left subtree (5, 2, 7), and finally traverses the right subtree (15, 12, 18).
+
+### Constraints:
+- The function assumes that the tree is well-formed.
+- The tree follows the properties of a binary search tree (BST).
+
+## Expected Behavior:
+Calling `DFSPreOrder()` on the tree will print the node values in the order they are visited during the Pre-Order Depth-First Search traversal.
+---
+
+```cpp
+
+#include <iostream>
+
+using namespace std;
+
+
+class Node { 
+    public: 
+        int value;
+        Node* left;
+        Node* right;
+
+        Node(int value) {
+            this->value = value;
+            left = nullptr;
+            right = nullptr;
+        }
+};
+
+
+class BinarySearchTree {
+    private:
+        Node* root;
+
+    public:
+        BinarySearchTree() { root = nullptr; }
+
+
+        // ---------------------------------------------------
+        //  This is a helper function used by the destructor
+        //  Deletes all nodes in BST
+        //  Similar to DFS PostOrder in Tree Traversal section
+        // ---------------------------------------------------
+        void destroy(Node* currentNode) {
+            if (currentNode == nullptr) return;
+            if (currentNode->left) destroy(currentNode->left);
+            if (currentNode->right) destroy(currentNode->right);
+            delete currentNode;
+        }
+
+        ~BinarySearchTree() { destroy(root); }
+
+        Node* getRoot() {
+            return root;
+        } 
+
+        bool insert(int value) {
+            Node* newNode = new Node(value);
+            if (root == nullptr) {
+                root = newNode;
+                return true;
+            }
+            Node* temp = root;
+            while(true) {
+                if (newNode->value == temp->value) return false;
+                if (newNode->value < temp->value) {
+                    if (temp->left == nullptr) {
+                        temp->left = newNode;
+                        return true;
+                    }
+                    temp = temp->left;
+                } else {
+                    if (temp->right == nullptr) {
+                        temp->right = newNode;
+                        return true;
+                    }
+                    temp = temp->right;
+                }
+            }
+        }
+
+
+		//   +=====================================================+
+		//   |                WRITE YOUR CODE HERE                 |
+		//   | Description:                                        |
+		//   | - This method performs a Depth-First Search         |
+		//   |   (DFS) using Pre-Order traversal.                  |
+		//   | - Starts at the given 'currentNode' and goes        |
+		//   |   down its children.                                |
+		//   | - Prints the value of each node as it visits it.    |
+		//   |                                                     |
+		//   | Return type: void                                   |
+		//   |                                                     |
+		//   | Tips:                                               |
+		//   | - Uses recursion for traversal.                     |
+		//   | - Base case returns if currentNode is null.         |
+		//   | - Check output from Test.cpp in "User logs".        |
+		//   +=====================================================+
+ 
+        
+        void DFSPreOrder() {
+            DFSPreOrder(root);
+        }
+
+};
+
+```
+---
+
+# BST: DFS PostOrder
+
+## Method Overview:
+
+**Function Signature:** `void DFSPostOrder(Node* currentNode);`
+
+### Tasks:
+The function performs a **Depth-First Search (DFS)** traversal using the **Post-Order** method. During the traversal, it prints the node values in the order they are visited.
+
+### Steps for PostOrder DFS Implementation:
+
+1. **Traverse the left subtree:**
+   - If the left child of `currentNode` exists (i.e., `currentNode->left` is not `nullptr`), recursively call `DFSPostOrder` with the left child as the argument.
+
+2. **Traverse the right subtree:**
+   - If the right child of `currentNode` exists (i.e., `currentNode->right` is not `nullptr`), recursively call `DFSPostOrder` with the right child as the argument.
+
+3. **Print the value of the current node:**
+   - After traversing the left and right subtrees, print the value of `currentNode`.
+
+### Example of PostOrder DFS Traversal:
+
+For a Binary Search Tree with the following values:
+
+```
+        10
+       /        5   15
+     / \   /     2   7 12 18
+```
+
+Performing a DFS PostOrder traversal will result in the following order of node values:
+
+```
+2, 7, 5, 12, 18, 15, 10
+```
+
+The traversal starts at the root (10), then moves to its left subtree (2, 7, 5), and finally traverses the right subtree (12, 18, 15), printing the root value at the end.
+
+### Constraints:
+- The function assumes that the tree is well-formed.
+- The tree follows the properties of a binary search tree (BST).
+
+## Expected Behavior:
+Calling `DFSPostOrder()` on the tree will print the node values in the order they are visited during the Post-Order Depth-First Search traversal.
+
+--- 
+
+```cpp
+
+#include <iostream>
+
+using namespace std;
+
+
+class Node { 
+    public: 
+        int value;
+        Node* left;
+        Node* right;
+
+        Node(int value) {
+            this->value = value;
+            left = nullptr;
+            right = nullptr;
+        }
+};
+
+
+class BinarySearchTree {
+    private:
+        Node* root;
+
+    public:
+        BinarySearchTree() { root = nullptr; }
+
+
+        // ---------------------------------------------------
+        //  This is a helper function used by the destructor
+        //  Deletes all nodes in BST
+        //  Similar to DFS PostOrder in Tree Traversal section
+        // ---------------------------------------------------
+        void destroy(Node* currentNode) {
+            if (currentNode == nullptr) return;
+            if (currentNode->left) destroy(currentNode->left);
+            if (currentNode->right) destroy(currentNode->right);
+            delete currentNode;
+        }
+
+        ~BinarySearchTree() { destroy(root); }
+
+        Node* getRoot() {
+            return root;
+        } 
+
+        bool insert(int value) {
+            Node* newNode = new Node(value);
+            if (root == nullptr) {
+                root = newNode;
+                return true;
+            }
+            Node* temp = root;
+            while(true) {
+                if (newNode->value == temp->value) return false;
+                if (newNode->value < temp->value) {
+                    if (temp->left == nullptr) {
+                        temp->left = newNode;
+                        return true;
+                    }
+                    temp = temp->left;
+                } else {
+                    if (temp->right == nullptr) {
+                        temp->right = newNode;
+                        return true;
+                    }
+                    temp = temp->right;
+                }
+            }
+        }
+
+
+		//   +=====================================================+
+		//   |                    WRITE YOUR CODE HERE             |
+		//   | Description:                                        |
+		//   | - This method performs a Depth-First Search         |
+		//   |   (DFS) using Post-Order traversal.                 |
+		//   | - Starts at the given 'currentNode' and goes        |
+		//   |   down its children before printing its value.      |
+		//   |                                                     |
+		//   | Return type: void                                   |
+		//   |                                                     |
+		//   | Tips:                                               |
+		//   | - Uses recursion for traversal.                     |
+		//   | - Base case returns if currentNode is null.         |
+		//   | - Check output from Test.cpp in "User logs".        |
+		//   +=====================================================+
+
+        
+        void DFSPostOrder() {
+            DFSPostOrder(root);
+        }
+
+};
+
+```
+
+---
+
+# BST: DFS InOrder
+
+## Method Overview:
+
+**Function Signature:** `void DFSInOrder(Node* currentNode);`
+
+### Tasks:
+The function performs a **Depth-First Search (DFS)** traversal using the **In-Order** method. During the traversal, it prints the node values in the order they are visited.
+
+### Steps for InOrder DFS Implementation:
+
+1. **Traverse the left subtree:**
+   - If the left child of `currentNode` exists (i.e., `currentNode->left` is not `nullptr`), recursively call `DFSInOrder` with the left child as the argument.
+
+2. **Print the value of the current node:**
+   - After traversing the left subtree, print the value of `currentNode`.
+
+3. **Traverse the right subtree:**
+   - If the right child of `currentNode` exists (i.e., `currentNode->right` is not `nullptr`), recursively call `DFSInOrder` with the right child as the argument.
+
+### Example of InOrder DFS Traversal:
+
+For a Binary Search Tree with the following values:
+
+```
+        10
+       /        5   15
+     / \   /     2   7 12 18
+```
+
+Performing a DFS InOrder traversal will result in the following order of node values:
+
+```
+2, 5, 7, 10, 12, 15, 18
+```
+
+The traversal starts at the leftmost node (2), then moves up to 5, 7, the root (10), and continues to the right subtree (12, 15, 18).
+
+### Constraints:
+- The function assumes that the tree is well-formed.
+- The tree follows the properties of a binary search tree (BST).
+
+## Expected Behavior:
+Calling `DFSInOrder()` on the tree will print the node values in the order they are visited during the In-Order Depth-First Search traversal.
+---
+```cpp 
+
+#include "BinarySearchTree.h"
+
+
+Node::Node(int value) {
+    this->value = value;
+    left = nullptr;
+    right = nullptr;
+}
+
+BinarySearchTree::BinarySearchTree() {
+    root = nullptr;
+}
+
+BinarySearchTree::~BinarySearchTree() {
+    destroy(root);
+}
+
+// ---------------------------------------------------
+// Helper function used by destructor
+// Deletes all nodes in BST
+// Similar to DFS PostOrder in Tree Traversal section
+// ---------------------------------------------------
+void BinarySearchTree::destroy(Node* currentNode) {
+    if (currentNode) {
+        destroy(currentNode->left);
+        destroy(currentNode->right);
+        delete currentNode;
+    }
+}
+
+void BinarySearchTree::insert(int value) {
+    Node* newNode = new Node(value);
+    if (root == nullptr) {
+        root = newNode;
+        return;
+    }
+    Node* temp = root;
+    while(true) {
+        if (newNode->value == temp->value) return;
+        if (newNode->value < temp->value) {
+            if (temp->left == nullptr) {
+                temp->left = newNode;
+                return;
+            }
+            temp = temp->left;
+        } else {
+            if (temp->right == nullptr) {
+                temp->right = newNode;
+                return;
+            }
+            temp = temp->right;
+        }
+    }
+}
+
+bool BinarySearchTree::contains(int value) {
+    if (root == nullptr) return false;
+    Node* temp = root;
+    while(temp) {
+        if (value < temp->value) {
+            temp = temp->left;
+        } else if (value > temp->value) {
+            temp = temp->right;
+        } else {
+            return true;
+        }
+    }
+    return false;
+}
+
+void BinarySearchTree::BFS() {
+    Node* currentNode = root;
+    queue<Node*> myQueue;
+    myQueue.push(currentNode);
+
+    while (myQueue.size() > 0) {
+        currentNode = myQueue.front();
+        myQueue.pop();
+        cout << currentNode->value << " ";
+        if (currentNode->left) {
+            myQueue.push(currentNode->left);
+        }
+        if (currentNode->right) {
+            myQueue.push(currentNode->right);
+        }
+    }
+}
+
+void BinarySearchTree::DFSPreOrder(Node* currentNode) {
+    cout << currentNode->value << " ";
+    if (currentNode->left != nullptr) {
+        DFSPreOrder(currentNode->left);
+    }
+    if (currentNode->right != nullptr) {
+        DFSPreOrder(currentNode->right);
+    }
+}
+
+void BinarySearchTree::DFSPreOrder() {
+    DFSPreOrder(root);
+}
+
+void BinarySearchTree::DFSPostOrder(Node* currentNode) {
+    if (currentNode->left != nullptr) {
+        DFSPostOrder(currentNode->left);
+    }
+    if (currentNode->right != nullptr) {
+        DFSPostOrder(currentNode->right);
+    }
+    cout << currentNode->value << " ";
+}
+
+void BinarySearchTree::DFSPostOrder() {
+    DFSPostOrder(root);
+}
+
+void BinarySearchTree::DFSInOrder(Node* currentNode) {
+    // FINISH WRITING THE DFS_IN_ORDER MEMBER FUNCTION HERE //
+    //                                                      //
+    //                                                      //
+    //                                                      //
+    //                                                      //
+    //////////////////////////////////////////////////////////
+}
+
+void BinarySearchTree::DFSInOrder() {
+    DFSInOrder(root);
+}
+
+```
+
+---
+
+
+# Bubble Sort
+
+## Method Overview:
+
+**Function Signature:** `void bubbleSort(int array[], int size);`
+
+### Parameters:
+- `array[]`: An array of integers to be sorted.
+- `size`: The size of the array.
+
+### Key Requirements:
+
+1. **Iterate through the array:**
+   - Use a loop with an index variable `i` decreasing from `size - 1` to 1.
+   
+2. **Compare adjacent elements:**
+   - Within the loop, create another loop with an index variable `j` increasing from 0 to `i - 1`. Compare the elements at positions `j` and `j + 1`.
+
+3. **Swap elements if necessary:**
+   - If the element at position `j` is greater than the element at position `j + 1`, swap the elements:
+     1. Store the element at position `j` in a temporary variable `temp`.
+     2. Assign the element at position `j + 1` to the element at position `j`.
+     3. Assign the value stored in `temp` to the element at position `j + 1`.
+
+### Example of Bubble Sort:
+
+Given the array:
+
+```
+[64, 34, 25, 12, 22, 11, 90]
+```
+
+Performing a bubble sort will result in the following sorted array:
+
+```
+[11, 12, 22, 25, 34, 64, 90]
+```
+
+### Constraints:
+- The sorting is done in-place, meaning the input array is modified directly.
+
+## Expected Behavior:
+After calling `bubbleSort()`, the input array will be sorted in ascending order.
+
+
+
+
+---
+```cpp
+#include "BubbleSort.h"
+
+
+void bubbleSort(int array[], int size) {
+	//   +=====================================================+
+	//   |                 WRITE YOUR CODE HERE                |
+	//   | Description:                                        |
+	//   | - This function sorts an array using the            |
+	//   |   Bubble Sort algorithm.                            |
+	//   | - It compares adjacent elements and swaps them if   |
+	//   |   they're in the wrong order.                       |
+	//   |                                                     |
+	//   | Return type: void                                   |
+	//   |                                                     |
+	//   | Tips:                                               |
+	//   | - 'temp' is used for swapping elements.             |
+	//   | - The outer loop decreases in size each iteration.  |
+	//   | - Inner loop iterates up to 'i'.                    |
+	//   | - Check output from Test.cpp in "User logs".        |
+	//   +=====================================================+
+}
+```
+---
+
+
+# Selection Sort
+
+## Method Overview:
+
+**Function Signature:** `void selectionSort(int array[], int size);`
+
+### Parameters:
+- `array[]`: An array of integers to be sorted.
+- `size`: The size of the array.
+
+### Key Requirements:
+
+1. **Iterate through the array:**
+   - Use a loop with an index variable `i` increasing from 0 to `size - 1`.
+
+2. **Find the index of the minimum element:**
+   - Initialize a variable `minIndex` to `i`, and create another loop with an index variable `j` increasing from `i + 1` to `size - 1`. If the element at position `j` is less than the element at position `minIndex`, update `minIndex` to `j`.
+
+3. **Swap the found minimum element with the element at position i:**
+   - If `i` is not equal to `minIndex`, swap the elements:
+     1. Store the element at position `i` in a temporary variable `temp`.
+     2. Assign the element at position `minIndex` to the element at position `i`.
+     3. Assign the value stored in `temp` to the element at position `minIndex`.
+
+### Example of Selection Sort:
+
+Given the array:
+
+```
+[64, 34, 25, 12, 22, 11, 90]
+```
+
+Performing a selection sort will result in the following sorted array:
+
+```
+[11, 12, 22, 25, 34, 64, 90]
+```
+
+### Constraints:
+- The sorting is done in-place, meaning the input array is modified directly.
+
+## Expected Behavior:
+After calling `selectionSort()`, the input array will be sorted in ascending order.
+
+---
+
+```cpp
+#include "SelectionSort.h"
+
+
+void selectionSort(int array[], int size) {
+	//   +=====================================================+
+	//   |                 WRITE YOUR CODE HERE                |
+	//   | Description:                                        |
+	//   | - This function sorts an array using the            |
+	//   |   Selection Sort algorithm.                         |
+	//   | - It finds the minimum element and swaps it with    |
+	//   |   the first element, then repeats for the remaining.|
+	//   |                                                     |
+	//   | Return type: void                                   |
+	//   |                                                     |
+	//   | Tips:                                               |
+	//   | - 'minIndex' holds the index of the smallest        |
+	//   |   element found.                                    |
+	//   | - 'temp' is used for swapping elements.             |
+	//   | - Swap only if 'i' and 'minIndex' are different.    |
+	//   | - Check output from Test.cpp in "User logs".        |
+	//   +=====================================================+
+}
+```
+---
+
+# Insertion Sort
+
+## Method Overview:
+
+**Function Signature:** `void insertionSort(int array[], int size);`
+
+### Parameters:
+- `array[]`: An array of integers to be sorted.
+- `size`: The size of the array.
+
+### Key Requirements:
+
+1. **Iterate through the array:**
+   - Use a loop with an index variable `i` increasing from 1 to `size - 1`.
+
+2. **Store the current element in a temporary variable:**
+   - Store the element at position `i` in a temporary variable `temp`.
+
+3. **Find the correct position for the current element:**
+   - Initialize an index variable `j` to `i - 1`. Using a `while` loop, check if `j` is greater than or equal to 0 and if the element in the temporary variable `temp` is less than the element at position `j`. 
+   - If both conditions are true, shift the element at position `j` one position to the right (to position `j + 1)`, and update the element at position `j` with the value stored in `temp`. Finally, decrement `j`.
+
+### Example of Insertion Sort:
+
+Given the array:
+
+```
+[64, 34, 25, 12, 22, 11, 90]
+```
+
+Performing an insertion sort will result in the following sorted array:
+
+```
+[11, 12, 22, 25, 34, 64, 90]
+```
+
+### Constraints:
+- The sorting is done in-place, meaning the input array is modified directly.
+
+## Expected Behavior:
+After calling `insertionSort()`, the input array will be sorted in ascending order.
+
+---
+```cpp
+
+#include "InsertionSort.h"
+
+
+void insertionSort(int array[], int size) {
+	//   +=====================================================+
+	//   |                 WRITE YOUR CODE HERE                |
+	//   | Description:                                        |
+	//   | - This function sorts an array using the            |
+	//   |   Insertion Sort algorithm.                         |
+	//   | - It iterates through 'array[]' to place each       |
+	//   |   element in its correct position.                  |
+	//   |                                                     |
+	//   | Return type: void                                   |
+	//   |                                                     |
+	//   | Tips:                                               |
+	//   | - 'temp' holds the current element being examined.  |
+	//   | - 'j' is used to find the correct position for      |
+	//   |   'temp'.                                           |
+	//   | - 'array[j+1]' and 'array[j]' are swapped as needed.|
+	//   | - Check output from Test.cpp in "User logs".        |
+	//   +=====================================================+
+}
+```
+---
