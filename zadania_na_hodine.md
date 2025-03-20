@@ -1,5 +1,5 @@
 
-# rBST: Contains
+# Contains
 
 ## Method Overview:
 
@@ -150,7 +150,7 @@ class BinarySearchTree {
 
 ---
 
-# rBST: Insert
+# Insert
 
 ## Method Overview:
 
