@@ -1,5 +1,5 @@
 
-# The tasks corresponding to the topics covered in the PRO lessons by Tom. Muc.
+# The tasks corresponding to the topics covered in the PRO lessons by `Tomáš` `Mucha`
 
 ## Contains
 
