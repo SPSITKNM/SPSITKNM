@@ -2,7 +2,7 @@
 
 ## Úvod do sveta Kódlandu
 
-### 🎓 Nezabudnite si prehrať demo v jazyku Python, ktoré je priložené k tejto domácej úlohe na Edupage, aby ste sa pripravili na riešenie úloh ;)
+### Nezabudnite si prehrať demo v jazyku Python, ktoré je priložené k tejto domácej úlohe na Edupage, aby ste sa pripravili na riešenie úloh ;)
 
 Vitajte v Kódlande, fascinujúcom digitálnom svete, kde sa stretávajú logika, matematika a algoritmické myslenie. Tento kedysi pokojný svet však čelí vážnemu nebezpečenstvu. Legendárny strážca Kódlandu, Mucha, musel nečakane odletieť do Ostravy, aby si vydobil slobodu, čím nechal Gotham a Kódland blízko KNM nechránené. O Gotham sa síce postaral Batman ako záskok, ale o zvyšok Kódlandu sa nemá kto posratať.
 
