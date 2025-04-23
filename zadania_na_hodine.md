@@ -2,7 +2,7 @@
 
 ## Úvod do sveta Kódlandu
 
-Vitajte v Kódlande, fascinujúcom digitálnom svete, kde sa stretávajú logika, matematika a algoritmické myslenie. Tento kedysi pokojný svet však čelí vážnemu nebezpečenstvu. Legendárny strážca Kódlandu, Mucha, musel nečakane odletieť do Ostravy, aby si vydobila slobodu, čím nechal Gotham a Kódland blízko KNM nechránené. O Gotham sa síce postaral Batman ako záskok, ale o zvyšok Kódlandu sa nemá kto posratať.
+Vitajte v Kódlande, fascinujúcom digitálnom svete, kde sa stretávajú logika, matematika a algoritmické myslenie. Tento kedysi pokojný svet však čelí vážnemu nebezpečenstvu. Legendárny strážca Kódlandu, Mucha, musel nečakane odletieť do Ostravy, aby si vydobil slobodu, čím nechal Gotham a Kódland blízko KNM nechránené. O Gotham sa síce postaral Batman ako záskok, ale o zvyšok Kódlandu sa nemá kto posratať.
 
 Túto situáciu okamžite využila temná entita známa ako "Bugzilla", ktorá začala korumpovať základnú štruktúru Kódlandu a narúšať jeho kľúčové systémy.
 
