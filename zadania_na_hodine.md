@@ -14,7 +14,7 @@ Každý problém predstavuje jeden narušený systém. S každým vyriešeným p
 
 ## Všeobecné pokyny
 
-- Všetky riešenia implementujte v jednotno jazyku Vami zvolenom : Pascal, Assembly, Nim, Pony, Idris, Haskell, Erlang 
+- Všetky riešenia implementujte v jednotno jazyku Vami zvolenom : ( Pascal, Assembly, Nim, Pony, Idris, Haskell, Erlang ) = vtip, využite : Python, C++, C#, C podľa Vašej preferencie.
 - Dbajte na efektívnosť algoritmov a pamäťovú náročnosť
 - Každé riešenie by malo obsahovať komentáre vysvetľujúce hlavné časti kódu
 - Odovzdávajte riešenia vo forme zdrojových súborov (.<zvolený jazyk>), nie .docx !pptx
