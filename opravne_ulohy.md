@@ -1,4 +1,4 @@
-#
+# Séria opravných úloh z algoritmizácie a dátových štruktúr by Tomáš Mucha
 
 # Úloha 1: Maximálny súčet podpoľa (Kadane's Algorithm)
 
