@@ -217,7 +217,7 @@ Aplikácie topologického usporiadania zahŕňajú plánovanie projektov (identi
     Implementujte algoritmus topologického triedenia orientovaného acyklického grafu (DAG) a vysvetlite jeho princíp. Analyzujte časovú a priestorovú zložitosť implementácie využívajúcej DFS (depth-first search) aj implementácie využívajúcej frontu s počítadlami vstupných hrán. Diskutujte o aplikáciách topologického triedenia v plánovaní projektov a detekcii cyklov v grafe.
 ---
 
-**Vytvorené Tomášom Muchom**
+**Vytvorené Tomášom Muchom vyučujúci predmetu PRO**
 
 **Poznámka:**  
 Tento dokument je určený ako komplexná príprava na ústnu časť komisionálnej skúšky. Dôraz sa kladie nielen na znalosť algoritmov, ale aj na schopnosť ich analyzovať, porovnávať a prakticky implementovať.
