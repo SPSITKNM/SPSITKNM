@@ -187,34 +187,34 @@ Aplikácie topologického usporiadania zahŕňajú plánovanie projektov (identi
 ## ✅ Skúšobné otázky – Komisionálna časť
 
 1. **QuickSort**:  
-   Analyzujte zložitosť v rôznych prípadoch, popíšte optimalizácie pre výber pivotu a implementujte efektívnu verziu.
+   Analyzujte časovú a priestorovú zložitosť algoritmu QuickSort v najhoršom, priemernom a najlepšom prípade. Vysvetlite, za akých podmienok nastáva najhorší prípad a navrhnite optimalizáciu na jeho zmiernenie. Implementujte funkciu, ktorá bude využívať vhodný pivotný prvok na minimalizáciu pravdepodobnosti výskytu najhoršieho prípadu.
 
 2. **AVL vs Red-Black stromy**:  
-   Porovnajte ich vlastnosti a vhodnosť použitia. Implementujte rotáciu v AVL strome.
+   Porovnajte implementáciu vyvážených vyhľadávacích stromov (AVL a Red-Black) z hľadiska časovej zložitosti operácií vkladania, mazania a vyhľadávania. Analyzujte, kedy je vhodné použiť jednotlivé typy stromov vzhľadom na konkrétne aplikácie. Implementujte funkciu rotácie v AVL strome a demonštrujte jej použitie pri vkladaní prvku, ktorý naruší vyváženosť stromu.
 
 3. **Najkratšia cesta – Dijkstra a A\***:  
-   Vysvetlite princíp a porovnajte ich výkon. Implementujte A\* na mriežkový graf.
+   Vysvetlite princíp Dijkstrovho algoritmu a A algoritmu pre hľadanie najkratšej cesty v grafe. Analyzujte ich časovú a priestorovú zložitosť a porovnajte ich efektívnosť v rôznych typoch grafov. Implementujte A algoritmus vrátane heuristickej funkcie pre nájdenie najkratšej cesty v mriežkovom grafe s prekážkami.**
 
 4. **MST – Kruskal vs Prim**:  
-   Analyzujte ich efektívnosť s ohľadom na dátové štruktúry. Implementujte Kruskal s Union-Find.
+   Analyzujte Kruskalov a Primov algoritmus pre hľadanie minimálnej kostry grafu. Diskutujte o ich časovej a priestorovej zložitosti vzhľadom na rôzne implementácie dátových štruktúr (najmä Union-Find pri Kruskalovom algoritme a prioritné fronty pri Primovom algoritme). Implementujte Kruskalov algoritmus s použitím efektívnej implementácie Union-Find s kompresiou ciest a rankovanou úniou.
 
 5. **P vs NP**:  
-   Definujte pojmy, uveďte príklady a predveďte polynomiálnu redukciu Hamiltonovskej cesty na TSP.
+   Vysvetlite rozdiely medzi triedami problémov P a NP a diskutujte o P vs NP probléme. Uveďte príklady problémov patriacich do triedy P, NP-úplných problémov a problémov, ktoré patria do NP, ale nie sú NP-úplné (ak také existujú). Navrhnite polynomiálnu redukciu problému hamiltonovskej cesty na problém obchodného cestujúceho.
 
 6. **Vyvažovanie BST**:  
-   Implementujte algoritmus s `O(n)` časom a `O(log n)` pamäťou. Ukážte ho na príklade.
+   Implementujte efektívny algoritmus na vyváženie binárneho vyhľadávacieho stromu s časovou zložitosťou O(n) a priestorovou zložitosťou O(log n), kde n je počet uzlov v strome. Vysvetlite princíp algoritmu a analyzujte jeho časovú a priestorovú zložitosť. Demonštrujte funkčnosť algoritmu na konkrétnom nevyváženom strome.
 
 7. **Dynamické programovanie – Knapsack**:  
-   Riešte 0-1 aj unbounded verziu, porovnajte ich zložitosť a navrhnite pamäťovú optimalizáciu.
+  Navrhnite a implementujte riešenie problému dynamického programovania na príklade problému batohu (Knapsack problem) a analyzujte jeho časovú a priestorovú zložitosť. Vysvetlite, ako by sa zmenila implementácia a zložitosť pri obmedzení, že počet položiek každého typu môže byť neobmedzený (unbounded knapsack). Optimalizujte riešenie z hľadiska priestorovej zložitosti.
 
 8. **Agilné metodiky**:  
-   Porovnajte SCRUM a Kanban, uveďte plán implementácie SCRUM pre tím mobilnej aplikácie.
+  Vysvetlite princípy agilných metodík vývoja softvéru, najmä SCRUM a Kanban. Porovnajte ich s tradičnými waterfall prístupmi a diskutujte o ich výhodách a nevýhodách v rôznych typoch projektov. Navrhnite konkrétny plán implementácie SCRUM metodiky v tíme vyvíjajúcom mobilnú aplikáciu a identifikujte potenciálne problémy a riešenia.
 
 9. **KMP algoritmus**:  
-   Vysvetlite prefix tabuľku a implementujte KMP. Porovnajte s naivným a Rabin-Karp algoritmom.
+  Analyzujte a implementujte algoritmus na vyhľadávanie v texte pomocou Knuth-Morris-Prattovho (KMP) algoritmu. Vysvetlite princíp vytvorenia tabuľky najdlhších prefixov, ktoré sú súčasne suffixami, a demonštrujte, ako algoritmus využíva túto tabuľku na efektívne vyhľadávanie. Porovnajte KMP algoritmus s naivným prístupom a Rabin-Karpovým algoritmom z hľadiska časovej a priestorovej zložitosti.
 
 10. **Topologické triedenie**:  
-    Implementujte DFS a Kahnov algoritmus. Uveďte aplikácie a diskutujte o detekcii cyklov.
+    Implementujte algoritmus topologického triedenia orientovaného acyklického grafu (DAG) a vysvetlite jeho princíp. Analyzujte časovú a priestorovú zložitosť implementácie využívajúcej DFS (depth-first search) aj implementácie využívajúcej frontu s počítadlami vstupných hrán. Diskutujte o aplikáciách topologického triedenia v plánovaní projektov a detekcii cyklov v grafe.
 ---
 
 **Vytvorené Tomášom Muchom**
