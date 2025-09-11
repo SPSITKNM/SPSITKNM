@@ -191,115 +191,182 @@ git checkout <nazov_filu>
 
 --- 
 
-# what does the merging stands for 
+# Git -- Merge a Konflikty
 
-ked mergujeme dva branchce kam půjde výsledok ? 
-výsledok půjde do tej branche na ktorej aktualne pracujeme 
+### Čo znamená merge?
 
-master branch funguje ako to hlavne nad čo sa všetko ostatne stavia 
+-   Keď mergujeme dva branche, výsledok pôjde **do tej branche, na
+    ktorej aktuálne pracujeme**.\
+-   Master branch (alebo main) funguje ako hlavná vetva, na ktorej sa
+    stavia všetko ostatné.
 
-sme teda v mastrovi a tam napišeme git megre feature1 čo vlastne spoji 
- 
+**Príklad:**\
+Ak sme v `master` a spustíme príkaz:
 
-# merge conflicts = 
+``` bash
+git merge feature1
+```
 
-nevie ktoru zmenu by sme si mali vybrat a len sa nás opýta ktoru zmenu by sme chceli 
+tak sa zmeny z `feature1` spoja do `master`.
 
-teda nie jasne zjavne ake zmeny by sme mali taknut to v praxi znamena samotny merge conflict 
+------------------------------------------------------------------------
 
-## takto nijako vyzera merge conflict v logu 
+### Merge conflicts
 
-CONFLICT (content): Merge conflict in feature
-Automatic merge failed; fix conflicts and then co
+-   Nastanú, keď git nevie rozhodnúť, ktorú zmenu si máme vybrať.\
+-   Vtedy sa nás spýta, aby sme vybrali zmenu manuálne.\
+-   Merge conflict teda znamená, že medzi dvomi branchmi sú
+    **nezlučiteľné rozdiely**.
 
-prakticky aj v našom editore bude poukazane o aký problém sa jedna 
+**Príklad logu:**
 
-prakticky git branch conflict funguje na štyle je tu branch1 je tu branch2 you as the developer goes in a vyberas ktora zo zmien ma byt implementovana 
+    CONFLICT (content): Merge conflict in feature
+    Automatic merge failed; fix conflicts and then commit the result.
 
-features breanches 
-
-how to construct the pipelines ? 
-
-it does makes sense to put in parallel jovs that are similar in size 
-
-AWS - 
-
-always when you are pulling the image, make sure you are specifiing the tag 
-
-masking and protecting of the variables 
-
-protect variables = what does it means when the flag is enabled, it will only be available for the protected branches 
-
-mask variable, is disable by default 
-
-How
-what are the features breanches ? 
+-   V editore bude zvýraznené, kde vznikol konflikt.\
+-   Ako vývojár si musíme vy
 
 
-how to make sure that everything what you have in your folder is sink to your s3
+# Git -- Merge Conflicts a Pipelines
 
-pipeline is what we are talking about, and what we are having 
+### Merge conflicts v editore
 
-pokial mame len jeden v pipeline 
+-   V editore bude vždy poukázané, o aký problém sa jedná.\
+-   Git branch conflict funguje v štýle: máme `branch1` a `branch2`, a
+    **vývojár rozhoduje, ktorá zmena sa má implementovať**.
 
-the default branch is going to automatically get updated in this branch 
+------------------------------------------------------------------------
 
-post deployment testing, what does it means and how does it work ? 
+### Feature branches
 
-# What is the CI / CD 
+-   Slúžia na vývoj nových funkcií mimo hlavnej vetvy (`master` /
+    `main`).\
+-   Po dokončení sa mergujú späť do hlavnej vetvy.
 
-the cd part can means the continues deployment or the continues delivery 
+------------------------------------------------------------------------
 
-pipelines also have the staging enviroment or also known as the preproduction enviroment 
-if there is any kind of an error in the production and the main pipeline breaks at least we havent affect the production 
+# CI / CD a Pipelines
 
-staging enviroment is usually non production, non public enviroment that is actually very close to actual 
+### Ako konštruovať pipelines?
 
-main topic is the continues integration and the continues delivery 
+-   Jobs, ktoré sú podobne veľké, je vhodné spúšťať paralelne.\
+-   Pipeline má na starosti build, testovanie a nasadenie aplikácie.
 
-cyklicky zivot softveroveho prostredia - enviroments 
+------------------------------------------------------------------------
 
-what does the reusing of the configuration means ? 
+### AWS tipy
 
+-   Pri ťahaní image je potrebné **vždy špecifikovať tag**.
 
-## Continue delivery pipeline 
+------------------------------------------------------------------------
 
-# docker inside of the docker, takto to spustaj to bude najlepšie pre čistotu systemu 
-- what is this ? 
+### Maskovanie a ochrana premenných
 
-# this is the part of the config file 
+-   **Protect variables** -- ak je zapnuté, premenné budú dostupné len
+    pre **protected branches**.\
+-   **Mask variables** -- predvolene vypnuté, ak je zapnuté, premenné sa
+    nebudú zobrazovať v logoch.
 
-this might be the issue of the concept for our season 
+------------------------------------------------------------------------
 
+### Synchronizácia dát so S3
 
-# Otazky ak sa najde čas 
+-   Potrebujeme zabezpečiť, že všetko, čo máme vo foldri, je
+    zosynchronizované do S3 bucketu.
 
-Veci ktore komplikovali docker build : 
+------------------------------------------------------------------------
 
+### Pipeline a default branch
 
-debug gem-om, ktory sa pokúša načítať v produkčnom prostredi aj ked bol vylúčeny z inštalacie
+-   Ak máme iba jeden pipeline, **default branch sa automaticky
+    updatuje**.
 
-v dockerfile sme vykonali inštaláciu ruby gems bez development/test skupin 
+------------------------------------------------------------------------
 
-# Inštalácia Ruby gems bez development/test skupín
-RUN bundle config set --local deployment 'true' && \
-    bundle config set --local without 'development test' && \
-    bundle install --jobs $(nproc) --retry 3
-    
-# Zabránenie načítaniu debug gem-u v produkčnom prostredí
-    if Rails.env.production?
-      config.debug_exception_response_format = :api
-    end
+### Post-deployment testing
 
-## toto sme vykonali v application.rb
+-   Znamená testovanie aplikácie po jej nasadení.\
+-   Slúži na overenie, že nasadená verzia funguje podľa očakávania.
 
-# mrkni na toto 
+------------------------------------------------------------------------
 
-sudo dnf install -y qemu-kvm libvirt virt-install virt-manager virt-viewer edk2-ovmf swtpm \
-qemu-img guestfs-tools libosinfo libosinfo-tools tuned
+# CI / CD -- Definícia
 
-# testing for out app 
+-   **CI (Continuous Integration):** neustála integrácia kódu,
+    automatické testovanie a build.\
+-   **CD (Continuous Delivery / Continuous Deployment):**
+    -   *Delivery* = zmeny sú pripravené na nasadenie.\
+    -   *Deployment* = zmeny sa automaticky nasadzujú do produkcie.
 
+------------------------------------------------------------------------
+
+### Staging environment
+
+-   Neprodukčné, neverejné prostredie veľmi podobné produkcii.\
+-   Ak pipeline zlyhá, chyba neovplyvní produkciu.
+
+------------------------------------------------------------------------
+
+### Reusing of configuration
+
+-   Opätovné využívanie častí konfigurácie na zjednodušenie a zrýchlenie
+    CI/CD pipelines.
+
+------------------------------------------------------------------------
+
+# Continuous Delivery Pipeline
+
+### Docker in Docker (DinD)
+
+-   Spúšťanie dockeru vo vnútri dockeru pre **čistotu systému**.\
+-   Používa sa najmä v CI/CD pipelines.
+
+------------------------------------------------------------------------
+
+### Config file -- potenciálne problémy
+
+-   Problém môže byť v samotnom koncepte nastavenia.
+
+------------------------------------------------------------------------
+
+# Otázky a problémy s Docker build
+
+### Veci, ktoré komplikovali docker build:
+
+-   `debug` gem sa pokúšal načítať v produkčnom prostredí, aj keď bol
+    vylúčený z inštalácie.\
+-   V `Dockerfile` bola inštalácia Ruby gems bez development/test
+    skupín.
+
+#### Inštalácia Ruby gems bez development/test skupín:
+
+``` dockerfile
+RUN bundle config set --local deployment 'true' &&     bundle config set --local without 'development test' &&     bundle install --jobs $(nproc) --retry 3
+```
+
+#### Zabránenie načítaniu debug gem-u v produkčnom prostredí (`application.rb`):
+
+``` ruby
+if Rails.env.production?
+  config.debug_exception_response_format = :api
+end
+```
+
+------------------------------------------------------------------------
+
+# Potrebné balíky pre virtualizáciu (Linux)
+
+``` bash
+sudo dnf install -y qemu-kvm libvirt virt-install virt-manager virt-viewer edk2-ovmf swtpm qemu-img guestfs-tools libosinfo libosinfo-tools tuned
+```
+
+------------------------------------------------------------------------
+
+# Testovanie aplikácie
+
+``` bash
 curl http://localhost:8080/
 curl http://localhost:8080/libraries
 curl http://localhost:8080/health
+```
+
