@@ -1,4 +1,4 @@
-# Zadanie: Program na vykreslenie geometrických tvarov do `20.9.2024`
+# Zadanie: Program na vykreslenie geometrických tvarov do `20.9.2025`
 
 ## Popis
 
