@@ -1,109 +1,103 @@
-# Zadanie: Program na vykreslenie geometrických tvarov do `20.9.2025`
+Zadanie na hodine    
 
-## Popis
+# Program na počítanie histogramu čísel
 
-Vašou úlohou je vytvoriť program, ktorý bude vedieť vypísať rôzne geometrické tvary na výstup. Pri spustení program načíta zo štandardného vstupu tri čísla (obrazec, A, B). V závislosti od hodnoty čísla obrazec program vykreslí daný geometrický tvar, ktorý bude ovplyvnený hodnotami parametrov **A** (šírka) a **B** (výška).
+Program bude počítať histogram čísel. Histogram bude mať 9 košov a bude zaznamenávať četnosť jednotlivých hodnôt, ktoré budú v rozsahu zadanom na vstupe programu.
 
-### Typy obrazcov
+## Požiadavky na program
 
-Nižšie nájdete zoznam obrazcov, ktoré by mal váš program podporovať:
+### 1. Voľba vykreslenia
+Načítate zo vstupu znak, ktorý bude udávať, či sa má vykresliť horizontálny (pokiaľ bol na vstupe znak `h`) alebo vertikálny (pokiaľ bol na vstupe znak `v`) histogram.
 
-### 0 - Plný obdĺžnik
-Ak má **obrazec** hodnotu `0`, program by mal vypísať plný obdĺžnik s šírkou **A** a výškou **B**.
+- Ak bude zadaný iný znak ako `v` alebo `h`, vypíšte riadok **"Neplatný mód vykreslenia"** na štandardný výstup a ukončite program s chybovým kódom `1`.
 
-#### Ukážkový výstup pre vstup: 
-```plaintext
-0 3 5
+### 2. Načítanie vstupných hodnôt
+Načítate zo vstupu dve nezáporné čísla `n` a `m`.
+
+- `n` udáva, koľko čísel program načíta, z ktorých bude počítať histogram.
+- `m` udáva rozsah čísel, pre ktoré máte počítať histogram. Tento rozsah bude daný intervalom \[`m`, `m + 8`\].
+
+Napríklad, ak bude `m = 5`, histogram bude počítať výskyty čísel od 5 až po 13 vrátane.
+
+### 3. Výpočet histogramu
+Načítate od používateľa `n` celých čísel oddelených medzerou a vypočítate pre ne histogram.
+
+- Ak bude číslo na vstupe mimo intervalu \[`m`, `m + 8`\], považujte také číslo za neplatné. Počet neplatných čísel si v programe pamätajte.
+- Histogram počíta, koľkokrát sa jednotlivé hodnoty z intervalu `m` až `m + 8` vyskytli vo vstupe.
+- Histogram reprezentujte poľom.
+- Ideálne riešenie na výpočet histogramu by nemalo obsahovať 9x `if-else` vetvy. Zamyslite sa, ako histogram spočítať bez podmienok, dá sa to vykonať jedným riadkom.
+
+### 4. Výstup - Horizontálny histogram
+Ak bol na vstupe znak `h`, vykreslite horizontálny histogram na výstup:
+
+- Vypíšte pod seba čísla od `m` až po `m + 8`, každé číslo na jednom riadku.
+- Zarovnajte čísla doprava tak, aby počty výskytov pre jednotlivé čísla začínali vždy v tom istom stĺpci. Napríklad, ak bude `m = 98`, tak `m + 8` bude 106, a toto číslo má viac číslic ako 98. Preto musíte pred výpisom pred 98 a 99 vypísať jednu medzeru, inak by čísla pod sebou nesedeli správne.
+- Tu je znak `_`, ktorý reprezentuje medzeru.
+
+```cpp
+_98: **
+_99: **
+100: *
+101: 
+102: *
+103: 
+104: 
+105: *
+106: *
+Počet neplatných čísel: 0
+```  ## Skúste popremýšľať
+
+Skúste popremýšľať, ako môžeme spočítať, koľko má číslo číslic, a teda aj koľko zaberie znakov.
+
+## Horizontálny histogram
+
+Ak sa dané číslo vyskytlo na vstupe, tak za neho vykreslite medzeru a znak `#` toľkokrát, koľkokrát sa vyskytlo dané číslo na vstupe.
+
+Ak sa na vstupe vyskytli nejaké neplatné čísla, tak za posledným riadkom vypísaného histogramu vypíšte ďalší riadok s textom **invalid** a za ním vypíšte znak `#` toľkokrát, koľko bolo neplatných čísel na vstupe.
+
+## 5. Bonus - Vertikálny histogram
+
+Ak bol na vstupe znak `v`, vykreslite vertikálny histogram na výstup.
+
+- Vykreslite čísla `m` až `m + 8` vedľa seba.
+- Ak sa dané číslo vyskytlo na vstupe, nad ním by mal byť vykreslený stĺpec so znakom `#`.
+- Stĺpec bude tak vysoký, koľkokrát sa dané číslo vyskytlo na vstupe.
+
+Pri vertikálnom histograme môžeme predpokladať, že rozsah čísel histogramu bude vždy od 1 do 9.
+
+### Neplatné čísla
+
+Neplatné čísla vypíšte v prvom stĺpci a tento stĺpec označte znakom **i**.
+
+### Zložitosti vertikálneho histogramu
+
+Vertikálny histogram je bonus, pretože je zložitejší na implementáciu než horizontálny. Pokiaľ nebude bonus implementovaný, predpokladajte, že na začiatku vstupu programu bude vždy znak `h`.   
+
+```cpp
+h
+10 1
+3 3 2 3 7 1 10 4 9 9 
 ```
-```plaintext
-XXX
-XXX
-XXX
-XXX
-XXX
-```
+- Hodnota 10 udáva, že na vstupe bude 10 čísel.
+- Hodnota 1 udáva, že histogram bude počítať výsledky 1 až 9.
 
-### 1 - Dutinový obdĺžnik
+### Odpovedajúci výstup 
 
-Ak má obrazec hodnotu 1, program by mal vypísať dutý obdĺžnik s šírkou A a výškou B. Dutý obdĺžnik obsahuje X po svojom obvode, ale vo vnútri je prázdny (vypíše sa medzera).
-
-#### Ukážkový výstup pre vstup: 
-
-```plaintext
-1 4 5
-```
-
-```plaintext
-XXXX
-X  X
-X  X
-X  X
-XXXX
-```
-
-### 2 - Číselný obdĺžnik
-
-Ak má obrazec hodnotu 2, program by mal vypísať obdĺžnik s šírkou A a výškou B, ktorý bude mať v strede číselný vzor. Čísla začínajú od nuly a zvyšujú sa o jednotku. Pri prekročení hodnoty 9 sa čísla "prelejú" na nulu. Číselný vzor je uprostred, s okrajom z písmen X.
-
-```plaintext
-2 6 7
-```
-
-```plaintext
-XXXXXX
-X0123X
-X4567X
-X8991X
-X2345X
-X6789X
-XXXXXX
-```
-
-### 3 - Diagonála
-
-Ak má obrazec hodnotu 3, program by mal vypísať diagonálu smerujúcu doprava dole, ktorá obsahuje A bodov. Parameter B je v tomto prípade ignorovaný.
-
-```plaintext
-3 5 0
-```
-
-```plaintext
-X    
- X   
-  X  
-   X 
-    X
-```
-
-### 6 - Písmeno T 
-
-Ak má obrazec hodnotu 6, program by mal vykresliť písmeno T, ktoré bude mať šírku A bodov a výšku B bodov. Môžete predpokladať, že hodnota A bude vždy nepárna, aby bolo možné písmeno T vycentrovať.
-
-```plaintext
-6 5 4
-```
-
-```plaintext
-XXXXX
-  X  
-  X  
-  X  
-```
-
-### 9 - Číselný obdĺžnik po stĺpcoch 
-
-Ak má obrazec hodnotu 9, program by mal vypísať obdĺžnik s šírkou A a výškou B, ktorý bude mať v strede číselný vzor. Čísla sa budú zvyšovať po stĺpcoch. Čísla začínajú od nuly a zvyšujú sa o jednotku. Pri prekročení hodnoty 9 sa čísla "prelejú" na nulu.
-
-```plaintext
-9 5 6
-```
-
-
-```plaintext
-XXXXX
-X048X
-X159X
-X260X
-X371X
-XXXXX
-```
+```cpp
+1 #
+2 #
+3 ###
+4 #
+5
+6
+7 #
+8
+9 ##
+invalid : #
+``` 
+# Usmernenia
+## ! Riešenia žiadam odovzdávať do otvorenej úlohy na EduPage...
+## ! Plagiát štýlu 1 : 1 od kolegu je hodnotený automaticky 5m využitie zdrojov je voľné, vrátane AI je povolené... !  - RealTime testy budú písané bez skrípt a prístupu na internet... preto využitie dostupných zdrojov pri vypracovávaní Vašich DÚ nechávam na Vašom posúdení...
+## Prístup štýlu CTRL + C a CTRL + V do AI neodporúčam, úlohy sú nastavené tak aby riešenie cez AI trvalo rovnako ako dĺžka Vami implementovanej logiky... 
+## !Každý deň po deadline znamená o stupeň horšiu známky ! # 
+## Veľa šťastia, TM. 
