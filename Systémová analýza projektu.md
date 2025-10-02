@@ -155,3 +155,77 @@ Systém bude implementovaný ako samostatné riešenie, ktoré nebude závislé 
 - Zobraziť triedy ako `Vehicle`, `ECUDiagnosticTool`, `OBD2_Codes` a ich vzťahy.
 
 ---
+
+
+# Rozšírenie FURPS analýzy pre projekt diagnostického softvéru pre automobily
+
+## 1. **S.M.A.R.T. Ciele (Specific, Measurable, Achievable, Relevant, Time-bound)**
+Táto metodika pomáha definovať jasné a merateľné ciele, ktoré by mal systém splniť. Použitie tejto analýzy môže byť veľmi užitočné na určenie konkrétnych cieľov pre implementáciu systému:
+- **Specific (Špecifické)**: Čo presne má systém robiť? (napr. čítanie diagnostických kódov)
+- **Measurable (Merateľné)**: Ako budeme hodnotiť úspech? (napr. doba odozvy systému pri diagnostike)
+- **Achievable (Dosiahnuteľné)**: Je tento cieľ realistický s dostupnými zdrojmi?
+- **Relevant (Relevantné)**: Má tento cieľ skutočne hodnotu pre používateľov systému?
+- **Time-bound (Časovo ohraničené)**: Kedy by mal byť cieľ dosiahnutý?
+
+---
+
+## 2. **SWOT analýza (Strengths, Weaknesses, Opportunities, Threats)**
+SWOT analýza je skvelý nástroj na hodnotenie silných a slabých stránok systému, ako aj príležitostí a hrozieb, ktoré môžu ovplyvniť jeho úspešnosť:
+- **Strengths (Silné stránky)**: Aké sú hlavné výhody systému (napr. vysoká spoľahlivosť)?
+- **Weaknesses (Slabé stránky)**: Kde má systém slabiny (napr. obmedzená podpora pre staršie modely vozidiel)?
+- **Opportunities (Príležitosti)**: Aké príležitosti existujú pre rozšírenie systému (napr. pripojenie na mobilné aplikácie)?
+- **Threats (Hrozby)**: Aké externé faktory by mohli ohroziť systém (napr. technológie konkurentov)?
+
+---
+
+## 3. **Risk Analysis (Analýza rizík)**
+Risk analýza sa zameriava na identifikáciu a hodnotenie potenciálnych rizík spojených s vývojom a implementáciou systému:
+- **Technologické riziká**: Napríklad problémy s integráciou nových modelov vozidiel alebo zmeny v OBD-II protokole.
+- **Projektové riziká**: Napríklad oneskorenie v implementácii alebo nepredvídané náklady.
+- **Bezpečnostné riziká**: Riziká spojené s ochranou dát a citlivých informácií.
+
+---
+
+## 4. **UML (Unified Modeling Language) Diagramy**
+Okrem FURPS analýzy môžu študenti využiť aj rôzne UML diagramy, ako sú:
+- **Triedne diagramy**: Ukazujú štruktúru systému a jeho komponenty (triedy a objekty) s atribútmi a metódami.
+- **Sekvenčné diagramy**: Ukazujú časovú posloupnosť udalostí a interakcií medzi rôznymi komponentami systému.
+- **Stavové diagramy**: Zobrazujú rôzne stavy systému a prechody medzi nimi na základe určitých podmienok.
+- **Aktivitné diagramy**: Vizualizujú tok aktivít v systéme a rozhodovanie medzi rôznymi operáciami.
+
+---
+
+## 5. **Agilné metodiky (Scrum, Kanban)**
+Pre projektový manažment je možné použiť agilné metodiky na riadenie vývoja systému. Tieto metodiky sú obzvlášť užitočné pri dynamických projektoch, kde sa môže meniť rozsah a požiadavky:
+- **Scrum**: Metodika, ktorá sa zameriava na pravidelné iterácie a tým aj rýchlejšie nasadzovanie nových funkcií.
+- **Kanban**: Vizualizuje pracovný tok a umožňuje sledovať stav jednotlivých úloh v reálnom čase.
+
+---
+
+## 6. **Testovacia analýza (Testovanie kvality)**
+Kvalitné testovanie je neoddeliteľnou súčasťou každého systému. Testovacia analýza by mala zahŕňať:
+- **Unit Testing (Jednotkové testy)**: Testovanie jednotlivých komponentov systému.
+- **Integration Testing (Integračné testy)**: Testovanie interakcie medzi rôznymi časťami systému.
+- **Acceptance Testing (Akceptačné testy)**: Overenie, či systém spĺňa požiadavky používateľa a obchodné ciele.
+
+---
+
+## 7. **Vývojový životný cyklus (SDLC - Software Development Life Cycle)**
+Pre štruktúrovaný vývoj môže byť užitočné dodržiavať niektorý z modelov vývojového životného cyklu:
+- **Waterfall**: Tradičný prístup s fázami ako analýza, návrh, implementácia a testovanie.
+- **Agile**: Flexibilnejší prístup s častými iteráciami a zlepšovaním systému.
+
+---
+
+# Zhrnutie
+Na obohatenie tvojej video analýzy FURPS môžeš zvážiť pridanie ďalších metodík a nástrojov ako:
+- **S.M.A.R.T. Ciele** na definovanie konkrétnych a merateľných cieľov.
+- **SWOT analýza** na hodnotenie silných a slabých stránok systému.
+- **Risk Analysis** na identifikáciu a hodnotenie potenciálnych rizík.
+- **UML diagramy** na vizualizáciu a detailnejšie pochopenie systému.
+- **Agilné metodiky** na riadenie projektu a iteratívny vývoj.
+- **Testovacia analýza** na zabezpečenie kvality systému.
+- **SDLC modely** na riadenie vývoja.
+
+Tieto metódy a analýzy môžu študentom pomôcť lepšie pochopiť rôzne aspekty systému a jeho vývoja, čo je veľmi užitočné pri implementácii skutočných softvérových riešení.
+
