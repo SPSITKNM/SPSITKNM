@@ -45,7 +45,9 @@ _99: **
 105: *
 106: *
 Počet neplatných čísel: 0
-```  ## Skúste popremýšľať
+```
+
+## Skúste popremýšľať
 
 Skúste popremýšľať, ako môžeme spočítať, koľko má číslo číslic, a teda aj koľko zaberie znakov.
 
@@ -94,7 +96,8 @@ h
 8
 9 ##
 invalid : #
-``` 
+```
+
 # Usmernenia
 ## ! Riešenia žiadam odovzdávať do otvorenej úlohy na EduPage...
 ## ! Plagiát štýlu 1 : 1 od kolegu je hodnotený automaticky 5m využitie zdrojov je voľné, vrátane AI je povolené... !  - RealTime testy budú písané bez skrípt a prístupu na internet... preto využitie dostupných zdrojov pri vypracovávaní Vašich DÚ nechávam na Vašom posúdení...
