@@ -43,5 +43,59 @@ Bojová hra, kde hráč ovláda postavu, ktorá bojuje proti súperovi. Môžeš
 Hráč ovláda Maria (alebo inú postavu), ktorý behá, skáče a zbiera mince, pričom sa snaží vyhnúť nepriateľom a dosiahnuť koniec úrovne. Môžeš zahrnúť rôzne svety a úrovne s rôznymi prekážkami a nepriateľmi.
 
 ## 15. Tank 1990 (Battle City)
-Hráč ovládá tank, který chrání svou základnu a ničí nepřátelské tanky. Hra končí, když je hráčův tank zničen nebo pokud nepřátelé zničí jeho základnu.
 Hráč ovláda tank, ktorý chráni svoju základňu a ničí nepriateľské tanky. Hra končí, keď je hráčov tank zničený alebo ak nepriatelia zničia jeho základňu.
+
+
+# Herné požiadavky pre vývoj projektov
+
+### 1. Herná logika:
+- Každá hra by mala byť rozdelená na hlavné komponenty: **hráč**, **nepriatelia**, **scéna/herné prostredie** a **hráčove ciele** (výhra/prehra).
+- Herná logika by mala byť implementovaná v zmysle hlavného **herného cyklu**, ktorý neustále spracováva vstupy hráča, aktualizuje herný stav a vykresľuje obrazovku.
+
+### 2. Ovládanie:
+- Hry by mali poskytovať používateľsky priateľské ovládanie, ktoré je **intuitívne** a prispôsobené typu hry (napr. klávesnica pre **Space Invaders** alebo šípky pre **Pac-Man**).
+- Ovládanie by malo byť optimalizované pre odozvu hráča, minimalizovať **oneskorenie** medzi vstupom a akciou v hre.
+
+### 3. Herné stavy:
+Každá hra by mala mať jasne definované **herné stavy**, ako sú:
+- **Hlavné menu**: výber hry alebo úrovne, možnosti nastavení.
+- **In-Game stav**: aktuálny stav hry, kde hráč hrá.
+- **Pause stav**: hra je pozastavená a čaká na obnovu.
+- **Game Over stav**: hráč buď vyhral, alebo prehral.
+- **Výsledková tabuľka**: ak je relevantné.
+
+### 4. AI a nepriatelia:
+- Ak sú v hre prítomní nepriatelia, ich správanie by malo byť spracované buď jednoduchou, alebo zložitejšou formou **umelej inteligencie**.  
+Niektoré príklady:
+  - **Náhodné pohyby**: napr. had v **Snake** hre.
+  - **Skriptované vzory**: napr. v **Space Invaders** alebo **Galaga**.
+  - **Sofistikované správanie**: napr. duchovia v **Pac-Man** s rôznymi vzorcami správania.
+
+### 5. Grafika a animácie:
+- Každá hra by mala používať **2D** alebo **3D grafiku**, ktorá je optimalizovaná pre danú platformu.
+- Jednoduché **animácie** (napr. pohyb nepriateľov, explózie, zhromažďovanie bodov) by mali byť zahrnuté, aby hra pôsobila dynamicky a živá.
+
+### 6. Výkon a optimalizácia:
+- Hry by mali byť optimalizované tak, aby hladko bežali aj na menej výkonných zariadeniach, s minimálnymi problémami ako sú **lagy** alebo padanie aplikácie.
+- **Optimalizácia hernej logiky** a zníženie záťaže na **CPU** a pamäť sú dôležité, najmä pre hry s veľkým počtom nepriateľov alebo objektov na obrazovke.
+
+### 7. Skórovací systém a ciele hry:
+- Každá hra by mala mať definované **cieľové podmienky** (ako vyhrať alebo prehrať).
+- **Skórovací systém** by mal odmeňovať hráča za jeho výkony, či už formou bodov, postupov do vyšších úrovní alebo iným spôsobom.
+
+### 8. Úrovne a obtiažnosť:
+- Hry môžu obsahovať rôzne **úrovne** alebo zvyšujúcu sa obtiažnosť, aby hráč mal motiváciu zlepšovať svoje schopnosti (napr. zrýchlenie nepriateľov v **Space Invaders**, väčšia rýchlosť lopty v **Arkanoide**).
+
+### 9. Ukladanie progresu (voliteľné):
+- V niektorých hrách môže byť implementované **ukladanie hry** alebo uchovanie výsledkov (najmä pre komplexnejšie hry ako **Tetris** alebo **Bomberman**).
+
+### 10. Dobrý kód a modularita:
+- Kód by mal byť písaný v zmysle princípov **OOP** (objektovo orientovaného programovania), čo znamená, že hráči, nepriatelia, projektily a iné herné entity by mali byť **triedami**, ktoré majú jasne definované zodpovednosti.
+- Kód by mal byť dobre **modulárny**, čo umožní jednoduché prispôsobenie a údržbu hry.
+
+### 11. Testovanie:
+- Hry by mali byť dôkladne **testované** na rôzne scenáre (kolízie, pohybové chyby, bugy v hernej logike) a mala by byť zabezpečená ich stabilita.
+
+---
+
+Implementáciou týchto podmienok sa zabezpečí, že každá hra bude funkčná, zábavná a dobre zvládne základy hernej mechaniky, pričom hráčovi poskytne plynulý a zábavný herný zážitok.
