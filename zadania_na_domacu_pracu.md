@@ -1,3 +1,23 @@
+# Pokyny pre prihlasovanie na projekty
+
+Prihlásenie na projekt prebieha **výhradne** vytvorením nového **Issue** v tomto repozitári.
+
+Prosím, dodržte nasledujúci postup krok za krokom:
+
+1.  **Prejdite na záložku Issues** (Problémy) v hornej navigačnej lište repozitára.
+2.  Kliknite na zelené tlačidlo **New issue** (Nové Issue).
+3.  Vyberte šablónu s názvom **"Prihláška na projekt"** a kliknite na **Get started**.
+4.  **Vyplňte všetky polia** vo formulári Issues.
+5.  Uistite sa, že pole **Title** (Názov) má presný formát: `[PRIHLÁŠKA] Názov Vášho Projektu (Vaše Meno a Priezvisko)`.
+6.  Nakoniec kliknite na zelené tlačidlo **Submit new issue** (Odoslať nové Issue).
+
+---
+
+### Dôležité upozornenia:
+
+* **Obsadenosť témy:** Téma je oficiálne obsadená až **po našom schválení** (pridelenie `Assignee` a uzavretie Issues).
+* **Kontrola:** Pred prihlásením **skontrolujte existujúce Issues** (otvorené aj uzavreté), aby ste sa uistili, že vybraná téma už nie je pridelená inému študentovi.
+
 # Klasické herné zadania 
 
 ## 1. Space Invaders
@@ -44,6 +64,54 @@ Hráč ovláda Maria (alebo inú postavu), ktorý behá, skáče a zbiera mince,
 
 ## 15. Tank 1990 (Battle City)
 Hráč ovláda tank, ktorý chráni svoju základňu a ničí nepriateľské tanky. Hra končí, keď je hráčov tank zničený alebo ak nepriatelia zničia jeho základňu.
+
+## 16. Textové Dobrodružstvo (Zork Style)
+Vytvorte interaktívny príbeh v textovom prostredí. Hráč zadáva príkazy (napr. choď na sever, použi kľúč, preskúmaj stôl). Systém musí parsovať vstupy, aktualizovať stav inventára a opisovať okolie a reakcie.
+
+## 17. Terminálový Rogue-like (ASCII Dungeon)
+Implementujte základný roguelike žáner. Mapa je vykreslená pomocou znakov (napr. @ pre hráča, # pre steny, G pre nepriateľa). Hra má permanentnú smrť (permadeath), náhodne generované podlažia (procedurálne generovanie) a základnú správu inventára a súbojový systém.
+
+## 18. Survival v Divočine (Oregon Trail Style)
+Hráč spravuje skupinu preživších na dlhej ceste. Musí riadiť zásoby jedla, vody, liekov a sledovať stav zdravia tímu. Hra je ovládaná výberom možností z menu a reagovaním na náhodné udalosti (počasie, choroby, nálezy).
+
+## 19. Simulačný Manažér Obchodu
+Hráč začína s malým kapitálom a snaží sa zarobiť predajom tovaru. Hra obsahuje systém nákupných a predajných cien (ktoré sa menia), správu inventára, riadenie zamestnancov (vylepšenia) a cieľ dosiahnuť určitý zisk.
+
+## 20. SimCity: Text Edition
+Veľmi zjednodušená simulácia správy mesta. Hráč prideľuje zdroje na budovanie zón (obytné, priemyselné, komerčné) na mriežke (vykreslené ASCII znakmi), spravuje rozpočet, dane a rieši základné problémy občanov (kriminalita, znečistenie).
+
+## 21. Terminálový Logický Kvíz
+Hra generuje logické hádanky alebo matematické úlohy. Hráč zadáva odpovede. Úlohou je implementovať robustný systém kontroly správnosti odpovedí, časový limit a systém bodovania za rýchlosť.
+
+## 22. Hra Hádania Slov (Hangman/Šibenica)
+Klasická hra, kde počítač vyberie náhodné slovo. Hráč postupne háda písmená. V termináli sa zobrazuje skryté slovo (pomlčky) a vizuálny stav "šibenice" pomocou ASCII art, ktorý sa mení s každým chybným pokusom.
+
+## 23. Mastermind (Terminál)
+Počítač vygeneruje tajnú farebnú/číselnú kombináciu. Hráč zadáva svoje tipy a systém mu oznámi, koľko prvkov trafil správne na správnom mieste a koľko na nesprávnom mieste. Cieľom je uhádnuť kombináciu na čo najmenej pokusov.
+
+## 24. Battleship (Hra Lode)
+Dvojhráčová (PvP) alebo hráč vs. AI hra. Hracie pole je vykreslené pomocou mriežky. Hráči zadávajú súradnice (napr. A5) a systém ukazuje zásahy (X) alebo minulé strely (O). Kľúčová je implementácia logiky rozmiestňovania lodí a kontroly stavu potopenia.
+
+## 25. Terminálová Verzia 2048
+Implementujte základnú logiku hry 2048 na mriežke 4x4, vykreslenú v termináli. Hráč ovláda pohyb šípkami a hra spája rovnaké čísla. Výzva spočíva v efektívnom vykresľovaní pohybu v konzole.
+
+## 26. Rýchle Zadanie Textu (Typing Test)
+Aplikácia zobrazí náhodné slová alebo frázy na obrazovke. Hráč ich musí čo najrýchlejšie a najpresnejšie prepísať. Aplikácia meria WPM (Words Per Minute) a presnosť.
+
+## 27. Zberač Pokladov v Bludisku
+Hráč ovláda postavu v statickom bludisku (vykreslenom # a .). Cieľom je pozbierať všetky poklady ($). Had sa nepredlžuje, namiesto toho sa zvyšuje rýchlosť pohybu nepriateľského bota (ak je prítomný) alebo sa skracuje časový limit.
+
+## 28. Sokoban (ASCII)
+Hra, kde hráč na mriežke tlačí debny na cieľové pozície. Prostredie je vykreslené znakmi (@ pre hráča, $ pre debnu, . pre cieľ, # pre stenu). Hráč nemôže debny ťahať ani tlačiť viac ako jednu naraz.
+
+## 29. Logický Blackjack
+Zjednodušená implementácia kartovej hry Blackjack. Hráč a počítač (dealer) ťahajú karty. Dôraz je na správnu interpretáciu pravidiel (hodnota kariet, možnosti Hit/Stand) a správu skóre, bez grafického vykreslenia kariet.
+
+## 30. Život Bota (Simulácia Pravidiel)
+Implementujte zjednodušenú verziu Conway's Game of Life alebo podobnej celulárnej simulácie. Mriežka je vykreslená pomocou dvoch znakov (# pre živú bunku, . pre mŕtvu). Aplikácia neustále zobrazuje nové generácie na základe vopred definovaných pravidiel.
+
+## 31. Terminálový Minesweeper (Hľadanie Mín)
+Klasická logická hra. Hracie pole (mriežka) je vykreslené v termináli. Hráč zadáva súradnice poľa, ktoré chce odkryť. Systém odhalí číslo (počet okolitých mín) alebo mínu. Hráč musí vedieť označiť pole vlajkou.
 
 
 # Herné požiadavky pre vývoj projektov
