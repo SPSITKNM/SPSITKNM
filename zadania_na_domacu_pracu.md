@@ -170,4 +170,4 @@ Implementáciou týchto podmienok sa zabezpečí, že každá hra bude funkčná
 
 ---
 S pozdravom, 
-**Tomáš 🪰**T
+**Tomáš 🪰**
