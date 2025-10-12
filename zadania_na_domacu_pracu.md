@@ -167,3 +167,7 @@ Niektoré príklady:
 ---
 
 Implementáciou týchto podmienok sa zabezpečí, že každá hra bude funkčná, zábavná a dobre zvládne základy hernej mechaniky, pričom hráčovi poskytne plynulý a zábavný herný zážitok.
+
+---
+S pozdravom, 
+**Tomáš 🪰**T
