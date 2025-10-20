@@ -1,749 +1,634 @@
-Zadanie na hodine    
+# Operačné Systémy - Domáca Úloha: Procesy a správa úloh
 
-# Program na počítanie histogramu čísel
+**Deadline:** 24.10.2025  
+**Prostredie:** Linux/Unix (VirtualBox s Fedorou)  
+**Jazyk:** C++ (g++ kompilátor)  
+**Materály:** Prezentácia "Operačné systémy - Procesy a správa úloh", skriptá, videá vytvorené pre účely predmetu
 
-Program bude počítať histogram čísel. Histogram bude mať 9 košov a bude zaznamenávať četnosť jednotlivých hodnôt, ktoré budú v rozsahu zadanom na vstupe programu.
+---
 
-## Požiadavky na program
+## Príprava prostredia
 
-### 1. Voľba vykreslenia
-Načítate zo vstupu znak, ktorý bude udávať, či sa má vykresliť horizontálny (pokiaľ bol na vstupe znak `h`) alebo vertikálny (pokiaľ bol na vstupe znak `v`) histogram.
+### Krok 1: Inštalácia Fedory vo VirtualBox
 
-- Ak bude zadaný iný znak ako `v` alebo `h`, vypíšte riadok **"Neplatný mód vykreslenia"** na štandardný výstup a ukončite program s chybovým kódom `1`.
+Postupujte presne podľa tutoriálu:
+- **Video:** [VirtualBox Setup](https://www.youtube.com/watch?v=8RdA9mQFr10&list=PLJW-oHbyRDeJt24tw-RaHJwxbXUCh3GrQ&index=5)
+- **Skriptá:** [VirtualBox Guide](https://github.com/SPSITKNM/SXG/blob/main/VirtualBox%20Guide.md)
 
-### 2. Načítanie vstupných hodnôt
-Načítate zo vstupu dve nezáporné čísla `n` a `m`.
+**Čo budete potrebovať:**
+- VirtualBox nainštalovaný na vašom počítači
+- ISO súbor Fedory
 
-- `n` udáva, koľko čísel program načíta, z ktorých bude počítať histogram.
-- `m` udáva rozsah čísel, pre ktoré máte počítať histogram. Tento rozsah bude daný intervalom \[`m`, `m + 8`\].
+### Krok 2: Základná orientácia v Linuxovom termináli
 
-Napríklad, ak bude `m = 5`, histogram bude počítať výskyty čísel od 5 až po 13 vrátane.
+Naučte sa základné príkazy:
+- **Video:** [Linux Commands](https://www.youtube.com/watch?v=NE3r0i5cENI&list=PLJW-oHbyRDeJt24tw-RaHJwxbXUCh3GrQ&index=6)
+- **Cheat Sheet:** [Linux Commands Guide](https://github.com/SPSITKNM/SXG/blob/main/Linux%20Commands%20Cheat%20Sheet.md)
 
-### 3. Výpočet histogramu
-Načítate od používateľa `n` celých čísel oddelených medzerou a vypočítate pre ne histogram.
+### Krok 3: Inštalácia vývojových nástrojov
 
-- Ak bude číslo na vstupe mimo intervalu \[`m`, `m + 8`\], považujte také číslo za neplatné. Počet neplatných čísel si v programe pamätajte.
-- Histogram počíta, koľkokrát sa jednotlivé hodnoty z intervalu `m` až `m + 8` vyskytli vo vstupe.
-- Histogram reprezentujte poľom.
-- Ideálne riešenie na výpočet histogramu by nemalo obsahovať 9x `if-else` vetvy. Zamyslite sa, ako histogram spočítať bez podmienok, dá sa to vykonať jedným riadkom.
+V termináli spustite:
 
-### 4. Výstup - Horizontálny histogram
-Ak bol na vstupe znak `h`, vykreslite horizontálny histogram na výstup:
-
-- Vypíšte pod seba čísla od `m` až po `m + 8`, každé číslo na jednom riadku.
-- Zarovnajte čísla doprava tak, aby počty výskytov pre jednotlivé čísla začínali vždy v tom istom stĺpci. Napríklad, ak bude `m = 98`, tak `m + 8` bude 106, a toto číslo má viac číslic ako 98. Preto musíte pred výpisom pred 98 a 99 vypísať jednu medzeru, inak by čísla pod sebou nesedeli správne.
-- Tu je znak `_`, ktorý reprezentuje medzeru.
-
-```cpp
-_98: **
-_99: **
-100: *
-101: 
-102: *
-103: 
-104: 
-105: *
-106: *
-Počet neplatných čísel: 0
+```bash
+sudo dnf update
+sudo dnf install gcc g++ make gdb valgrind
 ```
 
-## Skúste popremýšľať
-
-Skúste popremýšľať, ako môžeme spočítať, koľko má číslo číslic, a teda aj koľko zaberie znakov.
-
-## Horizontálny histogram
-
-Ak sa dané číslo vyskytlo na vstupe, tak za neho vykreslite medzeru a znak `#` toľkokrát, koľkokrát sa vyskytlo dané číslo na vstupe.
-
-Ak sa na vstupe vyskytli nejaké neplatné čísla, tak za posledným riadkom vypísaného histogramu vypíšte ďalší riadok s textom **invalid** a za ním vypíšte znak `#` toľkokrát, koľko bolo neplatných čísel na vstupe.
-
-## 5. Bonus - Vertikálny histogram
-
-Ak bol na vstupe znak `v`, vykreslite vertikálny histogram na výstup.
-
-- Vykreslite čísla `m` až `m + 8` vedľa seba.
-- Ak sa dané číslo vyskytlo na vstupe, nad ním by mal byť vykreslený stĺpec so znakom `#`.
-- Stĺpec bude tak vysoký, koľkokrát sa dané číslo vyskytlo na vstupe.
-
-Pri vertikálnom histograme môžeme predpokladať, že rozsah čísel histogramu bude vždy od 1 do 9.
-
-### Neplatné čísla
-
-Neplatné čísla vypíšte v prvom stĺpci a tento stĺpec označte znakom **i**.
-
-### Zložitosti vertikálneho histogramu
-
-Vertikálny histogram je bonus, pretože je zložitejší na implementáciu než horizontálny. Pokiaľ nebude bonus implementovaný, predpokladajte, že na začiatku vstupu programu bude vždy znak `h`.   
-
-```cpp
-h
-10 1
-3 3 2 3 7 1 10 4 9 9 
-```
-- Hodnota 10 udáva, že na vstupe bude 10 čísel.
-- Hodnota 1 udáva, že histogram bude počítať výsledky 1 až 9.
-
-### Odpovedajúci výstup 
-
-```cpp
-1 #
-2 #
-3 ###
-4 #
-5
-6
-7 #
-8
-9 ##
-invalid : #
+**Overenie inštalácie:**
+```bash
+g++ --version
+gcc --version
+gdb --version
+valgrind --version
 ```
 
-# Úlohy na precvičenie OOP v C++
+### Krok 4: Výber editora
 
-## ZÁKLADY
+Môžete používať **ľubovoľný editor**, ktorý preferujete:
 
-### 1. Triedy, atribúty a metódy
+**Možnosti:**
+- **VS Code** - Odporúčaný (inštalácia: https://code.visualstudio.com/)
+  - Extension: C/C++ (Microsoft)
+  - Remote - SSH (na prácu s VirtualBox)
+- **CLion** - Profesionálny IDE (platený, ale študenti majú prístup zadarmo ak máte ISIC)
+- **Nano** - Jednoduchý, vstavený v termináli: `nano file.cpp`
+- **Vim** - Pokročilý editor v termináli: `vim file.cpp`
+- **Gedit/Kate** - Grafické editory: `gedit file.cpp` alebo `kate file.cpp`
 
-**Úloha: Knižnica**
-- Vytvor triedu `Kniha` s atribútmi: `nazov`, `autor`, `rokVydania`, `pocetStran`
-- Pridaj konštruktor, ktorý nastaví všetky atribúty
-- Vytvor metódu `vypisInfo()`, ktorá vypíše všetky informácie o knihe
-- Vytvor metódu `jeStara()`, ktorá vráti `true` ak je kniha staršia ako 50 rokov
-- Vytvor 3 rôzne objekty knihy a zavolaj ich metódy
+**Ak používate VS Code s VirtualBox:**
 
-**Kroková príručka:**
-```cpp
-#include <iostream>
-#include <string>
-using namespace std;
+Inštalujte VS Code extension "Remote - SSH" a pripojte sa priamo do VM.
 
-class Kniha {
-private:
-    // 1. KROK: Definuj atribúty tu
-    string nazov;
-    // ... doplň ostatné
-    
-public:
-    // 2. KROK: Vytvor konštruktor
-    Kniha(string n, string a, int rok, int strany) {
-        nazov = n;
-        // ... doplň ostatné
-    }
-    
-    // 3. KROK: Vytvor metódu vypisInfo()
-    void vypisInfo() {
-        cout << "Názov: " << nazov << endl;
-        // ... doplň ostatné výpisy
-    }
-    
-    // 4. KROK: Vytvor metódu jeStara()
-    bool jeStara() {
-        int aktualnyRok = 2025;
-        return (aktualnyRok - rokVydania) > 50;
-    }
-};
+---
 
-int main() {
-    // 5. KROK: Vytvor objekty a otestuj
-    Kniha k1("1984", "George Orwell", 1949, 328);
-    k1.vypisInfo();
-    
-    if(k1.jeStara()) {
-        cout << "Táto kniha je stará!" << endl;
-    }
-    
-    return 0;
-}
+## Pripomenutie: Kľúčové koncepty z hodiny PRO v piatok 17.10.2025 
+
+Skôr, ako začnete s úlohami, zopakujte si tieto koncepty z prezentácie:
+
+### Program vs Proces
+- **Program:** Pasívna entita - statický súbor na disku (chrome.exe, python3)
+- **Proces:** Aktívna entita - program, ktorý sa VYKONÁVA s pridelenými zdrojmi (CPU čas, pamäť, súbory)
+- Jeden program → viacero procesov (napr. 3 okná Chromu = 3 procesy)
+
+### Štruktúra procesu
+Každý proces má:
+1. **Kód programu** - z binárneho súboru
+2. **Pamäť (RAM)** - premenné, stack (funkcie), heap (malloc/new)
+3. **Otvorené súbory** - stdin, stdout, stderr, dáta
+4. **Registre CPU** - Program Counter (PC), aktuálny stav
+
+### Stavy procesu (Process Lifecycle)
+```
+NEW → READY → RUNNING → WAITING → TERMINATED
+```
+
+- **NEW:** Proces sa vytvára
+- **READY:** Čaká na CPU (v rade u schedulera)
+- **RUNNING:** Beží na CPU
+- **WAITING:** Čaká na I/O operáciu (disk, sieť, klávesnica)
+- **TERMINATED:** Proces skončil
+
+### Scheduler a Preemption
+- **Scheduler:** Časť OS, ktorá rozhoduje, ktorý proces dostane CPU a na ako dlho
+- **Preemption:** Schopnosť OS prerušiť bežiaci proces a odobrať mu CPU (moderné OS)
+
+### Parent a Child procesy
+- **PID 1 (init/systemd):** Koreň všetkých procesov
+- **Parent:** Proces, ktorý vytvoril child pomocou `fork()`
+- **Child dedí:** Otvorené súbory, environment variables, aktuálny adresár, práva
+
+### Fork + Exec vzor
+```
+fork() → vytvorí kópiu procesu
+exec() → nahradí proces iným programom
+wait() → rodič čaká na ukončenie potomka
+```
+
+### Špeciálne stavy procesov
+
+**Zombie proces (Z):**
+- Proces, ktorý už skončil, ale záznam zostáva v tabuľke procesov
+- Vzniká, keď parent NEZAVOLÁ `wait()`
+- Zaberá len PID, nie RAM/CPU
+- V `ps aux` vyzerá ako: `<defunct>`
+
+**Orphan proces:**
+- Parent zomrie skôr ako child
+- Child zostane bez rodiča
+- PID 1 (init/systemd) ho automaticky adoptuje
+- Child pokračuje normálne
+
+**Sleeping proces (S):**
+- Proces v stave WAITING - čaká na udalosť (I/O, sieť, klávesnica)
+- Interruptible sleep - dá sa prebudiť signálom (Ctrl+C)
+- Automaticky sa prebudí, keď udalosť príde
+
+---
+
+## Praktické príkazy pre debugging
+
+Používajte tieto príkazy pri práci:
+
+```bash
+# Zobrazenie všetkých procesov
+ps aux
+
+# Vyhľadávanie konkrétneho procesu
+ps aux | grep <nazov_programu>
+
+# Zobrazenie PID aktuálneho procesu/shellu
+echo $$
+ps
+
+# Monitorovanie procesov v reálnom čase
+top
+htop  # (vyžaduje inštaláciu: sudo dnf install htop)
+
+# Strom procesov (hierarchia parent-child)
+pstree
+pstree -p  # s PIDmi
+
+# Posielanie signálov
+kill -9 <PID>           # Násilne ukončenie
+kill -STOP <PID>        # Zastaví proces (STOPPED - T)
+kill -CONT <PID>        # Pokračuje proces
+
+# Prevádzanie procesu do pozadia
+./program &
+jobs
+fg %1
+bg %1
+
+# Hľadanie zombie procesov
+ps aux | grep defunct
+ps aux | grep Z
+
+# Sledovanie procesov v reálnom čase
+watch -n 1 'ps aux | grep <program>'
 ```
 
 ---
 
-##
-ENCAPSULÁCIA
+## Úloha 1 – Jednoduchý potomek
 
-### 2. Encapsulácia (zapúzdrenie)
+### Cieľ
+Pochopenie základného fungovania `fork()` a rozdiel medzi parent a child procesom. Praktické overenie konceptov "Program vs Proces" a "Parent a Child procesy" z prednášky.
 
-**Úloha: Bankový účet**
-- Vytvor triedu `BankovyUcet` s privátnym atribútom `zostatok` (začne na 0)
-- Pridaj metódu `vlozit(double suma)` - pridá peniaze (iba ak je suma > 0)
-- Pridaj metódu `vybrat(double suma)` - odoberie peniaze (iba ak je dostatok)
-- Pridaj metódu `getZostatok()` - vráti aktuálny zostatok
-- Skús pristúpiť k `zostatok` priamo z `main()` - čo sa stane?
+### Zadanie
 
-**Riešenie s vysvetlením:**
-```cpp
-#include <iostream>
-using namespace std;
+Napíšte program `task1.cpp`, ktorý:
 
-class BankovyUcet {
-private:
-    double zostatok;  // PRIVATE - nedostupný z vonku!
-    
-public:
-    // Konštruktor
-    BankovyUcet() {
-        zostatok = 0;
-    }
-    
-    void vlozit(double suma) {
-        if(suma > 0) {
-            zostatok += suma;
-            cout << "Vložené: " << suma << " EUR" << endl;
-        } else {
-            cout << "Chyba: Suma musí byť kladná!" << endl;
-        }
-    }
-    
-    void vybrat(double suma) {
-        if(suma > zostatok) {
-            cout << "Chyba: Nedostatok peňazí!" << endl;
-        } else if(suma <= 0) {
-            cout << "Chyba: Suma musí byť kladná!" << endl;
-        } else {
-            zostatok -= suma;
-            cout << "Vybraté: " << suma << " EUR" << endl;
-        }
-    }
-    
-    double getZostatok() {
-        return zostatok;
-    }
-};
+1. Vytvorí jedného potomka pomocou `fork()`
+2. **Child proces** vypíše na výstup text:
+   ```
+   Já jsem potomek, PID: <pid>
+   ```
+3. **Parent proces** vypíše na výstup text:
+   ```
+   Já jsem rodič, PID: <pid>, dítě: <pid_child>
+   ```
+4. Rodič počka na ukončenie potomka pomocou `wait()`
 
-int main() {
-    BankovyUcet ucet;
-    ucet.vlozit(1000);
-    ucet.vybrat(300);
-    cout << "Zostatok: " << ucet.getZostatok() << " EUR" << endl;
-    
-    // ucet.zostatok = 999999;  // CHYBA! zostatok je private
-    
-    return 0;
-}
+### Očakávaný výstup
+
+```
+Já jsem potomek, PID: 1234
+Já jsem rodič, PID: 1233, dítě: 1234
 ```
 
-### Encapsulácia s gettermi a settermi
+### Pokyny
 
-**Úloha: Študent s validáciou**
-- Vytvor triedu `Student` s privátnym atribútom `vek`
-- Vytvor getter `getVek()` a setter `setVek(int v)`
-- V settri validuj, že vek musí byť 15-25 rokov
-- Vytvor privátny atribút `priemer` (0.0 - 5.0)
-- Vytvor setter s validáciou a getter
+- Používajte `getpid()` pre získanie aktuálneho PID
+- Používajte `getppid()` pre získanie PID rodiča
+- Overovanie s príkazom: `ps aux | grep task1`
+- **Koncept z hodín :** Ukazuje, že jeden program (task1) vytvára dva procesy (parent + child)
 
-```cpp
-class Student {
-private:
-    string meno;
-    int vek;
-    double priemer;
-    
-public:
-    Student(string m) {
-        meno = m;
-        vek = 18;
-        priemer = 0.0;
-    }
-    
-    // GETTERY
-    int getVek() { return vek; }
-    double getPriemer() { return priemer; }
-    string getMeno() { return meno; }
-    
-    // SETTERY s validáciou
-    void setVek(int v) {
-        if(v >= 15 && v <= 25) {
-            vek = v;
-        } else {
-            cout << "Chyba: Vek musí byť 15-25!" << endl;
-        }
-    }
-    
-    void setPriemer(double p) {
-        if(p >= 0.0 && p <= 5.0) {
-            priemer = p;
-        } else {
-            cout << "Chyba: Priemer musí byť 0.0-5.0!" << endl;
-        }
-    }
-    
-    void vypisInfo() {
-        cout << "Študent: " << meno << ", Vek: " << vek 
-             << ", Priemer: " << priemer << endl;
-    }
-};
+### Kompilace a spustenie
+
+```bash
+g++ -o task1 task1.cpp
+./task1
+```
+
+### Bonus: Experimentujte
+
+Čo sa stane, ak odstránite `wait()`? Pozrite si proces s `ps aux` - bude zombie?
+
+---
+
+## Úkol 2 – Lifecycle a stavy procesov
+
+### Cieľ
+Praktické overenie **stavov procesu** (NEW → READY → RUNNING → WAITING → TERMINATED) z prednášky.
+
+### Zadanie
+
+Napíšte program `task2.cpp`, ktorý:
+
+1. Vytvorí potomka pomocou `fork()`
+2. **Child proces:**
+   - Vypíše: `"[CHILD] START: pid=<pid>, parent_pid=<ppid>"`
+   - Uspí sa na 2 sekundy (`sleep(2)`)
+   - Vypíše: `"[CHILD] END: pid=<pid>"`
+3. **Parent proces:**
+   - Vypíše: `"[PARENT] Child started: pid=<child_pid>"`
+   - Počka na child (`wait()`)
+   - Vypíše: `"[PARENT] Child finished"`
+
+### Očakávaný výstup
+
+```
+[CHILD] START: pid=1234, parent_pid=1233
+[PARENT] Child started: pid=1234
+[PARENT] Čaká...
+[CHILD] END: pid=1234
+[PARENT] Child finished
+```
+
+### Pokyny
+
+- Použite `sleep(2)` - umiestní proces do stavu **WAITING**
+- Počas `sleep(2)` spustite v inom termináli: `ps aux | grep task2`
+- Vidíte child proces v stave **S** (INTERRUPTIBLE_SLEEP)?
+- **Koncept z hodín :** Vidíte zmeny stavov: READY → RUNNING → WAITING → TERMINATED
+
+### Kompilace a spustenie
+
+```bash
+g++ -o task2 task2.cpp
+./task2
+
+# V inom termináli počas behu:
+ps aux | grep task2
 ```
 
 ---
 
-## DEDIČNOSŤ
+## Úkol 3 – Zombie proces
 
-### 3. Dedičnosť (inheritance)
+### Cieľ
+Praktické pochopenie **zombie procesov** a problému, keď parent NEZAVOLÁ `wait()`.
 
-**Úloha: Zvieratá**
-- Vytvor rodičovskú triedu `Zviera` s atribútmi: `meno`, `vek`
-- Pridaj metódu `zvuk()`, ktorá vypíše "Zviera robí zvuk"
-- Vytvor triedu `Pes`, ktorá dedí od `Zviera`
-  - Prepiš (override) metódu `zvuk()` - "Haf haf!"
-  - Pridaj novú metódu `aportuj()`
-- Vytvor triedu `Macka`, ktorá dedí od `Zviera`
-  - Prepiš metódu `zvuk()` - "Mňau!"
-  - Pridaj novú metódu `pradaj()`
+### Zadanie
 
-**Kompletné riešenie:**
-```cpp
-#include <iostream>
-#include <string>
-using namespace std;
+Napíšte program `task3.cpp`, ktorý:
 
-// RODIČOVSKÁ TRIEDA
-class Zviera {
-protected:  // protected = dostupné v potomkoch
-    string meno;
-    int vek;
-    
-public:
-    Zviera(string m, int v) {
-        meno = m;
-        vek = v;
-    }
-    
-    void zvuk() {
-        cout << "Zviera robí zvuk" << endl;
-    }
-    
-    void vypisInfo() {
-        cout << "Meno: " << meno << ", Vek: " << vek << " rokov" << endl;
-    }
-};
+1. Vytvorí potomka pomocou `fork()`
+2. **Child proces:**
+   - Vypíše: `"[CHILD] Doing work..."`
+   - Pracuje 1 sekundu (`sleep(1)`)
+   - Vypíše: `"[CHILD] Done. Exiting."`
+   - Skončí (`exit(0)`)
+3. **Parent proces:**
+   - Vypíše: `"[PARENT] Child created: pid=<child_pid>"`
+   - **NEZAVOLÁ `wait()`!** (to je chyba!)
+   - Spí 5 sekúnd (`sleep(5)`)
+   - Vypíše: `"[PARENT] Exiting."`
 
-// POTOMOK 1
-class Pes : public Zviera {
-public:
-    // Konštruktor potomka volá konštruktor rodiča
-    Pes(string m, int v) : Zviera(m, v) {
-    }
-    
-    // OVERRIDE - prepísanie metódy
-    void zvuk() {
-        cout << meno << " hovorí: Haf haf!" << endl;
-    }
-    
-    void aportuj() {
-        cout << meno << " aportuje loptu!" << endl;
-    }
-};
+### Očakávaný výstup
 
-// POTOMOK 2
-class Macka : public Zviera {
-public:
-    Macka(string m, int v) : Zviera(m, v) {
-    }
-    
-    void zvuk() {
-        cout << meno << " hovorí: Mňau!" << endl;
-    }
-    
-    void pradaj() {
-        cout << meno << " priadne priadne..." << endl;
-    }
-};
+```
+[PARENT] Child created: pid=1234
+[CHILD] Doing work...
+[CHILD] Done. Exiting.
+[PARENT] Exiting.
+```
 
-int main() {
-    Pes dunco("Dunčo", 3);
-    dunco.vypisInfo();
-    dunco.zvuk();
-    dunco.aportuj();
-    
-    cout << endl;
-    
-    Macka micka("Mička", 2);
-    micka.vypisInfo();
-    micka.zvuk();
-    micka.pradaj();
-    
-    return 0;
-}
+### Pokyny
+
+- Spustite program: `./task3`
+- Počas behu (v inom termináli) spustite: `ps aux | grep task3`
+- **Vidíte zombie proces?** Hľadajte riadok s **Z** alebo `<defunct>`
+- Príkaz: `ps aux | grep defunct`
+- **Koncept z hodín :** Zombie proces - child skončil, ale záznam zostáva v tabuľke
+
+### Kompilace a spustenie
+
+```bash
+g++ -o task3 task3.cpp
+./task3 &
+
+# Počas behu v inom termináli:
+ps aux | grep task3
+ps aux | grep defunct
+```
+
+### Otázka k premýšľaniu
+
+Ako by ste problém vyriešili? (Odpoveď: pridaním `wait()` v parent procese)
+
+---
+
+## Úkol 4 – Orphan proces
+
+### Cieľ
+Praktické pochopenie **orphan procesov** - čo sa stane, keď parent zomrie skôr ako child.
+
+### Zadanie
+
+Napíšte program `task4.cpp`, ktorý:
+
+1. Vytvorí potomka pomocou `fork()`
+2. **Child proces:**
+   - Vypíše: `"[CHILD] START - parent_pid=<ppid>"`
+   - Spí 3 sekundy (`sleep(3)`)
+   - Vypíše: `"[CHILD] MIDDLE - parent_pid=<ppid>"` (všimnite si zmenu!)
+   - Spí ďalších 2 sekúnd
+   - Vypíše: `"[CHILD] END - parent_pid=<ppid>"`
+3. **Parent proces:**
+   - Vypíše: `"[PARENT] Child created: pid=<child_pid>"`
+   - Spí len 1 sekundu (`sleep(1)`)
+   - Vypíše: `"[PARENT] Parent exiting!"`
+   - Skončí (bez `wait()`)
+
+### Očakávaný výstup
+
+```
+[PARENT] Child created: pid=1234
+[PARENT] Parent exiting!
+[CHILD] START - parent_pid=1233
+[CHILD] MIDDLE - parent_pid=1      <--- PPID sa zmenilo!
+[CHILD] END - parent_pid=1
+```
+
+### Pokyny
+
+- **Kľúčové pozorovanie:** PPID sa zmení z `1233` (original parent) na `1` (PID 1 = init/systemd)
+- PID 1 adoptuje osirelého potomka
+- **Koncept z hodín :** "Child zostane bez parenta. PID 1 ho adoptuje."
+
+### Kompilace a spustenie
+
+```bash
+g++ -o task4 task4.cpp
+./task4
+
+# Pozorujte zmenu PPID!
 ```
 
 ---
 
-## POLYMORFIZMUS
+## Úkol 5 – Preemption a Scheduler
 
-### 4. Polymorfizmus
+### Cieľ
+Praktické pochopenie **Preemption** - OS vám odoberie CPU, aj keď ešte neskončil.
 
-**Úloha: Geometrické tvary**
-- Vytvor rodičovskú triedu `Tvar` s **virtuálnou** metódou `vypocitajObsah()`
-- Vytvor triedy `Stvorec`, `Kruh`, `Obdlznik`, ktoré dedia od `Tvar`
-- V každej triede prepíš metódu `vypocitajObsah()`
-- Vytvor pole ukazateľov na `Tvar` a ulož tam rôzne tvary
-- V cykle zavolaj pre každý `vypocitajObsah()` - POLYMORFIZMUS!
+### Zadanie
 
-**Dôležité:**
-- Metóda v rodičovi musí byť `virtual`
-- Pracujeme s **ukazateľmi** (pointers)
-- Deštruktor musí byť tiež `virtual`
+Napíšte program `task5.cpp`, ktorý:
 
-```cpp
-#include <iostream>
-#include <cmath>
-using namespace std;
+1. Vytvorí 3 potomkov pomocou `fork()` v cykle
+2. **Všetci potomkovia:**
+   - Vypíšu: `"[CHILD-<N>] START"`
+   - Počítajú od 0 do 1 000 000 000 a vypíšu výsledok
+   - Vypíšu: `"[CHILD-<N>] END"`
+3. **Parent proces:**
+   - Čaká na všetkých potomkov (`wait()`)
+   - Vypíše: `"[PARENT] All children finished"`
 
-// RODIČOVSKÁ TRIEDA
-class Tvar {
-public:
-    // VIRTUAL = umožňuje polymorfizmus
-    virtual double vypocitajObsah() {
-        return 0;
-    }
-    
-    // Virtual deštruktor je dôležitý!
-    virtual ~Tvar() {}
-};
+### Očakávaný výstup
 
-class Stvorec : public Tvar {
-private:
-    double strana;
-    
-public:
-    Stvorec(double s) : strana(s) {}
-    
-    double vypocitajObsah() override {
-        return strana * strana;
-    }
-};
-
-class Kruh : public Tvar {
-private:
-    double polomer;
-    
-public:
-    Kruh(double r) : polomer(r) {}
-    
-    double vypocitajObsah() override {
-        return 3.14159 * polomer * polomer;
-    }
-};
-
-class Obdlznik : public Tvar {
-private:
-    double sirka, vyska;
-    
-public:
-    Obdlznik(double s, double v) : sirka(s), vyska(v) {}
-    
-    double vypocitajObsah() override {
-        return sirka * vyska;
-    }
-};
-
-int main() {
-    // Pole UKAZATEĽOV na rodičovskú triedu
-    Tvar* tvary[3];
-    
-    tvary[0] = new Stvorec(5);
-    tvary[1] = new Kruh(3);
-    tvary[2] = new Obdlznik(4, 6);
-    
-    // POLYMORFIZMUS v akcii!
-    for(int i = 0; i < 3; i++) {
-        cout << "Obsah tvaru " << i+1 << ": " 
-             << tvary[i]->vypocitajObsah() << endl;
-    }
-    
-    // Nezabudnite uvoľniť pamäť!
-    for(int i = 0; i < 3; i++) {
-        delete tvary[i];
-    }
-    
-    return 0;
-}
+```
+[CHILD-1] START
+[CHILD-2] START
+[CHILD-3] START
+[CHILD-1] END
+[CHILD-2] END
+[CHILD-3] END
+[PARENT] All children finished
 ```
 
-**Vysvetlenie polymorfizmu:**
-```
-Bez virtual:
-- tvary[0]->vypocitajObsah() by volalo Tvar::vypocitajObsah() (vždy 0)
+### Pokyny
 
-S virtual:
-- tvary[0]->vypocitajObsah() volá Stvorec::vypocitajObsah()
-- tvary[1]->vypocitajObsah() volá Kruh::vypocitajObsah()
-- atď.
+- Všimnite si, že procesy sa **prepínajú** - nie všetci bežia naraz
+- Počas behu spustite: `top` alebo `watch -n 1 'ps aux | grep task5'`
+- **Vidíte, ako sa procesy striedajú?**
+- **Koncept z prednášky:** Preemption - OS prepína medzi procesmi
 
-To je POLYMORFIZMUS - jeden interface, rôzne správanie!
+### Kompilace a spustenie
+
+```bash
+g++ -o task5 task5.cpp -lm
+./task5
+
+# V inom termináli:
+top
+# Pozorujte, ako sa procesy striedajú na CPU
 ```
 
 ---
 
-## ABSTRAKCIA (POKROČILÉ)
+## Úkol 6 – Copy-on-Write optimalizácia
 
-### 5. Abstraktné triedy
+### Cieľ
+Pochopenie **Copy-on-Write (COW)** optimalizácie - fork() neskopíruje hneď pamäť, len keď sa zmení.
 
-**Úloha: Platobné metódy**
-- Vytvor abstraktnú triedu `PlatobnaMetoda` s čisto virtuálnou metódou `zaplat(double suma)`
-- Vytvor triedy `KreditnaKarta` a `Hotovost`, ktoré implementujú `zaplat()`
-- Skús vytvoriť objekt z abstraktnej triedy - čo sa stane?
+### Zadanie
 
-```cpp
-#include <iostream>
-using namespace std;
+Napíšte program `task6.cpp`, ktorý:
 
-// ABSTRAKTNÁ TRIEDA
-class PlatobnaMetoda {
-public:
-    // Čisto virtuálna metóda = 0 (abstraktná)
-    virtual void zaplat(double suma) = 0;
-    
-    virtual ~PlatobnaMetoda() {}
-};
+1. Vytvorí veľký vector (1 000 000 prvkov) a naplní ho hodnotami
+2. Vytvorí potomka pomocou `fork()`
+3. **Child proces:**
+   - Vytlačí: `"[CHILD] START - value[0]=<value>"`
+   - Zmení prvý prvok: `arr[0] = 999`
+   - Vypíše: `"[CHILD] MODIFIED - value[0]=<value>"`
+4. **Parent proces:**
+   - Vypíše: `"[PARENT] START - value[0]=<value>"`
+   - Spí 2 sekundy
+   - Vypíše: `"[PARENT] END - value[0]=<value>"` (bude stále 10!)
 
-class KreditnaKarta : public PlatobnaMetoda {
-private:
-    string cisloKarty;
-    
-public:
-    KreditnaKarta(string cislo) : cisloKarty(cislo) {}
-    
-    // MUSÍME implementovať abstraktnú metódu
-    void zaplat(double suma) override {
-        cout << "Platba " << suma << " EUR kartou " 
-             << cisloKarty << endl;
-    }
-};
+### Očakávaný výstup
 
-class Hotovost : public PlatobnaMetoda {
-public:
-    void zaplat(double suma) override {
-        cout << "Platba " << suma << " EUR v hotovosti" << endl;
-    }
-};
+```
+[PARENT] START - value[0]=10
+[CHILD] START - value[0]=10
+[CHILD] MODIFIED - value[0]=999
+[PARENT] END - value[0]=10    <--- nezmenilo sa!
+```
 
-class Bitcoin : public PlatobnaMetoda {
-private:
-    string wallet;
-    
-public:
-    Bitcoin(string w) : wallet(w) {}
-    
-    void zaplat(double suma) override {
-        cout << "Platba " << suma << " EUR v BTC na " 
-             << wallet << endl;
-    }
-};
+### Pokyny
 
-int main() {
-    // PlatobnaMetoda pm;  // CHYBA! Nemôžeme vytvoriť objekt z abstraktnej triedy
-    
-    PlatobnaMetoda* platby[3];
-    
-    platby[0] = new KreditnaKarta("1234-5678-9012");
-    platby[1] = new Hotovost();
-    platby[2] = new Bitcoin("1A2B3C4D");
-    
-    for(int i = 0; i < 3; i++) {
-        platby[i]->zaplat(100.50);
-    }
-    
-    for(int i = 0; i < 3; i++) {
-        delete platby[i];
-    }
-    
-    return 0;
-}
+- **Dôležité:** Zmena v child procese neovplyvní parent
+- Toto je dôkaz **Copy-on-Write** - pri zápise sa vytvorí kópia len tej časti
+- **Koncept z hodín :** "Po forku procesy zdieľajú pamäť (read-only). Pri zápise sa vytvorí kópia len tej časti."
+
+### Kompilace a spustenie
+
+```bash
+g++ -o task6 task6.cpp
+./task6
 ```
 
 ---
 
-## KOMPLEXNÁ ÚLOHA
+## Bonus: Úkol 7 – Strom procesov
 
-### 6. Systém zamestnancov (všetky koncepty)
+### Cieľ
+Praktické pochopenie **hierarchie procesov** (parent-child strom).
 
-**Rozdelené na kroky:**
+### Zadanie
 
-**KROK 1: Abstraktná rodičovská trieda**
-```cpp
-class Zamestnanec {
-protected:
-    string meno;
-    string priezvisko;
-    double plat;  // protected, nie private
-    
-public:
-    Zamestnanec(string m, string p, double pl) {
-        meno = m;
-        priezvisko = p;
-        setPlat(pl);  // validácia cez setter
-    }
-    
-    // Abstraktná metóda
-    virtual double vypocitajBonus() = 0;
-    
-    // Gettery a settery
-    double getPlat() { return plat; }
-    
-    void setPlat(double pl) {
-        if(pl > 0) {
-            plat = pl;
-        } else {
-            cout << "Chyba: Plat musí byť kladný!" << endl;
-            plat = 1000;
-        }
-    }
-    
-    string celeMeno() {
-        return meno + " " + priezvisko;
-    }
-    
-    virtual ~Zamestnanec() {}
-};
+Napíšte program `task7.cpp`, ktorý:
+
+1. Vytvorí 2 potomkov (Level 1)
+2. Každý z nich vytvorí 2 potomkov (Level 2)
+3. Všetci vypíšu svoju hierarchiu: `"[LEVEL-<L>] PID=<pid>, PPID=<ppid>"`
+4. Parent počka na všetkých (`wait()`)
+
+### Očakávaný výstup
+
+```
+[LEVEL-1] PID=1234, PPID=1000
+[LEVEL-1] PID=1235, PPID=1000
+[LEVEL-2] PID=1236, PPID=1234
+[LEVEL-2] PID=1237, PPID=1234
+[LEVEL-2] PID=1238, PPID=1235
+[LEVEL-2] PID=1239, PPID=1235
 ```
 
-**KROK 2: Potomok Programator**
-```cpp
-class Programator : public Zamestnanec {
-private:
-    string programovaciJazyk;
-    
-public:
-    Programator(string m, string p, double pl, string jazyk) 
-        : Zamestnanec(m, p, pl) {
-        programovaciJazyk = jazyk;
-    }
-    
-    double vypocitajBonus() override {
-        return plat * 0.20;  // 20% bonus
-    }
-    
-    void vypisInfo() {
-        cout << "Programátor: " << celeMeno() 
-             << ", Jazyk: " << programovaciJazyk
-             << ", Plat: " << plat << " EUR"
-             << ", Bonus: " << vypocitajBonus() << " EUR" << endl;
-    }
-};
-```
+### Pokyny
 
-**KROK 3: Potomok Manager**
-```cpp
-class Manager : public Zamestnanec {
-private:
-    int pocetPodriadených;
-    
-public:
-    Manager(string m, string p, double pl, int pocet) 
-        : Zamestnanec(m, p, pl) {
-        pocetPodriadených = pocet;
-    }
-    
-    double vypocitajBonus() override {
-        return plat * 0.15 + pocetPodriadených * 100;
-    }
-    
-    void vypisInfo() {
-        cout << "Manažér: " << celeMeno() 
-             << ", Podriadeních: " << pocetPodriadených
-             << ", Plat: " << plat << " EUR"
-             << ", Bonus: " << vypocitajBonus() << " EUR" << endl;
-    }
-};
-```
+- Spustite: `pstree -p` - vidíte celý strom?
+- **Koncept z hodín :** "PID 1 je koreň všetkých procesov"
 
-**KROK 4: Použitie v main()**
-```cpp
-int main() {
-    Programator prog1("Ján", "Novák", 2000, "C++");
-    Programator prog2("Mária", "Horváthová", 2500, "Python");
-    Manager man1("Peter", "Kovács", 3000, 5);
-    
-    cout << "=== ZAMESTNANCI FIRMY ===" << endl << endl;
-    
-    prog1.vypisInfo();
-    prog2.vypisInfo();
-    man1.vypisInfo();
-    
-    cout << endl << "=== POLYMORFIZMUS ===" << endl << endl;
-    
-    // Polymorfizmus s ukazateľmi
-    Zamestnanec* zamestnanci[3];
-    zamestnanci[0] = &prog1;
-    zamestnanci[1] = &prog2;
-    zamestnanci[2] = &man1;
-    
-    for(int i = 0; i < 3; i++) {
-        cout << zamestnanci[i]->celeMeno() 
-             << " - Bonus: " << zamestnanci[i]->vypocitajBonus() 
-             << " EUR" << endl;
-    }
-    
-    return 0;
-}
+### Kompilace a spustenie
+
+```bash
+g++ -o task7 task7.cpp
+./task7
+
+# V inom termináli počas behu:
+pstree -p | grep task7
 ```
 
 ---
 
-## BONUSOVÉ ÚLOHY
+## Pokyny pre odevzdanie
 
-### 7. Viacnásobná dedičnosť
+### Štruktúra projektu
 
-**Úloha: Elektrické auto**
-- Vytvor triedu `Auto` s atribútmi: `znacka`, `rychlost`
-- Vytvor triedu `ElektrickeZariadenie` s atribútmi: `kapacitaBaterie`
-- Vytvor triedu `ElektrickeAuto`, ktorá dedí od OBOCH tried
-- Implementuj metódy oboch rodičov
+```
+PRO_Homework_1_6/
+├── task1.cpp
+├── task2.cpp
+├── task3.cpp
+├── task4.cpp
+├── task5.cpp
+├── task6.cpp
+├── task7.cpp (bonus)
+├── Makefile
+└── README.md
+```
+
+### Kompilacia a testovanie
+
+```bash
+# Jednotlivá kompilacia
+g++ -o task1 task1.cpp
+g++ -o task2 task2.cpp
+# ... atď
+
+# Alebo cez Makefile:
+make all
+```
+
+### Príklad Makefile
+
+```makefile
+CC = g++
+CFLAGS = -Wall -g -std=c++11
+TARGETS = task1 task2 task3 task4 task5 task6 task7
+
+all: $(TARGETS)
+
+task1: task1.cpp
+	$(CC) $(CFLAGS) -o task1 task1.cpp
+
+task2: task2.cpp
+	$(CC) $(CFLAGS) -o task2 task2.cpp
+
+task3: task3.cpp
+	$(CC) $(CFLAGS) -o task3 task3.cpp
+
+task4: task4.cpp
+	$(CC) $(CFLAGS) -o task4 task4.cpp
+
+task5: task5.cpp
+	$(CC) $(CFLAGS) -o task5 task5.cpp
+
+task6: task6.cpp
+	$(CC) $(CFLAGS) -o task6 task6.cpp
+
+task7: task7.cpp
+	$(CC) $(CFLAGS) -o task7 task7.cpp
+
+clean:
+	rm -f $(TARGETS) *.o
+
+.PHONY: all clean
+```
+
+### README.md - Čo napísať
+
+```markdown
+# PRO domáca úloha: Procesy a správa úloh
+
+Autor: [Vaše meno]
+Dátum: [Dátum odevzdania]
+
+## Úlohy
+
+### Task 1: Jednoduchý potomek
+- Testovanie: ./task1
+- Pozorovaní: [Čo ste pozorovali]
+
+### Task 2: Lifecycle a stavy procesov
+- Testovanie: ./task2 & ps aux | grep task2
+- Pozorovaní: [Čo ste pozorovali]
+
+... atď pre všetky úkoly
+
+## Záver
+[Čo ste sa naučili z jednotlivých úloh]
+```
+
+---
+
+## Bezpečnostný a kvalitný checklist
+
+- Všetky `fork()` majú error handling (`if (pid < 0)`)
+- Všetci potomkovia sú čistení cez `wait()` (bez zombie)
+- Programy sú preložiteľné bez warningov
+- Kód je čitateľný a okomentovaný
+- Výstupy sú jasné a ľahko overiteľné
+- Testované s `ps aux` počas behu
+
+### Príklad error handlingu v C++
 
 ```cpp
 #include <iostream>
-#include <string>
+#include <unistd.h>
+#include <sys/wait.h>
+
 using namespace std;
 
-class Auto {
-protected:
-    string znacka;
-    int rychlost;
-    
-public:
-    Auto(string z, int r) : znacka(z), rychlost(r) {}
-    
-    void jazdi() {
-        cout << znacka << " jazdí rýchlosťou " << rychlost << " km/h" << endl;
-    }
-};
-
-class ElektrickeZariadenie {
-protected:
-    int kapacitaBaterie;  // v kWh
-    
-public:
-    ElektrickeZariadenie(int kap) : kapacitaBaterie(kap) {}
-    
-    void nabij() {
-        cout << "Nabíjam batériu " << kapacitaBaterie << " kWh" << endl;
-    }
-};
-
-// VIACNÁSOBNÁ DEDIČNOSŤ
-class ElektrickeAuto : public Auto, public ElektrickeZariadenie {
-private:
-    int dojazd;  // v km
-    
-public:
-    ElektrickeAuto(string z, int r, int kap, int d) 
-        : Auto(z, r), ElektrickeZariadenie(kap), dojazd(d) {
-    }
-    
-    void vypisInfo() {
-        cout << "Elektrické auto: " << znacka << endl;
-        cout << "Kapacita: " << kapacitaBaterie << " kWh" << endl;
-        cout << "Dojazd: " << dojazd << " km" << endl;
-    }
-};
-
 int main() {
-    ElektrickeAuto tesla("Tesla Model 3", 200, 75, 500);
+    pid_t pid = fork();
     
-    tesla.vypisInfo();
-    tesla.jazdi();
-    tesla.nabij();
+    if (pid < 0) {
+        cerr << "fork failed" << endl;
+        return 1;
+    }
+    
+    if (pid == 0) {
+        // Child
+        cout << "Child: PID=" << getpid() << endl;
+    } else {
+        // Parent
+        cout << "Parent: Child PID=" << pid << endl;
+        wait(nullptr);  // Očisti zombie!
+    }
     
     return 0;
 }
@@ -751,98 +636,28 @@ int main() {
 
 ---
 
-## TIPY A TRIKY
+## Debugging tipy
 
-### Rozdiel medzi private, protected, public:
+```bash
+# Ak vidíte zombie procesy:
+ps aux | grep defunct
 
-```cpp
-class Rodic {
-private:
-    int a;      // Nedostupné v potomkoch ANI z vonku
-protected:
-    int b;      // Dostupné v potomkoch, ale NIE z vonku
-public:
-    int c;      // Dostupné všade
-};
+# Sledovanie procesov v reálnom čase:
+watch -n 1 'ps aux | grep task'
 
-class Potomok : public Rodic {
-    void test() {
-        // a = 10;  // CHYBA - private
-        b = 20;     // OK - protected
-        c = 30;     // OK - public
-    }
-};
+# Analýza memory leakov:
+valgrind --leak-check=full ./task1
 
-int main() {
-    Potomok p;
-    // p.a = 10;  // CHYBA - private
-    // p.b = 20;  // CHYBA - protected
-    p.c = 30;     // OK - public
-}
-```
-
-### Kedy použiť virtual:
-
-```cpp
-// BEZ virtual
-class Rodic {
-    void metoda() { cout << "Rodič"; }
-};
-
-// S virtual (polymorfizmus)
-class Rodic {
-    virtual void metoda() { cout << "Rodič"; }
-};
-```
-
-### Pamäťový cheat sheet:
-
-```cpp
-// Objekt na stacku
-Student s1("Ján");
-
-// Objekt na heape (dynamicky)
-Student* s2 = new Student("Mária");
-delete s2;  // MUSÍME uvoľniť!
-
-// Pole objektov
-Student* studenti[3];
-studenti[0] = new Student("A");
-// ... nezabudnite delete!
+# Debugging s GDB:
+gdb ./task1
+(gdb) run
+(gdb) break main
+(gdb) continue
 ```
 
 ---
 
-**Info čo sa zijde**
-- Ako kompilovať: `g++ main.cpp -o program`
-- Ako spustiť: `./program`
-- Ako debugovať základné chyby (chýbajúci `;`, `{}`, atď.)
+Držím palce pri vypracovaní domácej úlohy.
 
-
-# Usmernenia
-
-> **Dôležité:** Riešenia žiadam odovzdávať do otvorenej úlohy na **EduPage**.
-
----
-
-## Akadémia integrity a zdroje
-- **Plagiát štýlu 1 : 1** od kolegu je hodnotený **automaticky 5m**.  
-- Využitie zdrojov je **voľné**, vrátane **AI** je povolené.  
-- **RealTime testy** budú písané **bez skrípt a prístupu na internet** – preto využitie dostupných zdrojov pri vypracovávaní Vašich DÚ nechávam na Vašom posúdení.
-
----
-
-## Odporúčaný prístup k riešeniam
-- Prístup štýlu **CTRL + C / CTRL + V do AI** **neodporúčam**.  
-- Úlohy sú nastavené tak, aby **riešenie cez AI trvalo rovnako dlho**, ako dĺžka Vami **implementovanej logiky**.
-
----
-
-## Deadline a hodnotenie
-- **Každý deň po deadline** znamená **o stupeň horšiu známku**.
-
----
-
-Veľa šťastia,  
-**TM**
-
+S pozdravom a prianím pekného dňa,
+Tomáš
