@@ -29,7 +29,7 @@ Predmet **PRO**  sa zameriava na základy OOP programovania, algorizmizácie, n�
 ### Odkazy
 <a href="https://github.com/SPSITKNM"><img src="https://cdn.jsdelivr.net/npm/simple-icons@3.0.1/icons/github.svg" alt="GitHub" width="30" height="30"></a>  
 <a href="https://www.instagram.com/https://discord.gg/eSQDsna4d7/"><img src="https://cdn.jsdelivr.net/npm/simple-icons@3.0.1/icons/instagram.svg" alt="Instagram" width="30" height="30"></a>  
-<a href="https://www.youtube.com/channel/UC0TOfJp6MtFlLSgfdhnlS9g"><img src="https://cdn.jsdelivr.net/npm/simple-icons@3.0.1/icons/youtube.svg" alt="YouTube" width="30" height="30"></a>  
+<a href="https://youtube.com/playlist?list=PLJW-oHbyRDeJt24tw-RaHJwxbXUCh3GrQ&si=eopE5YoHd6siNpa9" alt="YouTube" width="30" height="30"></a>  
 <a href="http://www.spsknm.sk/ssknm/"><img src="https://cdn.jsdelivr.net/npm/simple-icons@3.0.1/icons/icloud.svg" alt="Website" width="30" height="30"></a>  
 
 ### Odznaky
