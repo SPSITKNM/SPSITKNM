@@ -219,12 +219,19 @@ Máte študentov s rovnakými známkami, ale rôznymi menami:
 
 ## Návod na vypracovanie | zdroje 
 
-**Úvod do algoritmizácie** : https://youtu.be/lN-TrkF8WHQ?si=tLIDFgyVPZnAqp5f
-**Sorting algorithms** : https://youtu.be/bxXmgMqjGwM?si=gLsM7p7bVrW7yOp-
-Skriptá : https://github.com/SPSITKNM/SPSITKNM
+**Úvod do algoritmizácie:**  
+https://youtu.be/lN-TrkF8WHQ?si=tLIDFgyVPZnAqp5f
+
+**Sorting algorithms:**  
+https://youtu.be/bxXmgMqjGwM?si=gLsM7p7bVrW7yOp-
+
+**Skriptá:**  
+https://github.com/SPSITKNM/SPSITKNM
+
+---
 
 Držím palce pri riešení 
 
 S pozdravom, 
 
-Tomáš 🪰.
+Tomáš 🪰
