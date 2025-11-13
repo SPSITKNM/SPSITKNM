@@ -1,663 +1,230 @@
-# Operačné Systémy - Domáca Úloha: Procesy a správa úloh
+# Praktické úlohy na triediace algoritmy
 
-**Deadline:** 24.10.2025  
-**Prostredie:** Linux/Unix (VirtualBox s Fedorou)  
-**Jazyk:** C++ (g++ kompilátor)  
-**Materály:** Prezentácia "Operačné systémy - Procesy a správa úloh", skriptá, videá vytvorené pre účely predmetu
+Súbor praktických úloh zameraných na rôzne triediace algoritmy. Každá úloha obsahuje zadanie, návrh riešenia a analýzu algoritmickej zložitosti.
 
 ---
 
-## Príprava prostredia
-
-### Krok 1: Inštalácia Fedory vo VirtualBox
-
-Postupujte presne podľa tutoriálu:
-- **Video:** [VirtualBox Setup](https://www.youtube.com/watch?v=8RdA9mQFr10&list=PLJW-oHbyRDeJt24tw-RaHJwxbXUCh3GrQ&index=5)
-- **Skriptá:** [VirtualBox Guide](https://github.com/SPSITKNM/SXG/blob/main/VirtualBox%20Guide.md)
-
-**Čo budete potrebovať:**
-- VirtualBox nainštalovaný na vašom počítači
-- ISO súbor Fedory
-
-### Krok 2: Základná orientácia v Linuxovom termináli
-
-Naučte sa základné príkazy:
-- **Video:** [Linux Commands](https://www.youtube.com/watch?v=NE3r0i5cENI&list=PLJW-oHbyRDeJt24tw-RaHJwxbXUCh3GrQ&index=6)
-- **Cheat Sheet:** [Linux Commands Guide](https://github.com/SPSITKNM/SXG/blob/main/Linux%20Commands%20Cheat%20Sheet.md)
-
-### Krok 3: Inštalácia vývojových nástrojov
-
-V termináli spustite:
-
-```bash
-sudo dnf update
-sudo dnf install gcc g++ make gdb valgrind
-```
-
-**Overenie inštalácie:**
-```bash
-g++ --version
-gcc --version
-gdb --version
-valgrind --version
-```
-
-### Krok 4: Výber editora
-
-Môžete používať **ľubovoľný editor**, ktorý preferujete:
-
-**Možnosti:**
-- **VS Code** - Odporúčaný (inštalácia: https://code.visualstudio.com/)
-  - Extension: C/C++ (Microsoft)
-  - Remote - SSH (na prácu s VirtualBox)
-- **CLion** - Profesionálny IDE (platený, ale študenti majú prístup zadarmo ak máte ISIC)
-- **Nano** - Jednoduchý, vstavený v termináli: `nano file.cpp`
-- **Vim** - Pokročilý editor v termináli: `vim file.cpp`
-- **Gedit/Kate** - Grafické editory: `gedit file.cpp` alebo `kate file.cpp`
-
-**Ak používate VS Code s VirtualBox:**
-
-Inštalujte VS Code extension "Remote - SSH" a pripojte sa priamo do VM.
-
----
-
-## Pripomenutie: Kľúčové koncepty z hodiny PRO v piatok 17.10.2025 
-
-Skôr, ako začnete s úlohami, zopakujte si tieto koncepty z prezentácie:
-
-### Program vs Proces
-- **Program:** Pasívna entita - statický súbor na disku (chrome.exe, python3)
-- **Proces:** Aktívna entita - program, ktorý sa VYKONÁVA s pridelenými zdrojmi (CPU čas, pamäť, súbory)
-- Jeden program → viacero procesov (napr. 3 okná Chromu = 3 procesy)
-
-### Štruktúra procesu
-Každý proces má:
-1. **Kód programu** - z binárneho súboru
-2. **Pamäť (RAM)** - premenné, stack (funkcie), heap (malloc/new)
-3. **Otvorené súbory** - stdin, stdout, stderr, dáta
-4. **Registre CPU** - Program Counter (PC), aktuálny stav
-
-### Stavy procesu (Process Lifecycle)
-```
-NEW → READY → RUNNING → WAITING → TERMINATED
-```
-
-- **NEW:** Proces sa vytvára
-- **READY:** Čaká na CPU (v rade u schedulera)
-- **RUNNING:** Beží na CPU
-- **WAITING:** Čaká na I/O operáciu (disk, sieť, klávesnica)
-- **TERMINATED:** Proces skončil
-
-### Scheduler a Preemption
-- **Scheduler:** Časť OS, ktorá rozhoduje, ktorý proces dostane CPU a na ako dlho
-- **Preemption:** Schopnosť OS prerušiť bežiaci proces a odobrať mu CPU (moderné OS)
-
-### Parent a Child procesy
-- **PID 1 (init/systemd):** Koreň všetkých procesov
-- **Parent:** Proces, ktorý vytvoril child pomocou `fork()`
-- **Child dedí:** Otvorené súbory, environment variables, aktuálny adresár, práva
-
-### Fork + Exec vzor
-```
-fork() → vytvorí kópiu procesu
-exec() → nahradí proces iným programom
-wait() → rodič čaká na ukončenie potomka
-```
-
-### Špeciálne stavy procesov
-
-**Zombie proces (Z):**
-- Proces, ktorý už skončil, ale záznam zostáva v tabuľke procesov
-- Vzniká, keď parent NEZAVOLÁ `wait()`
-- Zaberá len PID, nie RAM/CPU
-- V `ps aux` vyzerá ako: `<defunct>`
-
-**Orphan proces:**
-- Parent zomrie skôr ako child
-- Child zostane bez rodiča
-- PID 1 (init/systemd) ho automaticky adoptuje
-- Child pokračuje normálne
-
-**Sleeping proces (S):**
-- Proces v stave WAITING - čaká na udalosť (I/O, sieť, klávesnica)
-- Interruptible sleep - dá sa prebudiť signálom (Ctrl+C)
-- Automaticky sa prebudí, keď udalosť príde
-
----
-
-## Praktické príkazy pre debugging
-
-Používajte tieto príkazy pri práci:
-
-```bash
-# Zobrazenie všetkých procesov
-ps aux
-
-# Vyhľadávanie konkrétneho procesu
-ps aux | grep <nazov_programu>
-
-# Zobrazenie PID aktuálneho procesu/shellu
-echo $$
-ps
-
-# Monitorovanie procesov v reálnom čase
-top
-htop  # (vyžaduje inštaláciu: sudo dnf install htop)
-
-# Strom procesov (hierarchia parent-child)
-pstree
-pstree -p  # s PIDmi
-
-# Posielanie signálov
-kill -9 <PID>           # Násilne ukončenie
-kill -STOP <PID>        # Zastaví proces (STOPPED - T)
-kill -CONT <PID>        # Pokračuje proces
-
-# Prevádzanie procesu do pozadia
-./program &
-jobs
-fg %1
-bg %1
-
-# Hľadanie zombie procesov
-ps aux | grep defunct
-ps aux | grep Z
-
-# Sledovanie procesov v reálnom čase
-watch -n 1 'ps aux | grep <program>'
-```
-
----
-
-## Úloha 1 – Jednoduchý potomek
-
-### Cieľ
-Pochopenie základného fungovania `fork()` a rozdiel medzi parent a child procesom. Praktické overenie konceptov "Program vs Proces" a "Parent a Child procesy" z prednášky.
+## 1. Bubble Sort - Organizácia knižnice
 
 ### Zadanie
 
-Napíšte program `task1.cpp`, ktorý:
-
-1. Vytvorí jedného potomka pomocou `fork()`
-2. **Child proces** vypíše na výstup text:
-   ```
-   Já jsem potomek, PID: <pid>
-   ```
-3. **Parent proces** vypíše na výstup text:
-   ```
-   Já jsem rodič, PID: <pid>, dítě: <pid_child>
-   ```
-4. Rodič počka na ukončenie potomka pomocou `wait()`
-
-### Očakávaný výstup
+V školskej knižnici máte 8 kníh, ktoré sú rozložené v nesprávnom poradí podľa ISBN čísla. Knihy máte v tomto poradí:
 
 ```
-Já jsem potomek, PID: 1234
-Já jsem rodič, PID: 1233, dítě: 1234
+[423, 156, 789, 234, 567, 123, 890, 345]
 ```
 
-### Pokyny
+### Úloha
 
-- Používajte `getpid()` pre získanie aktuálneho PID
-- Používajte `getppid()` pre získanie PID rodiča
-- Overovanie s príkazom: `ps aux | grep task1`
-- **Koncept z hodín :** Ukazuje, že jeden program (task1) vytvára dva procesy (parent + child)
+1. Použite **Bubble Sort** na zoradenie kníh vzostupne podľa ISBN
+2. Vypíšte stav poľa po každom kompletnom prechode (každom vonkajšom cykle)
+3. Spočítajte, koľko porovnaní a koľko výmen ste vykonali
 
-### Kompilace a spustenie
+### Analýza zložitosti
 
-```bash
-g++ -o task1 task1.cpp
-./task1
-```
-
-### Bonus: Experimentujte
-
-Čo sa stane, ak odstránite `wait()`? Pozrite si proces s `ps aux` - bude zombie?
+- Odhadnite (vypočítajte) **časovú zložitosť** v najhoršom, priemernom a najlepšom prípade
+- Slovne zdôvodnite, prečo má algoritmus túto zložitosť
 
 ---
 
-## Úkol 2 – Lifecycle a stavy procesov
-
-### Cieľ
-Praktické overenie **stavov procesu** (NEW → READY → RUNNING → WAITING → TERMINATED) z prednášky.
+## 2. Selection Sort - Výber najlepších študentov
 
 ### Zadanie
 
-Napíšte program `task2.cpp`, ktorý:
-
-1. Vytvorí potomka pomocou `fork()`
-2. **Child proces:**
-   - Vypíše: `"[CHILD] START: pid=<pid>, parent_pid=<ppid>"`
-   - Uspí sa na 2 sekundy (`sleep(2)`)
-   - Vypíše: `"[CHILD] END: pid=<pid>"`
-3. **Parent proces:**
-   - Vypíše: `"[PARENT] Child started: pid=<child_pid>"`
-   - Počka na child (`wait()`)
-   - Vypíše: `"[PARENT] Child finished"`
-
-### Očakávaný výstup
+Máte zoznam študentov s ich priemernými známkami:
 
 ```
-[CHILD] START: pid=1234, parent_pid=1233
-[PARENT] Child started: pid=1234
-[PARENT] Čaká...
-[CHILD] END: pid=1234
-[PARENT] Child finished
+Študent: [Anna: 2.5, Bob: 1.8, Cyril: 3.2, Dana: 1.5, Eva: 2.1, Filip: 1.9]
 ```
 
-### Pokyny
+### Úloha
 
-- Použite `sleep(2)` - umiestní proces do stavu **WAITING**
-- Počas `sleep(2)` spustite v inom termináli: `ps aux | grep task2`
-- Vidíte child proces v stave **S** (INTERRUPTIBLE_SLEEP)?
-- **Koncept z hodín :** Vidíte zmeny stavov: READY → RUNNING → WAITING → TERMINATED
+1. Použite **Selection Sort** na zoradenie študentov podľa priemeru (od najlepšieho)
+2. Pri každom kroku vysvetlite, prečo ste vybrali práve daného študenta
+3. Nakresľte schému, ktorá ukazuje pozície minimu v každej iterácii
 
-### Kompilace a spustenie
+### Analýza zložitosti
 
-```bash
-g++ -o task2 task2.cpp
-./task2
-
-# V inom termináli počas behu:
-ps aux | grep task2
-```
+- Odhadnite (vypočítajte) **časovú zložitosť** algoritmu
+- Prečo má Selection Sort vždy rovnakú zložitosť bez ohľadu na vstup?
+- Koľko výmen ste vykonali? Je to lepšie alebo horšie ako pri Bubble Sort?
+- Kedy by ste preferovali Selection Sort pred Bubble Sort?
 
 ---
 
-## Úkol 3 – Zombie proces
-
-### Cieľ
-Praktické pochopenie **zombie procesov** a problému, keď parent NEZAVOLÁ `wait()`.
+## 3. Insertion Sort - Zoraďovanie kariet
 
 ### Zadanie
 
-Napíšte program `task3.cpp`, ktorý:
-
-1. Vytvorí potomka pomocou `fork()`
-2. **Child proces:**
-   - Vypíše: `"[CHILD] Doing work..."`
-   - Pracuje 1 sekundu (`sleep(1)`)
-   - Vypíše: `"[CHILD] Done. Exiting."`
-   - Skončí (`exit(0)`)
-3. **Parent proces:**
-   - Vypíše: `"[PARENT] Child created: pid=<child_pid>"`
-   - **NEZAVOLÁ `wait()`!** (to je chyba!)
-   - Spí 5 sekúnd (`sleep(5)`)
-   - Vypíše: `"[PARENT] Exiting."`
-
-### Očakávaný výstup
+Hráte karty a postupne vyberáte karty z balíčka. Karty máte v tomto poradí:
 
 ```
-[PARENT] Child created: pid=1234
-[CHILD] Doing work...
-[CHILD] Done. Exiting.
-[PARENT] Exiting.
+[7♠, 3♥, 9♦, 2♣, 8♠, 4♥, 6♦, 5♣]
 ```
 
-### Pokyny
+### Úloha
 
-- Spustite program: `./task3`
-- Počas behu (v inom termináli) spustite: `ps aux | grep task3`
-- **Vidíte zombie proces?** Hľadajte riadok s **Z** alebo `<defunct>`
-- Príkaz: `ps aux | grep defunct`
-- **Koncept z hodín :** Zombie proces - child skončil, ale záznam zostáva v tabuľke
+1. Použite **Insertion Sort** - simulujte, ako by ste zoraďovali karty v ruke
+2. Po vybraní každej novej karty popíšte, kam ju vložíte a prečo
+3. Nakresľte grafickú reprezentáciu každého kroku
 
-### Kompilace a spustenie
+### Analýza zložitosti
 
-```bash
-g++ -o task3 task3.cpp
-./task3 &
-
-# Počas behu v inom termináli:
-ps aux | grep task3
-ps aux | grep defunct
-```
-
-### Otázka k premýšľaniu
-
-Ako by ste problém vyriešili? (Odpoveď: pridaním `wait()` v parent procese)
+- Odhadnite (vypočítajte) **časovú zložitosť** v najlepšom a najhoršom prípade
+- V akom prípade bude Insertion Sort najrýchlejší? Uveďte príklad vstupu.
+- V akom prípade bude najpomalší? Uveďte príklad vstupu.
+- Prečo je Insertion Sort efektívny pre malé polia alebo takmer zoradené dáta?
+- Zdôvodnite slovne, prečo je jeho najlepší prípad O(n) a najhorší O(n²)
 
 ---
 
-## Úkol 4 – Orphan proces
-
-### Cieľ
-Praktické pochopenie **orphan procesov** - čo sa stane, keď parent zomrie skôr ako child.
+## 4. Quick Sort - Rozdelenie študentov na skupiny
 
 ### Zadanie
 
-Napíšte program `task4.cpp`, ktorý:
-
-1. Vytvorí potomka pomocou `fork()`
-2. **Child proces:**
-   - Vypíše: `"[CHILD] START - parent_pid=<ppid>"`
-   - Spí 3 sekundy (`sleep(3)`)
-   - Vypíše: `"[CHILD] MIDDLE - parent_pid=<ppid>"` (všimnite si zmenu!)
-   - Spí ďalších 2 sekúnd
-   - Vypíše: `"[CHILD] END - parent_pid=<ppid>"`
-3. **Parent proces:**
-   - Vypíše: `"[PARENT] Child created: pid=<child_pid>"`
-   - Spí len 1 sekundu (`sleep(1)`)
-   - Vypíše: `"[PARENT] Parent exiting!"`
-   - Skončí (bez `wait()`)
-
-### Očakávaný výstup
+Máte 12 študentov s rôznym vekom, ktorých potrebujete zoradiť:
 
 ```
-[PARENT] Child created: pid=1234
-[PARENT] Parent exiting!
-[CHILD] START - parent_pid=1233
-[CHILD] MIDDLE - parent_pid=1      <--- PPID sa zmenilo!
-[CHILD] END - parent_pid=1
+[19, 22, 18, 21, 20, 23, 18, 19, 22, 20, 21, 19]
 ```
 
-### Pokyny
+### Úloha
 
-- **Kľúčové pozorovanie:** PPID sa zmení z `1233` (original parent) na `1` (PID 1 = init/systemd)
-- PID 1 adoptuje osirelého potomka
-- **Koncept z hodín :** "Child zostane bez parenta. PID 1 ho adoptuje."
+1. Použite **Quick Sort** s pivotom ako prostredným prvkom
+2. Nakresľte strom rekurzívnych volaní
+3. Pri každom delení ukážte, ako sa pole rozdelilo na menšie a väčšie hodnoty
 
-### Kompilace a spustenie
+### Analýza zložitosti
 
-```bash
-g++ -o task4 task4.cpp
-./task4
-
-# Pozorujte zmenu PPID!
-```
+- Odhadnite (vypočítajte) **časovú zložitosť** v priemernom a najhoršom prípade
+- Vypočítajte hĺbku rekurzie pre váš prípad
+- Vysvetlite slovne, prečo je priemerná zložitosť O(n log n)
+- Čo sa stane v najhoršom prípade? Aký vstup by to spôsobil?
 
 ---
 
-## Úkol 5 – Preemption a Scheduler
-
-### Cieľ
-Praktické pochopenie **Preemption** - OS vám odoberie CPU, aj keď ešte neskončil.
+## 5. Merge Sort - Spájanie výsledkov testov
 
 ### Zadanie
 
-Napíšte program `task5.cpp`, ktorý:
-
-1. Vytvorí 3 potomkov pomocou `fork()` v cykle
-2. **Všetci potomkovia:**
-   - Vypíšu: `"[CHILD-<N>] START"`
-   - Počítajú od 0 do 1 000 000 000 a vypíšu výsledok
-   - Vypíšu: `"[CHILD-<N>] END"`
-3. **Parent proces:**
-   - Čaká na všetkých potomkov (`wait()`)
-   - Vypíše: `"[PARENT] All children finished"`
-
-### Očakávaný výstup
+Dvaja učitelia opravovali testy nezávisle a každý má svoj zoradený zoznam bodov. Potrebujete ich spojiť do jedného zoradeného zoznamu:
 
 ```
-[CHILD-1] START
-[CHILD-2] START
-[CHILD-3] START
-[CHILD-1] END
-[CHILD-2] END
-[CHILD-3] END
-[PARENT] All children finished
+Učiteľ A: [45, 67, 78, 89, 92]
+Učiteľ B: [52, 68, 73, 85, 91, 95]
 ```
 
-### Pokyny
+### Úloha
 
-- Všimnite si, že procesy sa **prepínajú** - nie všetci bežia naraz
-- Počas behu spustite: `top` alebo `watch -n 1 'ps aux | grep task5'`
-- **Vidíte, ako sa procesy striedajú?**
-- **Koncept z prednášky:** Preemption - OS prepína medzi procesmi
+1. Najprv spojte tieto dva zoradené zoznamy pomocou merge operácie
+2. Potom zoberťe nezoradené pole `[64, 34, 25, 12, 22, 11, 90, 88]` a zoraďte ho pomocou **Merge Sort**
+3. Nakresľte kompletný strom delení a spájaní
 
-### Kompilace a spustenie
+### Analýza zložitosti
 
-```bash
-g++ -o task5 task5.cpp -lm
-./task5
-
-# V inom termináli:
-top
-# Pozorujte, ako sa procesy striedajú na CPU
-```
+- Odhadnite (vypočítajte) **časovú zložitosť** algoritmu
+- Prečo je časová zložitosť vždy O(n log n) bez ohľadu na vstup?
+- Slovne zdôvodnite, ako ste došli k tomuto výsledku
+- Porovnajte Merge Sort a Quick Sort - kedy použijete ktorý?
 
 ---
 
-## Úkol 6 – Copy-on-Write optimalizácia
-
-### Cieľ
-Pochopenie **Copy-on-Write (COW)** optimalizácie - fork() neskopíruje hneď pamäť, len keď sa zmení.
+## 6. Heap Sort - Prioritný systém úloh
 
 ### Zadanie
 
-Napíšte program `task6.cpp`, ktorý:
-
-1. Vytvorí veľký vector (1 000 000 prvkov) a naplní ho hodnotami
-2. Vytvorí potomka pomocou `fork()`
-3. **Child proces:**
-   - Vytlačí: `"[CHILD] START - value[0]=<value>"`
-   - Zmení prvý prvok: `arr[0] = 999`
-   - Vypíše: `"[CHILD] MODIFIED - value[0]=<value>"`
-4. **Parent proces:**
-   - Vypíše: `"[PARENT] START - value[0]=<value>"`
-   - Spí 2 sekundy
-   - Vypíše: `"[PARENT] END - value[0]=<value>"` (bude stále 10!)
-
-### Očakávaný výstup
+Máte systém úloh s rôznou prioritou (čím vyššie číslo, tým dôležitejšia úloha):
 
 ```
-[PARENT] START - value[0]=10
-[CHILD] START - value[0]=10
-[CHILD] MODIFIED - value[0]=999
-[PARENT] END - value[0]=10    <--- nezmenilo sa!
+Úlohy: [3, 8, 5, 1, 9, 2, 7, 4, 6]
 ```
 
-### Pokyny
+### Úloha
 
-- **Dôležité:** Zmena v child procese neovplyvní parent
-- Toto je dôkaz **Copy-on-Write** - pri zápise sa vytvorí kópia len tej časti
-- **Koncept z hodín :** "Po forku procesy zdieľajú pamäť (read-only). Pri zápise sa vytvorí kópia len tej časti."
+1. Najprv vytvorte **max-heap** z daných priorít
+2. Nakresľte heap ako binárny strom
+3. Použite **Heap Sort** na zoradenie úloh zostupne (od najdôležitejšej)
+4. Pri každom kroku ukážte, ako sa heap mení
 
-### Kompilace a spustenie
+### Analýza zložitosti
 
-```bash
-g++ -o task6 task6.cpp
-./task6
-```
+- Odhadnite (vypočítajte) **časovú zložitosť** vytvorenia heap-u (heapify)
+- Odhadnite (vypočítajte) **časovú zložitosť** extrakcie prvkov z heap-u
+- Aká je celková časová zložitosť Heap Sort?
+- Slovne zdôvodnite svoj výpočet
 
 ---
 
-## Bonus: Úkol 7 – Strom procesov
-
-### Cieľ
-Praktické pochopenie **hierarchie procesov** (parent-child strom).
+## 7. Porovnávacia úloha - Experimentálne meranie
 
 ### Zadanie
 
-Napíšte program `task7.cpp`, ktorý:
+Máte tri rôzne typy vstupných polí (každé veľkosti 10):
 
-1. Vytvorí 2 potomkov (Level 1)
-2. Každý z nich vytvorí 2 potomkov (Level 2)
-3. Všetci vypíšu svoju hierarchiu: `"[LEVEL-<L>] PID=<pid>, PPID=<ppid>"`
-4. Parent počka na všetkých (`wait()`)
-
-### Očakávaný výstup
-
+**a) Takmer zoradené:**
 ```
-[LEVEL-1] PID=1234, PPID=1000
-[LEVEL-1] PID=1235, PPID=1000
-[LEVEL-2] PID=1236, PPID=1234
-[LEVEL-2] PID=1237, PPID=1234
-[LEVEL-2] PID=1238, PPID=1235
-[LEVEL-2] PID=1239, PPID=1235
+[1, 2, 3, 4, 5, 7, 6, 8, 9, 10]
 ```
 
-### Pokyny
-
-- Spustite: `pstree -p` - vidíte celý strom?
-- **Koncept z hodín :** "PID 1 je koreň všetkých procesov"
-
-### Kompilace a spustenie
-
-```bash
-g++ -o task7 task7.cpp
-./task7
-
-# V inom termináli počas behu:
-pstree -p | grep task7
+**b) Úplne náhodné:**
 ```
+[47, 12, 89, 3, 56, 23, 91, 8, 34, 67]
+```
+
+**c) Zoradené opačne:**
+```
+[10, 9, 8, 7, 6, 5, 4, 3, 2, 1]
+```
+
+### Úloha
+
+1. Zoraďte každé pole pomocou **troch rôznych algoritmov** (napríklad Bubble, Insertion, Quick Sort)
+2. Pre každý algoritmus a každý typ vstupu spočítajte:
+   - Počet porovnaní
+   - Počet výmen/presunov
+   - Počet krokov
+3. Vytvorte tabuľku s výsledkami
+
+### Analýza
+
+- Odhadnite (vypočítajte) **časovú zložitosť** pre každý prípad
+- Ktorý algoritmus bol najrýchlejší pre každý typ vstupu?
+- Ktorý algoritmus mal najkonzistentnejšie výsledky?
+- Zdôvodnite svoje pozorovania pomocou teoretickej zložitosti
 
 ---
 
-## Pokyny pre odevzdanie
+## Bonusová úloha - Stabilita algoritmov
 
-### Štruktúra projektu
+### Zadanie
+
+Máte študentov s rovnakými známkami, ale rôznymi menami:
 
 ```
-PRO_Homework_1_6/
-├── task1.cpp
-├── task2.cpp
-├── task3.cpp
-├── task4.cpp
-├── task5.cpp
-├── task6.cpp
-├── task7.cpp (bonus)
-├── Makefile
-└── README.md
+[(Anna, 2.0), (Bob, 1.5), (Cyril, 2.0), (Dana, 1.5), (Eva, 2.0)]
 ```
 
-### Kompilacia a testovanie
+### Úloha
 
-```bash
-# Jednotlivá kompilacia
-g++ -o task1 task1.cpp
-g++ -o task2 task2.cpp
-# ... atď
+1. Zoraďte študentov pomocou **Bubble Sort**, **Merge Sort** a **Quick Sort**
+2. Sledujte, či študenti s rovnakými známkami ostali v pôvodnom poradí
 
-# Alebo cez Makefile:
-make all
-```
+### Otázky
 
-### Príklad Makefile
-
-```makefile
-CC = g++
-CFLAGS = -Wall -g -std=c++11
-TARGETS = task1 task2 task3 task4 task5 task6 task7
-
-all: $(TARGETS)
-
-task1: task1.cpp
-	$(CC) $(CFLAGS) -o task1 task1.cpp
-
-task2: task2.cpp
-	$(CC) $(CFLAGS) -o task2 task2.cpp
-
-task3: task3.cpp
-	$(CC) $(CFLAGS) -o task3 task3.cpp
-
-task4: task4.cpp
-	$(CC) $(CFLAGS) -o task4 task4.cpp
-
-task5: task5.cpp
-	$(CC) $(CFLAGS) -o task5 task5.cpp
-
-task6: task6.cpp
-	$(CC) $(CFLAGS) -o task6 task6.cpp
-
-task7: task7.cpp
-	$(CC) $(CFLAGS) -o task7 task7.cpp
-
-clean:
-	rm -f $(TARGETS) *.o
-
-.PHONY: all clean
-```
-
-### README.md - Čo napísať
-
-```markdown
-# PRO domáca úloha: Procesy a správa úloh
-
-Autor: [Vaše meno]
-Dátum: [Dátum odevzdania]
-
-## Úlohy
-
-### Task 1: Jednoduchý potomek
-- Testovanie: ./task1
-- Pozorovaní: [Čo ste pozorovali]
-
-### Task 2: Lifecycle a stavy procesov
-- Testovanie: ./task2 & ps aux | grep task2
-- Pozorovaní: [Čo ste pozorovali]
-
-... atď pre všetky úkoly
-
-## Záver
-[Čo ste sa naučili z jednotlivých úloh]
-```
+- Ktoré algoritmy sú stabilné (zachovávajú poradie rovnakých prvkov)?
+- Prečo je stabilita dôležitá v praxi?
+- Ako by ste upravili nestabilný algoritmus, aby bol stabilný?
 
 ---
 
-## Bezpečnostný a kvalitný checklist
+## Návod na vypracovanie | zdroje 
 
-- Všetky `fork()` majú error handling (`if (pid < 0)`)
-- Všetci potomkovia sú čistení cez `wait()` (bez zombie)
-- Programy sú preložiteľné bez warningov
-- Kód je čitateľný a okomentovaný
-- Výstupy sú jasné a ľahko overiteľné
-- Testované s `ps aux` počas behu
+**Úvod do algoritmizácie** : https://youtu.be/lN-TrkF8WHQ?si=tLIDFgyVPZnAqp5f
+**Sorting algorithms** : https://youtu.be/bxXmgMqjGwM?si=gLsM7p7bVrW7yOp-
+Skriptá : https://github.com/SPSITKNM/SPSITKNM
 
-### Príklad error handlingu v C++
+Držím palce pri riešení 
 
-```cpp
-#include <iostream>
-#include <unistd.h>
-#include <sys/wait.h>
+S pozdravom, 
 
-using namespace std;
-
-int main() {
-    pid_t pid = fork();
-    
-    if (pid < 0) {
-        cerr << "fork failed" << endl;
-        return 1;
-    }
-    
-    if (pid == 0) {
-        // Child
-        cout << "Child: PID=" << getpid() << endl;
-    } else {
-        // Parent
-        cout << "Parent: Child PID=" << pid << endl;
-        wait(nullptr);  // Očisti zombie!
-    }
-    
-    return 0;
-}
-```
-
----
-
-## Debugging tipy
-
-```bash
-# Ak vidíte zombie procesy:
-ps aux | grep defunct
-
-# Sledovanie procesov v reálnom čase:
-watch -n 1 'ps aux | grep task'
-
-# Analýza memory leakov:
-valgrind --leak-check=full ./task1
-
-# Debugging s GDB:
-gdb ./task1
-(gdb) run
-(gdb) break main
-(gdb) continue
-```
-
----
-
-Držím palce pri vypracovaní domácej úlohy.
-
-S pozdravom a prianím pekného dňa,
-Tomáš
+Tomáš 🪰.
