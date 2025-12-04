@@ -1,4 +1,4 @@
-# Linked Lists - Cvičenia
+# Linked Lists 
 
 Sada praktických úloh na precvičenie linked listov by Tom. Muc.
 
