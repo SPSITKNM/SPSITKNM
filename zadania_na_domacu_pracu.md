@@ -1501,12 +1501,4 @@ docker-compose restart      # Reštart služieb
 
 ---
 
-## Hodnotenie
-
-- **Úlohy 1-3**: Základy - musí zvládnuť každý
-- **Úlohy 4-6**: Dockerfile a build - dôležité pre vlastné projekty
-- **Úlohy 7-8**: Docker Compose - reálne použitie
-- **Úlohy 9-10**: Komplexné projekty - pokročilé
-- **Bonus**: Production-ready konfigurácia
-
-Veľa úspechov!
+## Developed by Tom. Muc. 
