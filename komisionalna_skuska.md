@@ -1,224 +1,801 @@
-# Programovanie a algoritmizácia – Osnova komisionálnej skúšky
-
-## 🧠 Študijný teoretický základ
-
-Tento text predstavuje komplexný teoretický základ pre prípravu na komisionálnu skúšku z programovania a algoritmizácie. Každá kapitola korešponduje s jednou zo skúšobných otázok a poskytuje fundamentálne koncepty a techniky potrebné pre úspešné absolvovanie skúšky.
-
-### 1. Analýza algoritmov a výpočtová zložitosť
-
-Výpočtová zložitosť predstavuje fundamentálny aspekt posudzovania efektívnosti algoritmov. Rozlišujeme časovú zložitosť, ktorá kvantifikuje počet elementárnych operácií v závislosti od veľkosti vstupu, a priestorovú zložitosť, hodnotiacu množstvo pamäte potrebnej na vykonanie algoritmu.
-
-Pre formálnu reprezentáciu zložitosti sa používa asymptotická notácia, najčastejšie O-notácia (horné ohraničenie), Ω-notácia (dolné ohraničenie) a Θ-notácia (tesné ohraničenie). Pri analýze algoritmu musíme uvažovať najlepší prípad (best case), priemerný prípad (average case) a najhorší prípad (worst case).
-
-Pokročilejšie techniky analýzy zahŕňajú amortizovanú analýzu, ktorá poskytuje priemerný čas operácie v sekvencii operácií, a pravdepodobnostnú analýzu pre randomizované algoritmy.
-
-### Zhrnutie
-
-- **Časovú zložitosť** – počet operácií v závislosti od vstupu.
-- **Priestorovú zložitosť** – množstvo pamäte potrebnej na výpočet.
-
-Používané notácie:
-- `O(f(n))`: horné ohraničenie,
-- `Ω(f(n))`: dolné ohraničenie,
-- `Θ(f(n))`: presné ohraničenie.
-
-Dôležité prístupy:
-- **Najlepší, priemerný, najhorší prípad**
-- **Amortizovaná analýza**
-- **Pravdepodobnostná analýza** pre randomizované algoritmy
+# Zadanie na komisionálnu skúšku - Algoritmy a dátové štruktúry
 
 ---
 
-### 2. Pokročilé stromové štruktúry
+## ČASŤ A: Časová a priestorová zložitosť 
 
-Vyvážené vyhľadávacie stromy predstavujú sofistikované dátové štruktúry optimalizované pre efektívne vyhľadávanie, vkladanie a mazanie prvkov. AVL stromy garantujú výškovú vyváženosť prostredníctvom parametra vyváženosti, ktorý zabezpečuje, že rozdiel výšok ľavého a pravého podstromu každého uzla nepresahuje jednotku. Pre udržanie tejto vlastnosti sa používajú rotácie (jednoduché a dvojité).
+### A1: Analýza jednoduchého cyklu
+**Zadanie:** 
+Analyzujte časovú zložitosť nasledujúceho kódu:
 
-Red-Black stromy predstavujú alternatívny prístup k vyváženým stromom, ktorý relaxuje podmienku vyváženosti výmenou za menší počet rebalančných operácií. Každý uzol má priradenú farbu (červenú alebo čiernu) a musia byť splnené špecifické vlastnosti týkajúce sa distribúcie farieb a čiernej výšky.
+```cpp
+void printElements(int arr[], int n) {
+    for (int i = 0; i < n; i++) {
+        cout << arr[i] << endl;
+    }
+}
+```
 
-B-stromy a ich varianty (B+ stromy, B* stromy) sú optimalizované pre externé pamäťové systémy, poskytujú efektívne operácie pri minimalizácii diskových operácií a maximalizácii zaplnenia uzlov.
-
-### Zhrnutie
-
-- **AVL stromy**: garantovaná výšková rovnováha, rotácie
-- **Red-Black stromy**: menej rotácií, červené/čierne uzly
-- **B-stromy (B+, B\*)**: optimalizované pre diskový prístup
-
----
-
-### 3. Najkratšie cesty v grafoch
-
-Grafové algoritmy predstavujú esenciálnu súčasť teoretickej informatiky s rozsiahlymi praktickými aplikáciami. Dijkstrov algoritmus efektívne rieši problém najkratšej cesty z jedného zdroja v grafoch s nezápornými hranami. Jeho implementácia s prioritným frontom (binárna halda, Fibonacci halda) dosahuje časovú zložitosť O(E + V log V), kde E je počet hrán a V počet vrcholov.
-
-A* algoritmus rozširuje Dijkstrov algoritmus o heuristickú funkciu, ktorá odhaduje vzdialenosť od aktuálneho vrcholu k cieľu. Pri použití prípustnej (nepreceňujúcej) a konzistentnej heuristiky garantuje nájdenie optimálnej cesty a spravidla expanduje menej vrcholov než Dijkstrov algoritmus.
-
-Bellman-Fordov algoritmus rieši problém najkratšej cesty aj v prítomnosti záporných hrán s časovou zložitosťou O(V*E) a dokáže detegovať záporné cykly. Floyd-Warshallov algoritmus efektívne počíta najkratšie cesty medzi všetkými pármi vrcholov s časovou zložitosťou O(V³).
-
-### Zhrnutie
-
-- **Dijkstrov algoritmus** – nezáporné hrany, `O(E + V log V)`
-- **A\* algoritmus** – heuristika, efektívne pri známej cieľovej pozícii
-- **Bellman-Ford** – záporné hrany, detekcia záporných cyklov
-- **Floyd-Warshall** – všetky dvojice vrcholov, `O(V³)`
+**Čo je tvoja úloha :**
+- Určiť časovú zložitosť
+- Vysvetliť prečo
+- Nepovinné : Určiť priestorovú zložitosť
 
 ---
 
-### 4. Minimálna kostra grafu (MST)
+### A2: Analýza vnorených cyklov
+**Zadanie:** 
+Analyzujte časovú zložitosť nasledujúceho kódu:
 
-Minimálna kostra grafu (MST - Minimum Spanning Tree) reprezentuje podgraf, ktorý spája všetky vrcholy pôvodného grafu s minimálnou celkovou váhou hrán. Kruskalov algoritmus konštruuje MST "zdola nahor" postupným pridávaním hrán s najmenšou váhou, ktoré nevytvárajú cyklus. Jeho implementácia s efektívnou dátovou štruktúrou Union-Find s kompresiou ciest a rankovanou úniou dosahuje časovú zložitosť O(E log V).
+```cpp
+int mysteryFunction(int arr[], int n) {
+    int count = 0;
+    
+    for (int i = 0; i < n; i++) {
+        for (int j = i; j < n; j++) {
+            count += arr[i] + arr[j];
+        }
+    }
+    
+    return count;
+}
+```
 
-Primov algoritmus buduje MST "od stredu" postupným pridávaním vrcholov s najmenšou hranou pripájajúcou vrchol k budovanému stromu. Pri implementácii s prioritným frontom dosahuje časovú zložitosť O(E + V log V). Bóruvkov algoritmus predstavuje paralelnú alternatívu k vyššie uvedeným algoritmom.
-
-Teoretická analýza ukazuje, že dolná hranica časovej zložitosti problému MST je Ω(E), čo indikuje priestor pre potenciálne optimalizácie súčasných algoritmov.
-
-### Zhrnutie
-
-- **Kruskalov algoritmus** – Union-Find, `O(E log V)`
-- **Primov algoritmus** – prioritný front, `O(E + V log V)`
-- **Bóruvkov algoritmus** – paralelný prístup
-
----
-
-### 5. Výpočtová zložitosť a NP-úplnosť
-
-Teória výpočtovej zložitosti klasifikuje problémy do tried podľa zdrojov potrebných na ich riešenie. Trieda P zahŕňa problémy riešiteľné v polynomiálnom čase deterministickým Turingovým strojom. Trieda NP obsahuje problémy, ktorých riešenie možno verifikovať v polynomiálnom čase.
-
-NP-úplné problémy reprezentujú "najťažšie" problémy v triede NP - problém je NP-úplný, ak patrí do NP a každý problém z NP sa naň dá polynomiálne redukovať. Prvým dokázaným NP-úplným problémom bol problém splniteľnosti booleovskej formuly (SAT).
-
-Problém P vs NP, teda otázka, či P = NP, zostáva jedným z najvýznamnejších otvorených problémov teoretickej informatiky. Jeho vyriešenie by malo fundamentálne dôsledky pre kryptografiu, optimalizáciu a ďalšie oblasti.
-
-Štandardné techniky práce s NP-ťažkými problémami zahŕňajú aproximačné algoritmy (poskytujúce riešenie s garantovanou kvalitou), heuristické algoritmy (prakticky efektívne bez teoretických garancií) a parametrizované algoritmy (efektívne pre určité hodnoty parametrov).
-
-### Zhrnutie
-
-- **Triedy P, NP**
-- **NP-úplné problémy**: SAT, obchodný cestujúci
-- **Redukcia problémov**
-- **Techniky riešenia**: aproximačné, heuristické, parametrizované
+**Čo je tvoja úloha :**
+- Určiť časovú zložitosť
+- Vysvetliť, prečo má práve túto zložitosť
+- Nepovinné : Porovnať s O(n) a O(n³)
 
 ---
 
-### 6. Vyvažovanie stromov
+### A3: Priestorová zložitosť
+**Zadanie:**
+Porovnajte priestorovú zložitosť týchto dvoch funkcií:
 
-Vyvažovanie binárnych vyhľadávacích stromov predstavuje kľúčovú operáciu pre zachovanie ich efektívnosti. DSW algoritmus (Day-Stout-Warren) transformuje ľubovoľný binárny vyhľadávací strom na dokonale vyvážený strom v lineárnom čase O(n) s konstantnou dodatočnou pamäťou.
+```cpp
+// Funkcia 1
+int sumIterative(int n) {
+    int total = 0;
+    for (int i = 1; i <= n; i++) {
+        total += i;
+    }
+    return total;
+}
 
-Tento proces prebieha v dvoch fázach: najprv sa strom "rozbalí" do pravej cesty (backbone) pomocou série rotácií vľavo, následne sa aplikujú rotácie vpravo na vytvorenie vyváženej štruktúry. Počet rotácií je priamo úmerný veľkosti stromu, čo garantuje linearitu algoritmu.
+// Funkcia 2
+int sumRecursive(int n) {
+    if (n == 0) {
+        return 0;
+    }
+    return n + sumRecursive(n - 1);
+}
+```
 
-Alternatívny prístup využíva inorder prechod stromom a rekonštrukciu vyváženého stromu pomocou rekurzívneho delenia poľa prvkov. Tento prístup vyžaduje dodatočný priestor O(n), ale zachováva linearitu časovej zložitosti.
-
-### Zhrnutie
-
-- **DSW algoritmus**: rotácie, `O(n)` čas, `O(1)` pamäť
-- **Inorder rekonštrukcia**: `O(n)` čas, `O(n)` pamäť
-
----
-
-### 7. Dynamické programovanie
-
-Dynamické programovanie predstavuje výkonnú algoritmickú paradigmu riešiacu komplexné problémy ich dekompozíciou na podproblémy, ktorých riešenia sú ukladané do pamäťových štruktúr (memoizácia) pre zabránenie redundantným výpočtom.
-
-Problém batohu (Knapsack Problem) ilustruje efektívnosť dynamického programovania. Pri klasickej variante (0-1 Knapsack) riešenie dosahuje časovú zložitosť O(nW) a priestorovú zložitosť O(nW), kde n je počet predmetov a W je kapacita batohu. Pre unbounded Knapsack (neobmedzený počet položiek každého typu) časová zložitosť zostáva O(n*W), ale priestorovú zložitosť možno redukovať na O(W).
-
-Optimalizácia priestorovej zložitosti často využíva techniku "rolling array", kde si namiesto celej tabuľky uchováme len niekoľko (často dva) posledných riadkov alebo stĺpcov, čo redukuje priestorovú zložitosť na O(W) aj pre klasický problém batohu.
-
-Subproblémy v dynamickom programovaní musia spĺňať princíp optimálnej podštruktúry (optimálne riešenie problému obsahuje optimálne riešenia podproblémov) a vykazovať prekrývajúce sa podproblémy (opakované riešenie rovnakých podproblémov).
-
-### Zhrnutie
-
-- **Knapsack problem** (0-1, unbounded): `O(nW)`
-- **Optimalizácie pamäte**: rolling array
-- **Vlastnosti**: optimálna podštruktúra, prekrývajúce sa podproblémy
+**Čo je tvoja úloha :**
+- Určiť priestorovú zložitosť oboch funkcií
+- Vysvetliť rozdiel
+- Uviesť, ktorá je lepšia a prečo
 
 ---
 
-### 8. Agilné metodiky vývoja softvéru
+## ČASŤ B: Sortovacie algoritmy 
 
-Agilné metodiky vývoja softvéru predstavujú modernú alternatívu k tradičným sekvenčným metodikám (waterfall). Agilný manifest zdôrazňuje adaptáciu na zmeny, spoluprácu s klientom, funkčný softvér a interakcie medzi ľuďmi.
+### B1: Bubble Sort implementácia
+**Zadanie:**
+Implementujte Bubble Sort algoritmus:
 
-SCRUM definuje iteratívny a inkrementálny rámec s presne definovanými rolami (Product Owner, Scrum Master, Development Team), artefaktmi (Product Backlog, Sprint Backlog, Increment) a udalosťami (Sprint Planning, Daily Scrum, Sprint Review, Sprint Retrospective). Sprints predstavujú časovo ohraničené (zvyčajne 2-týždňové) iterácie vývoja.
+```cpp
+void bubbleSort(int arr[], int n) {
+    // Váš kód tu
+}
 
-Kanban sa sústreďuje na vizualizáciu pracovného procesu, limitovanie rozpracovanej práce (WIP - Work In Progress) a kontinuálne zlepšovanie. Na rozdiel od SCRUMu nevyužíva fixné časové iterácie, ale kontinuálny tok práce.
+// Test
+int main() {
+    int numbers[] = {64, 34, 25, 12, 22, 11, 90};
+    int n = 7;
+    
+    bubbleSort(numbers, n);
+    
+    // Vypíše: 11 12 22 25 34 64 90
+    for (int i = 0; i < n; i++) {
+        cout << numbers[i] << " ";
+    }
+    cout << endl;
+    
+    return 0;
+}
+```
 
-Implementácia agilných metodík vyžaduje kultúrnu zmenu v organizácii, dôraz na transparentnú komunikáciu a kontinuálne zlepšovanie. Hybridné prístupy (napr. Scrumban) kombinujú prvky rôznych metodík podľa potrieb projektu.
-
-### Zhrnutie
-
-- **SCRUM**: role, artefakty, udalosti, sprints
-- **Kanban**: vizualizácia práce, WIP limity
-- **Hybridné prístupy**: Scrumban
-- **Porovnanie s waterfall modelom**
-
----
-
-### 9. Vyhľadávanie v texte
-
-Algoritmy na vyhľadávanie vzorov v texte optimalizujú proces lokalizácie výskytov hľadaného reťazca (pattern) v dlhšom texte. Knuth-Morris-Prattov (KMP) algoritmus eliminuje redundantné porovnania využitím prefixtabuľky, ktorá pre každú pozíciu vo vzore určuje dĺžku najdlhšieho vlastného prefixu, ktorý je súčasne suffixom.
-
-Konštrukcia prefix tabuľky má lineárnu časovú zložitosť O(m), kde m je dĺžka vzoru. Samotný vyhľadávací proces má časovú zložitosť O(n), kde n je dĺžka textu, čo vedie k celkovej časovej zložitosti O(n+m) - významné zlepšenie oproti naivnému algoritmu s časovou zložitosťou O(n*m).
-
-Rabin-Karpov algoritmus využíva hashovacie funkcie na efektívne porovnávanie reťazcov. Namiesto porovnávania znakov porovnáva hashe podreťazcov textu s hashom vzoru. Pri správnej implementácii tiež dosahuje očakávanú lineárnu časovú zložitosť, je však náchylnejší na kolízie hashov.
-
-Boyer-Mooreov algoritmus predstavuje ďalšiu efektívnu alternatívu, ktorá skenuje vzor sprava doľava a využíva dve heuristiky (bad character a good suffix) na preskočenie zbytočných porovnaní. V praxi často prekonáva KMP a Rabin-Karp, najmä pre dlhšie vzory a veľké abecedy.
-
-### Zhrnutie
-
-- **KMP algoritmus**: prefix tabuľka, `O(n + m)`
-- **Rabin-Karp**: hashovanie, možnosť kolízií
-- **Boyer-Moore**: heuristiky, výkonný v praxi
+**Čo je tvoja úloha :**
+- Napísať funkčný Bubble Sort
+- Vysvetliť princíp fungovania
+- Uviesť časovú zložitosť 
 
 ---
 
-### 10. Topologické usporiadanie
+### B2: Selection Sort implementácia
+**Zadanie:**
+Implementujte Selection Sort algoritmus:
 
-Topologické usporiadanie orientovaného acyklického grafu (DAG) predstavuje lineárne usporiadanie vrcholov také, že pre každú hranu (u, v) vrchol u predchádza vrcholu v. Topologické usporiadanie existuje práve vtedy, keď graf neobsahuje orientovaný cyklus.
+```cpp
+void selectionSort(int arr[], int n) {
+    // Váš kód tu
+    // Hint: Hľadáme minimum v nezoradené časti a dávame ho na začiatok
+}
 
-Implementácia využívajúca prehľadávanie do hĺbky (DFS) konštruuje topologické usporiadanie v reverznom poradí dokončenia DFS prehľadávania vrcholov. Algoritmus má časovú zložitosť O(V + E) a priestorovú zložitosť O(V) na uloženie rekurzívneho zásobníka a výsledného usporiadania.
+// Test
+int main() {
+    int numbers[] = {29, 10, 14, 37, 13};
+    int n = 5;
+    
+    selectionSort(numbers, n);
+    
+    // Vypíše: 10 13 14 29 37
+    for (int i = 0; i < n; i++) {
+        cout << numbers[i] << " ";
+    }
+    cout << endl;
+    
+    return 0;
+}
+```
 
-Alternatívna implementácia využíva algoritmus založený na počítadlách vstupných hrán (Kahn's algorithm). Algoritmus iteratívne odstraňuje vrcholy s nulovým počtom vstupných hrán a aktualizuje počítadlá pre ich susedov. Táto implementácia tiež dosahuje lineárnu časovú zložitosť O(V + E).
-
-Aplikácie topologického usporiadania zahŕňajú plánovanie projektov (identifikácia kritickej cesty), kompiláciu (určenie poradia kompilácie modulov), a dátové spracovanie (určenie poradia vyhodnocovania výrazov). Algoritmus možno adaptovať aj na detekciu cyklov v orientovanom grafe.
-
-- **DAG** – topologické triedenie je možné len ak nie sú cykly
-- **DFS implementácia** – reverzné poradie skončenia prechodu
-- **Kahnov algoritmus** – počítadlá vstupných hrán
-- **Aplikácie**: plánovanie, kompilácia, detekcia cyklov
+**Čo je tvoja úloha :**
+- Implementovať Selection Sort
+- Vysvetliť rozdiel oproti Bubble Sort
+- Uviesť časovú zložitosť
 
 ---
 
-## ✅ Skúšobné otázky – Komisionálna časť
+### B3: Je pole zoradené?
+**Zadanie:**
+Napíšte funkciu, ktorá zistí, či je pole zoradené vzostupne:
 
-1. **QuickSort**:  
-   Analyzujte časovú a priestorovú zložitosť algoritmu QuickSort v najhoršom, priemernom a najlepšom prípade. Vysvetlite, za akých podmienok nastáva najhorší prípad a navrhnite optimalizáciu na jeho zmiernenie. Implementujte funkciu, ktorá bude využívať vhodný pivotný prvok na minimalizáciu pravdepodobnosti výskytu najhoršieho prípadu.
+```cpp
+bool isSorted(int arr[], int n) {
+    // Váš kód tu
+}
 
-2. **AVL vs Red-Black stromy**:  
-   Porovnajte implementáciu vyvážených vyhľadávacích stromov (AVL a Red-Black) z hľadiska časovej zložitosti operácií vkladania, mazania a vyhľadávania. Analyzujte, kedy je vhodné použiť jednotlivé typy stromov vzhľadom na konkrétne aplikácie. Implementujte funkciu rotácie v AVL strome a demonštrujte jej použitie pri vkladaní prvku, ktorý naruší vyváženosť stromu.
+// Test
+int main() {
+    int arr1[] = {1, 2, 3, 4, 5};
+    int arr2[] = {1, 3, 2, 4, 5};
+    int arr3[] = {5, 4, 3, 2, 1};
+    
+    cout << isSorted(arr1, 5) << endl;  // 1 (true)
+    cout << isSorted(arr2, 5) << endl;  // 0 (false)
+    cout << isSorted(arr3, 5) << endl;  // 0 (false)
+    
+    return 0;
+}
+```
 
-3. **Najkratšia cesta – Dijkstra a A\***:  
-   Vysvetlite princíp Dijkstrovho algoritmu a A algoritmu pre hľadanie najkratšej cesty v grafe. Analyzujte ich časovú a priestorovú zložitosť a porovnajte ich efektívnosť v rôznych typoch grafov. Implementujte A algoritmus vrátane heuristickej funkcie pre nájdenie najkratšej cesty v mriežkovom grafe s prekážkami.**
+**Čo je tvoja úloha :**
+- Implementovať funkciu
+- Určiť časovú zložitosť
+- Vysvetliť logiku
 
-4. **MST – Kruskal vs Prim**:  
-   Analyzujte Kruskalov a Primov algoritmus pre hľadanie minimálnej kostry grafu. Diskutujte o ich časovej a priestorovej zložitosti vzhľadom na rôzne implementácie dátových štruktúr (najmä Union-Find pri Kruskalovom algoritme a prioritné fronty pri Primovom algoritme). Implementujte Kruskalov algoritmus s použitím efektívnej implementácie Union-Find s kompresiou ciest a rankovanou úniou.
-
-5. **P vs NP**:  
-   Vysvetlite rozdiely medzi triedami problémov P a NP a diskutujte o P vs NP probléme. Uveďte príklady problémov patriacich do triedy P, NP-úplných problémov a problémov, ktoré patria do NP, ale nie sú NP-úplné (ak také existujú). Navrhnite polynomiálnu redukciu problému hamiltonovskej cesty na problém obchodného cestujúceho.
-
-6. **Vyvažovanie BST**:  
-   Implementujte efektívny algoritmus na vyváženie binárneho vyhľadávacieho stromu s časovou zložitosťou O(n) a priestorovou zložitosťou O(log n), kde n je počet uzlov v strome. Vysvetlite princíp algoritmu a analyzujte jeho časovú a priestorovú zložitosť. Demonštrujte funkčnosť algoritmu na konkrétnom nevyváženom strome.
-
-7. **Dynamické programovanie – Knapsack**:  
-  Navrhnite a implementujte riešenie problému dynamického programovania na príklade problému batohu (Knapsack problem) a analyzujte jeho časovú a priestorovú zložitosť. Vysvetlite, ako by sa zmenila implementácia a zložitosť pri obmedzení, že počet položiek každého typu môže byť neobmedzený (unbounded knapsack). Optimalizujte riešenie z hľadiska priestorovej zložitosti.
-
-8. **Agilné metodiky**:  
-  Vysvetlite princípy agilných metodík vývoja softvéru, najmä SCRUM a Kanban. Porovnajte ich s tradičnými waterfall prístupmi a diskutujte o ich výhodách a nevýhodách v rôznych typoch projektov. Navrhnite konkrétny plán implementácie SCRUM metodiky v tíme vyvíjajúcom mobilnú aplikáciu a identifikujte potenciálne problémy a riešenia.
-
-9. **KMP algoritmus**:  
-  Analyzujte a implementujte algoritmus na vyhľadávanie v texte pomocou Knuth-Morris-Prattovho (KMP) algoritmu. Vysvetlite princíp vytvorenia tabuľky najdlhších prefixov, ktoré sú súčasne suffixami, a demonštrujte, ako algoritmus využíva túto tabuľku na efektívne vyhľadávanie. Porovnajte KMP algoritmus s naivným prístupom a Rabin-Karpovým algoritmom z hľadiska časovej a priestorovej zložitosti.
-
-10. **Topologické triedenie**:  
-    Implementujte algoritmus topologického triedenia orientovaného acyklického grafu (DAG) a vysvetlite jeho princíp. Analyzujte časovú a priestorovú zložitosť implementácie využívajúcej DFS (depth-first search) aj implementácie využívajúcej frontu s počítadlami vstupných hrán. Diskutujte o aplikáciách topologického triedenia v plánovaní projektov a detekcii cyklov v grafe.
 ---
 
-**Vytvorené Tomášom Muchom vyučujúci predmetu PRO**
+### B4: Porovnanie algoritmov (teoretická)
+**Zadanie:**
+Máte k dispozícii tieto sortovacie algoritmy:
+- Bubble Sort: O(n²)
+- Selection Sort: O(n²)
+- Merge Sort: O(n log n)
+- Quick Sort: O(n log n) priemerne, O(n²) najhoršie
 
-**Poznámka:**  
-Tento dokument je určený ako komplexná príprava na ústnu časť komisionálnej skúšky. Dôraz sa kladie nielen na znalosť algoritmov, ale aj na schopnosť ich analyzovať, porovnávať a prakticky implementovať.
+**Čo je tvoja úloha :**
+- Vysvetliť, prečo sú niektoré rýchlejšie ako iné
+- Kedy by ste použili jednoduchší O(n²) algoritmus?
+- Poznáš ešte nejaký sortovací algoritmus?
 
+---
+
+## ČASŤ C: Linked List 
+
+### C1: Vytvorenie linked listu
+**Zadanie:**
+Vytvorte jednoduchý linked list s tromi prvkami a vypíšte ho:
+
+```cpp
+struct Node {
+    int data;
+    Node* next;
+    
+    Node(int val) : data(val), next(nullptr) {}
+};
+
+class LinkedList {
+private:
+    Node* head;
+    
+public:
+    LinkedList() : head(nullptr) {}
+    
+    void printList() {
+        // Váš kód tu
+    }
+};
+
+// Test - vytvorte list: 1 -> 2 -> 3 -> nullptr
+int main() {
+    LinkedList ll;
+    // Váš kód tu - vytvorte 3 uzly a pospájajte ich
+    
+    ll.printList();  // Má vypísať: 1 -> 2 -> 3 -> nullptr
+    
+    return 0;
+}
+```
+
+**Čo je tvoja úloha :**
+- Vytvoriť 3 uzly a pospájovať ich
+- Implementovať printList metódu
+- Vysvetliť štruktúru linked listu
+
+---
+
+### C2: Pridanie na koniec
+**Zadanie:**
+Implementujte metódu na pridanie prvku na koniec linked listu:
+
+```cpp
+class LinkedList {
+private:
+    Node* head;
+    
+public:
+    LinkedList() : head(nullptr) {}
+    
+    void append(int data) {
+        // Váš kód tu
+    }
+    
+    void printList() {
+        Node* current = head;
+        while (current != nullptr) {
+            cout << current->data << " -> ";
+            current = current->next;
+        }
+        cout << "nullptr" << endl;
+    }
+};
+
+// Test
+int main() {
+    LinkedList ll;
+    ll.append(1);
+    ll.append(2);
+    ll.append(3);
+    ll.printList();  // 1 -> 2 -> 3 -> nullptr
+    
+    return 0;
+}
+```
+
+**Čo je tvoja úloha :**
+- Implementovať append metódu
+- Vysvetliť časovú zložitosť
+- Ako by sa dala zlepšiť? (hint: tail pointer)
+
+---
+
+### C3: Vloženie na pozíciu
+**Zadanie:**
+Implementujte metódu na vloženie prvku na konkrétnu pozíciu:
+
+```cpp
+class LinkedList {
+    // ... predchádzajúce metódy ...
+    
+    void insertAtPosition(int data, int position) {
+        // Váš kód tu
+        // position 0 = na začiatok, position 1 = za prvý prvok, atď.
+    }
+};
+
+// Test
+int main() {
+    LinkedList ll;
+    ll.append(1);
+    ll.append(2);
+    ll.append(4);
+    
+    ll.insertAtPosition(3, 2);
+    ll.printList();  // 1 -> 2 -> 3 -> 4 -> nullptr
+    
+    return 0;
+}
+```
+
+**Čo je tvoja úloha :**
+- Implementovať metódu
+- Vysvetliť kroky algoritmu
+- Časová zložitosť?
+
+---
+
+### C4: Linked List vs Array
+**Zadanie (teoretická otázka):**
+Porovnajte linked list a pole (array):
+
+**Čo je tvoja úloha :**
+- Výhody linked listu
+- Nevýhody linked listu
+- Kedy použiť linked list vs. array?
+- Časová zložitosť prístupu k n-tému prvku v oboch štruktúrach
+
+---
+
+## ČASŤ D: Základy OOP 
+
+### D1: Jednoduchá trieda
+**Zadanie:**
+Vytvorte triedu `Book` s atribútmi a metódami:
+
+```cpp
+class Book {
+private:
+    string title;
+    string author;
+    int pages;
+    
+public:
+    // Váš kód tu - konstruktor
+    
+    string getInfo() {
+        // Vráti string: "Title by Author, Pages pages"
+    }
+    
+    bool isLong() {
+        // Vráti true ak má viac ako 300 strán
+    }
+};
+
+// Test
+int main() {
+    Book book1("1984", "George Orwell", 328);
+    cout << book1.getInfo() << endl;  // "1984 by George Orwell, 328 pages"
+    cout << book1.isLong() << endl;   // 1 (true)
+    
+    return 0;
+}
+```
+
+**Čo je tvoja úloha :**
+- Implementovať triedu
+- Vysvetliť čo sú atribúty a metódy
+- Vysvetliť konštruktor a modifikátory prístupu (private/public)
+
+---
+
+### D2: Trieda so zoznamom
+**Zadanie:**
+Vytvorte triedu `Library`, ktorá spravuje knihy:
+
+```cpp
+#include <vector>
+
+class Library {
+private:
+    string name;
+    vector<Book> books;
+    
+public:
+    Library(string libraryName) : name(libraryName) {}
+    
+    void addBook(Book book) {
+        // Pridá knihu do knižnice
+    }
+    
+    int countBooks() {
+        // Vráti počet kníh
+    }
+    
+    Book findLongestBook() {
+        // Nájde knihu s najväčším počtom strán
+    }
+};
+
+// Test
+int main() {
+    Library lib("Mestská knižnica");
+    lib.addBook(Book("1984", "George Orwell", 328));
+    lib.addBook(Book("Hobbit", "J.R.R. Tolkien", 310));
+    lib.addBook(Book("Harry Potter", "J.K. Rowling", 450));
+    
+    cout << lib.countBooks() << endl;  // 3
+    Book longest = lib.findLongestBook();
+    cout << longest.getInfo() << endl;  // "Harry Potter by J.K. Rowling, 450 pages"
+    
+    return 0;
+}
+```
+
+**Čo je tvoja úloha :**
+- Implementovať triedu Library
+- Vysvetliť vzťah medzi triedami Book a Library
+- Nepovinné : Časová zložitosť findLongestBook?
+
+---
+
+### D3: Dedičnosť
+**Zadanie:**
+Vytvorte triedu `EBook`, ktorá dedí z `Book`:
+
+```cpp
+class EBook : public Book {
+private:
+    double fileSize;  // v MB
+    
+public:
+    // Váš kód tu - konstruktor
+    
+    string getInfo() {
+        // Rozšírte pôvodnú metódu o veľkosť súboru
+        // "Title by Author, Pages pages, FileSize MB"
+    }
+};
+
+// Test
+int main() {
+    EBook ebook("Digital Book", "Jane Doe", 250, 5.2);
+    cout << ebook.getInfo() << endl;  
+    // "Digital Book by Jane Doe, 250 pages, 5.2 MB"
+    
+    return 0;
+}
+```
+
+**Čo je tvoja úloha :**
+- Implementovať EBook triedu
+- Vysvetliť dedičnosť
+- Nepovinné : Vysvetliť rozdiel medzi override a preťažením metódy
+
+---
+
+### D4: Študentská databáza
+**Zadanie:**
+Vytvorte systém na správu študentov:
+
+```cpp
+#include <vector>
+
+class Student {
+private:
+    string name;
+    string studentId;
+    vector<int> grades;  // známky napr. {1, 2, 1, 1}
+    
+public:
+    // Váš kód tu - konstruktor
+    
+    double getAverage() {
+        // Vypočíta priemer známok
+    }
+    
+    string toString() {
+        // Vráti: "Name (ID): average"
+    }
+    
+    string getName() { return name; }
+};
+
+class StudentDatabase {
+private:
+    vector<Student> students;
+    
+public:
+    void addStudent(Student student) {
+        // Pridá študenta
+    }
+    
+    Student findBestStudent() {
+        // Nájde študenta s najlepším priemerom
+    }
+    
+    double getAverageOfAll() {
+        // Vypočíta celkový priemer všetkých študentov
+    }
+};
+
+// Test
+int main() {
+    StudentDatabase db;
+    db.addStudent(Student("Ján", "001", {1, 2, 1, 1}));
+    db.addStudent(Student("Mária", "002", {1, 1, 2, 1}));
+    db.addStudent(Student("Peter", "003", {2, 3, 2, 2}));
+    
+    Student best = db.findBestStudent();
+    cout << "Najlepší študent: " << best.toString() << endl;
+    cout << "Celkový priemer: " << db.getAverageOfAll() << endl;
+    
+    return 0;
+}
+```
+
+**Čo má študent urobiť:**
+- Implementovať obe triedy
+- Vysvetliť účel metódy toString()
+- Nepovinné : Časová zložitosť findBestStudent?
+- Nepovinné :  zložitosť getAverageOfAll?
+
+---
+
+## ČASŤ E: Vyhľadávacie algoritmy (2 úlohy)
+
+### E1: Lineárne vyhľadávanie
+**Zadanie:**
+Implementujte lineárne vyhľadávanie v poli:
+
+```cpp
+int linearSearch(int arr[], int n, int target) {
+    // Vráti index prvku alebo -1 ak sa nenašiel
+}
+
+// Test
+int main() {
+    int numbers[] = {5, 3, 7, 1, 9, 2};
+    int n = 6;
+    
+    cout << linearSearch(numbers, n, 7) << endl;   // 2
+    cout << linearSearch(numbers, n, 10) << endl;  // -1
+    
+    return 0;
+}
+```
+
+**Čo je tvoja úloha :**
+- Implementovať funkciu
+- Vysvetliť princíp
+- Časová zložitosť (best, worst, average)
+
+---
+
+### E2: Binárne vyhľadávanie (bonus)
+**Zadanie:**
+Implementujte binárne vyhľadávanie v **zoradenom** poli:
+
+```cpp
+int binarySearch(int arr[], int n, int target) {
+    // Pole MUSÍ byť zoradené!
+    // Vráti index prvku alebo -1
+}
+
+// Test
+int main() {
+    int numbers[] = {1, 3, 5, 7, 9, 11, 13, 15};
+    int n = 8;
+    
+    cout << binarySearch(numbers, n, 7) << endl;   // 3
+    cout << binarySearch(numbers, n, 10) << endl;  // -1
+    
+    return 0;
+}
+```
+
+**Čo je tvoja úloha :**
+- Implementovať funkciu (iteratívne alebo rekurzívne)
+- Vysvetliť princíp "rozpolenia"
+- Časová zložitosť
+- Prečo musí byť pole zoradené?
+
+---
+
+## ČASŤ F: Doplňujúce úlohy (3 úlohy)
+
+### F1: Reverz poľa
+**Zadanie:**
+Napíšte funkciu, ktorá otočí pole (reverse):
+
+```cpp
+void reverseArray(int arr[], int n) {
+    // Váš kód tu
+    // Môžete použiť pomocné pole alebo otočiť in-place
+}
+
+// Test
+int main() {
+    int arr[] = {1, 2, 3, 4, 5};
+    int n = 5;
+    
+    reverseArray(arr, n);
+    
+    // Vypíše: 5 4 3 2 1
+    for (int i = 0; i < n; i++) {
+        cout << arr[i] << " ";
+    }
+    cout << endl;
+    
+    return 0;
+}
+```
+
+**Čo je tvoja úloha :**
+- Implementovať funkciu
+- Časová zložitosť?
+- Priestorová zložitosť? (líši sa pre in-place vs. pomocné pole)
+
+---
+
+### F2: Reverz linked listu
+**Zadanie:**
+Napíšte funkciu, ktorá otočí linked list:
+
+```cpp
+Node* reverseLinkedList(Node* head) {
+    // Váš kód tu
+    // Vráti nový head
+}
+
+// Test - vytvorte list 1->2->3->nullptr a otočte ho na 3->2->1->nullptr
+int main() {
+    Node* head = new Node(1);
+    head->next = new Node(2);
+    head->next->next = new Node(3);
+    
+    head = reverseLinkedList(head);
+    
+    // Vypíše: 3 2 1
+    Node* current = head;
+    while (current != nullptr) {
+        cout << current->data << " ";
+        current = current->next;
+    }
+    cout << endl;
+    
+    return 0;
+}
+```
+
+**Čo je tvoja úloha :**
+- Implementovať funkciu
+- Vysvetliť kroky (preukazovanie pointerov)
+- Časová a priestorová zložitosť
+
+---
+
+### F3: Duplicitné prvky
+**Zadanie:**
+Napíšte funkciu, ktorá odstráni duplicity z poľa:
+
+```cpp
+#include <vector>
+#include <set>
+
+vector<int> removeDuplicates(int arr[], int n) {
+    // Vráti nový vector bez duplicít
+    // Poradie prvkov nemusí byť zachované
+}
+
+// Test
+int main() {
+    int arr[] = {1, 2, 2, 3, 4, 4, 5};
+    int n = 7;
+    
+    vector<int> result = removeDuplicates(arr, n);
+    
+    // Vypíše: 1 2 3 4 5 (poradie môže byť iné)
+    for (int num : result) {
+        cout << num << " ";
+    }
+    cout << endl;
+    
+    return 0;
+}
+```
+
+**Čo je tvoja úloha :**
+- Implementovať funkciu
+- Časová zložitosť?
+- Nepovinné Diskusia: Aký je rozdiel medzi použitím set a manuálnym prechádzaním?
+
+---
+
+## BONUSOVÉ | pokiaľ si buduete chcieť precvičiť.
+
+### Bonus 1: Detekcia cyklu v linked liste
+**Zadanie:**
+Napíšte funkciu, ktorá zistí, či linked list obsahuje cyklus:
+
+```cpp
+bool hasCycle(Node* head) {
+    // Floyd's algorithm: slow a fast pointer
+}
+
+// Test
+int main() {
+    // Vytvorenie listu s cyklom: 1->2->3->4->2 (cyklus)
+    Node* head = new Node(1);
+    Node* second = new Node(2);
+    Node* third = new Node(3);
+    Node* fourth = new Node(4);
+    
+    head->next = second;
+    second->next = third;
+    third->next = fourth;
+    fourth->next = second;  // vytvorí cyklus
+    
+    cout << hasCycle(head) << endl;  // 1 (true)
+    
+    return 0;
+}
+```
+
+**Hint:** Použite dva pointery - jeden pomalý (1 krok) a jeden rýchly (2 kroky)
+
+---
+
+### Bonus 2: Fibonacci
+**Zadanie:**
+Implementujte Fibonacci čísla iteratívne a rekurzívne. Porovnajte časovú zložitosť:
+
+```cpp
+int fibonacciIterative(int n) {
+    // Váš kód tu
+}
+
+int fibonacciRecursive(int n) {
+    // Váš kód tu
+}
+
+// Test
+int main() {
+    int n = 10;
+    
+    cout << "Iterative: " << fibonacciIterative(n) << endl;  // 55
+    cout << "Recursive: " << fibonacciRecursive(n) << endl;  // 55
+    
+    return 0;
+}
+```
+
+**Čo je tvoja úloha :**
+- Implementovať obe verzie
+- Porovnať časovú zložitosť
+- Ktorá je efektívnejšia a prečo?
+
+---
+
+## Rozdelenie bodov a hodnotenie
+
+**ČASŤ A - Zložitosť (3 úlohy):** 15 bodov  
+- A1: 3 body  
+- A2: 7 bodov  
+- A3: 5 bodov  
+
+**ČASŤ B - Sortovacie algoritmy (4 úlohy):** 20 bodov  
+- B1: 7 bodov  
+- B2: 7 bodov  
+- B3: 3 body  
+- B4: 3 body  
+
+**ČASŤ C - Linked List (4 úlohy):** 20 bodov  
+- C1: 4 body  
+- C2: 5 bodov  
+- C3: 7 bodov  
+- C4: 4 body  
+
+**ČASŤ D - OOP (4 úlohy):** 25 bodov  
+- D1: 5 bodov  
+- D2: 7 bodov  
+- D3: 5 bodov  
+- D4: 8 bodov  
+
+**ČASŤ E - Vyhľadávanie (2 úlohy):** 10 bodov  
+- E1: 4 body  
+- E2: 6 bodov (bonus)  
+
+**ČASŤ F - Doplňujúce (3 úlohy):** 10 bodov  
+- F1: 3 body  
+- F2: 4 body  
+- F3: 3 body  
+
+**BONUSY:** +10 bodov max  
+
+**Celkom:** 100 bodov + max 10 bonusových
+
+---
+
+Designed by : Tom. Muc. 
