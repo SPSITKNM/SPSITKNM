@@ -1,765 +1,630 @@
 # SMART CITY CHALLENGE
 
-**Komplexný tímový projekt**  
-*Využitie AI nástrojov, algoritmov a moderných technológií na riešenie reálneho mestského problému*
+**Tímový projekt pre dvojice**  
+*Riešenie reálneho mestského problému pomocou programovania a AI nástrojov*
 
 ---
 
 **Časový rozsah:** 3 × 45 minút  
 **Tím:** 2 členovia  
-**Cieľ:** Vytvoriť fungujúce riešenie s AI nástrojmi, dátovou analýzou, algoritmami a prezentáciou
+**Cieľ:** Vytvoriť fungujúci systém, ktorý pomôže obyvateľom Nitry
 
 ---
 
 ## ZADANIE
 
-Mestská rada Nitry vás najala ako dvojicu IT odborníkov na vyriešenie problému, ktorý každodenne ovplyvňuje život tisícov obyvateľov. Váš cieľ je vytvoriť **komplexné, fungujúce riešenie** s využitím všetkých dostupných nástrojov umelej inteligencie, programovacích jazykov a analytických metód.
+Mestská rada Nitry má problém: obyvatelia nevedia, kde nájsť voľné verejné priestory. Vaša úloha je vytvoriť **jednoduchý systém**, ktorý im v tom pomôže.
 
-Nie je vopred určené, kto čo robí. Rozhodnite sa sami, ako si rozdelíte prácu podľa vašich silných stránok a záujmov.
-
----
-
-## PROBLÉM: Neefektívna správa verejných priestorov
-
-### Situácia v meste
-
-- Mestské parky a detské ihriská sú nerovnomerne využívané – niektoré preplnené, iné takmer prázdne
-- Občania nevedia, kde nájsť voľné priestory – lavičky, ihriská, fitness zariadenia
-- Mesto investuje do údržby neefektívne – všade rovnako, bez ohľadu na skutočnú návštevnosť
-- Chýbajú dáta o tom, kedy a ako sú verejné priestory využívané
-- Rodiny prichádzajú na preplnené ihriská, zatiaľ čo iné v meste sú prázdne
-- Neexistuje systém, ktorý by pomohol obyvateľom nájsť najvhodnejší priestor v reálnom čase
-
-### Dopad na mesto
-
-- Frustrácia obyvateľov
-- Strata času hľadaním voľných miest
-- Neefektívne investície do údržby
-- Nižšia kvalita života
-- Premárnený potenciál verejných priestorov
-
-### Váš cieľ
-
-Vytvoriť **inteligentný systém** pre optimalizáciu využívania verejných priestorov v Nitre, ktorý:
-
-1. Pomôže obyvateľom nájsť vhodný verejný priestor na základe ich potrieb
-2. Odporučí najlepšiu lokalitu s ohľadom na vzdialenosť, obsadenosť a typ aktivity
-3. Poskytne mestu dáta pre lepšie rozhodovanie o investíciách a údržbe
-4. Zlepší kvalitu života obyvateľov a efektivitu využívania mestskej infraštruktúry
+Nemusíte vytvoriť dokonalé riešenie - dôležité je, aby **niečo fungovalo** a ukázalo základnú myšlienku.
 
 ---
 
-## ČO MUSÍ VÁŠ SYSTÉM OBSAHOVAŤ
+## PROBLÉM
 
-Váš finálny projekt musí pozostávať z týchto komponentov:
+### Čo sa deje v meste?
 
-### 1. Dátová analýza a vizualizácia
+- Niektoré parky a ihriská sú preplnené, iné prázdne
+- Ľudia nevedia, kde nájsť voľné miesto na prechádzku alebo šport
+- Rodičia chodia s deťmi na plné ihrisko, hoci iné v meste je prázdne
+- Mesto nevie, ktoré priestory sú skutočne využívané
 
-- Dataset verejných priestorov v Nitre (minimálne 15-20 lokalít)
-- Analýza návštevnosti a využívania priestorov v rôznych časoch
-- Grafy a štatistiky zobrazujúce kľúčové insights
-- Identifikácia problémov a príležitostí na základe dát
-- Odporúčania pre mesto založené na dátovej analýze
+### Čo by pomohlo?
 
-### 2. Algoritmické riešenie
-
-Funkčný program (C++, Python, alebo iný jazyk), ktorý:
-
-- Prijíma vstup od používateľa (poloha, typ aktivity, čas, preferencie)
-- Vypočíta optimálne odporúčanie na základe viacerých kritérií
-- Implementuje skórovaciu funkciu zohľadňujúcu vzdialenosť, obsadenosť, typ priestoru a kvalitu
-- Zobrazí top 3 najvhodnejšie priestory s jasným odôvodnením
-- Funguje správne a poskytuje zmysluplné výsledky
-
-### 3. Používateľské rozhranie
-
-Webová stránka alebo interaktívna aplikácia, ktorá:
-
-- Vizualizuje dáta (mapa, dashboard, grafy)
-- Umožňuje používateľom jednoducho zadať svoje preferencie
-- Zobrazuje odporúčania jasným a prehľadným způsobom
-- Je intuitívna a ľahko použiteľná pre bežných obyvateľov
-- Prezentuje funkčnosť vášho algoritmického riešenia
-
-### 4. Profesionálna prezentácia
-
-PowerPoint alebo Google Slides (10-15 slajdov), ktorá:
-
-- Vysvetľuje problém a jeho dopad na mesto
-- Prezentuje vaše riešenie a technológie
-- Obsahuje live demo fungujúceho systému
-- Ukazuje výsledky analýzy a kľúčové insights
-- Poskytuje odporúčania pre vedenie mesta
-- Má jasný príbeh: problém → riešenie → výsledky → dopad
+Systém, ktorý:
+- Povie používateľovi, kde je teraz voľno
+- Odporučí mu najlepší priestor podľa toho, čo chce robiť
+- Ukáže to na mape alebo v prehľadnej forme
 
 ---
 
-## ČASOVÝ HARMONOGRAM
+## ČO MUSÍTE VYTVORIŤ
 
-### 1. hodina (45 min) – Plánovanie a dátová príprava
+Váš projekt musí obsahovať **tieto tri časti**:
 
-**0-15 min: Brainstorming a stratégia**
-- Prečítajte si zadanie a diskutujte o probléme
-- Navrhnite riešenie – aké komponenty bude systém obsahovať?
-- Rozhodnite sa, ako si rozdelíte prácu (kto sa zameria na čo)
-- Vytvorte si zdieľaný workspace (Google Drive, Notion, GitHub)
-- Definujte, čo presne chcete dosiahnuť a ako budete spolupracovať
+### 1. Dáta o verejných priestoroch
 
-**15-45 min: Tvorba datasetu a prvotná analýza**
-- Vytvorte dataset verejných priestorov (Excel, CSV alebo priamo v kóde)
-- Definujte potrebné atribúty pre každý priestor
-- Simulujte návštevnosť v rôznych časoch (ráno, polednie, večer, víkend)
-- Začnite s prvými vizualizáciami a analýzou
-- Identifikujte kľúčové insights z dát
+- Zoznam minimálne 10-15 miest v Nitre (parky, ihriská, fitness zóny)
+- Pre každé miesto: názov, typ, kde sa nachádza, koľko ľudí tam je
+- Môžete to mať v Exceli, CSV súbore alebo priamo v kóde
 
-**Výstup 1. hodiny:**
-- Kompletný dataset s relevantnými atribútmi
-- Prvé grafy a štatistické zistenia
-- Jasná vízia riešenia a rozdelenie práce
-- Pochopenie problému a stratégia jeho riešenia
+### 2. Program, ktorý odporučí najlepší priestor
 
----
+- Používateľ zadá: kde je, čo chce robiť
+- Program vypočíta, ktorý priestor je najlepší
+- Zobrazí top 3 odporúčania s dôvodom
 
-### 2. hodina (45 min) – Implementácia jadra systému
+### 3. Jednoduché rozhranie
 
-**0-30 min: Vývoj algoritmického riešenia**
-- Naprogramujte odporúčací algoritmus v C++, Python alebo inom jazyku
-- Implementujte skórovaciu funkciu zohľadňujúcu všetky kritériá
-- Otestujte algoritmus na rôznych vstupoch
-- Overte, že výsledky dávajú zmysel a sú konzistentné
+- Webová stránka ALEBO konzolový program
+- Používateľ vie zadať svoje preferencie
+- Systém zobrazí výsledky
 
-**30-45 min: Práca na rozhraní a prezentácii**
-- Vytvorte základný prototyp webovej stránky alebo aplikácie
-- Naprogramujte základnú funkcionalitu (vstupný formulár, zobrazenie výsledkov)
-- Pripravte osnovu prezentácie (štruktúra slajdov, kľúčové body)
-- Začnite integrovať komponenty
+### 4. Krátka ukážka na konci
 
-**Výstup 2. hodiny:**
-- Funkčný algoritmický kód s testami
-- Prototyp používateľského rozhrania
-- Osnova prezentácie s hlavnými bodmi
-- Jasný plán na dokončenie projektu
+- Ukážete fungujúci systém pred triedou (2-3 minúty)
+- Vysvetlíte, ako to funguje
+- Nemusíte mať PowerPoint - stačí ukázať to, čo ste vytvorili
 
 ---
 
-### 3. hodina (45 min) – Finalizácia a prezentácia
+## ČASOVÝ PLÁN
 
-**0-25 min: Dokončenie a integrácia**
-- Prepojte všetky komponenty systému
-- Dokončite webové rozhranie a vizualizácie
-- Otestujte celý systém end-to-end
-- Vytvorte finálne grafy a vizuály pre prezentáciu
-- Opravte chyby a vylepšite používateľskú skúsenosť
+### 1. hodina (45 min) - Začíname
 
-**25-40 min: Dokončenie prezentácie**
-- Finalizujte slajdy s vizuálmi a grafmi
-- Pripravte demo scenár – čo presne ukážete
-- Nacvičte prezentáciu (kto čo povie, timing)
-- Uistite sa, že demo funguje spoľahlivo
+**0-10 min: Prečítajte zadanie a poradte sa**
+- Čo budete robiť?
+- Ako si rozdelíte prácu?
+- Kto bude robiť čo?
 
-**40-45 min: Prezentácia pred triedou**
-- 5-minútová prezentácia s live demo
-- Ukážte problém, riešenie a dopad
-- Demonštrujte fungujúci systém naživo
+**10-40 min: Vytvorte dáta**
+- Napíšte zoznam 10-15 verejných priestorov v Nitre
+- Pre každý napíšte: názov, typ, približnú polohu
+- Vymyslite, koľko percent ľudí tam je (napr. 20%, 80%)
+- Môžete použiť Excel, Google Sheets alebo napísať priamo do kódu
 
-**Výstup 3. hodiny:**
-- Kompletný fungujúci systém
-- Profesionálna prezentácia
-- Úspešné live demo
-- Odovzdané všetky výstupy
+**40-45 min: Naplánujte ďalší krok**
+- Čo budete robiť v druhej hodine?
+- Aké nástroje použijete?
+
+**Výstup:**
+- Zoznam miest s dátami
+- Jasný plán, ako budete pokračovať
 
 ---
 
-## DOSTUPNÉ NÁSTROJE A TECHNOLÓGIE
+### 2. hodina (45 min) - Programovanie
 
-Máte k dispozícii široké spektrum nástrojov. Využite ich naplno!
+**0-35 min: Naprogramujte hlavnú funkcionalitu**
 
-### AI Nástroje
+Jeden zo členov môže robiť:
+- C++ alebo Python program, ktorý počíta skóre pre každý priestor
+- Program vezme vstup (kde som, čo chcem) a povie, kam ísť
 
-**Claude / ChatGPT**
-- Generovanie kódu a algoritmov
-- Riešenie programátorských problémov
-- Návrh architektúry systému
-- Pomoc s debuggovaním
-- Generovanie datasetu
-- Tvorba obsahu pre prezentáciu
+Druhý člen môže robiť:
+- Jednoduchú webovú stránku (HTML + JavaScript)
+- Alebo konzolové menu v C++/Python
 
-**Claude Artifacts**
-- Rýchle prototypovanie webových aplikácií
-- Okamžité výsledky bez setupu
-- Interaktívne rozhrania
-
-**GitHub Copilot**
-- Asistencia pri písaní kódu
-- Automatické dopĺňanie funkcií
-- Návrhy riešení
-
-**Canva AI**
-- Tvorba vizuálov pre prezentáciu
-- Generovanie infografík
-- Dizajn loga projektu
-
-### Programovacie jazyky a nástroje
-
-**C++**
-- Ideálne pre algoritmické riešenia
-- Výkonnosť a efektivita
-- Práca s dátovými štruktúrami
-
-**Python**
-- pandas – práca s datasetmi a analýza
-- matplotlib, seaborn – vizualizácie
-- numpy – matematické operácie
-- Jednoduchosť a rýchlosť vývoja
-
-**JavaScript/HTML/CSS**
-- Webové rozhranie
-- Interaktívne prvky
-- Responzívny dizajn
-
-**React/Vue (voliteľné)**
-- Pokročilé webové aplikácie
-- Komponentová architektúra
-
-### Dátové nástroje
-
-**Excel / Google Sheets**
-- Tvorba a editácia datasetu
-- Základná analýza a výpočty
-- Grafy a pivot tabuľky
-
-**Python pandas**
-- Pokročilá analýza dát
-- Transformácie a agregácie
-- Export do rôznych formátov
-
-**Vizualizačné knižnice**
-- matplotlib, seaborn (Python)
-- Chart.js (JavaScript)
-- Plotly (interaktívne grafy)
-
-### Frontend nástroje
-
-**Replit / CodePen / JSFiddle**
-- Online kódovanie bez setupu
-- Okamžité výsledky
-- Zdieľanie kódu
-
-**Leaflet.js / Google Maps API**
-- Interaktívne mapy
-- Markery a tooltips
-- Geolokatizácia
-
-**Tailwind CSS / Bootstrap**
-- Rýchly a profesionálny dizajn
-- Responzívne komponenty
-- Pripravené štýly
-
-### Prezentačné nástroje
-
-**PowerPoint / Google Slides**
-- Tvorba prezentácie
-- Šablóny a témy
-- Export do PDF
-
-**Canva**
-- Kreatívny dizajn
-- Infografiky a vizuály
-- Profesionálne šablóny
-
----
-
-## KONKRÉTNE ÚLOHY NA VYPRACOVANIE
-
-### A. Dataset verejných priestorov
-
-Vytvorte tabuľku s minimálne 15-20 lokalitami v Nitre. Pre každú lokalitu definujte:
-
-**Základné atribúty:**
-- Názov lokality
-- Typ priestoru (park, detské ihrisko, fitness zóna, oddychová zóna)
-- GPS súradnice (latitude, longitude)
-- Adresa alebo popis polohy
-- Kapacita (koľko ľudí sa zmestí komfortne)
-- Vybavenie (čo tam je k dispozícii)
-
-**Dynamické atribúty:**
-- Aktuálna obsadenosť v percentách (simulovaná pre rôzne časy)
-- Návštevnosť podľa času dňa (ráno, polednie, popoludní, večer)
-- Návštevnosť cez víkend vs pracovný deň
-- Hodnotenie kvality (1-5, stav údržby, modernosť vybavenia)
-
-**Príklad štruktúry:**
-
+Príklad jednoduchého algoritmu:
 ```
-Názov: Park na Sihoti
-Typ: Park
-GPS: 48.3069, 18.0864
-Kapacita: 50 osôb
-Vybavenie: Lavičky, stromy, chodníky, osvetlenie
-Obsadenosť ráno: 20%
-Obsadenosť polednie: 45%
-Obsadenosť popoludní: 60%
-Obsadenosť večer: 30%
-Víkend obsadenosť: 70%
-Kvalita: 4/5
+Skóre = 100 - (vzdialenosť_km × 20) - (obsadenosť × 50) + (ak je správny typ: +30)
 ```
 
-**Typy priestorov na zahrnutie:**
-- Mestské parky (Sihot, Zobor, Kalvária)
-- Detské ihriská (rôzne mestské časti)
-- Fitness zóny a workout areály
-- Oddychové zóny s lavičkami
-- Kombinované priestory
+**35-45 min: Otestujte, či to funguje**
+- Skúste zadať rôzne vstupy
+- Opravte chyby
+- Ak niečo nefunguje, opýtajte sa ChatGPT/Claude
 
-**Zdroje dát:**
-- Google Maps pre GPS súradnice
-- Vlastná znalosť Nitry
-- Logická simulácia návštevnosti
-- AI nástroje pre generovanie realistických dát
+**Výstup:**
+- Fungujúci kód, ktorý niečo počíta
+- Aspoň základné rozhranie
 
 ---
 
-### B. Algoritmické riešenie – Odporúčací systém
+### 3. hodina (45 min) - Dokončenie
 
-Implementujte program, ktorý na základe vstupov používateľa vypočíta optimálne odporúčanie.
+**0-30 min: Spravte to pekné a funkčné**
+- Spojte dáta + algoritmus + rozhranie
+- Vyskúšajte celý systém
+- Opravte problémy
 
-**Vstupné parametre:**
+**30-40 min: Pripravte ukážku**
+- Čo poviete triede?
+- Aký príklad ukážete?
+- Vyskúšajte si to raz
 
-```
-- Aktuálna poloha používateľa (GPS súradnice alebo adresa)
-- Typ aktivity (prechádzka, šport, oddych s deťmi, fitness)
-- Aktuálny čas / deň v týždni
-- Preferovaná maximálna vzdialenosť (km alebo minúty chôdze)
-- Priorita (vzdialenosť vs kvalita vs voľné miesto)
-```
+**40-45 min: Ukážete to triede**
+- Krátka ukážka (2-3 minúty na tím)
+- Povedzete: aký bol problém, čo ste vytvorili, ukážete ako to funguje
 
-**Výpočet skóre:**
-
-Základný vzorec:
-```
-Skóre = (100 - vzdialenosť_penalizácia) × faktor_obsadenosti × faktor_zhody_typu × faktor_kvality
-
-kde:
-- vzdialenosť_penalizácia = vzdialenosť_km × 10 (čím ďalej, tým horšie)
-- faktor_obsadenosti = (1 - obsadenosť%) (preferujeme menej preplnené)
-- faktor_zhody_typu = 1.0 (perfektná zhoda), 0.5 (čiastočná), 0.2 (slabá)
-- faktor_kvality = 0.6 až 1.0 (podľa hodnotenia 1-5)
-```
-
-Môžete upraviť vzorec podľa vlastného uváženia, hlavné je aby zohľadňoval:
-- Vzdialenosť (bližšie je lepšie)
-- Obsadenosť (menej ľudí je lepšie)
-- Typ priestoru (zhoda s požadovanou aktivitou)
-- Kvalitu priestoru (lepšia údržba a vybavenie)
-
-**Výstupný formát:**
-
-Program zobrazí top 3 odporúčané priestory s detailmi:
-
-```
-Top odporúčania pre vás:
-
-1. Fitness zóna Kalvária (Skóre: 87.5)
-   Vzdialenosť: 1.2 km (približne 15 min peši)
-   Obsadenosť: 10% (takmer prázdne)
-   Kvalita: 5/5 (vynikajúce vybavenie)
-   Dôvod: Perfektná zhoda pre fitness aktivitu, vynikajúce vybavenie, minimálna obsadenosť
-
-2. Park na Zobori (Skóre: 75.3)
-   Vzdialenosť: 0.8 km (približne 10 min peši)
-   Obsadenosť: 45% (príjemne obsadené)
-   Kvalita: 4/5
-   Dôvod: Veľmi blízko, dobrá kvalita, vhodné na prechádzku
-
-3. Ihrisko Mlyny (Skóre: 68.1)
-   Vzdialenosť: 2.1 km (približne 25 min peši)
-   Obsadenosť: 20% (veľa voľného miesta)
-   Kvalita: 3/5
-   Dôvod: Vzdialené, ale s dostatkom voľného priestoru
-```
-
-**Technické požiadavky:**
-- Kód musí byť čitateľný a komentovaný
-- Vstup od používateľa cez konzolu alebo rozhranie
-- Výpočty musia byť matematicky správne
-- Výsledky musia dávať zmysel (testujte na viacerých scenároch)
+**Výstup:**
+- Fungujúci systém
+- Úspešná ukážka
 
 ---
 
-### C. Webové rozhranie
+## AKO SI ROZDELIŤ PRÁCU?
 
-Vytvorte webovú stránku, ktorá sprístupňuje váš systém používateľom.
+Nie je nutné mať presné role. Tu sú možnosti:
 
-**Základné komponenty:**
+### Možnosť A
+- **Jeden člen:** Dáta + algoritmus (C++/Python kód)
+- **Druhý člen:** Webová stránka alebo rozhranie
 
-**1. Úvodná stránka**
-- Názov systému a stručný popis
-- Výzva k akcii (začať hľadať priestor)
-- Vizuálne príťažlivý dizajn
+### Možnosť B  
+- **Spoločne:** Naplánujete a vytvoríte dáta
+- **Samostatne:** Jeden robí výpočty, druhý rozhranie
+- **Spoločne:** Spojíte to a testujete
 
-**2. Interaktívna mapa**
-- Mapa Nitry s vyznačenými verejnými priestormi
-- Farebné markery podľa obsadenosti:
-  - Zelená = voľné (0-30%)
-  - Oranžová = čiastočne obsadené (31-70%)
-  - Červená = plné (71-100%)
-- Kliknutie na marker zobrazí detail priestoru
+### Možnosť C
+- **Obaja:** Pracujete na tom istom, pomáhate si
+- Jeden píše kód, druhý testuje a hľadá chyby
 
-**3. Vyhľadávací formulár**
-- Typ aktivity (dropdown alebo radio buttons)
-- Maximálna vzdialenosť (slider alebo input)
-- Preferovaná priorita (vzdialenosť / kvalita / voľné miesto)
-- Tlačidlo "Nájsť najlepší priestor"
-
-**4. Zobrazenie výsledkov**
-- Top 3 odporúčania v prehľadnej forme
-- Pre každý priestor: názov, vzdialenosť, obsadenosť, dôvod odporúčania
-- Možnosť zobraziť na mape
-- Odkaz na navigáciu (Google Maps)
-
-**5. Dashboard / Štatistiky (voliteľné)**
-- Celková obsadenosť všetkých priestorov
-- Graf návštevnosti podľa času dňa
-- Najpopulárnejšie vs najmenej využívané priestory
-- Real-time štatistiky
-
-**Technické odporúčania:**
-- Responzívny dizajn (funguje na mobile aj počítači)
-- Jasná navigácia a intuitívne ovládanie
-- Rýchle načítanie a plynulá interakcia
-- Použite Leaflet.js alebo Google Maps API pre mapy
-- Tailwind CSS alebo Bootstrap pre styling
+**Dôležité:** Komunikujte! Pýtajte sa navzájom, pomáhajte si.
 
 ---
 
-### D. Prezentácia pre vedenie mesta
+## NÁSTROJE, KTORÉ MÔŽETE POUŽIŤ
 
-**Odporúčaná štruktúra (10-15 slajdov):**
+### AI Asistenti (použite ich naplno!)
 
-**Slajd 1: Titulná strana**
-- Názov projektu
-- Mená členov tímu
-- Dátum prezentácie
-- Logo alebo vizuál projektu
+**ChatGPT alebo Claude:**
+- "Napíš mi C++ program, ktorý vypočíta vzdialenosť medzi dvoma miestami"
+- "Tento kód mi hádže chybu, pomôž mi"
+- "Vytvor mi HTML stránku s formulárom"
+- "Vygeneruj mi zoznam 15 parkov v Nitre s vymyslenými dátami"
 
-**Slajd 2-3: Problém**
-- Aký problém riešite?
-- Prečo je to dôležité?
-- Aký je dopad na obyvateľov a mesto?
-- Štatistiky a čísla ilustrujúce problém
+**Claude Artifacts:**
+- Napíšete: "Vytvor webovú stránku s mapou a formulárom"
+- Okamžite dostanete fungujúcu stránku
+- Môžete ju upravovať priamo v prehliadači
 
-**Slajd 4: Naše riešenie**
-- High-level prehľad vášho systému
-- Kľúčové komponenty
-- Ako pomáha obyvateľom aj mestu
+### Programovacie jazyky
 
-**Slajd 5: Architektúra systému**
-- Diagram alebo flow chart
-- Ako jednotlivé časti spolupracujú
-- Technológie použité v projekte
+**C++** (ak to poznáte z hodín)
+- Konzolový program
+- Načítanie vstupu od používateľa
+- Výpočty a výpis výsledkov
 
-**Slajd 6-7: Dátová analýza**
-- Ukážka datasetu
-- Kľúčové insights z analýzy
-- Grafy návštevnosti
-- Identifikované problémy a príležitosti
+**Python** (jednoduchší než C++)
+- Ľahko sa učí
+- AI vám pomôže napísať kód
+- Ideálne pre začiatočníkov
 
-**Slajd 8: Algoritmické riešenie**
-- Vysvetlenie skórovacej funkcie
-- Príklad výpočtu
-- Prečo funguje lepšie než náhodný výber
+**JavaScript + HTML** (pre webové rozhranie)
+- Vytvoríte stránku
+- Formulár pre vstup
+- Zobrazenie výsledkov
 
-**Slajd 9: DEMO**
-- "Pozrite si živú ukážku systému"
-- Pripravený scenár na live demoštráciu
-- Tento slajd slúži ako pauza pre demo
+### Online nástroje (nemusíte nič inštalovať)
 
-**Slajd 10-11: Výsledky a dopad**
-- Aké sú benefity pre obyvateľov?
-- Koľko času ušetrí priemerná rodina?
-- Ako môže mesto využiť dáta?
-- Ekonomický alebo environmentálny dopad
+**Replit.com**
+- Programujte priamo v prehliadači
+- C++, Python, JavaScript
+- Okamžite vidíte výsledky
 
-**Slajd 12: Ďalšie kroky**
-- Čo by bolo potrebné pre reálne nasadenie?
-- Technické požiadavky
-- Náklady a timeline
-- Možné rozšírenia systému
+**CodePen / JSFiddle**
+- Pre HTML/CSS/JavaScript
+- Skvelé na webové prototypy
 
-**Slajd 13: Záver**
-- Zhrnutie kľúčových bodov
-- Výzva k akcii pre vedenie mesta
-- Kontaktné informácie
+**Google Sheets / Excel**
+- Pre dáta
+- Grafy a tabuľky
 
-**Slajd 14-15: Otázky (voliteľné)**
-- Prílohy, dodatočné grafy
-- Technické detaily
-- Zoznam použitých zdrojov
+---
 
-**Prezentačné tipy:**
-- Jasný a zrozumiteľný jazyk (nie technický žargón)
-- Vizuály majú prednosť pred textom
-- Každý slajd má jeden hlavný odkaz
-- Príbeh musí byť koherentný a presvedčivý
-- Demo je kľúčová časť – nacvičte si ju
-- Timing: približne 30-40 sekúnd na slajd
+## PRÍKLADY, ČO VYTVORIŤ
+
+### Jednoduchá verzia (ak nemáte veľa skúseností)
+
+**Dáta v kóde:**
+```python
+priestory = [
+    {"nazov": "Park Sihoť", "typ": "park", "vzdialenost_km": 1.2, "obsadenost": 30},
+    {"nazov": "Ihrisko Chrenová", "typ": "ihrisko", "vzdialenost_km": 0.8, "obsadenost": 80},
+    {"nazov": "Fitness Kalvária", "typ": "fitness", "vzdialenost_km": 2.1, "obsadenost": 10}
+]
+```
+
+**Jednoduchý výpočet:**
+```python
+def vypocitaj_skore(priestor, preferovany_typ):
+    skore = 100
+    skore = skore - (priestor["vzdialenost_km"] * 20)
+    skore = skore - (priestor["obsadenost"] * 0.5)
+    
+    if priestor["typ"] == preferovany_typ:
+        skore = skore + 30
+    
+    return skore
+```
+
+**Konzolový výstup:**
+```
+Čo chcete robiť? (park/ihrisko/fitness): park
+Hľadám najlepšie miesto pre vás...
+
+Top 3 odporúčania:
+1. Park Sihoť (skóre: 91)
+   - Vzdialenosť: 1.2 km
+   - Obsadenosť: 30%
+   
+2. Fitness Kalvária (skóre: 53)
+   - Vzdialenosť: 2.1 km
+   - Obsadenosť: 10%
+
+3. Ihrisko Chrenová (skóre: 30)
+   - Vzdialenosť: 0.8 km
+   - Obsadenosť: 80%
+```
+
+### Stredná verzia (ak máte základné skúsenosti)
+
+- Dataset v Excel súbore alebo CSV
+- C++ alebo Python program, ktorý načíta dáta zo súboru
+- Jednoduchá webová stránka s formulárom
+- Program vypočíta výsledky a zobrazí ich
+
+### Pokročilá verzia (ak chcete ísť ďalej)
+
+- Interaktívna mapa s Google Maps alebo Leaflet.js
+- Grafy obsadenosti
+- Filtre (vzdialenosť, typ, kvalita)
+- Pekný dizajn s CSS
+
+---
+
+## DATASET - ČO POTREBUJETE
+
+Pre každý verejný priestor zapíšte:
+
+**Základné informácie:**
+- Názov (napr. "Park na Sihoti")
+- Typ (park, ihrisko, fitness zóna, oddychová zóna)
+- Približná poloha (adresa alebo GPS súradnice)
+
+**Simulované dáta:**
+- Obsadenosť v percentách (vymyslite realistické čísla)
+- Vzdialenosť od centra Nitry (v km)
+- Kvalita (môžete dať 1-5 hviezdičiek)
+
+**Príklad tabuľky:**
+
+| Názov | Typ | Vzdialenosť (km) | Obsadenosť (%) | Kvalita |
+|-------|-----|------------------|----------------|---------|
+| Park Sihoť | park | 1.2 | 30 | 4 |
+| Ihrisko Chrenová | ihrisko | 0.8 | 80 | 3 |
+| Fitness Kalvária | fitness | 2.1 | 10 | 5 |
+| Park Zobor | park | 1.5 | 45 | 4 |
+| Oddychová zóna Centrum | oddych | 0.3 | 90 | 3 |
+
+Stačí 10-15 takýchto záznamov. Čísla si môžete vymyslieť - nejde o presnosť, ale o to, aby mal algoritmus s čím pracovať.
+
+---
+
+## ALGORITMUS - AKO ROZHODNÚŤ, ČO JE NAJLEPŠIE?
+
+### Základná myšlienka
+
+Každý priestor dostane **skóre**. Čím vyššie skóre, tým lepšie.
+
+### Čo ovplyvňuje skóre?
+
+**1. Vzdialenosť (čím bližšie, tým lepšie)**
+- Blízko (0-1 km): výborne
+- Stredne ďaleko (1-2 km): ok
+- Ďaleko (2+ km): horšie
+
+**2. Obsadenosť (čím menej ľudí, tým lepšie)**
+- 0-30%: takmer prázdne, super
+- 30-70%: normálne obsadené
+- 70-100%: preplnené, radšej nie
+
+**3. Typ priestoru (musí sedieť s tým, čo chcete robiť)**
+- Ak chcete cvičiť, fitness zóna je lepšia než park
+- Ak chcete s deťmi, ihrisko je lepšie než lavička
+
+**4. Kvalita (ak to máte v dátach)**
+- Novšie, lepšie udržiavané = vyššie skóre
+
+### Jednoduchý vzorec
+
+```
+Skóre = 100 - (vzdialenosť × 20) - (obsadenosť × 0.5) + bonus_za_typ + bonus_za_kvalitu
+
+Kde:
+- vzdialenosť: v kilometroch
+- obsadenosť: v percentách (0-100)
+- bonus_za_typ: +30 ak sedí, 0 ak nie
+- bonus_za_kvalitu: +10 ak je kvalita 5, +5 ak je 4, atď.
+```
+
+**Príklad:**
+```
+Park Sihoť:
+- vzdialenosť: 1.2 km
+- obsadenosť: 30%
+- typ: park (zhoduje sa s "chcem ísť do parku")
+- kvalita: 4
+
+Skóre = 100 - (1.2 × 20) - (30 × 0.5) + 30 + 5
+Skóre = 100 - 24 - 15 + 30 + 5 = 96
+```
+
+Nemusíte použiť presne tento vzorec - môžete si vymyslieť vlastný! Dôležité je, aby dával zmysel.
+
+---
+
+## WEBOVÉ ROZHRANIE - MOŽNOSTI
+
+### Verzia 1: Superjednoduchá (HTML + JavaScript)
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Nájdi voľný priestor v Nitre</title>
+</head>
+<body>
+    <h1>Kam chceš ísť?</h1>
+    
+    <label>Typ aktivity:</label>
+    <select id="typ">
+        <option>park</option>
+        <option>ihrisko</option>
+        <option>fitness</option>
+    </select>
+    
+    <button onclick="najdiPriestor()">Nájdi najlepší priestor</button>
+    
+    <div id="vysledok"></div>
+    
+    <script>
+        function najdiPriestor() {
+            // Tu bude váš algoritmus
+            document.getElementById("vysledok").innerHTML = 
+                "Odporúčame: Park Sihoť (skóre: 96)";
+        }
+    </script>
+</body>
+</html>
+```
+
+### Verzia 2: S mapou (použite Leaflet.js alebo Google Maps)
+
+- Mapa Nitry
+- Body pre každý priestor
+- Kliknutie zobrazí detail
+- Farebné označenie (zelená = voľno, červená = plné)
+
+### Verzia 3: S AI pomocou (Claude Artifacts)
+
+Napíšte do Claude:
+```
+Vytvor webovú stránku pre Smart City Challenge.
+Stránka musí mať:
+- Formulár kde používateľ vyberie typ aktivity
+- Tlačidlo "Hľadaj"
+- Zobrazenie top 3 odporúčaní
+- Jednoduchý, moderný dizajn
+```
+
+Claude vám vygeneruje celú stránku, ktorú môžete hneď použiť a upravovať.
 
 ---
 
 ## HODNOTENIE
 
-**Celkový počet bodov: 100**
+**Celkovo: 100 bodov**
 
-### Kritériá hodnotenia:
+### Fungujúci systém (60 bodov)
 
-**Funkčnosť algoritmického riešenia (25 bodov)**
-- Program funguje bez chýb
-- Algoritmus je matematicky správny
-- Výsledky dávajú zmysel a sú konzistentné
-- Kód je čitateľný a dobre štruktúrovaný
-- Zohľadňuje všetky požadované faktory
+**Dáta (15 bodov):**
+- Máte aspoň 10 miest
+- Dáta dávajú zmysel
+- Sú správne použité v programe
 
-**Kvalita dátovej analýzy (20 bodov)**
-- Dataset je kompletný a realistický
-- Analýza poskytuje relevantné insights
-- Grafy sú jasné a informatívne
-- Dáta sú správne interpretované
-- Odporúčania pre mesto sú podložené dátami
+**Algoritmus (25 bodov):**
+- Program funguje
+- Vypočíta skóre pre priestory
+- Výsledky dávajú zmysel
+- Zobrazí top 3 odporúčania
 
-**Webové rozhranie a UX (20 bodov)**
-- Stránka funguje správne
-- Dizajn je profesionálny a príťažlivý
-- Navigácia je intuitívna
-- Rozhranie efektívne využíva váš algoritmus
-- Responzívnosť a použiteľnosť
+**Rozhranie (20 bodov):**
+- Používateľ vie zadať vstup
+- Systém zobrazí výsledky
+- Je to použiteľné a funguje to
 
-**Prezentácia a komunikácia (20 bodov)**
-- Jasný a presvedčivý príbeh
-- Profesionálna úroveň slajdov
-- Živé demo funguje spoľahlivo
-- Dobrý timing a štruktúra
-- Schopnosť odpovedať na otázky
+### Kvalita riešenia (25 bodov)
 
-**Využitie AI nástrojov (10 bodov)**
-- Efektívne použitie Claude/ChatGPT
-- Kreativita v použití dostupných nástrojov
-- Dokumentácia toho, ako ste AI využili
-- Pridaná hodnota vďaka AI nástrojom
+**Kód (15 bodov):**
+- Kód je čitateľný
+- Funguje bez veľkých chýb
+- Je rozumne štruktúrovaný
 
-**Tímová spolupráca (5 bodov)**
-- Efektívna komunikácia v tíme
-- Rozumné rozdelenie práce
-- Integrácia komponentov
-- Vzájomná podpora
+**Dizajn (10 bodov):**
+- Rozhranie vypadá rozumne
+- Je prehľadné a zrozumiteľné
+- Dáta sú dobre zobrazené
 
-### Bonusové body (až +15)
+### Ukážka pred triedou (10 bodov)
 
-**Machine Learning predikcia (+5 bodov)**
-- Implementácia ML modelu pre predikciu obsadenosti
-- Trénovanie na historických dátach
-- Vyhodnotenie presnosti modelu
+- Ukázali ste funkčný systém
+- Vysvetlili ste, ako to funguje
+- Demo prešlo bez veľkých problémov
 
-**Pokročilé vizualizácie (+3 body)**
-- Interaktívne grafy a dashboardy
-- Heatmapy návštevnosti
-- Časové animácie
+### Práca v tíme (5 bodov)
 
-**Rozšírená funkcionalita (+3 body)**
-- Užívateľské hodnotenia a recenzie
-- Systém rezervácií
-- Notifikácie o zmenách obsadenosti
+- Viditeľne ste spolupracovali
+- Obaja ste niečo robili
+- Pomáhali ste si
 
-**Ekologický dopad (+2 body)**
-- Výpočet zníženia CO2 emisií
-- Analýza environmentálnych benefitov
-- Kvantifikácia pozitívneho dopadu
+### Bonusy (až +20 bodov)
 
-**Multi-city expansion (+2 body)**
-- Systém funguje aj pre iné mestá
-- Škálovateľná architektúra
-- Dokumentácia rozšírenia
+**Mapa (+5 bodov)**
+- Interaktívna mapa s priestormi
+
+**Grafy (+3 body)**
+- Graf obsadenosti alebo iný vizuál
+
+**Výnimočný dizajn (+3 body)**
+- Naozaj pekné a profesionálne rozhranie
+
+**Pokročilý algoritmus (+5 bodov)**
+- Zohľadňuje viac faktorov
+- Použili ste zaujímavý prístup
+
+**Kreativita (+4 body)**
+- Pridali ste niečo naviac, čo nebolo v zadaní
+- Prišli ste s vlastným nápadom
 
 ---
 
-## ODPORÚČANIA A TIPY
+## TIPY A RADY
 
-### Ako efektívne využiť AI nástroje
+### Ak ste nikdy neprogramovali
 
-**Pre generovanie kódu:**
-- "Napíš mi C++ program, ktorý implementuje odporúčací systém pre verejné priestory..."
-- "Tento kód mi hádže chybu... pomôž mi ju opraviť"
-- "Ako môžem optimalizovať tento algoritmus?"
-- "Vygeneruj mi realistický dataset 20 verejných priestorov v Nitre"
+**Nepanikárte!** AI nástroje vám pomôžu:
 
-**Pre webový vývoj:**
-- "Vytvor HTML stránku s interaktívnou mapou a formulárom"
-- "Pridaj funkciu, ktorá vypočíta vzdialenosť medzi dvoma GPS súradnicami"
-- "Zmeň dizajn na modernejší, použij Tailwind CSS"
+1. Otvorte ChatGPT alebo Claude
+2. Napíšte: "Potrebujem vytvoriť program pre Smart City Challenge. Program má..."
+3. AI vám napíše kód
+4. Skopírujte ho, vyskúšajte
+5. Ak niečo nefunguje, opýtajte sa: "Tento kód mi hádže chybu..."
 
-**Pre dátovú analýzu:**
-- "Vytvor Python skript na analýzu návštevnosti podľa času dňa"
-- "Vygeneruj graf zobrazujúci obsadenosť všetkých priestorov"
-- "Aké insights môžem extrahovať z týchto dát?"
+**Príklad konverzácie s AI:**
+```
+Vy: Napíš mi Python program, ktorý má zoznam parkov v Nitre. 
+    Každý park má názov, vzdialenosť a obsadenosť. 
+    Program spýta používateľa, aký typ miesta hľadá, 
+    a odporučí mu 3 najlepšie možnosti.
 
-**Pre prezentáciu:**
-- "Navrhni štruktúru prezentácie pre mestskú radu o našom projekte"
-- "Napíš presvedčivý text o dopade nášho riešenia na obyvateľov"
-- "Aké vizuály by mali byť na slajdoch?"
+AI: [vygeneruje kompletný kód]
 
-### Stratégie rozdelenia práce
+Vy: Super! Teraz pridaj, aby to zohľadňovalo aj vzdialenosť.
 
-**Paralelná stratégia:**
-- Jeden člen: Dataset + Analýza + Grafy
-- Druhý člen: Algoritmus + Webové rozhranie
-- Spoločne: Integrácia + Prezentácia
+AI: [upraví kód]
+```
 
-**Sekvenčná stratégia:**
-- Spoločne: Dataset a plánovanie
-- Rozdelene: Algoritmus vs Webové rozhranie
-- Spoločne: Prepojenie a finalizácia
+### Ak máte nejaké skúsenosti
 
-**Flexibilná stratégia:**
-- Každý robí to, v čom je dobrý
-- Priebežne sa dopĺňate a pomáhate si
-- Komunikácia je kľúčová
+- Začnite s najjednoduchšou verziou, čo funguje
+- Potom postupne pridávajte funkcie
+- Testujte často (po každej zmene)
+- Používajte AI na urýchlenie práce
 
-### Časté chyby, ktorým sa vyhnite
+### Časté problémy a riešenia
 
-**Technické chyby:**
-- Nerealistický dataset (absurdné čísla, nekonzistentné dáta)
-- Komplikovaný algoritmus, ktorý nefunguje namiesto jednoduchého, ktorý funguje
-- Webové rozhranie, ktoré nevyužíva váš algoritmus
-- Nedostatočné testovanie kódu
+**"Nevieme, čo robiť"**
+- Začnite s dátami - vytvorte Excel s 10 miestami
+- Potom skúste jednoduchý výpočet v Pythone
+- Postupujte krok po kroku
 
-**Prezentačné chyby:**
-- Príliš technická prezentácia (vedenie mesta nie sú programátori)
-- Demo, ktoré nefunguje alebo nebolo nacvičené
-- Prezentácia bez jasného príbehu
-- Žiadne konkrétne čísla a dopady
+**"Kód nám nefunguje"**
+- Skopírujte chybovú hlášku
+- Vložte ju do ChatGPT s otázkou "Ako to opravím?"
+- Skúste navrhované riešenia
 
-**Tímové chyby:**
-- Nedostatočná komunikácia
-- Práca na vlastnú päsť bez koordinácie
-- Nevyváženosť práce (jeden robí všetko)
-- Ponechanie integrácie na poslednú chvíľu
+**"Nevieme, ako spojiť dáta a program"**
+- Začnite s dátami priamo v kóde
+- Až keď to funguje, skúste načítať zo súboru
+- Opýtajte sa AI: "Ako načítam CSV súbor v Pythone?"
 
-**Časové chyby:**
-- Príliš veľa času na perfekcionizmus v detailoch
-- Strácanie času debuggovaním namiesto požiadania AI o pomoc
-- Nedostatok času na prezentáciu a demo
-- Neskoré začatie dôležitých častí
+**"Nestíhame"**
+- Zjednodušte - stačí základná verzia
+- Funkčnosť je dôležitejšia než krása
+- Radšej jednoduché, čo funguje
 
-### Ako vytvoriť presvedčivú prezentáciu
+**"Nevieme, ako rozdeliť prácu"**
+- Prvú hodinu pracujte spolu
+- Druhú hodinu: jeden kód, druhý rozhranie
+- Tretiu hodinu zas spolu - spájanie a testovanie
 
-**Začnite príbehom:**
-- "Predstavte si rodinu, ktorá v sobotu ráno..."
-- Personalizujte problém, ukážte reálny dopad
-
-**Používajte čísla a fakty:**
-- "350 rodín v Nitre denne hľadá voľné ihriská"
-- "Priemerný obyvateľ strávi 15 minút hľadaním vhodného priestoru"
-- Kvantifikujte problém aj riešenie
-
-**Ukážte dopad:**
-- "Náš systém ušetrí každej rodine 15 minút denne"
-- "To znamená 5475 minút (91 hodín) ročne na rodinu"
-- "Celkovo 32,000 hodín ročne pre celé mesto"
-
-**Live demo je kľúčové:**
-- Pripravte si scenár vopred
-- Otestujte ho viackrát
-- Majte backup plán ak niečo zlyhá
-- Demo musí byť presvedčivé a plynulé
+### Ako využiť AI nástroje efektívne
 
 **Buďte konkrétni:**
-- Nie: "Systém pomôže mestu"
-- Áno: "Mesto ušetrí 20% nákladov na údržbu prerozdelením investícií"
+- Nie: "Potrebujem pomoc s kódom"
+- Áno: "Potrebujem Python funkciu, ktorá zoradí zoznam podľa skóre"
+
+**Iterujte:**
+- Začnite so základnou verziou
+- Postupne vylepšujte: "Teraz pridaj..." , "Zmeň toto..."
+
+**Testujte výsledky:**
+- AI nie je dokonalá
+- Vždy skúste, či kód funguje
+- Ak nie, pýtajte sa ďalej
+
+**Učte sa z toho:**
+- Nechajte si AI vysvetliť, ako kód funguje
+- "Vysvetli mi tento kód riadok po riadku"
+- Nabudúce to pochopíte lepšie
 
 ---
 
-## FINÁLNE VÝSTUPY
+## KONTROLNÝ ZOZNAM PRED ODOVZDANÍM
 
-Na konci projektu odovzdajte:
+Skontrolujte si, že máte:
 
-### Povinné výstupy:
+**Dáta:**
+- [ ] Aspoň 10-15 verejných priestorov
+- [ ] Každý má názov, typ, vzdialenosť, obsadenosť
+- [ ] Dáta sú v Exceli / CSV / v kóde
 
-1. **Dataset** (Excel, CSV alebo JSON súbor)
-   - Minimálne 15-20 verejných priestorov
-   - Všetky požadované atribúty
+**Algoritmus:**
+- [ ] Program funguje bez kritických chýb
+- [ ] Vypočíta skóre pre každý priestor
+- [ ] Zobrazí top 3 odporúčania
+- [ ] Výsledky dávajú zmysel
 
-2. **Algoritmický kód**
-   - Zdrojový kód (.cpp, .py alebo iný)
-   - README s inštrukciami na spustenie
-   - Príklady vstupov a výstupov
+**Rozhranie:**
+- [ ] Používateľ vie zadať preferencie
+- [ ] Systém zobrazí výsledky
+- [ ] Je to použiteľné (aspoň základne)
 
-3. **Webová stránka**
-   - HTML/CSS/JS súbory alebo
-   - Live link (Replit, CodePen, GitHub Pages)
-   - Screenshoty kľúčových funkcií
+**Ukážka:**
+- [ ] Máte pripravený príklad, čo ukážete
+- [ ] Vyskúšali ste, že to funguje
+- [ ] Viete vysvetliť, ako to funguje
 
-4. **Prezentácia**
-   - PowerPoint alebo Google Slides (10-15 slajdov)
-   - PDF export pre archiváciu
-
-5. **Analýza a grafy**
-   - PDF report s grafmi a insights
-   - Vizualizácie dát
-   - Odporúčania pre mesto
-
-### Voliteľné výstupy:
-
-6. **Dokumentácia**
-   - Technická dokumentácia systému
-   - Používateľská príručka
-   - Popis použitia AI nástrojov
-
-7. **Video demo** (ak nestíhate live prezentáciu)
-   - 3-5 minút záznam demoštrácie
-   - Vysvetlenie funkčnosti
+**Spolupráca:**
+- [ ] Obaja členovia tímu niečo urobili
+- [ ] Viete povedať, kto čo robil
 
 ---
 
 ## NA ZÁVER
 
-**Toto nie je len cvičenie – riešite reálny problém!**
+**Toto je vaša príležitosť vyskúšať si niečo reálne!**
 
-Vaše riešenie by mohlo skutočne pomôcť mestu Nitra optimalizovať využívanie verejných priestorov. Pristupujte k tomu s profesionalitou a kreativitou.
+Nemusíte vytvoriť dokonalý systém. Dôležité je:
+- Aby niečo fungovalo
+- Aby to riešilo problém (aspoň čiastočne)
+- Aby ste sa pri tom niečo naučili
+- Aby ste si to užili
 
-### Kľúčové zásady úspechu:
+### Pamätajte:
 
-**Komunikujte neustále**
-- Pravidelne sa synchronizujte s partnerom
-- Zdieľajte progress a problémy
-- Pomáhajte si navzájom
+**Používajte AI nástroje naplno**
+- Sú tu preto, aby vám pomohli
+- Nie je to podvádzanie, ale moderný spôsob práce
 
-**Využite AI naplno**
-- Nie je to podvádzanie, ale efektívne využívanie nástrojov
-- AI vám ušetrí čas na rutinných úlohách
-- Sústreďte sa na kreativitu a stratégiu
+**Komunikujte medzi sebou**
+- Pýtajte sa partnera, ako mu to ide
+- Pomáhajte si vzájomne
+- Dvaja vymyslia viac než jeden
 
-**Funkčnosť > Dokonalosť**
-- Lepšie mať jednoduchý systém, ktorý funguje
-- Než komplikovaný, ktorý padá
-- Iterujte a vylepšujte postupne
+**Jednoduché, čo funguje > komplikované, čo padá**
+- Radšej základná verzia, ktorá beží
+- Než ambiciózna, ktorá nefunguje
 
 **Testujte priebežne**
-- Nečakajte do konca
-- Testujte každý komponent zvlášť
-- Potom testujte integráciu
+- Po každej zmene vyskúšajte, či to funguje
+- Nečakajte do poslednej chvíle
 
-**Prezentácia je rovnako dôležitá ako kód**
-- Najlepšie riešenie je k ničomu, ak ho neviete prezentovať
-- Investujte čas do prípravy prezentácie
-- Nacvičte si demo
-
-**Bavte sa pri tom!**
-- Toto je príležitosť naučiť sa niečo nové
-- Experimentujte s novými technológiami
-- Užite si spoluprácu v tíme
+**Nebojte sa pýtať**
+- Učiteľa, spolužiakov, AI
+- Lepšie sa opýtať než strácať čas
 
 ---
 
-**Veľa úspechov!**
-
-Nech vyhrá najlepší tím!
+**Veľa šťastia a bavte sa!**
