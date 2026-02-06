@@ -1,1504 +1,2223 @@
-# Docker - Cvičebné úlohy
+# Algoritmy a Dátové štruktúry - Cvičebné úlohy (C++)
 
-## Úloha 1: Prvý kontajner - Spustíme Nginx!
+## Obsah
 
-**Čo sa naučíš:** Ako stiahnuť Docker image a spustiť prvý kontajner
+1. [Kruskalov algoritmus](#úloha-1-kruskalov-algoritmus---minimálna-kostra-grafu)
+2. [Primov algoritmus](#úloha-2-primov-algoritmus---iný-prístup-ku-koste)
+3. [Dijkstrov algoritmus](#úloha-3-dijkstrov-algoritmus---najkratšie-cesty)
+4. [Hash Mapy](#úloha-4-hash-mapy---rýchle-vyhľadávanie)
+5. [Huffmanovo kódovanie](#úloha-5-huffmanovo-kódovanie---kompresia-dát)
+6. [B-stromy](#úloha-6-b-stromy---vyvážené-stromy-pre-databázy)
+7. [AVL stromy](#úloha-7-avl-stromy---samovyvažujúce-binárne-stromy)
 
-### Teória - Čo je to image a container?
+---
 
-- **Image** = "recept" alebo "šablóna" - napríklad inštalačka programu
-- **Container** = "bežiaca aplikácia" vytvorená z image - napríklad spustený program
+## Úloha 1: Kruskalov algoritmus - Minimálna kostra grafu
 
-**Analógia:** Image je ako .exe inštalátor, Container je ako nainštalovaný a spustený program.
+**Čo sa naučíš:** Ako nájsť minimálnu kostru grafu pomocou Kruskalovho algoritmu v C++
+
+### Teória - Čo je to minimálna kostra?
+
+**Graf** = množina vrcholov (uzlov) spojených hranami  
+**Kostra grafu** = podmnožina hrán, ktorá spája všetky vrcholy bez cyklov  
+**Minimálna kostra** = kostra s najmenším súčtom váh hrán
+
+**Kruskalov algoritmus:**
+
+1. Zoraď všetky hrany podľa váhy (od najmenšej)
+2. Postupne pridávaj hrany, ktoré nevytvoria cyklus
+3. Skonči, keď máš n-1 hrán (pre n vrcholov)
+
+**Analógia:** Staviaš sieť ciest medzi mestami. Chceš spojiť všetky mestá s čo najmenšími nákladmi, bez zbytočných okružných ciest.
+
+### Vizualizácia grafu
+
+```
+        1
+    (0)-----(1)
+    /|       |\
+   2 |       | 4
+  /  |       |  \
+(2)  |3      |   (3)
+  \  |       |  /
+   6 |       | 5
+    \|       |/
+    (4)-----(5)
+        9
+
+Graf s 6 vrcholmi a 9 hranami.
+Hrany: 0-1(1), 0-2(2), 1-2(3), 1-3(4), 2-3(5), 2-4(6), 3-4(7), 3-5(8), 4-5(9)
+```
+
+**Výsledná minimálna kostra:**
+```
+        1
+    (0)-----(1)
+    /         \
+   2           4
+  /             \
+(2)             (3)
+  \               \
+   6               8
+    \               \
+    (4)             (5)
+
+MST hrany: 0-1(1), 0-2(2), 1-3(4), 2-4(6), 3-5(8)
+Celková váha: 21
+```
 
 ---
 
 ### Krok za krokom
 
-#### Krok 1: Stiahni Nginx image
+#### Krok 1: Union-Find (Disjoint Set) štruktúra
 
-```bash
-docker pull nginx
+Najprv potrebujeme dátovú štruktúru na detekciu cyklov:
+
+```cpp
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+/**
+ * Union-Find (Disjoint Set Union) štruktúra.
+ * Slúži na efektívnu kontrolu, či pridanie hrany vytvori cyklus.
+ */
+class UnionFind {
+private:
+    vector<int> parent;  // parent[i] = rodič vrcholu i
+    vector<int> rank;    // rank[i] = "hĺbka" stromu zakoreneného vo vrchole i
+
+public:
+    UnionFind(int n) {
+        parent.resize(n);
+        rank.resize(n, 0);
+
+        // Na začiatku je každý vrchol sám svojím rodičom
+        for (int i = 0; i < n; i++) {
+            parent[i] = i;
+        }
+    }
+
+    /**
+     * Nájdi koreň (reprezentanta) množiny, do ktorej patrí x.
+     * Používa path compression - optimalizácia.
+     */
+    int find(int x) {
+        if (parent[x] != x) {
+            // Path compression: pripoj x priamo ku koreňu
+            parent[x] = find(parent[x]);
+        }
+        return parent[x];
+    }
+
+    /**
+     * Spoj dve množiny obsahujúce x a y.
+     * Vráti true, ak boli v rôznych množinách (spojenie prebehlo).
+     * Vráti false, ak už boli v rovnakej množine (vytvoril by sa cyklus).
+     */
+    bool unite(int x, int y) {
+        int rootX = find(x);
+        int rootY = find(y);
+
+        // Už sú v rovnakej množine - vytvoril by sa cyklus
+        if (rootX == rootY) {
+            return false;
+        }
+
+        // Union by rank - pripoj menší strom pod väčší
+        if (rank[rootX] < rank[rootY]) {
+            parent[rootX] = rootY;
+        } else if (rank[rootX] > rank[rootY]) {
+            parent[rootY] = rootX;
+        } else {
+            parent[rootY] = rootX;
+            rank[rootX]++;
+        }
+
+        return true;
+    }
+};
 ```
-
-**Čo sa stalo?** Docker stiahol image zo servera (Docker Hub). Trvá to pár sekúnd.
-
-**Vysvetlenie výstupu:**
-```
-Using default tag: latest  ← používame najnovšiu verziu
-latest: Pulling from library/nginx  ← sťahuje sa oficiálny nginx
-Digest: sha256:...  ← unikátny identifikátor
-Status: Downloaded newer image for nginx:latest
-```
-
----
-
-#### Krok 2: Skontroluj, že máš image
-
-```bash
-docker images
-```
-
-Mal by si vidieť niečo ako:
-```
-REPOSITORY   TAG       IMAGE ID       CREATED        SIZE
-nginx        latest    abc123...      2 days ago     142MB
-```
-
-**Čo to znamená?**
-- `REPOSITORY` = názov image (nginx)
-- `TAG` = verzia (latest = najnovšia)
-- `SIZE` = veľkosť na disku
-
----
-
-#### Krok 3: Spusti kontajner z image
-
-```bash
-docker run --name moj-nginx -p 8080:80 -d nginx
-```
-
-**Rozober si príkaz po častiach:**
-- `docker run` = "spusti nový kontajner"
-- `--name moj-nginx` = daj kontajneru meno "moj-nginx" (aby sme ho ľahko našli)
-- `-p 8080:80` = **PORT MAPPING**: 
-  - Port 8080 na TVOJOM počítači → Port 80 V KONTAJNERI
-  - Keď otvoríš `localhost:8080`, spojíš sa s portom 80 v kontajneri
-- `-d` = detached mode = beží na pozadí (nedržíš terminál)
-- `nginx` = názov image, ktorý použijeme
-
-**Výstup:** Dlhé číslo (napr. `a1b2c3d4...`) = ID kontajnera (kontajner je spustený!)
-
----
-
-#### Krok 4: Over, že kontajner beží
-
-```bash
-docker ps
-```
-
-Mal by si vidieť:
-```
-CONTAINER ID   IMAGE    COMMAND                  PORTS                  NAMES
-a1b2c3d4...    nginx    "/docker-entrypoint.…"   0.0.0.0:8080->80/tcp   moj-nginx
-```
-
-**Vysvetlenie stĺpcov:**
-- `CONTAINER ID` = krátke ID kontajnera
-- `IMAGE` = z akého image vznikol
-- `PORTS` = `8080->80` znamená "port 8080 na PC je prepojený s portom 80 v kontajneri"
-- `NAMES` = meno, ktoré sme dali kontajneru
-
----
-
-#### Krok 5: Otvor v prehliadači! 
-
-Otvor: `http://localhost:8080`
-
-**Mali by si vidieť:** Uvítaciu stránku Nginx s nápisom "Welcome to nginx!"
-
-**Gratulujem!** Práve si spustil svoju prvú aplikáciu v Dockeri! 
-
----
-
-#### Krok 6: Pozri si logy kontajnera
-
-```bash
-docker logs moj-nginx
-```
-
-Uvidíš, čo sa deje vnútri kontajnera - napríklad:
-```
-/docker-entrypoint.sh: Configuration complete; ready for start up
-```
-
-**Refresh stránku v prehliadači** a znova pozri logy - uvidíš nový záznam o HTTP requeste!
-
----
-
-#### Krok 7: Zastav kontajner
-
-```bash
-docker stop moj-nginx
-```
-
-**Čo sa stalo?** Kontajner sa pekne zastavil (nie zmazal!). Stránka na `localhost:8080` už nebude fungovať.
-
-**Skontroluj:**
-```bash
-docker ps
-```
-Nič tam nie je - žiadne bežiace kontajnery.
-
-**Ale pozor!** Kontajner stále existuje, len je zastavený:
-```bash
-docker ps -a
-```
-
-Teraz uvidíš aj zastavené kontajnery:
-```
-CONTAINER ID   IMAGE    STATUS                      NAMES
-a1b2c3d4...    nginx    Exited (0) 10 seconds ago   moj-nginx
-```
-
-`STATUS: Exited` = zastavený, ale stále existuje
-
----
-
-#### Krok 8: Zmaž kontajner
-
-```bash
-docker rm moj-nginx
-```
-
-**Teraz je kontajner úplne preč!** Over si:
-```bash
-docker ps -a
-```
-Prázdny zoznam = žiadne kontajnery.
-
-**Ale pozor!** Image `nginx` stále máš:
-```bash
-docker images
-```
-Stále tam je! Môžeš z neho kedykoľvek vytvoriť nový kontajner.
-
----
-
-### Čo si sa naučil?
-
- `docker pull` = stiahni image  
- `docker images` = zobraz stiahnuté images  
- `docker run` = vytvor a spusti kontajner z image  
- `-p` = mapovanie portov (PC:Kontajner)  
- `-d` = spusti na pozadí  
- `--name` = daj kontajneru meno  
- `docker ps` = zobraz bežiace kontajnery  
- `docker ps -a` = zobraz všetky kontajnery (aj zastavené)  
- `docker stop` = zastav kontajner  
- `docker rm` = zmaž kontajner  
- `docker logs` = zobraz logy kontajnera  
-
----
-
-### Extra: Čo je rozdiel medzi stop a rm?
-
-| Príkaz | Čo sa stane | Analógia |
-|--------|------------|----------|
-| `docker stop` | Kontajner sa zastaví, ale ešte existuje | Vypol si PC, ale PC stále existuje |
-| `docker rm` | Kontajner sa úplne zmaže | Vyhodil si PC do koša |
-
-**Prečo to?** Niekedy chceš kontajner len zastaviť a neskôr ho znova spustiť (`docker start moj-nginx`)!
-
----
-
-## Úloha 2: Interaktívna práca - Vstúp do kontajnera!
-
-**Čo sa naučíš:** Ako pracovať s kontajnerom "zvnútra" ako s počítačom
-
-### Teória - Čo je interaktívny režim?
-
-Kontajner môžeš spustiť ako "počítač v počítači". Môžeš vstúpiť dovnútra, inštalovať programy, vytvárať súbory - ako keby si mal druhý počítač!
-
-**Analógia:** Je to ako SSH pripojenie na server, ale miesto servera máš kontajner.
-
----
-
-### Krok za krokom
-
-#### Krok 1: Spusti Ubuntu kontajner interaktívne
-
-```bash
-docker run -it ubuntu bash
-```
-
-**Čo sa stalo?** Otvorí sa ti terminál VNÚTRI kontajnera! Všimni si, že prompt sa zmenil:
-```
-root@a1b2c3d4:/#
-```
-
-**Rozober si príkaz:**
-- `docker run` = spusti kontajner
-- `-it` = interaktívny terminál (skratka z `-i -t`)
-  - `-i` = interactive (interaktívny)
-  - `-t` = tty (terminál)
-- `ubuntu` = použijeme Ubuntu image (automaticky sa stiahne, ak ho nemáš)
-- `bash` = spusť bash shell
-
-**Si VNÚTRI kontajnera!** To znamená, že všetky príkazy sa teraz vykonávajú v kontajneri, nie na tvojom PC!
-
----
-
-#### Krok 2: Orientuj sa v kontajneri
-
-Vyskúšaj základné príkazy:
-
-```bash
-# Zisti, kde si
-pwd
-# Výstup: /
-
-# Zobraz súbory
-ls
-# Uvidíš: bin  boot  dev  etc  home  lib  ...
-
-# Zisti verziu Ubuntu
-cat /etc/os-release
-# Uvidíš: Ubuntu 22.04 (alebo podobné)
-```
-
-**Zaujímavosť:** Hoci si na Windowse/Mac, vnútri kontajnera máš Linux! 
-
----
-
-#### Krok 3: Aktualizuj package manager
-
-```bash
-apt update
-```
-
-**Čo sa deje?** Ubuntu sťahuje zoznam dostupných balíčkov. Trvá to pár sekúnd.
 
 **Vysvetlenie:**
-- `apt` = Advanced Package Tool = inštalátor programov pre Ubuntu/Debian
-- `update` = obnov zoznam dostupných programov
+
+- `parent[i]` udržiava "reprezentanta" množiny pre vrchol i
+- `find(x)` nájde koreň stromu (reprezentanta množiny)
+- `unite(x, y)` spojí dve množiny
+- Union by rank a path compression = optimalizácie pre rýchlosť
 
 ---
 
-#### Krok 4: Nainštaluj programy
+#### Krok 2: Štruktúra pre hranu
 
-```bash
-apt install -y curl vim
-```
+```cpp
+/**
+ * Štruktúra reprezentujúca hranu grafu.
+ */
+struct Edge {
+    int u, v;      // Vrcholy, ktoré hrana spája
+    int weight;    // Váha hrany
 
-**Čo sme nainštalovali:**
-- `curl` = nástroj na sťahovanie súborov z internetu
-- `vim` = textový editor
-- `-y` = automaticky potvrď inštaláciu (bez pýtania "yes/no")
+    // Konštruktor
+    Edge(int u, int v, int weight) : u(u), v(v), weight(weight) {}
 
-**Potrvá to pár sekúnd...**
-
-Po dokončení vyskúšaj:
-```bash
-curl --version
-# Mal by si vidieť verziu curl
-```
-
----
-
-#### Krok 5: Vytvor súbor v kontajneri
-
-```bash
-echo "Docker je super!" > /tmp/test.txt
-```
-
-**Čo sa stalo?** Vytvoril sa súbor `/tmp/test.txt` s textom "Docker je super!"
-
-**Over, že súbor existuje:**
-```bash
-cat /tmp/test.txt
-# Výstup: Docker je super!
-```
-
-**Skús aj vim:**
-```bash
-vim /tmp/test.txt
-```
-- Stlač `i` pre vstup do režimu úprav
-- Pridaj nejaký text
-- Stlač `ESC` a napíš `:wq` a `ENTER` pre uloženie a ukončenie
-
----
-
-#### Krok 6: Opusti kontajner (zastaví sa!)
-
-```bash
-exit
-```
-
-**Čo sa stalo?**
-- Vrátil si sa späť na SVOJ počítač (pozri si prompt - už nie je `root@...`)
-- Kontajner sa **zastavil** (lebo bash proces skončil)
-
-**Over si to:**
-```bash
-docker ps
-```
-Nič tam nie je - kontajner nebeží.
-
-```bash
-docker ps -a
-```
-Teraz uvidíš zastavený kontajner:
-```
-CONTAINER ID   IMAGE    STATUS                     
-a1b2c3d4...    ubuntu   Exited (0) 5 seconds ago
+    // Operátor na porovnávanie (pre triedenie)
+    bool operator<(const Edge& other) const {
+        return weight < other.weight;
+    }
+};
 ```
 
 ---
 
-#### Krok 7: Spusti kontajner znova a PRIPOJ SA k nemu
+#### Krok 3: Implementácia Kruskalovho algoritmu
 
-Tu je trik! Kontajner existuje, len je zastavený. Môžeš ho znova spustiť:
+```cpp
+/**
+ * Kruskalov algoritmus na nájdenie minimálnej kostry grafu.
+ *
+ * Parametre:
+ *   n: počet vrcholov (očíslované 0 až n-1)
+ *   edges: vektor hrán
+ *
+ * Vracia:
+ *   pair<vector<Edge>, int>: minimálna kostra a jej celková váha
+ */
+pair<vector<Edge>, int> kruskal(int n, vector<Edge>& edges) {
+    // KROK 1: Zoraď hrany podľa váhy (od najmenšej)
+    sort(edges.begin(), edges.end());
 
-```bash
-# Najprv zisti ID alebo meno kontajnera
-docker ps -a
+    cout << "Zoradene hrany podla vahy:" << endl;
+    for (const auto& e : edges) {
+        cout << "   " << e.u << " -- " << e.v
+             << " (vaha: " << e.weight << ")" << endl;
+    }
+    cout << endl;
 
-# Spusti ho (nahraď CONTAINER_ID skutočným ID)
-docker start a1b2c3d4
+    // KROK 2: Inicializuj Union-Find štruktúru
+    UnionFind uf(n);
 
-# Pripoj sa k bežiacemu kontajneru
-docker exec -it a1b2c3d4 bash
+    // KROK 3: Vyber hrany pre minimálnu kostru
+    vector<Edge> mst;      // Minimálna kostra
+    int totalCost = 0;
+
+    cout << "Budovanie minimalnej kostry:" << endl;
+
+    for (const auto& edge : edges) {
+        // Skús pridať hranu - ak nevytvori cyklus
+        if (uf.unite(edge.u, edge.v)) {
+            mst.push_back(edge);
+            totalCost += edge.weight;
+            cout << "   [+] Pridavam: " << edge.u << " -- " << edge.v
+                 << " (vaha: " << edge.weight << ")" << endl;
+        } else {
+            cout << "   [-] Preskakujem: " << edge.u << " -- " << edge.v
+                 << " (vytvori cyklus)" << endl;
+        }
+
+        // Optimalizácia: ak máme n-1 hrán, máme kostru
+        if (mst.size() == n - 1) {
+            cout << "   Kostra kompletna!" << endl;
+            break;
+        }
+    }
+
+    cout << endl;
+    return {mst, totalCost};
+}
 ```
 
-**Rozdiely:**
-- `docker start` = spusti zastavený kontajner
-- `docker exec` = vykonaj príkaz v BEŽIACOM kontajneri
-- `-it bash` = interaktívne, spusti bash
+**Vysvetlenie krokov:**
+
+1. **Triedenie:** O(E log E), kde E = počet hrán
+2. **Prechádzanie hrán:** Pre každú hranu skontroluj, či nevytvori cyklus
+3. **Union-Find:** Rýchla kontrola cyklov (takmer O(1) amortizovane)
 
 ---
 
-#### Krok 8: Over, že súbor stále existuje!
+#### Krok 4: Hlavný program - príklad použitia
 
-```bash
-cat /tmp/test.txt
+```cpp
+int main() {
+    // Definícia grafu
+    // Graf má 6 vrcholov (0-5)
+    int n = 6;
+    vector<Edge> edges;
+
+    // Pridanie hrán vo formáte: Edge(vrchol1, vrchol2, váha)
+    edges.push_back(Edge(0, 1, 1));
+    edges.push_back(Edge(0, 2, 2));
+    edges.push_back(Edge(1, 2, 3));
+    edges.push_back(Edge(1, 3, 4));
+    edges.push_back(Edge(2, 3, 5));
+    edges.push_back(Edge(2, 4, 6));
+    edges.push_back(Edge(3, 4, 7));
+    edges.push_back(Edge(3, 5, 8));
+    edges.push_back(Edge(4, 5, 9));
+
+    // Spustenie algoritmu
+    cout << "==================================================" << endl;
+    cout << "KRUSKALOV ALGORITMUS - Minimalna kostra grafu" << endl;
+    cout << "==================================================" << endl;
+    cout << endl;
+
+    auto [mst, totalCost] = kruskal(n, edges);
+
+    // Výpis výsledku
+    cout << "==================================================" << endl;
+    cout << "VYSLEDOK:" << endl;
+    cout << "==================================================" << endl;
+    cout << "Minimalna kostra obsahuje " << mst.size() << " hran:" << endl;
+    for (const auto& e : mst) {
+        cout << "  " << e.u << " -- " << e.v
+             << " (vaha: " << e.weight << ")" << endl;
+    }
+    cout << endl;
+    cout << "Celkova vaha kostry: " << totalCost << endl;
+    cout << "==================================================" << endl;
+
+    return 0;
+}
 ```
 
-**TÁÁÁÁDA!**  Súbor je stále tam! Dáta v kontajneri prežili zastavenie!
+**Očakávaný výstup:**
 
-**Ale POZOR:** Ak kontajner ZMAŽEŠ (`docker rm`), všetky dáta sa stratia! (To napravíme v Úlohe 3 s volumes)
+```
+==================================================
+KRUSKALOV ALGORITMUS - Minimalna kostra grafu
+==================================================
+
+Zoradene hrany podla vahy:
+   0 -- 1 (vaha: 1)
+   0 -- 2 (vaha: 2)
+   1 -- 2 (vaha: 3)
+   1 -- 3 (vaha: 4)
+   2 -- 3 (vaha: 5)
+   2 -- 4 (vaha: 6)
+   3 -- 4 (vaha: 7)
+   3 -- 5 (vaha: 8)
+   4 -- 5 (vaha: 9)
+
+Budovanie minimalnej kostry:
+   [+] Pridavam: 0 -- 1 (vaha: 1)
+   [+] Pridavam: 0 -- 2 (vaha: 2)
+   [-] Preskakujem: 1 -- 2 (vytvori cyklus)
+   [+] Pridavam: 1 -- 3 (vaha: 4)
+   [-] Preskakujem: 2 -- 3 (vytvori cyklus)
+   [+] Pridavam: 2 -- 4 (vaha: 6)
+   [-] Preskakujem: 3 -- 4 (vytvori cyklus)
+   [+] Pridavam: 3 -- 5 (vaha: 8)
+   Kostra kompletna!
+
+==================================================
+VYSLEDOK:
+==================================================
+Minimalna kostra obsahuje 5 hrán:
+  0 -- 1 (vaha: 1)
+  0 -- 2 (vaha: 2)
+  1 -- 3 (vaha: 4)
+  2 -- 4 (vaha: 6)
+  3 -- 5 (vaha: 8)
+
+Celkova vaha kostry: 21
+==================================================
+```
 
 ---
 
-#### Krok 9: Upratanie
+### Časová zložitosť
 
-Opusti kontajner:
+| Operácia              | Zložitosť      |
+| --------------------- | -------------- |
+| Triedenie hrán        | O(E log E)     |
+| Union-Find operácie   | O(E · α(V))\*  |
+| **Celková zložitosť** | **O(E log E)** |
+
+\*α(V) je inverzná Ackermannova funkcia - prakticky konštanta
+
+**Pre E = O(V²):** O(E log E) = O(V² log V)
+
+---
+
+### Kompilácia a spustenie
+
 ```bash
-exit
-```
+# Kompilácia
+g++ -std=c++17 -o kruskal kruskal.cpp
 
-Zastav a zmaž kontajner:
-```bash
-# Zisti ID kontajnera
-docker ps -a
-
-# Zastav (ak beží)
-docker stop a1b2c3d4
-
-# Zmaž
-docker rm a1b2c3d4
+# Spustenie
+./kruskal
 ```
 
 ---
 
 ### Čo si sa naučil?
 
- `-it` = interaktívny terminál (môžeš vstúpiť do kontajnera)  
- `bash` = spusti bash shell v kontajneri  
- `exit` = opusti kontajner (zastaví ho)  
- `docker start` = spusti zastavený kontajner  
- `docker exec -it <id> bash` = pripoj sa k bežiacemu kontajneru  
- Dáta v kontajneri prežijú zastavenie, ale NIE zmazanie!  
- V kontajneri môžeš inštalovať programy a meniť súbory  
+- **Kruskalov algoritmus** hľadá minimálnu kostru grafu
+- **Union-Find** efektívne detekuje cykly
+- Algoritmus je **chamtivý** (greedy) - vždy vyberie najlacnejšiu hranu
+- Časová zložitosť: **O(E log E)**
+- Funguje na **súvislých** grafoch
 
 ---
 
-### Rozdiel medzi run a exec
+### Časté chyby a ako sa im vyhnúť
 
-| Príkaz | Kedy použiť | Čo robí |
-|--------|------------|---------|
-| `docker run -it ubuntu bash` | Vytvoriť NOVÝ kontajner | Vytvorí nový kontajner a vstúpi doň |
-| `docker exec -it <id> bash` | Pripojiť sa k BEŽIACEMU | Pripojí sa k už spustenému kontajneru |
+| Chyba | Prečo nastáva | Riešenie |
+|-------|---------------|----------|
+| Zabudnuté triedenie hrán | Študent preskočí `sort()` | Vždy triediť pred hlavnou slučkou |
+| Nesprávny Union-Find | Chýba path compression alebo union by rank | Použiť obe optimalizácie |
+| Off-by-one v počte hrán | MST má `n-1` hrán, nie `n` | Kontrola: `mst.size() == n - 1` |
+| Zabudnuté obojsmerné hrany | Pri neorientovanom grafe | Pridať hranu len raz do zoznamu |
+| Nesúvislý graf | Algoritmus skončí s menej ako n-1 hranami | Skontrolovať, či `mst.size() == n - 1` |
+
+**Typické bugs v kóde:**
+
+```cpp
+// CHYBA: Zabudnuté triedenie
+for (const auto& edge : edges) {  // hrany nie sú zoradené!
+    if (uf.unite(edge.u, edge.v)) { ... }
+}
+
+// SPRÁVNE:
+sort(edges.begin(), edges.end());  // najprv zoradiť
+for (const auto& edge : edges) { ... }
+```
+
+```cpp
+// CHYBA: Porovnanie váh namiesto indexov v Union-Find
+bool unite(int x, int y) {
+    if (x == y) return false;  // porovnávame hodnoty, nie korene!
+}
+
+// SPRÁVNE:
+bool unite(int x, int y) {
+    int rootX = find(x);  // nájdi koreň
+    int rootY = find(y);
+    if (rootX == rootY) return false;  // porovnaj korene
+}
+```
+
+---
+
+### Tipy na testovanie
+
+**1. Manuálna kontrola na malom grafe:**
+```cpp
+// Trojuholník s váhami 1, 2, 3
+// Očakávaný MST: hrany s váhami 1 a 2, celková váha = 3
+edges = {{0,1,1}, {1,2,2}, {0,2,3}};
+auto [mst, cost] = kruskal(3, edges);
+assert(cost == 3);
+assert(mst.size() == 2);
+```
+
+**2. Edge cases na testovanie:**
+```cpp
+// Test 1: Jeden vrchol (žiadne hrany)
+assert(kruskal(1, {}).second == 0);
+
+// Test 2: Dva vrcholy, jedna hrana
+assert(kruskal(2, {{0,1,5}}).second == 5);
+
+// Test 3: Nesúvislý graf - malo by vrátiť menej ako n-1 hrán
+vector<Edge> disconnected = {{0,1,1}};  // vrchol 2 izolovaný
+auto [mst, cost] = kruskal(3, disconnected);
+assert(mst.size() < 2);  // graf nie je súvislý
+```
+
+**3. Kontrolné otázky pred odovzdaním:**
+- [ ] Sú hrany zoradené pred spracovaním?
+- [ ] Má výsledná kostra presne n-1 hrán?
+- [ ] Je celková váha minimálna (porovnaj s ručným výpočtom)?
+- [ ] Funguje algoritmus aj pre graf s jedným vrcholom?
+
+---
+
+### Skús sám - Doplň chýbajúci kód
+
+```cpp
+pair<vector<Edge>, int> kruskal_student(int n, vector<Edge>& edges) {
+    // TODO 1: Zoraď hrany podľa váhy
+    // Hint: použij sort() a operator< v štruktúre Edge
+    _________________________________
+
+    UnionFind uf(n);
+    vector<Edge> mst;
+    int totalCost = 0;
+
+    for (const auto& edge : edges) {
+        // TODO 2: Skontroluj, či pridanie hrany vytvori cyklus
+        // Hint: použij metódu unite() z UnionFind
+        if (_________________________________) {
+            mst.push_back(edge);
+            totalCost += edge.weight;
+        }
+
+        // TODO 3: Zastav, keď máme dostatočný počet hrán
+        // Hint: koľko hrán má mať kostra?
+        if (mst.size() == _________________________________) {
+            break;
+        }
+    }
+
+    return {mst, totalCost};
+}
+```
+
+<details>
+<summary>Riešenie (klikni pre zobrazenie)</summary>
+
+```cpp
+// TODO 1:
+sort(edges.begin(), edges.end());
+
+// TODO 2:
+if (uf.unite(edge.u, edge.v))
+
+// TODO 3:
+if (mst.size() == n - 1)
+```
+</details>
+
+---
+
+### Praktické úlohy
+
+#### Úloha 1.1: Základná implementácia
+
+Implementuj Kruskalov algoritmus pre nasledujúci graf:
+
+- 5 vrcholov (0-4)
+- Hrany: (0-1, 10), (0-2, 6), (0-3, 5), (1-3, 15), (2-3, 4)
+
+**Očakávaný výsledok:** Celková váha MST = 19
+
+#### Úloha 1.2: Detekcia nesúvislého grafu
+
+Uprav implementáciu tak, aby detekovala, či je graf súvislý. Ak nie je, vypíš chybovú hlášku.
+
+**Hint:** Ak MST nemá n-1 hrán, graf nie je súvislý.
+
+#### Úloha 1.3: Vstup zo súboru
+
+Uprav program tak, aby čítal graf zo súboru:
+
+```
+6 9
+0 1 1
+0 2 2
+1 2 3
+...
+```
+
+Prvý riadok: počet vrcholov, počet hrán  
+Ďalšie riadky: u v váha
+
+---
+
+## Úloha 2: Primov algoritmus - Iný prístup ku kostre
+
+**Čo sa naučíš:** Alternatívny spôsob hľadania minimálnej kostry v C++
+
+### Teória - Rozdiel medzi Kruskal a Prim
+
+**Kruskalov algoritmus:**
+
+- Triedi HRANY
+- Buduje "les" stromov, ktoré spája
+- Lepší pre riedke grafy
+
+**Primov algoritmus:**
+
+- Začína od jedného VRCHOLU
+- Postupne pridává najbližšie vrcholy
+- Lepší pre husté grafy
+- Vždy má jeden súvislý strom
 
 **Analógia:**
-- `run` = zapni nový počítač a prihlás sa
-- `exec` = prihlás sa k už zapnutému počítaču
 
----
+- **Kruskal** = staviaš viacero mostov súčasne a potom ich spájaš
+- **Prim** = staviaš mesto od centra a postupne pridávaš nové štvrte
 
-### Bonus: Pomenovanie kontajnera
+### Vizualizácia - Ako Prim rastie
 
-Namiesto ID môžeš použiť meno:
+```
+Štart z vrcholu 0:
 
-```bash
-docker run -it --name moj-ubuntu ubuntu bash
-# Teraz môžeš použiť:
-docker start moj-ubuntu
-docker exec -it moj-ubuntu bash
+Krok 1: Začíname          Krok 2: Pridaj 0-1(1)     Krok 3: Pridaj 0-2(2)
+     [0]                       [0]---[1]                 [0]---[1]
+                                                         /
+                                                       [2]
+
+Krok 4: Pridaj 1-3(4)     Krok 5: Pridaj 2-4(6)     Krok 6: Pridaj 3-5(8)
+     [0]---[1]                 [0]---[1]                 [0]---[1]
+     /      \                  /      \                  /      \
+   [2]      [3]              [2]      [3]              [2]      [3]
+                              |                         |        \
+                             [4]                       [4]       [5]
+
+Výsledok: MST s váhou 21
 ```
 
-Oveľa jednoduchšie, však? 
-
----
-
-## Úloha 3: Práca s volumes - Uchováme si dáta!
-
-**Čo sa naučíš:** Ako uchovať dáta aj po zmazaní kontajnera pomocou Docker volumes
-
-### Teória - Prečo potrebujeme volumes?
-
-Keď zmažeš Docker kontajner, všetky dáta v ňom sa stratia. To je problém! Predstav si, že máš databázu - nechceš, aby sa dáta stratili pri reštarte kontajnera.
-
-**Riešenie:** Docker volumes - špeciálne úložisko mimo kontajnera, ktoré prežije aj jeho zmazanie.
+**Kľúčový rozdiel oproti Kruskalovi:** Prim vždy udržiava jeden súvislý strom, zatiaľ čo Kruskal môže mať viacero komponentov, ktoré postupne spája.
 
 ---
 
 ### Krok za krokom
 
-#### Krok 1: Vytvor volume (úložisko)
-```bash
-docker volume create moje-data
-```
+#### Krok 1: Reprezentácia grafu
 
-**Čo sa stalo?** Docker vytvoril špeciálny priestor na disku, kde môžeš uchovávať súbory.
+```cpp
+#include <iostream>
+#include <vector>
+#include <queue>
+#include <climits>
+using namespace std;
 
-**Skontroluj, že sa vytvoril:**
-```bash
-docker volume ls
-```
-Mal by si vidieť `moje-data` v zozname.
+/**
+ * Graf reprezentovaný ako zoznam susedov.
+ * Vhodný pre Primov algoritmus.
+ */
+class Graph {
+private:
+    int V;  // Počet vrcholov
+    vector<vector<pair<int, int>>> adj;  // adj[u] = {(v, váha), ...}
 
----
+public:
+    Graph(int vertices) : V(vertices) {
+        adj.resize(V);
+    }
 
-#### Krok 2: Spusti nginx kontajner s volume
+    /**
+     * Pridaj neorientovanú hranu medzi u a v s váhou weight.
+     */
+    void addEdge(int u, int v, int weight) {
+        adj[u].push_back({v, weight});
+        adj[v].push_back({u, weight});
+    }
 
-```bash
-docker run -d \
-  --name moj-nginx \
-  -p 8081:80 \
-  -v moje-data:/usr/share/nginx/html \
-  nginx:alpine
-```
-
-**Rozober si príkaz:**
-- `-d` = detached mode (beží na pozadí)
-- `--name moj-nginx` = dáme kontajneru meno
-- `-p 8081:80` = port 8081 na tvojom PC → port 80 v kontajneri
-- `-v moje-data:/usr/share/nginx/html` = **DÔLEŽITÉ!** Pripoj volume `moje-data` do priečinka `/usr/share/nginx/html` v kontajneri
-- `nginx:alpine` = použijeme malý nginx image
-
----
-
-#### Krok 3: Vytvor vlastnú HTML stránku vo volume
-
-Teraz pridáme vlastný súbor do volume:
-
-```bash
-docker exec moj-nginx sh -c 'echo "<h1>Ahoj z Docker volume!</h1><p>Tento súbor prežije zmazanie kontajnera </p>" > /usr/share/nginx/html/index.html'
-```
-
-**Čo sa stalo?**
-- `docker exec` = spusti príkaz v bežiacom kontajneri
-- `sh -c '...'` = spusti shell príkaz
-- `echo "..." > file.html` = vytvor súbor s týmto obsahom
-
----
-
-#### Krok 4: Over v prehliadači
-
-Otvor: `http://localhost:8081`
-
-Mal by si vidieť tvoju vlastnú stránku! 
-
----
-
-#### Krok 5: Teraz príde kúzlo - zmaž kontajner!
-
-```bash
-docker stop moj-nginx
-docker rm moj-nginx
-```
-
-Kontajner je preč! Ale čo dáta? 
-
----
-
-#### Krok 6: Vytvor NOVÝ kontajner s tým ISTÝM volume
-
-```bash
-docker run -d \
-  --name novy-nginx \
-  -p 8082:80 \
-  -v moje-data:/usr/share/nginx/html \
-  nginx:alpine
-```
-
-Všimni si:
-- Nový názov kontajnera: `novy-nginx`
-- Nový port: `8082`
-- Ale TEN ISTÝ volume: `moje-data` 
-
----
-
-#### Krok 7: Over v prehliadači znova!
-
-Otvor: `http://localhost:8082`
-
-**TÁÁÁDÁÁÁ!**  Tvoja stránka je stále tam! Volume uchoval dáta aj keď sa kontajner zmazal!
-
----
-
-### Upratanie
-
-```bash
-# Zastav a zmaž kontajner
-docker stop novy-nginx
-docker rm novy-nginx
-
-# Zmaž volume (len ak už naozaj nechceš dáta)
-docker volume rm moje-data
-```
-
----
-
-### Čo si sa naučil?
-
- Volume je úložisko mimo kontajnera  
- Dáta vo volume prežijú zmazanie kontajnera  
- Viacero kontajnerov môže používať ten istý volume  
- Volumes sú ideálne pre databázy, upload súborov, konfiguračné súbory  
-
----
-
-### Bonus: Dva typy volumes
-
-1. **Named volumes** (používali sme):
-   ```bash
-   docker run -v moje-data:/path ...
-   ```
-   Docker ich spravuje, ukladajú sa do špeciálneho priečinka
-
-2. **Bind mounts** (priamy priečinok z PC):
-   ```bash
-   docker run -v /cesta/na/pc:/path ...
-   ```
-   Môžeš editovať súbory priamo na PC a vidia sa v kontajneri!
-
----
-
-## Úloha 4: Vytvorenie vlastného Docker Image - Tvoja prvá "recepta"!
-
-**Čo sa naučíš:** Ako vytvoriť vlastný Docker image pomocou Dockerfile
-
-### Teória - Čo je Dockerfile?
-
-**Dockerfile** = textový súbor s návodom, ako vytvoriť Docker image.
-
-Je to ako **recept na varenie**:
-- Základný image (FROM) = základná surovina (napr. múka)
-- Inštrukcie (RUN, COPY) = kroky receptu (pridaj, zamiešaj, peč)
-- Výsledok (CMD) = hotové jedlo 
-
----
-
-### Krok za krokom
-
-#### Krok 1: Vytvor adresár pre projekt
-
-```bash
-mkdir moja-webova-stranka
-cd moja-webova-stranka
-```
-
----
-
-#### Krok 2: Vytvor HTML súbor
-
-Vytvor súbor `index.html` s týmto obsahom:
-
-```html
-<!DOCTYPE html>
-<html lang="sk">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Moja Docker Stránka</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
+    /**
+     * Vypíš graf.
+     */
+    void printGraph() {
+        cout << "Reprezentacia grafu:" << endl;
+        for (int u = 0; u < V; u++) {
+            cout << "   Vrchol " << u << ": ";
+            bool first = true;
+            for (auto [v, w] : adj[u]) {
+                if (!first) cout << " -> ";
+                cout << v << "(vaha:" << w << ")";
+                first = false;
+            }
+            cout << endl;
         }
-        .container {
-            background: white;
-            padding: 50px;
-            border-radius: 10px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-            text-align: center;
+        cout << endl;
+    }
+
+    // Getter pre Primov algoritmus
+    int getV() const { return V; }
+    const vector<pair<int, int>>& getNeighbors(int u) const {
+        return adj[u];
+    }
+};
+```
+
+---
+
+#### Krok 2: Štruktúra pre hranu v MST
+
+```cpp
+/**
+ * Štruktúra pre hranu v minimálnej kostre.
+ */
+struct MSTEdge {
+    int u, v, weight;
+
+    MSTEdge(int u, int v, int weight) : u(u), v(v), weight(weight) {}
+};
+```
+
+---
+
+#### Krok 3: Implementácia Primovho algoritmu
+
+```cpp
+/**
+ * Primov algoritmus na nájdenie minimálnej kostry.
+ *
+ * Parametre:
+ *   graph: graf reprezentovaný ako zoznam susedov
+ *   start: počiatočný vrchol (default 0)
+ *
+ * Vracia:
+ *   pair<vector<MSTEdge>, int>: MST a celková váha
+ */
+pair<vector<MSTEdge>, int> prim(const Graph& graph, int start = 0) {
+    int V = graph.getV();
+    vector<bool> visited(V, false);  // Označí už pridané vrcholy
+    vector<MSTEdge> mst;             // Minimálna kostra
+    int totalCost = 0;
+
+    // Prioritná fronta: (váha, aktuálny_vrchol, predošlý_vrchol)
+    // Min-heap - najmenšia váha na vrchu
+    priority_queue<tuple<int, int, int>,
+                   vector<tuple<int, int, int>>,
+                   greater<tuple<int, int, int>>> pq;
+
+    // Začíname od 'start' vrcholu s váhou 0
+    pq.push({0, start, -1});  // -1 znamená žiadny predošlý vrchol
+
+    cout << "Budovanie MST pomocou Primovho algoritmu:" << endl;
+    cout << "   Zaciname od vrcholu " << start << endl << endl;
+
+    int iteration = 0;
+
+    while (!pq.empty() && mst.size() < V - 1) {
+        // Vyber hranu s najmenšou váhou
+        auto [weight, u, parent] = pq.top();
+        pq.pop();
+
+        // Ak už je vrchol pridaný, preskoč
+        if (visited[u]) continue;
+
+        // Označ vrchol ako pridaný
+        visited[u] = true;
+        iteration++;
+
+        // Pridaj hranu do MST (okrem prvého vrcholu)
+        if (parent != -1) {
+            mst.push_back(MSTEdge(parent, u, weight));
+            totalCost += weight;
+            cout << "   Iteracia " << iteration << ": ";
+            cout << "[+] Pridavam: " << parent << " -- " << u
+                 << " (vaha: " << weight << ")" << endl;
+        } else {
+            cout << "   Iteracia " << iteration << ": ";
+            cout << "Pociatocny vrchol: " << u << endl;
         }
-        h1 {
-            color: #667eea;
-            margin: 0 0 20px 0;
+
+        // Pridaj všetkých susedov aktuálneho vrcholu do fronty
+        for (auto [v, w] : graph.getNeighbors(u)) {
+            if (!visited[v]) {
+                pq.push({w, v, u});
+            }
         }
-        .emoji {
-            font-size: 80px;
-            margin: 20px 0;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <div class="emoji"></div>
-        <h1>Ahoj z môjho Docker kontajnera!</h1>
-        <p>Toto je moja prvá vlastná Docker aplikácia </p>
-        <p><strong>Vytvoril:</strong> [Tvoje meno]</p>
-    </div>
-</body>
-</html>
-```
+    }
 
-**Tip:** Zmeň `[Tvoje meno]` na svoje meno!
-
----
-
-#### Krok 3: Vytvor Dockerfile
-
-V tom istom priečinku vytvor súbor s názvom presne `Dockerfile` (bez prípony!):
-
-```dockerfile
-# KROK 1: Začni s nginx obrazom (malá Alpine verzia)
-FROM nginx:alpine
-
-# KROK 2: Skopíruj náš HTML súbor do nginx priečinka
-COPY index.html /usr/share/nginx/html/index.html
-
-# KROK 3: Povedz Dockeru, že tento kontajner používa port 80
-EXPOSE 80
-
-# KROK 4: Príkaz na spustenie (nginx sa spustí automaticky)
-# Tento krok je voliteľný, nginx:alpine už má definovaný CMD
-```
-
-**Vysvetlenie po riadkoch:**
-
-```dockerfile
-FROM nginx:alpine
-```
-- `FROM` = začni s týmto základným image
-- `nginx:alpine` = nginx webserver v malej Alpine Linux verzii (~23 MB!)
-- Tento image už má nainštalovaný a nakonfigurovaný nginx
-
-```dockerfile
-COPY index.html /usr/share/nginx/html/index.html
-```
-- `COPY` = skopíruj súbor z počítača do kontajnera
-- `index.html` = náš súbor (zdroj)
-- `/usr/share/nginx/html/index.html` = kam ho v kontajneri uložiť (cieľ)
-- Nginx automaticky zobrazuje súbory z `/usr/share/nginx/html/`
-
-```dockerfile
-EXPOSE 80
-```
-- `EXPOSE` = dokumentácia - tento kontajner používa port 80
-- Neznamená to automatický port mapping! Je to len informácia.
-
----
-
-#### Krok 4: Zbuilduj Docker image
-
-Teraz "uvaríme recept" - vytvoríme image!
-
-```bash
-docker build -t moja-stranka:v1 .
-```
-
-**Rozober si príkaz:**
-- `docker build` = vytvor nový image podľa Dockerfile
-- `-t moja-stranka:v1` = TAG (pomenovanie):
-  - `moja-stranka` = názov image
-  - `v1` = verzia (tag)
-- `.` = POZOR! Bodka = "použi Dockerfile v AKTUÁLNOM priečinku"
-
-**Výstup:**
-```
-[+] Building 2.5s (7/7) FINISHED
- => [1/2] FROM nginx:alpine
- => [2/2] COPY index.html /usr/share/nginx/html/index.html
- => exporting to image
- => => naming to moja-stranka:v1
-```
-
-**Čo sa stalo?**
-1. Docker stiahol `nginx:alpine` (ak ho ešte nemáš)
-2. Vytvoril nový "layer" so skopírovaným súborom
-3. Uložil výsledný image s menom `moja-stranka:v1`
-
----
-
-#### Krok 5: Skontroluj, že image existuje
-
-```bash
-docker images
-```
-
-Mali by si vidieť:
-```
-REPOSITORY      TAG       IMAGE ID       SIZE
-moja-stranka    v1        xyz123...      23.5MB
-nginx           alpine    abc456...      23.4MB
-```
-
-**Všimni si:** Tvoj image má len o 0.1 MB viac ako základný nginx! To je kvôli tvojmu HTML súboru.
-
----
-
-#### Krok 6: Spusti kontajner z tvojho image!
-
-```bash
-docker run -d --name moja-web-app -p 8090:80 moja-stranka:v1
+    cout << endl;
+    return {mst, totalCost};
+}
 ```
 
 **Vysvetlenie:**
-- `-d` = detached (na pozadí)
-- `--name moja-web-app` = meno kontajnera
-- `-p 8090:80` = port 8090 na PC → port 80 v kontajneri
-- `moja-stranka:v1` = použiť TVOJ image!
+
+1. **Prioritná fronta (heap):** Udržiava hrany zoradené podľa váhy
+2. **Visited pole:** Zabráni opätovnému pridaniu vrcholu
+3. **Greedy výber:** Vždy vyberieme najlacnejšiu hranu do nového vrcholu
 
 ---
 
-#### Krok 7: Otvor v prehliadači!
+#### Krok 4: Hlavný program - príklad použitia
 
-Otvor: `http://localhost:8090`
+```cpp
+int main() {
+    // Vytvor ten istý graf ako pri Kruskalovi
+    Graph g(6);
 
-**Mali by si vidieť:** Tvoju krásnu stránku s veľkým veľrybím emoji! 
+    g.addEdge(0, 1, 1);
+    g.addEdge(0, 2, 2);
+    g.addEdge(1, 2, 3);
+    g.addEdge(1, 3, 4);
+    g.addEdge(2, 3, 5);
+    g.addEdge(2, 4, 6);
+    g.addEdge(3, 4, 7);
+    g.addEdge(3, 5, 8);
+    g.addEdge(4, 5, 9);
 
-**GRATULUJEM!** Práve si vytvoril vlastný Docker image a spustil z neho kontajner!
+    cout << "==================================================" << endl;
+    cout << "PRIMOV ALGORITMUS - Minimalna kostra grafu" << endl;
+    cout << "==================================================" << endl;
+    cout << endl;
+
+    g.printGraph();
+
+    auto [mst, totalCost] = prim(g, 0);
+
+    cout << "==================================================" << endl;
+    cout << "VYSLEDOK:" << endl;
+    cout << "==================================================" << endl;
+    cout << "Minimalna kostra obsahuje " << mst.size() << " hran:" << endl;
+    for (const auto& e : mst) {
+        cout << "  " << e.u << " -- " << e.v
+             << " (vaha: " << e.weight << ")" << endl;
+    }
+    cout << endl;
+    cout << "Celkova vaha kostry: " << totalCost << endl;
+    cout << "==================================================" << endl;
+
+    return 0;
+}
+```
+
+**Očakávaný výstup:**
+
+```
+==================================================
+PRIMOV ALGORITMUS - Minimalna kostra grafu
+==================================================
+
+Reprezentacia grafu:
+   Vrchol 0: 1(vaha:1) -> 2(vaha:2)
+   Vrchol 1: 0(vaha:1) -> 2(vaha:3) -> 3(vaha:4)
+   Vrchol 2: 0(vaha:2) -> 1(vaha:3) -> 3(vaha:5) -> 4(vaha:6)
+   Vrchol 3: 1(vaha:4) -> 2(vaha:5) -> 4(vaha:7) -> 5(vaha:8)
+   Vrchol 4: 2(vaha:6) -> 3(vaha:7) -> 5(vaha:9)
+   Vrchol 5: 3(vaha:8) -> 4(vaha:9)
+
+Budovanie MST pomocou Primovho algoritmu:
+   Zaciname od vrcholu 0
+
+   Iteracia 1: Pociatocny vrchol: 0
+   Iteracia 2: [+] Pridavam: 0 -- 1 (vaha: 1)
+   Iteracia 3: [+] Pridavam: 0 -- 2 (vaha: 2)
+   Iteracia 4: [+] Pridavam: 1 -- 3 (vaha: 4)
+   Iteracia 5: [+] Pridavam: 2 -- 4 (vaha: 6)
+   Iteracia 6: [+] Pridavam: 3 -- 5 (vaha: 8)
+
+==================================================
+VYSLEDOK:
+==================================================
+Minimalna kostra obsahuje 5 hrán:
+  0 -- 1 (vaha: 1)
+  0 -- 2 (vaha: 2)
+  1 -- 3 (vaha: 4)
+  2 -- 4 (vaha: 6)
+  3 -- 5 (vaha: 8)
+
+Celkova vaha kostry: 21
+==================================================
+```
 
 ---
 
-#### Krok 8: Upratanie
+### Časová zložitosť
+
+**S prioritnou frontou (binary heap):**
+
+| Implementácia    | Zložitosť        |
+| ---------------- | ---------------- |
+| S binary heap    | O((V + E) log V) |
+| S Fibonacci heap | O(E + V log V)   |
+
+**Kedy použiť ktorý algoritmus?**
+
+| Vlastnosť               | Kruskal        | Prim          |
+| ----------------------- | -------------- | ------------- |
+| Riedky graf (málo hrán) | Lepší       | Pomalší    |
+| Hustý graf (veľa hrán)  | Pomalší     | Lepší      |
+| Jednoduchosť            | Jednoduchší | Zložitejší |
+| Paralelizácia           | Možná       | Ťažšia     |
+
+---
+
+### Kompilácia a spustenie
 
 ```bash
-# Zastav kontajner
-docker stop moja-web-app
+# Kompilácia
+g++ -std=c++17 -o prim prim.cpp
 
-# Zmaž kontajner
-docker rm moja-web-app
-
-# (Voliteľne) Zmaž image
-docker rmi moja-stranka:v1
+# Spustenie
+./prim
 ```
 
 ---
 
 ### Čo si sa naučil?
 
- **Dockerfile** = recept na vytvorenie image  
- `FROM` = základ (base image)  
- `COPY` = skopíruj súbory do image  
- `EXPOSE` = dokumentuj, ktorý port sa používa  
- `docker build -t nazov:tag .` = vytvor image  
- Tvoj vlastný image je znovupoužiteľný!  
+- **Primov algoritmus** rastie od jedného vrcholu
+- Používa **prioritnú frontu** pre výber najlacnejšej hrany
+- Vhodný pre **husté grafy**
+- Časová zložitosť: **O((V + E) log V)**
+- Dáva **rovnaký výsledok** ako Kruskal
 
 ---
 
-### Štruktúra projektu
+### Časté chyby a ako sa im vyhnúť
 
-```
-moja-webova-stranka/
- Dockerfile         ← Recept na image
- index.html         ← Tvoja webová stránka
-```
+| Chyba | Prečo nastáva | Riešenie |
+|-------|---------------|----------|
+| Opätovné pridanie vrcholu | Chýba kontrola `visited` | Vždy skontrolovať `if (visited[u]) continue;` |
+| Nesprávny typ fronty | Použitie max-heap namiesto min-heap | Použiť `greater<>` v priority_queue |
+| Zabudnutý počiatočný vrchol | Nepridanie štartu do fronty | `pq.push({0, start, -1})` na začiatku |
+| Spracovanie zastaraných hrán | Vo fronte zostávajú staré záznamy | Kontrola `if (currentDist > dist[u]) continue;` |
 
-Po zbuildovaní máš:
-- **Image**: `moja-stranka:v1` (šablóna)
-- Môžeš z neho vytvoriť koľkokoľvek kontajnerov!
+**Typické bugs v kóde:**
 
----
+```cpp
+// CHYBA: Max-heap namiesto min-heap
+priority_queue<tuple<int, int, int>> pq;  // default je max-heap!
 
-### Bonus: Verzie imagov
-
-Môžeš vytvoriť viacero verzií:
-
-```bash
-# Verzia 1
-docker build -t moja-stranka:v1 .
-
-# Zmeň index.html...
-
-# Verzia 2
-docker build -t moja-stranka:v2 .
-
-# "Latest" verzia (štandardný tag)
-docker build -t moja-stranka:latest .
-# alebo jednoducho:
-docker build -t moja-stranka .
+// SPRÁVNE: Min-heap pomocou greater<>
+priority_queue<tuple<int, int, int>,
+               vector<tuple<int, int, int>>,
+               greater<tuple<int, int, int>>> pq;
 ```
 
-**Tip:** Verziovanie je dôležité! Vždy vieš vrátiť späť na staršiu verziu.
+```cpp
+// CHYBA: Chýbajúca kontrola visited
+auto [weight, u, parent] = pq.top();
+pq.pop();
+// rovno pridávame do MST - môže pridať duplicitne!
 
----
-
-### Rozdiel: Image vs Container
-
-| Image | Container |
-|-------|-----------|
-| Šablóna/Recept | Spustená aplikácia |
-| Statický | Dynamický (beží, mení sa) |
-| Môžeš mať 1 image | Z 1 image môžeš mať 10+ containerov |
-| `docker build` | `docker run` |
-| `docker images` | `docker ps` |
-
-**Analógia:** Image je ako .exe inštalátor, Container je ako spustený program.
-
----
-
-## Úloha 5: Node.js aplikácia s Dockerfile
-
-**Cieľ:** Vytvoriť a kontajnerizovať jednoduchú Node.js aplikáciu
-
-### Zadanie:
-1. Vytvor jednoduchú Node.js aplikáciu:
-   - `package.json` s express závislosťou
-   - `server.js` - Express server na porte 3000 s jednou route `/`
-2. Vytvor `Dockerfile`, ktorý:
-   - Použije `node:18-alpine` ako base image
-   - Nastaví pracovný adresár `/app`
-   - Skopíruje `package*.json` a spustí `npm install`
-   - Skopíruje zvyšok aplikácie
-   - Exponuje port 3000
-   - Spustí aplikáciu pomocou `CMD`
-3. Zbuilduj image
-4. Spusti kontajner a over funkčnosť
-
-### Starter kód `server.js`:
-```javascript
-const express = require('express');
-const app = express;
-const PORT = 3000;
-
-app.get('/', (req, res) => {
-  res.send('<h1>Ahoj z Dockeru!</h1>');
-});
-
-app.listen(PORT, '0.0.0.0', => {
-  console.log(`Server beží na porte ${PORT}`);
-});
+// SPRÁVNE: Najprv skontroluj
+auto [weight, u, parent] = pq.top();
+pq.pop();
+if (visited[u]) continue;  // preskočíme už spracované
+visited[u] = true;
 ```
 
 ---
 
-## Úloha 6: Multi-stage build
+### Tipy na testovanie
 
-**Cieľ:** Optimalizovať veľkosť Docker image
-
-### Zadanie:
-1. Uprav Dockerfile z predchádzajúcej úlohy na multi-stage build:
-   - Stage 1 (build): nainštaluj všetky dependencies
-   - Stage 2 (production): skopíruj len potrebné súbory a production dependencies
-2. Porovnaj veľkosť pôvodného a optimalizovaného image (`docker images`)
-
-### Pomôcka:
-```dockerfile
-FROM node:18-alpine AS build
-WORKDIR /app
-COPY package*.json ./
-RUN npm install
-
-FROM node:18-alpine
-WORKDIR /app
-COPY --from=build /app/node_modules ./node_modules
-COPY . .
-EXPOSE 3000
-CMD ["node", "server.js"]
+**1. Porovnanie s Kruskalom:**
+```cpp
+// Oba algoritmy musia dať rovnakú celkovú váhu
+auto [mst_kruskal, cost_kruskal] = kruskal(n, edges);
+auto [mst_prim, cost_prim] = prim(graph, 0);
+assert(cost_kruskal == cost_prim);  // váhy sa musia rovnať
 ```
+
+**2. Test nezávislosti na štartovacom vrchole:**
+```cpp
+// Celková váha MST nezávisí od štartovacieho vrcholu
+for (int start = 0; start < n; start++) {
+    auto [mst, cost] = prim(graph, start);
+    assert(cost == expected_cost);
+}
+```
+
+**3. Kontrolný checklist:**
+- [ ] Je prioritná fronta min-heap (nie max-heap)?
+- [ ] Kontrolujem `visited` pred spracovaním vrcholu?
+- [ ] Pridávam všetkých susedov do fronty?
+- [ ] Má výsledná MST presne n-1 hrán?
 
 ---
 
-## Úloha 7: Docker Compose - základy
+### Skús sám - Doplň chýbajúci kód
 
-**Cieľ:** Naučiť sa používať docker-compose
+```cpp
+pair<vector<MSTEdge>, int> prim_student(const Graph& graph, int start) {
+    int V = graph.getV();
+    vector<bool> visited(V, false);
+    vector<MSTEdge> mst;
+    int totalCost = 0;
 
-### Zadanie:
-1. Vytvor `docker-compose.yml` s dvoma službami:
-   - **web**: nginx kontajner s tvojím vlastným HTML
-   - **api**: tvoja Node.js aplikácia z predchádzajúcej úlohy
-2. Nastav:
-   - Port mapping pre obe služby
-   - Volumes pre web službu
-   - Reštart policy
-3. Spusti služby pomocou `docker-compose up`
-4. Over, že obe služby bežia
-5. Zobraz logy jednej služby
-6. Zastav všetky služby
+    // TODO 1: Aký typ fronty potrebujeme? (min-heap alebo max-heap?)
+    // Hint: chceme najmenšiu váhu na vrchu
+    priority_queue<tuple<int, int, int>,
+                   vector<tuple<int, int, int>>,
+                   _________________________________> pq;
 
-### Pomôcka:
-```yaml
-version: '3.8'
-services:
-  web:
-    image: nginx:alpine
-    ports:
-      - "8080:80"
-    volumes:
-      - ./html:/usr/share/nginx/html
-  api:
-    build: ./api
-    ports:
-      - "3000:3000"
-    restart: always
+    pq.push({0, start, -1});
+
+    while (!pq.empty() && mst.size() < V - 1) {
+        auto [weight, u, parent] = pq.top();
+        pq.pop();
+
+        // TODO 2: Kedy máme preskočiť tento vrchol?
+        if (_________________________________) continue;
+
+        visited[u] = true;
+
+        if (parent != -1) {
+            mst.push_back(MSTEdge(parent, u, weight));
+            totalCost += weight;
+        }
+
+        // TODO 3: Ktorých susedov pridáme do fronty?
+        for (auto [v, w] : graph.getNeighbors(u)) {
+            if (_________________________________) {
+                pq.push({w, v, u});
+            }
+        }
+    }
+
+    return {mst, totalCost};
+}
 ```
+
+<details>
+<summary>Riešenie (klikni pre zobrazenie)</summary>
+
+```cpp
+// TODO 1: Min-heap
+greater<tuple<int, int, int>>
+
+// TODO 2: Preskočíme už navštívené
+if (visited[u])
+
+// TODO 3: Pridáme nenavštívených susedov
+if (!visited[v])
+```
+</details>
 
 ---
 
-## Úloha 8: Prepojenie služieb - Frontend volá Backend
+### Praktické úlohy
 
-**Čo sa naučíš:** Ako spolu komunikujú kontajnery pomocou Docker networking
+#### Úloha 2.1: Začni od iného vrcholu
 
-### Teória - Docker networking
+Spusti Primov algoritmus od vrcholu 3 namiesto 0. Zmenila sa celková váha MST?
 
-Keď spustíš viacero kontajnerov cez Docker Compose, automaticky sa vytvára **sieť** (network). Kontajnery sa môžu navzájom volať pomocou **názvu služby** namiesto IP adresy!
+#### Úloha 2.2: Matica susednosti
 
-**Príklad:** Ak máš službu `backend`, frontend ju môže volať na adrese `http://backend:4000`
+Uprav Primov algoritmus tak, aby pracoval s maticou susednosti namiesto zoznamu susedov.
+
+**Hint:** Použite 2D pole `int adj[MAX][MAX]`, kde `adj[i][j]` = váha hrany alebo INF.
+
+#### Úloha 2.3: Počet hrán vo fronte
+
+Pridaj počítadlo, ktoré sleduje maximálny počet prvkov v prioritnej fronte počas behu algoritmu.
+
+---
+
+## Úloha 3: Dijkstrov algoritmus - Najkratšie cesty
+
+**Čo sa naučíš:** Ako nájsť najkratšiu cestu z jedného vrcholu do všetkých ostatných v C++
+
+### Teória - Čo je Dijkstrov algoritmus?
+
+**Problém:** Máš mapu miest a vzdialenosti medzi nimi. Chceš vedieť najkratšiu cestu z tvojho mesta do všetkých ostatných.
+
+**Dijkstrov algoritmus:**
+
+- Začína od zdrojového vrcholu
+- Postupne "relaxuje" hrany (zlepšuje odhady vzdialeností)
+- Používa prioritnú frontu pre výber najbližšieho nenavštíveného vrcholu
+- **Funguje len pre nezáporné váhy!**
+
+**Analógia:** GPS navigácia - postupne objavuješ kratšie cesty, kým nenájdeš tie optimálne.
+
+### Vizualizácia - Ako Dijkstra objavuje cesty
+
+```
+Graf:                          Vzdialenosti počas behu:
+
+    (0)--4-->(1)               Krok 0: [0, ∞, ∞, ∞, ∞, ∞]  štart
+     |        |                Krok 1: [0, 4, 1, ∞, ∞, ∞]  spracuj 0
+     1        1                Krok 2: [0, 3, 1, 6, ∞, ∞]  spracuj 2 (cez 2->1 kratšie!)
+     v        v                Krok 3: [0, 3, 1, 4, ∞, ∞]  spracuj 1 (cez 1->3 kratšie!)
+    (2)--2-->(1)               Krok 4: [0, 3, 1, 4, 7, ∞]  spracuj 3
+     |        |                Krok 5: [0, 3, 1, 4, 7, 9]  spracuj 4
+     5        |
+     v        v
+    (3)<------+                Výsledné najkratšie cesty z 0:
+     |                         0->1: 3 (cez 2)
+     3                         0->2: 1 (priamo)
+     v                         0->3: 4 (cez 2,1)
+    (4)--2-->(5)               0->4: 7 (cez 2,1,3)
+                               0->5: 9 (cez 2,1,3,4)
+```
+
+**Kľúčový insight:** Dijkstra vždy spracuje vrchol s najmenšou známou vzdialenosťou. Preto nefunguje pre záporné váhy - spracovaný vrchol už nemôže byť "zlepšený".
 
 ---
 
 ### Krok za krokom
 
-#### Krok 1: Vytvor štruktúru priečinkov
+#### Krok 1: Reprezentácia grafu a základné štruktúry
 
-```bash
-mkdir docker-app
-cd docker-app
-mkdir frontend backend
-```
+```cpp
+#include <iostream>
+#include <vector>
+#include <queue>
+#include <climits>
+#include <algorithm>
+using namespace std;
 
-Tvoja štruktúra:
-```
-docker-app/
- docker-compose.yml
- frontend/
-    Dockerfile
-    package.json
-    server.js
- backend/
-     Dockerfile
-     package.json
-     server.js
+/**
+ * Graf reprezentovaný ako zoznam susedov.
+ */
+class Graph {
+private:
+    int V;
+    vector<vector<pair<int, int>>> adj;  // {sused, váha}
+
+public:
+    Graph(int vertices) : V(vertices) {
+        adj.resize(V);
+    }
+
+    void addEdge(int u, int v, int weight) {
+        adj[u].push_back({v, weight});
+    }
+
+    int getV() const { return V; }
+    const vector<pair<int, int>>& getNeighbors(int u) const {
+        return adj[u];
+    }
+
+    void printGraph() {
+        cout << "Graf:" << endl;
+        for (int u = 0; u < V; u++) {
+            if (!adj[u].empty()) {
+                cout << "   " << u << ": ";
+                bool first = true;
+                for (auto [v, w] : adj[u]) {
+                    if (!first) cout << ", ";
+                    cout << v << "(vaha:" << w << ")";
+                    first = false;
+                }
+                cout << endl;
+            }
+        }
+        cout << endl;
+    }
+};
 ```
 
 ---
 
-#### Krok 2: Backend - API server
+#### Krok 2: Dijkstrov algoritmus
 
-**Vytvor `backend/package.json`:**
-```json
-{
-  "name": "backend",
-  "version": "1.0.0",
-  "dependencies": {
-    "express": "^4.18.0",
-    "cors": "^2.8.5"
-  }
+```cpp
+/**
+ * Dijkstrov algoritmus na nájdenie najkratších ciest.
+ *
+ * Parametre:
+ *   graph: orientovaný/neorientovaný graf
+ *   start: zdrojový vrchol
+ *
+ * Vracia:
+ *   pair<vector<int>, vector<int>>: vzdialenosti a predchodcovia
+ */
+pair<vector<int>, vector<int>> dijkstra(const Graph& graph, int start) {
+    int V = graph.getV();
+
+    // Inicializácia
+    vector<int> dist(V, INT_MAX);  // Vzdialenosti (∞ na začiatku)
+    vector<int> pred(V, -1);       // Predchodcovia na ceste
+    dist[start] = 0;
+
+    // Prioritná fronta: (vzdialenosť, vrchol)
+    priority_queue<pair<int, int>,
+                   vector<pair<int, int>>,
+                   greater<pair<int, int>>> pq;
+
+    pq.push({0, start});
+
+    cout << "Hladame najkratsie cesty z vrcholu " << start << endl;
+    cout << "Pociatocne vzdialenosti: ";
+    for (int i = 0; i < V; i++) {
+        if (dist[i] == INT_MAX) cout << "∞ ";
+        else cout << dist[i] << " ";
+    }
+    cout << endl << endl;
+
+    int iteration = 0;
+
+    while (!pq.empty()) {
+        // Vyber vrchol s najmenšou vzdialenosťou
+        auto [currentDist, u] = pq.top();
+        pq.pop();
+
+        // Ak sme už našli kratšiu cestu, preskoč
+        if (currentDist > dist[u]) continue;
+
+        iteration++;
+        cout << "--- Iteracia " << iteration << " ---" << endl;
+        cout << "Spracovavam vrchol: " << u
+             << " (vzdialenosť: " << currentDist << ")" << endl;
+
+        // Relax všetkých susedov
+        for (auto [v, weight] : graph.getNeighbors(u)) {
+            int newDist = currentDist + weight;
+
+            // Ak je nová cesta kratšia, aktualizuj
+            if (newDist < dist[v]) {
+                int oldDist = dist[v];
+                dist[v] = newDist;
+                pred[v] = u;
+                pq.push({newDist, v});
+
+                cout << "   [+] " << u << " -> " << v << ": ";
+                if (oldDist == INT_MAX) cout << "∞";
+                else cout << oldDist;
+                cout << " → " << newDist;
+                if (oldDist != INT_MAX)
+                    cout << " (zlepsenie o " << (oldDist - newDist) << ")";
+                cout << endl;
+            } else {
+                cout << "   [-] " << u << " -> " << v << ": "
+                     << newDist << " nie je lepšie ako " << dist[v] << endl;
+            }
+        }
+
+        cout << "   Aktualne vzdialenosti: ";
+        for (int i = 0; i < V; i++) {
+            if (dist[i] == INT_MAX) cout << "∞ ";
+            else cout << dist[i] << " ";
+        }
+        cout << endl << endl;
+    }
+
+    return {dist, pred};
 }
 ```
 
-**Vytvor `backend/server.js`:**
-```javascript
-const express = require('express');
-const cors = require('cors');
-const app = express;
-const PORT = 4000;
-
-// Povoľ CORS (aby frontend mohol volať backend)
-app.use(cors);
-
-// Náš API endpoint
-app.get('/api/message', (req, res) => {
-  console.log('Backend dostal request!');
-  res.json({ 
-    message: 'Ahoj z backendu! ',
-    timestamp: new Date.toLocaleString('sk-SK')
-  });
-});
-
-// Ďalší endpoint - náhodné číslo
-app.get('/api/random', (req, res) => {
-  const randomNum = Math.floor(Math.random * 100);
-  res.json({ number: randomNum });
-});
-
-app.listen(PORT, '0.0.0.0', => {
-  console.log(` Backend beží na porte ${PORT}`);
-});
-```
-
-**Vytvor `backend/Dockerfile`:**
-```dockerfile
-FROM node:18-alpine
-WORKDIR /app
-COPY package.json ./
-RUN npm install
-COPY server.js ./
-EXPOSE 4000
-CMD ["node", "server.js"]
-```
-
 ---
 
-#### Krok 3: Frontend - Webová stránka
+#### Krok 3: Rekonštrukcia cesty
 
-**Vytvor `frontend/package.json`:**
-```json
-{
-  "name": "frontend",
-  "version": "1.0.0",
-  "dependencies": {
-    "express": "^4.18.0"
-  }
+```cpp
+/**
+ * Rekonštruuj najkratšiu cestu zo start do end.
+ */
+vector<int> reconstructPath(const vector<int>& pred, int start, int end) {
+    vector<int> path;
+
+    // Prechádzaj spätne cez predchodcov
+    for (int v = end; v != -1; v = pred[v]) {
+        path.push_back(v);
+    }
+
+    // Otočenie cesty (bola sme ju stavali od konca)
+    reverse(path.begin(), path.end());
+
+    // Skontroluj, či cesta naozaj začína vo start
+    if (path.empty() || path[0] != start) {
+        return {};  // Neexistuje cesta
+    }
+
+    return path;
 }
 ```
 
-**Vytvor `frontend/server.js`:**
-```javascript
-const express = require('express');
-const app = express;
-const PORT = 3000;
+---
 
-// HTML stránka s tlačidlami
-app.get('/', (req, res) => {
-  res.send(`
-    <!DOCTYPE html>
-    <html>
-    <head>
-      <title>Frontend App</title>
-      <style>
-        body {
-          font-family: Arial, sans-serif;
-          max-width: 600px;
-          margin: 50px auto;
-          padding: 20px;
-          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-          color: white;
-        }
-        .container {
-          background: rgba(255, 255, 255, 0.1);
-          padding: 30px;
-          border-radius: 10px;
-          backdrop-filter: blur(10px);
-        }
-        button {
-          background: #4CAF50;
-          color: white;
-          border: none;
-          padding: 15px 30px;
-          font-size: 16px;
-          border-radius: 5px;
-          cursor: pointer;
-          margin: 10px 5px;
-          transition: all 0.3s;
-        }
-        button:hover {
-          background: #45a049;
-          transform: scale(1.05);
-        }
-        #result {
-          margin-top: 20px;
-          padding: 15px;
-          background: rgba(255, 255, 255, 0.2);
-          border-radius: 5px;
-          min-height: 50px;
-          font-size: 18px;
-        }
-        h1 { margin-top: 0; }
-      </style>
-    </head>
-    <body>
-      <div class="container">
-        <h1> Docker Komunikácia</h1>
-        <p>Frontend kontajner volá Backend kontajner!</p>
-        
-        <button onclick="getMessage"> Získaj správu</button>
-        <button onclick="getRandomNumber"> Náhodné číslo</button>
-        
-        <div id="result">Klikni na tlačidlo...</div>
-      </div>
+#### Krok 4: Hlavný program - príklad použitia
 
-      <script>
-        // Volanie backendu - endpoint /api/message
-        async function getMessage {
-          document.getElementById('result').innerHTML = '⏳ Načítavam...';
-          
-          try {
-            // DÔLEŽITÉ: Voláme cez náš proxy endpoint
-            const response = await fetch('/api/message');
-            const data = await response.json;
-            
-            document.getElementById('result').innerHTML = 
-              ' ' + data.message + '<br><small>Čas: ' + data.timestamp + '</small>';
-          } catch (error) {
-            document.getElementById('result').innerHTML = 
-              ' Chyba: ' + error.message;
-          }
+```cpp
+int main() {
+    // Vytvor graf
+    Graph g(6);
+
+    // Orientovaný graf
+    g.addEdge(0, 1, 4);
+    g.addEdge(0, 2, 1);
+    g.addEdge(1, 3, 1);
+    g.addEdge(2, 1, 2);
+    g.addEdge(2, 3, 5);
+    g.addEdge(3, 4, 3);
+    g.addEdge(4, 5, 2);
+
+    cout << "============================================================" << endl;
+    cout << "DIJKSTROV ALGORITMUS - Najkratsie cesty" << endl;
+    cout << "============================================================" << endl;
+    cout << endl;
+
+    g.printGraph();
+
+    // Spusti algoritmus
+    int startVertex = 0;
+    auto [distances, predecessors] = dijkstra(g, startVertex);
+
+    cout << "============================================================" << endl;
+    cout << "VYSLEDOK:" << endl;
+    cout << "============================================================" << endl;
+    cout << endl;
+    cout << "Najkratsie vzdialenosti z vrcholu " << startVertex << ":" << endl;
+
+    for (int v = 0; v < g.getV(); v++) {
+        cout << "   " << startVertex << " -> " << v << ": ";
+
+        if (distances[v] == INT_MAX) {
+            cout << "nedostupny" << endl;
+        } else {
+            cout << distances[v];
+
+            // Rekonštruuj cestu
+            vector<int> path = reconstructPath(predecessors, startVertex, v);
+
+            if (!path.empty()) {
+                cout << " (cesta: ";
+                for (size_t i = 0; i < path.size(); i++) {
+                    if (i > 0) cout << " -> ";
+                    cout << path[i];
+                }
+                cout << ")";
+            }
+            cout << endl;
         }
+    }
 
-        // Volanie backendu - endpoint /api/random
-        async function getRandomNumber {
-          document.getElementById('result').innerHTML = '⏳ Generujem...';
-          
-          try {
-            const response = await fetch('/api/random');
-            const data = await response.json;
-            
-            document.getElementById('result').innerHTML = 
-              ' Tvoje náhodné číslo je: <strong>' + data.number + '</strong>';
-          } catch (error) {
-            document.getElementById('result').innerHTML = 
-              ' Chyba: ' + error.message;
-          }
-        }
-      </script>
-    </body>
-    </html>
-  `);
-});
+    cout << "============================================================" << endl;
 
-// PROXY endpointy - preposielajú requesty na backend
-// Toto je dôležité! Frontend kontajner sa pripája na backend kontajner
-
-app.get('/api/message', async (req, res) => {
-  try {
-    // Dynamický import pre node-fetch
-    const fetch = (await import('node-fetch')).default;
-    
-    // POZOR: používame názov služby 'backend' a port 4000
-    const response = await fetch('http://backend:4000/api/message');
-    const data = await response.json;
-    
-    console.log(' Frontend dostal dáta z backendu:', data);
-    res.json(data);
-  } catch (error) {
-    console.error(' Chyba pri volaní backendu:', error);
-    res.status(500).json({ error: 'Backend nedostupný' });
-  }
-});
-
-app.get('/api/random', async (req, res) => {
-  try {
-    const fetch = (await import('node-fetch')).default;
-    const response = await fetch('http://backend:4000/api/random');
-    const data = await response.json;
-    res.json(data);
-  } catch (error) {
-    res.status(500).json({ error: 'Backend nedostupný' });
-  }
-});
-
-app.listen(PORT, '0.0.0.0', => {
-  console.log(` Frontend beží na porte ${PORT}`);
-});
+    return 0;
+}
 ```
 
-**Vytvor `frontend/Dockerfile`:**
-```dockerfile
-FROM node:18-alpine
-WORKDIR /app
-COPY package.json ./
-RUN npm install
-RUN npm install node-fetch
-COPY server.js ./
-EXPOSE 3000
-CMD ["node", "server.js"]
+**Očakávaný výstup:**
+
+```
+============================================================
+DIJKSTROV ALGORITMUS - Najkratsie cesty
+============================================================
+
+Graf:
+   0: 1(vaha:4), 2(vaha:1)
+   1: 3(vaha:1)
+   2: 1(vaha:2), 3(vaha:5)
+   3: 4(vaha:3)
+   4: 5(vaha:2)
+
+Hladame najkratsie cesty z vrcholu 0
+Pociatocne vzdialenosti: 0 ∞ ∞ ∞ ∞ ∞
+
+--- Iteracia 1 ---
+Spracovavam vrchol: 0 (vzdialenosť: 0)
+   [+] 0 -> 1: ∞ → 4
+   [+] 0 -> 2: ∞ → 1
+   Aktualne vzdialenosti: 0 4 1 ∞ ∞ ∞
+
+--- Iteracia 2 ---
+Spracovavam vrchol: 2 (vzdialenosť: 1)
+   [+] 2 -> 1: 4 → 3 (zlepsenie o 1)
+   [+] 2 -> 3: ∞ → 6
+   Aktualne vzdialenosti: 0 3 1 6 ∞ ∞
+
+--- Iteracia 3 ---
+Spracovavam vrchol: 1 (vzdialenosť: 3)
+   [+] 1 -> 3: 6 → 4 (zlepsenie o 2)
+   Aktualne vzdialenosti: 0 3 1 4 ∞ ∞
+
+--- Iteracia 4 ---
+Spracovavam vrchol: 3 (vzdialenosť: 4)
+   [+] 3 -> 4: ∞ → 7
+   Aktualne vzdialenosti: 0 3 1 4 7 ∞
+
+--- Iteracia 5 ---
+Spracovavam vrchol: 4 (vzdialenosť: 7)
+   [+] 4 -> 5: ∞ → 9
+   Aktualne vzdialenosti: 0 3 1 4 7 9
+
+--- Iteracia 6 ---
+Spracovavam vrchol: 5 (vzdialenosť: 9)
+   Aktualne vzdialenosti: 0 3 1 4 7 9
+
+============================================================
+VYSLEDOK:
+============================================================
+
+Najkratsie vzdialenosti z vrcholu 0:
+   0 -> 0: 0 (cesta: 0)
+   0 -> 1: 3 (cesta: 0 -> 2 -> 1)
+   0 -> 2: 1 (cesta: 0 -> 2)
+   0 -> 3: 4 (cesta: 0 -> 2 -> 1 -> 3)
+   0 -> 4: 7 (cesta: 0 -> 2 -> 1 -> 3 -> 4)
+   0 -> 5: 9 (cesta: 0 -> 2 -> 1 -> 3 -> 4 -> 5)
+============================================================
 ```
 
 ---
 
-#### Krok 4: Docker Compose - spojíme to dokopy!
+### Časová zložitosť
 
-**Vytvor `docker-compose.yml` v hlavnom priečinku `docker-app/`:**
-```yaml
-version: '3.8'
+| Operácia     | Zložitosť |
+| ------------ | --------- |
+| Vyhľadávanie | O(log n)  |
+| Vkladanie    | O(log n)  |
+| Mazanie      | O(log n)  |
 
-services:
-  # Backend služba
-  backend:
-    build: ./backend
-    container_name: moj-backend
-    ports:
-      - "4000:4000"
-    networks:
-      - app-network
+**S rôznymi implementáciami:**
 
-  # Frontend služba
-  frontend:
-    build: ./frontend
-    container_name: moj-frontend
-    ports:
-      - "8080:3000"
-    depends_on:
-      - backend
-    networks:
-      - app-network
+| Implementácia  | Zložitosť        |
+| -------------- | ---------------- |
+| Pole (naive)   | O(V²)            |
+| Binary heap    | O((V + E) log V) |
+| Fibonacci heap | O(E + V log V)   |
 
-# Vytvoríme vlastnú sieť
-networks:
-  app-network:
-    driver: bridge
-```
-
-**Vysvetlenie:**
-- `build: ./backend` - zbuilduj Dockerfile z priečinka backend
-- `ports: "8080:3000"` - port 8080 na PC → port 3000 v kontajneri
-- `depends_on: backend` - najprv spusti backend, potom frontend
-- `networks: app-network` - obe služby sú v tej istej sieti = môžu sa volať!
+**Priestorová zložitosť:** O(V)
 
 ---
 
-#### Krok 5: Spustenie!
+### Prečo nefunguje pre záporné váhy?
 
-V priečinku `docker-app/` spusti:
+```cpp
+// Príklad grafu so zápornou váhou
+// Graf:
+// 0 -> 1 (váha 1)
+// 0 -> 2 (váha 4)
+// 1 -> 2 (váha -5)
+
+// Dijkstra by našiel cestu 0 -> 2 s váhou 4
+// Ale kratšia cesta je 0 -> 1 -> 2 s váhou 1 + (-5) = -4
+// Dijkstra túto cestu nenájde, lebo už označil vrchol 2 ako "hotový"
+```
+
+**Pre záporné váhy použite Bellman-Ford algoritmus!**
+
+---
+
+### Kompilácia a spustenie
 
 ```bash
-docker-compose up --build
-```
+# Kompilácia
+g++ -std=c++17 -o dijkstra dijkstra.cpp
 
-**Čo sa deje:**
-1. Docker zbuilduje oba images (frontend a backend)
-2. Vytvorí sieť `app-network`
-3. Spustí backend kontajner
-4. Spustí frontend kontajner
-5. Prepojí ich do siete
-
-Uvidíš logy z oboch kontajnerov:
-```
- Backend beží na porte 4000
- Frontend beží na porte 3000
-```
-
----
-
-#### Krok 6: Testovanie!
-
-1. Otvor prehliadač: `http://localhost:8080`
-2. Klikni na " Získaj správu" - mala by sa zobraziť správa z backendu!
-3. Klikni na " Náhodné číslo" - mal by sa zobraziť náhodné číslo!
-
-**Čo sa stalo?**
-- Klikol si na tlačidlo vo frontende
-- Frontend zavolal svoj endpoint `/api/message`
-- Frontend proxy zavolal backend na `http://backend:4000/api/message`
-- Backend odpovedal s JSON dátami
-- Frontend zobrazil odpoveď!
-
----
-
-#### Krok 7: Sleduj logy
-
-V novom terminály:
-```bash
-docker-compose logs -f frontend
-```
-
-Alebo len backend:
-```bash
-docker-compose logs -f backend
-```
-
-Uvidíš, ako sa služby navzájom volajú! 
-
----
-
-#### Krok 8: Zastavenie
-
-```bash
-docker-compose down
+# Spustenie
+./dijkstra
 ```
 
 ---
 
 ### Čo si sa naučil?
 
- Služby v Docker Compose sa volajú pomocou **názvu služby**  
- `depends_on` zabezpečí správne poradie spustenia  
- Všetky služby v compose súbore sú automaticky v rovnakej sieti  
- Frontend môže volať `http://backend:4000` namiesto IP adresy  
- Port mapping: externý port (8080) vs. interný port (3000)  
+- **Dijkstrov algoritmus** nájde najkratšie cesty z jedného vrcholu
+- Používa **greedy prístup** s prioritnou frontou
+- **Nefunguje** pre záporné váhy
+- Časová zložitosť: **O((V + E) log V)**
+- Vhodný pre **mapy, navigácie, siete**
 
 ---
 
-### Debug tipy
+### Časté chyby a ako sa im vyhnúť
 
-**Problém:** Frontend nedokáže zavolať backend
+| Chyba | Prečo nastáva | Riešenie |
+|-------|---------------|----------|
+| Použitie so zápornými váhami | Dijkstra predpokladá nezáporné | Použiť Bellman-Ford pre záporné váhy |
+| Nesprávna inicializácia | `dist[start]` nie je 0 | `dist[start] = 0` na začiatku |
+| Chýbajúca relaxácia | Neaktualizovanie kratšej cesty | `if (newDist < dist[v]) dist[v] = newDist` |
+| Spracovanie zastaraných záznamov | Vo fronte sú duplicitné položky | `if (currentDist > dist[u]) continue;` |
+| Integer overflow | `dist[u] + weight` pretečie | Kontrola pred sčítaním alebo `long long` |
 
-**Riešenie:**
-1. Over, že obe služby bežia: `docker-compose ps`
-2. Skontroluj logy: `docker-compose logs backend`
-3. Over názov služby v `docker-compose.yml` - musí sa zhodovať s URL v kóde
-4. Skontroluj, či je CORS povolený v backende
+**Typické bugs v kóde:**
 
-**Testovanie backendu priamo:**
-```bash
-curl http://localhost:4000/api/message
+```cpp
+// CHYBA: Zabudnutá inicializácia štartu
+vector<int> dist(V, INT_MAX);
+// dist[start] = 0;  <- CHÝBA!
+pq.push({0, start});  // vkladáme 0, ale dist[start] je stále INT_MAX
+
+// SPRÁVNE:
+vector<int> dist(V, INT_MAX);
+dist[start] = 0;
+pq.push({0, start});
 ```
 
-Mali by si dostať JSON odpoveď!
+```cpp
+// CHYBA: Integer overflow pri sčítaní
+int newDist = dist[u] + weight;  // ak dist[u] == INT_MAX, pretečie!
 
----
+// SPRÁVNE: Kontrola pred sčítaním
+if (dist[u] == INT_MAX) continue;
+int newDist = dist[u] + weight;
 
-## Úloha 9: Databáza v Docker Compose
+// ALEBO: použiť long long
+vector<long long> dist(V, LLONG_MAX);
+```
 
-**Cieľ:** Pridať databázu do aplikácie
+```cpp
+// CHYBA: Chýbajúca kontrola zastaraných záznamov
+auto [currentDist, u] = pq.top();
+pq.pop();
+// Rovno relaxujeme susedov - aj keď sme tento vrchol už spracovali!
 
-### Zadanie:
-1. Rozšír predchádzajúcu aplikáciu o MongoDB
-2. Backend:
-   - Pripoj sa na MongoDB
-   - Vytvor endpoint `/api/visits` na počítanie návštev
-   - Pri každom volaní zvýš počítadlo v databáze a vráť aktuálny počet
-3. Frontend:
-   - Zobraz počet návštev stránky
-4. V `docker-compose.yml`:
-   - Pridaj službu `mongodb`
-   - Nastav environment premenné pre pripojenie
-   - Vytvor volume pre perzistenciu dát
-   - Definuj `depends_on` pre backend službu
-
-### Pomôcka pre docker-compose.yml:
-```yaml
-services:
-  mongodb:
-    image: mongo:7
-    volumes:
-      - mongo-data:/data/db
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: admin
-      MONGO_INITDB_ROOT_PASSWORD: heslo123
-
-  backend:
-    build: ./backend
-    depends_on:
-      - mongodb
-    environment:
-      MONGO_URL: mongodb://admin:heslo123@mongodb:27017/
-
-volumes:
-  mongo-data:
+// SPRÁVNE:
+auto [currentDist, u] = pq.top();
+pq.pop();
+if (currentDist > dist[u]) continue;  // zastaraný záznam
 ```
 
 ---
 
-## Úloha 10: Full-stack aplikácia s reverse proxy
+### Tipy na testovanie
 
-**Cieľ:** Vytvoriť kompletnú aplikáciu s nginx ako reverse proxy
-
-### Zadanie:
-Vytvor todo aplikáciu s týmto stackom:
-1. **Frontend**: React/Vue/vanilla JS stránka
-2. **Backend**: Node.js REST API (CRUD operácie pre todos)
-3. **Database**: MongoDB pre uloženie todos
-4. **Nginx**: Reverse proxy, ktorý:
-   - Smeruje `/` na frontend
-   - Smeruje `/api/*` na backend
-   - Má len jeden exponovaný port (80)
-
-### Štruktúra:
-```
-projekt/
- docker-compose.yml
- nginx/
-    nginx.conf
- frontend/
-    Dockerfile
-    (HTML/JS súbory)
- backend/
-    Dockerfile
-    package.json
-    server.js
+**1. Jednoduchý test - priama cesta:**
+```cpp
+// 0 -> 1 -> 2, váhy 3 a 4
+// Očakávané: dist[2] = 7
+Graph g(3);
+g.addEdge(0, 1, 3);
+g.addEdge(1, 2, 4);
+auto [dist, pred] = dijkstra(g, 0);
+assert(dist[2] == 7);
 ```
 
-### Nginx konfigurácia príklad:
-```nginx
-server {
-    listen 80;
-    
-    location / {
-        proxy_pass http://frontend:3000;
+**2. Test kratšej nepriamej cesty:**
+```cpp
+// Priama: 0->2 s váhou 10
+// Nepriama: 0->1->2 s váhami 3+4=7
+Graph g(3);
+g.addEdge(0, 2, 10);
+g.addEdge(0, 1, 3);
+g.addEdge(1, 2, 4);
+auto [dist, pred] = dijkstra(g, 0);
+assert(dist[2] == 7);  // nie 10!
+```
+
+**3. Test nedosiahnuteľného vrcholu:**
+```cpp
+// Vrchol 2 nie je dosiahnuteľný z 0
+Graph g(3);
+g.addEdge(0, 1, 5);
+// žiadna hrana do 2
+auto [dist, pred] = dijkstra(g, 0);
+assert(dist[2] == INT_MAX);
+```
+
+**4. Kontrolný checklist:**
+- [ ] Je `dist[start] = 0` na začiatku?
+- [ ] Kontrolujem `currentDist > dist[u]` pred spracovaním?
+- [ ] Sú všetky váhy nezáporné?
+- [ ] Môže dôjsť k integer overflow?
+
+---
+
+### Skús sám - Doplň chýbajúci kód
+
+```cpp
+pair<vector<int>, vector<int>> dijkstra_student(const Graph& graph, int start) {
+    int V = graph.getV();
+
+    // TODO 1: Akou hodnotou inicializujeme vzdialenosti?
+    vector<int> dist(V, _________________________________);
+    vector<int> pred(V, -1);
+
+    // TODO 2: Akú vzdialenosť má štartovací vrchol?
+    dist[start] = _________________________________;
+
+    priority_queue<pair<int, int>,
+                   vector<pair<int, int>>,
+                   greater<pair<int, int>>> pq;
+
+    pq.push({0, start});
+
+    while (!pq.empty()) {
+        auto [currentDist, u] = pq.top();
+        pq.pop();
+
+        // TODO 3: Kedy preskočíme tento záznam?
+        if (_________________________________) continue;
+
+        for (auto [v, weight] : graph.getNeighbors(u)) {
+            int newDist = currentDist + weight;
+
+            // TODO 4: Kedy aktualizujeme vzdialenosť?
+            if (_________________________________) {
+                dist[v] = newDist;
+                pred[v] = u;
+                pq.push({newDist, v});
+            }
+        }
     }
-    
-    location /api/ {
-        proxy_pass http://backend:4000;
-    }
+
+    return {dist, pred};
 }
 ```
 
-### Požiadavky:
-- Všetky služby musia mať vlastný Dockerfile
-- Použiť Docker networks
-- Databázové dáta musia byť perzistentné
-- Aplikácia musí byť dostupná len cez nginx na porte 80
+<details>
+<summary>Riešenie (klikni pre zobrazenie)</summary>
+
+```cpp
+// TODO 1: Nekonečno (maximálna hodnota)
+INT_MAX
+
+// TODO 2: Nula - štart je od seba vzdialený 0
+0
+
+// TODO 3: Ak máme lepšiu cestu, preskočíme
+currentDist > dist[u]
+
+// TODO 4: Ak je nová cesta kratšia
+newDist < dist[v]
+```
+</details>
 
 ---
 
-## Bonusová úloha: Health checks a restart policies
+### Praktické úlohy
 
-**Cieľ:** Zabezpečiť robustnosť aplikácie
+#### Úloha 3.1: Neorientovaný graf
 
-### Zadanie:
-Rozšír úlohu 10 o:
-1. Health check endpoints v backend API
-2. HEALTHCHECK direktívu v Dockerfile
-3. Správne restart policies v docker-compose
-4. Limits na CPU a RAM pre každú službu
-5. Logging driver konfiguráciu
+Uprav implementáciu tak, aby fungovala s neorientovanými grafmi.
 
-### Pomôcka:
-```dockerfile
-HEALTHCHECK --interval=30s --timeout=3s \
-  CMD node healthcheck.js || exit 1
+**Hint:** Pri `addEdge(u, v, w)` pridaj aj `addEdge(v, u, w)`.
+
+#### Úloha 3.2: Len jedna cesta
+
+Uprav algoritmus tak, aby sa zastavil hneď, ako nájde cestu k zadanému cieľovému vrcholu.
+
+#### Úloha 3.3: Všetky najkratšie cesty
+
+Uprav implementáciu tak, aby našla všetky najkratšie cesty (môže ich byť viac s rovnakou dĺžkou).
+
+**Hint:** Namiesto jedného predchodcu ulož zoznam predchodcov pre každý vrchol.
+
+---
+
+## Úloha 4: Hash Mapy - Rýchle vyhľadávanie
+
+**Čo sa naučíš:** Ako fungujú hash tabuľky a prečo sú také rýchle v C++
+
+### Teória - Čo je Hash Mapa?
+
+**Hash Mapa** (hash table, dictionary) = dátová štruktúra pre rýchle vyhľadávanie párov kľúč-hodnota.
+
+**Princíp:**
+
+1. **Hash funkcia** premení kľúč na index v poli
+2. Hodnota sa uloží na tento index
+3. Vyhľadávanie, vkladanie, mazanie = O(1) priemerne!
+
+**Analógia:** Slovník - nalistujete slovo podľa prvého písmena (hash), nie postupne od začiatku.
+
+### Vizualizácia - Ako funguje hash mapa
+
+```
+Vkladanie: "apple"->5, "banana"->8, "cherry"->12, "date"->3
+
+Hash funkcia: súčet ASCII hodnôt % veľkosť_tabuľky
+
+"apple"  = 97+112+112+108+101 = 530 % 5 = 0
+"banana" = 98+97+110+97+110+97 = 609 % 5 = 4
+"cherry" = 99+104+101+114+114+121 = 653 % 5 = 3
+"date"   = 100+97+116+101 = 414 % 5 = 4  <- KOLÍZIA s "banana"!
+
+Separate Chaining:                    Linear Probing:
++-------+                             +-------+
+| 0 | -> ["apple":5]                  | 0 | "apple":5
++-------+                             +-------+
+| 1 | -> []                           | 1 | [prázdny]
++-------+                             +-------+
+| 2 | -> []                           | 2 | [prázdny]
++-------+                             +-------+
+| 3 | -> ["cherry":12]                | 3 | "cherry":12
++-------+                             +-------+
+| 4 | -> ["banana":8] -> ["date":3]   | 4 | "banana":8
++-------+                             +-------+
+                                      | 5 | "date":3  <- posunuté!
+                                      +-------+
 ```
 
-```yaml
-services:
-  backend:
-    deploy:
-      resources:
-        limits:
-          cpus: '0.5'
-          memory: 512M
-    restart: unless-stopped
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:4000/health"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
+**Vyhľadávanie "date":**
+- Separate Chaining: hash("date")=4, prejdi zoznam na indexe 4
+- Linear Probing: hash("date")=4, index 4 má "banana", skús 5 -> nájdené!
+
+---
+
+### Krok za krokom
+
+#### Krok 1: Jednoduchá hash funkcia
+
+```cpp
+#include <iostream>
+#include <vector>
+#include <list>
+#include <string>
+using namespace std;
+
+/**
+ * Jednoduchá hash funkcia pre reťazce.
+ * Sčíta ASCII hodnoty znakov a urobí modulo size.
+ */
+int simpleHash(const string& key, int size) {
+    int hashValue = 0;
+    for (char c : key) {
+        hashValue += static_cast<int>(c);
+    }
+    int index = hashValue % size;
+    cout << "   Hash(\"" << key << "\") = "
+         << hashValue << " % " << size << " = " << index << endl;
+    return index;
+}
 ```
 
 ---
 
-## Užitočné príkazy na kontrolu
+#### Krok 2: Riešenie kolízií - Separate Chaining
+
+```cpp
+/**
+ * Hash mapa s riešením kolízií pomocou separate chaining.
+ * Každý slot obsahuje linked list (zoznam) párov.
+ */
+template<typename K, typename V>
+class HashMapChaining {
+private:
+    int size;
+    int count;
+    vector<list<pair<K, V>>> table;  // Každý slot = linked list
+
+    int hash(const K& key) {
+        // Pre string
+        if constexpr (is_same_v<K, string>) {
+            int hashValue = 0;
+            for (char c : key) {
+                hashValue += static_cast<int>(c);
+            }
+            return hashValue % size;
+        }
+        // Pre int
+        else {
+            return key % size;
+        }
+    }
+
+public:
+    HashMapChaining(int tableSize = 10) : size(tableSize), count(0) {
+        table.resize(size);
+        cout << "Vytvorena hash mapa s velkostou " << size << endl;
+    }
+
+    /**
+     * Vlož pár (kľúč, hodnota).
+     */
+    void put(const K& key, const V& value) {
+        int index = hash(key);
+
+        // Skontroluj, či kľúč už existuje
+        for (auto& [k, v] : table[index]) {
+            if (k == key) {
+                V oldValue = v;
+                v = value;
+                cout << "   [~] Aktualizovane: '" << key << "' na indexe "
+                     << index << " (" << oldValue << " -> " << value << ")" << endl;
+                return;
+            }
+        }
+
+        // Pridaj nový pár
+        table[index].push_back({key, value});
+        count++;
+        int collisions = table[index].size() - 1;
+        cout << "   [+] Pridane: '" << key << "': " << value
+             << " na index " << index << " (kolizie: " << collisions << ")" << endl;
+    }
+
+    /**
+     * Získaj hodnotu pre kľúč.
+     */
+    V* get(const K& key) {
+        int index = hash(key);
+
+        // Prehľadaj zoznam na danom indexe
+        for (auto& [k, v] : table[index]) {
+            if (k == key) {
+                cout << "   [*] Najdene: '" << key << "' = "
+                     << v << " na indexe " << index << endl;
+                return &v;
+            }
+        }
+
+        cout << "   [-] Kluc '" << key << "' neexistuje" << endl;
+        return nullptr;
+    }
+
+    /**
+     * Zmaž pár s daným kľúčom.
+     */
+    bool remove(const K& key) {
+        int index = hash(key);
+
+        auto& bucket = table[index];
+        for (auto it = bucket.begin(); it != bucket.end(); ++it) {
+            if (it->first == key) {
+                bucket.erase(it);
+                count--;
+                cout << "   [x] Zmazane: '" << key << "' z indexu " << index << endl;
+                return true;
+            }
+        }
+
+        cout << "   [-] Kluc '" << key << "' neexistuje" << endl;
+        return false;
+    }
+
+    /**
+     * Zobraz celú hash tabuľku.
+     */
+    void display() {
+        cout << "\nStav hash tabulky:" << endl;
+        for (int i = 0; i < size; i++) {
+            if (!table[i].empty()) {
+                cout << "   Index " << i << ": [";
+                bool first = true;
+                for (const auto& [k, v] : table[i]) {
+                    if (!first) cout << ", ";
+                    cout << "'" << k << "': " << v;
+                    first = false;
+                }
+                cout << "]" << endl;
+            } else {
+                cout << "   Index " << i << ": []" << endl;
+            }
+        }
+        cout << "Celkovy pocet prvkov: " << count << endl << endl;
+    }
+
+    int getCount() const { return count; }
+};
+```
+
+---
+
+#### Krok 3: Príklad použitia
+
+```cpp
+int main() {
+    cout << "============================================================" << endl;
+    cout << "HASH MAPA - Separate Chaining" << endl;
+    cout << "============================================================" << endl;
+    cout << endl;
+
+    // Vytvor hash mapu
+    HashMapChaining<string, int> hm(5);
+    cout << endl;
+
+    // Vkladanie
+    cout << "Vkladanie prvkov:" << endl;
+    hm.put("apple", 5);
+    hm.put("banana", 8);
+    hm.put("cherry", 12);
+    hm.put("date", 3);
+    hm.put("elderberry", 15);
+
+    hm.display();
+
+    // Vyhľadávanie
+    cout << "Vyhladavanie:" << endl;
+    hm.get("apple");
+    hm.get("cherry");
+    hm.get("orange");
+    cout << endl;
+
+    // Aktualizácia
+    cout << "Aktualizacia:" << endl;
+    hm.put("apple", 10);  // Aktualizuj existujúci kľúč
+    hm.display();
+
+    // Mazanie
+    cout << "Mazanie:" << endl;
+    hm.remove("banana");
+    hm.display();
+
+    cout << "============================================================" << endl;
+
+    return 0;
+}
+```
+
+---
+
+#### Krok 4: Riešenie kolízií - Linear Probing
+
+```cpp
+/**
+ * Hash mapa s riešením kolízií pomocou linear probing.
+ * Pri kolízii hľadá najbližší voľný slot.
+ */
+template<typename K, typename V>
+class HashMapLinearProbing {
+private:
+    struct Entry {
+        K key;
+        V value;
+        bool occupied;
+        bool deleted;
+
+        Entry() : occupied(false), deleted(false) {}
+        Entry(K k, V v) : key(k), value(v), occupied(true), deleted(false) {}
+    };
+
+    int size;
+    int count;
+    vector<Entry> table;
+
+    int hash(const K& key) {
+        if constexpr (is_same_v<K, string>) {
+            int hashValue = 0;
+            for (char c : key) {
+                hashValue += static_cast<int>(c);
+            }
+            return hashValue % size;
+        } else {
+            return key % size;
+        }
+    }
+
+    int probe(int index) {
+        return (index + 1) % size;
+    }
+
+public:
+    HashMapLinearProbing(int tableSize = 10) : size(tableSize), count(0) {
+        table.resize(size);
+        cout << "Vytvorena hash mapa (Linear Probing) s velkostou "
+             << size << endl;
+    }
+
+    bool put(const K& key, const V& value) {
+        if (count >= size) {
+            cout << "   [-] Hash mapa je plna!" << endl;
+            return false;
+        }
+
+        int index = hash(key);
+        int originalIndex = index;
+        int probes = 0;
+
+        while (table[index].occupied && !table[index].deleted) {
+            // Ak existuje, aktualizuj
+            if (table[index].key == key) {
+                V oldValue = table[index].value;
+                table[index].value = value;
+                cout << "   [~] Aktualizovane: '" << key << "' na indexe "
+                     << index << " (" << oldValue << " -> " << value << ")" << endl;
+                return true;
+            }
+
+            // Linear probing
+            index = probe(index);
+            probes++;
+
+            // Kontrola zacyklenia
+            if (index == originalIndex) {
+                cout << "   [-] Hash mapa je plna!" << endl;
+                return false;
+            }
+        }
+
+        // Vlož na nájdený voľný slot
+        table[index] = Entry(key, value);
+        count++;
+
+        if (probes > 0) {
+            cout << "   [+] Pridane: '" << key << "': " << value
+                 << " na index " << index << " (po " << probes << " probes)" << endl;
+        } else {
+            cout << "   [+] Pridane: '" << key << "': " << value
+                 << " na index " << index << endl;
+        }
+        return true;
+    }
+
+    V* get(const K& key) {
+        int index = hash(key);
+        int originalIndex = index;
+        int probes = 0;
+
+        while (table[index].occupied || table[index].deleted) {
+            if (table[index].occupied && !table[index].deleted
+                && table[index].key == key) {
+                cout << "   [*] Najdene: '" << key << "' = "
+                     << table[index].value << " na indexe " << index
+                     << " (po " << probes << " probes)" << endl;
+                return &table[index].value;
+            }
+
+            index = probe(index);
+            probes++;
+
+            if (index == originalIndex) break;
+        }
+
+        cout << "   [-] Kluc '" << key << "' neexistuje" << endl;
+        return nullptr;
+    }
+
+    void display() {
+        cout << "\nStav hash tabulky:" << endl;
+        for (int i = 0; i < size; i++) {
+            if (table[i].occupied && !table[i].deleted) {
+                cout << "   Index " << i << ": '" << table[i].key
+                     << "': " << table[i].value << endl;
+            } else {
+                cout << "   Index " << i << ": [prazdny]" << endl;
+            }
+        }
+        cout << "Celkovy pocet prvkov: " << count << endl << endl;
+    }
+};
+```
+
+---
+
+### Časová zložitosť
+
+| Operácia     | Priemer | Najhorší prípad |
+| ------------ | ------- | --------------- |
+| Vyhľadávanie | O(1)    | O(n)            |
+| Vkladanie    | O(1)    | O(n)            |
+| Mazanie      | O(1)    | O(n)            |
+
+**Load Factor** = n / size (pomer zaplnenosti)
+
+- Ak > 0.7, treba tabuľku zväčšiť (rehashing)
+
+---
+
+### C++ STL - `std::unordered_map`
+
+C++ už obsahuje hotovú implementáciu hash mapy:
+
+```cpp
+#include <unordered_map>
+
+int main() {
+    // Vytvorenie hash mapy
+    unordered_map<string, int> mp;
+
+    // Vkladanie
+    mp["apple"] = 5;
+    mp["banana"] = 8;
+    mp.insert({"cherry", 12});
+
+    // Vyhľadávanie
+    if (mp.find("apple") != mp.end()) {
+        cout << "apple = " << mp["apple"] << endl;
+    }
+
+    // Iterácia
+    for (const auto& [key, value] : mp) {
+        cout << key << ": " << value << endl;
+    }
+
+    // Mazanie
+    mp.erase("banana");
+
+    // Veľkosť
+    cout << "Pocet prvkov: " << mp.size() << endl;
+
+    return 0;
+}
+```
+
+---
+
+### Kompilácia a spustenie
 
 ```bash
-# Zobrazenie všetkých images
-docker images
+# Kompilácia
+g++ -std=c++17 -o hashmap hashmap.cpp
 
-# Zobrazenie bežiacich kontajnerov
-docker ps
-
-# Zobrazenie všetkých kontajnerov
-docker ps -a
-
-# Zobrazenie logov kontajnera
-docker logs <container_name>
-
-# Zobrazenie využitia zdrojov
-docker stats
-
-# Vyčistenie nepoužívaných images/volumes
-docker system prune
-
-# Docker Compose príkazy
-docker-compose up -d        # Spustenie v pozadí
-docker-compose down         # Zastavenie a odstránenie
-docker-compose logs -f      # Sledovanie logov
-docker-compose ps           # Stav služieb
-docker-compose restart      # Reštart služieb
+# Spustenie
+./hashmap
 ```
 
 ---
 
-## Developed by Tom. Muc. 
+### Čo si sa naučil?
+
+- **Hash mapa** umožňuje O(1) vyhľadávanie
+- **Hash funkcia** premení kľúč na index
+- **Separate chaining** = zoznamy v slotoch
+- **Linear probing** = hľadanie voľného slotu
+- **Load factor** určuje, kedy zväčšiť tabuľku
+- C++ má hotovú implementáciu: `std::unordered_map`
+
+---
+
+### Časté chyby a ako sa im vyhnúť
+
+| Chyba | Prečo nastáva | Riešenie |
+|-------|---------------|----------|
+| Zlá hash funkcia | Veľa kolízií, degradácia na O(n) | Použiť overenú hash funkciu |
+| Neošetrený load factor | Tabuľka sa zaplní, výkon klesá | Rehashing keď load factor > 0.7 |
+| Linear probing clustering | Dlhé reťazce obsadených slotov | Použiť quadratic probing alebo double hashing |
+| Mazanie v linear probing | Narušenie vyhľadávania | Použiť "tombstone" (deleted flag) |
+| Záporný index | Modulo záporného čísla | `((hash % size) + size) % size` |
+
+**Typické bugs v kóde:**
+
+```cpp
+// CHYBA: Záporný výsledok modulo
+int hash(const string& key) {
+    int hashValue = 0;
+    for (char c : key) {
+        hashValue += c;  // môže pretiecť do záporných čísel!
+    }
+    return hashValue % size;  // môže byť záporné!
+}
+
+// SPRÁVNE: Zabezpečiť kladný výsledok
+int hash(const string& key) {
+    int hashValue = 0;
+    for (char c : key) {
+        hashValue += static_cast<unsigned char>(c);
+    }
+    return ((hashValue % size) + size) % size;  // vždy kladné
+}
+```
+
+```cpp
+// CHYBA: Mazanie v linear probing bez tombstone
+bool remove(const K& key) {
+    int index = hash(key);
+    while (table[index].occupied) {
+        if (table[index].key == key) {
+            table[index].occupied = false;  // PROBLÉM!
+            return true;
+        }
+        index = (index + 1) % size;
+    }
+    return false;
+}
+// Po zmazaní sa "zlomí" reťazec a niektoré kľúče sa nenájdu!
+
+// SPRÁVNE: Použiť deleted flag
+bool remove(const K& key) {
+    int index = hash(key);
+    while (table[index].occupied || table[index].deleted) {
+        if (table[index].occupied && table[index].key == key) {
+            table[index].occupied = false;
+            table[index].deleted = true;  // tombstone
+            return true;
+        }
+        index = (index + 1) % size;
+    }
+    return false;
+}
+```
+
+---
+
+### Tipy na testovanie
+
+**1. Test kolízií:**
+```cpp
+// Vytvor kľúče s rovnakým hashom
+HashMapChaining<int, string> hm(10);
+hm.put(5, "five");    // hash = 5
+hm.put(15, "fifteen"); // hash = 5 (kolízia)
+hm.put(25, "twentyfive"); // hash = 5 (kolízia)
+
+assert(*hm.get(5) == "five");
+assert(*hm.get(15) == "fifteen");
+assert(*hm.get(25) == "twentyfive");
+```
+
+**2. Test aktualizácie existujúceho kľúča:**
+```cpp
+hm.put("key", 100);
+hm.put("key", 200);  // aktualizácia, nie nový záznam
+assert(*hm.get("key") == 200);
+assert(hm.getCount() == 1);  // stále len 1 záznam
+```
+
+**3. Test mazania a následného vyhľadávania (linear probing):**
+```cpp
+HashMapLinearProbing<int, string> hm(10);
+hm.put(5, "A");
+hm.put(15, "B");  // kolízia, uložené na index 6
+hm.put(25, "C");  // kolízia, uložené na index 7
+
+hm.remove(15);    // zmaž prostredný
+
+// "C" musí byť stále nájditeľné!
+assert(hm.get(25) != nullptr);
+```
+
+**4. Kontrolný checklist:**
+- [ ] Je hash funkcia deterministická (rovnaký vstup = rovnaký výstup)?
+- [ ] Ošetrujem prípad plnej tabuľky?
+- [ ] Funguje mazanie správne (tombstones)?
+- [ ] Je load factor pod kontrolou?
+
+---
+
+### Skús sám - Doplň chýbajúci kód
+
+```cpp
+template<typename K, typename V>
+class SimpleHashMap {
+private:
+    vector<list<pair<K, V>>> table;
+    int size;
+
+    int hash(const K& key) {
+        // TODO 1: Implementuj jednoduchú hash funkciu pre int
+        // Hint: modulo veľkosťou tabuľky
+        return _________________________________;
+    }
+
+public:
+    SimpleHashMap(int s) : size(s) {
+        table.resize(size);
+    }
+
+    void put(const K& key, const V& value) {
+        int index = hash(key);
+
+        // TODO 2: Skontroluj, či kľúč už existuje a aktualizuj
+        for (auto& [k, v] : table[index]) {
+            if (_________________________________) {
+                v = value;
+                return;
+            }
+        }
+
+        // TODO 3: Pridaj nový pár na správny index
+        _________________________________;
+    }
+
+    V* get(const K& key) {
+        int index = hash(key);
+
+        // TODO 4: Nájdi hodnotu pre daný kľúč
+        for (auto& [k, v] : table[index]) {
+            if (k == key) {
+                return _________________________________;
+            }
+        }
+        return nullptr;
+    }
+};
+```
+
+<details>
+<summary>Riešenie (klikni pre zobrazenie)</summary>
+
+```cpp
+// TODO 1: Hash funkcia
+return key % size;
+
+// TODO 2: Kontrola existujúceho kľúča
+if (k == key)
+
+// TODO 3: Pridanie nového páru
+table[index].push_back({key, value});
+
+// TODO 4: Vrátenie pointera na hodnotu
+return &v;
+```
+</details>
+
+---
+
+### Praktické úlohy
+
+#### Úloha 4.1: Quadratic Probing
+
+Implementuj hash mapu s quadratic probing namiesto linear:
+
+- Probe sekvencia: i, i+1², i+2², i+3², ...
+
+#### Úloha 4.2: Rehashing
+
+Implementuj automatické zväčšenie tabuľky, keď load factor > 0.7:
+
+- Vytvor novú väčšiu tabuľku (2× veľkosť)
+- Presuň všetky prvky (rehashovanie)
+
+#### Úloha 4.3: Vlastná hash funkcia
+
+Implementuj lepšiu hash funkciu pre stringy:
+
+- Použite polynomial rolling hash
+- Napríklad: hash = s[0] _ 31^(n-1) + s[1] _ 31^(n-2) + ... + s[n-1]
