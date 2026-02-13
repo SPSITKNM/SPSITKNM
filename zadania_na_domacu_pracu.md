@@ -1,5 +1,7 @@
 # Algoritmy a Dátové štruktúry - Cvičebné úlohy (C++)
 
+*Developed by Tomáš Mucha*
+
 ## Obsah
 
 ### Grafové algoritmy
