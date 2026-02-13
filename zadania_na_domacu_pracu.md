@@ -6418,7 +6418,7 @@ Porovnaj kompresný pomer pre rôzne typy textov (anglický, zdrojový kód, ná
 
 ---
 
-## Cheat Sheet - Rýchle zopakovanie pred skúškou
+## Cheat Sheet 
 
 ### Časové zložitosti - Prehľad
 
@@ -6681,8 +6681,6 @@ priority_queue<int, vector<int>, greater<int>> pq; // min-heap
 
 ---
 
-## Sebahodnotenie pred skúškou
-
 Ohodnoť sa na škále 1-5 (1=nerozumiem, 5=viem vysvetliť a implementovať):
 
 | Téma | Hodnotenie |
@@ -6738,52 +6736,5 @@ Ohodnoť sa na škále 1-5 (1=nerozumiem, 5=viem vysvetliť a implementovať):
    - `std::accumulate`, `std::transform`
    - Vlastné komparátory a lambda funkcie
 
-### Zdroje
-
-- **Knihy**:
-  - "Introduction to Algorithms" (CLRS)
-  - "The C++ Programming Language" (Stroustrup)
-- **Online kurzy**:
-  - Coursera: Algorithms Specialization
-  - cppreference.com (C++ dokumentácia)
-- **Praktické cvičenia**:
-  - LeetCode
-  - Codeforces
-  - HackerRank
-
 ---
-
-## Záver
-
-Gratulujem! Prešiel si kompletným kurzom algoritmov a dátových štruktúr v C++. Naučil si sa:
-
-### Grafové algoritmy
-- **Kruskalov a Primov algoritmus** - minimálna kostra grafu
-- **Dijkstrov algoritmus** - najkratšie cesty
-
-### Dátové štruktúry
-- **Hash Mapy** - O(1) prístup, riešenie kolízií
-- **Binárne stromy** - hierarchické štruktúry
-- **BST, AVL, B-stromy** - efektívne vyhľadávanie
-
-### Algoritmy na prehľadávanie
-- **DFS** - prehľadávanie do hĺbky (stack/rekurzia)
-- **BFS** - prehľadávanie do šírky (queue)
-- **Binárne vyhľadávanie** - O(log n) v zoradených dátach
-
-### Kompresia
-- **Huffmanovo kódovanie** - prefix-free kompresné kódy
-
-### C++ zručnosti
-- STL kontajnery, templates, moderný C++17
-- Rekurzia vs iterácia
-- Analýza časovej zložitosti
-
-**Pamätaj:** Teória je dôležitá, ale prax je kľúčová. Implementuj, testuj, experimentuj!
-
----
-
-**Dátum:** 2025
-**Verzia:** 2.0 (Kompletná C++ implementácia - 12 úloh)
-
-**Licencia:** Tento materiál je voľne použiteľný pre vzdelávacie účely.
+**Licencia:** Developed by Tomáš Mucha - Tento materiál je voľne použiteľný pre vzdelávacie účely.
