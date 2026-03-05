@@ -1,6 +1,6 @@
 # Dátové štruktúry a Algoritmy v C++
 
-Tento materiál pokrýva päť kľúčových oblastí: **Dvojito prepojený zoznam (DLL)**, **Zásobníky a Fronty**, **Stromy (BST)**, **Hash Tables**, a **Grafy**. Každá kapitola obsahuje teóriu, vizualizácie, čiastočné implementácie na dopracovanie a **samostatné úlohy na odovzdanie**.
+Tento materiál pokrýva šesť kľúčových oblastí: **Dvojito prepojený zoznam (DLL)**, **Zásobníky a Fronty**, **Stromy (BST)**, **Hash Tables**, **Grafy** a **Heaps (Haldy)**. Každá kapitola obsahuje teóriu, vizualizácie, čiastočné implementácie na dopracovanie a **samostatné úlohy na odovzdanie**.
 
 > **Kľúčová rada:** "Kresli, kresli, kresli!" - Pred písaním kódu vždy nakresli štruktúru na papier.
 
@@ -20,6 +20,8 @@ Tento materiál pokrýva päť kľúčových oblastí: **Dvojito prepojený zozn
 | 8   | [Hash Table: Two Sum](#uloha-8-hash-table-two-sum)                  | Hash Table | Vyššia     |
 | 9   | [Graph: Implementácia](#uloha-9-graph-implementacia)                | Graph      | Stredná    |
 | 10  | [Graph: BFS a DFS](#uloha-10-graph-bfs-dfs)                         | Graph      | Vyššia     |
+| 11  | [Heap: Implementácia](#uloha-11-heap-implementacia)                 | Heap       | Stredná    |
+| 12  | [Heap: Priority Queue](#uloha-12-heap-priority-queue)               | Heap       | Vyššia     |
 
 ---
 
@@ -1758,6 +1760,560 @@ Graf:               BFS z A:              DFS z A:
 
 ---
 
+# Časť 6: Heaps (Haldy)
+
+## 6.1 Heap: Úvod
+
+### Teória
+
+**Heap (halda)** je špeciálny typ **kompletného binárneho stromu**, ktorý spĺňa **heap property** (vlastnosť haldy).
+
+> "Heap je strom, kde rodič je vždy väčší (max-heap) alebo menší (min-heap) ako jeho deti."
+
+### Typy Heapov:
+
+- **Max-Heap** - rodič je vždy **väčší alebo rovný** ako jeho deti
+- **Min-Heap** - rodič je vždy **menší alebo rovný** ako jeho deti
+
+### Kľúčová vlastnosť:
+
+- Heap je **kompletný binárny strom** - všetky úrovne sú plné, okrem poslednej, ktorá sa zapĺňa zľava
+- Vďaka tomu môžeme heap efektívne reprezentovať ako **pole (array)**!
+
+### Vizualizácia Max-Heap:
+
+```
+                    ┌────┐
+                    │ 99 │ ← Maximum je vždy na vrchu (root)
+                    └────┘
+                   /      \
+             ┌────┐        ┌────┐
+             │ 72 │        │ 61 │
+             └────┘        └────┘
+            /      \      /      \
+       ┌────┐  ┌────┐ ┌────┐  ┌────┐
+       │ 58 │  │ 55 │ │ 27 │  │ 18 │
+       └────┘  └────┘ └────┘  └────┘
+
+Reprezentácia ako pole:
+Index:  0    1    2    3    4    5    6
+      ┌────┬────┬────┬────┬────┬────┬────┐
+      │ 99 │ 72 │ 61 │ 58 │ 55 │ 27 │ 18 │
+      └────┴────┴────┴────┴────┴────┴────┘
+```
+
+### Vzťah medzi indexami (0-indexed):
+
+- **Rodič(i)** = (i - 1) / 2
+- **Ľavé dieťa(i)** = 2 \* i + 1
+- **Pravé dieťa(i)** = 2 \* i + 2
+
+### Príklad výpočtu:
+
+```
+Pre index 1 (hodnota 72):
+  - Rodič: (1-1)/2 = 0  → index 0 (hodnota 99) ✓
+  - Ľavé dieťa: 2*1+1 = 3  → index 3 (hodnota 58) ✓
+  - Pravé dieťa: 2*1+2 = 4  → index 4 (hodnota 55) ✓
+```
+
+---
+
+## 6.2 Heap: Helper Functions (Pomocné funkcie)
+
+### Teória
+
+Pre prácu s heapom potrebujeme základné pomocné funkcie na navigáciu v poli.
+
+### Implementácia
+
+```cpp
+#include <iostream>
+#include <vector>
+using namespace std;
+
+class Heap {
+private:
+    vector<int> heap;
+
+    // POMOCNÉ FUNKCIE - index rodiča
+    int parent(int index) {
+        return (index - 1) / 2;
+    }
+
+    // Index ľavého dieťaťa
+    int leftChild(int index) {
+        return 2 * index + 1;
+    }
+
+    // Index pravého dieťaťa
+    int rightChild(int index) {
+        return 2 * index + 2;
+    }
+
+    // Swap - výmena dvoch prvkov
+    void swap(int index1, int index2) {
+        int temp = heap[index1];
+        heap[index1] = heap[index2];
+        heap[index2] = temp;
+    }
+
+public:
+    void printHeap() {
+        cout << "[ ";
+        for (int num : heap) {
+            cout << num << " ";
+        }
+        cout << "]" << endl;
+    }
+
+    int getMax() {
+        if (heap.empty()) return INT_MIN;
+        return heap[0];  // Maximum je vždy na indexe 0
+    }
+};
+```
+
+---
+
+## 6.3 Heap: Insert (Vloženie)
+
+### Teória
+
+Pri vkladaní do heapu:
+
+1. Pridáme nový prvok na **koniec poľa** (zachová kompletnosť stromu)
+2. "Prebublinkujeme" prvok **nahor** kým nespĺňa heap property
+
+Tento proces sa nazýva **Bubble Up** alebo **Swim Up**.
+
+### Vizualizácia Insert(95):
+
+```
+Krok 1: Pridaj na koniec
+                    ┌────┐
+                    │ 99 │
+                    └────┘
+                   /      \
+             ┌────┐        ┌────┐
+             │ 72 │        │ 61 │
+             └────┘        └────┘
+            /      \      /
+       ┌────┐  ┌────┐ ┌────┐
+       │ 58 │  │ 55 │ │ 95 │ ← Nový prvok
+       └────┘  └────┘ └────┘
+
+Krok 2: Bubble Up - 95 > 61, swap
+                    ┌────┐
+                    │ 99 │
+                    └────┘
+                   /      \
+             ┌────┐        ┌────┐
+             │ 72 │        │ 95 │ ← 95 sa posunul nahor
+             └────┘        └────┘
+            /      \      /
+       ┌────┐  ┌────┐ ┌────┐
+       │ 58 │  │ 55 │ │ 61 │
+       └────┘  └────┘ └────┘
+
+Krok 3: 95 < 99, stop (heap property splnená)
+```
+
+### Implementácia
+
+```cpp
+void insert(int value) {
+    // 1. Pridaj na koniec
+    heap.push_back(value);
+
+    // 2. Bubble Up
+    int current = heap.size() - 1;
+
+    while (current > 0 && heap[current] > heap[parent(current)]) {
+        swap(current, parent(current));
+        current = parent(current);
+    }
+}
+```
+
+**Časová zložitosť:** O(log n) - v najhoršom prípade prejdeme celú výšku stromu
+
+---
+
+## 6.4 Heap: Remove (Odstránenie maxima)
+
+### Teória
+
+Pri odstránení z max-heapu vždy odstraňujeme **maximum (root)**:
+
+1. Nahradíme root **posledným prvkom** v poli
+2. Odstránime posledný prvok
+3. "Potopíme" nový root **nadol** kým nespĺňa heap property
+
+Tento proces sa nazýva **Sink Down** alebo **Heapify Down**.
+
+### Vizualizácia Remove():
+
+```
+Krok 1: Nahraď root posledným prvkom
+                    ┌────┐
+                    │ 18 │ ← Posledný prvok nahradil 99
+                    └────┘
+                   /      \
+             ┌────┐        ┌────┐
+             │ 72 │        │ 61 │
+             └────┘        └────┘
+            /      \
+       ┌────┐  ┌────┐
+       │ 58 │  │ 55 │
+       └────┘  └────┘
+
+Krok 2: Sink Down - 18 < max(72, 61), swap s väčším (72)
+                    ┌────┐
+                    │ 72 │
+                    └────┘
+                   /      \
+             ┌────┐        ┌────┐
+             │ 18 │        │ 61 │
+             └────┘        └────┘
+            /      \
+       ┌────┐  ┌────┐
+       │ 58 │  │ 55 │
+       └────┘  └────┘
+
+Krok 3: 18 < max(58, 55), swap s väčším (58)
+                    ┌────┐
+                    │ 72 │
+                    └────┘
+                   /      \
+             ┌────┐        ┌────┐
+             │ 58 │        │ 61 │
+             └────┘        └────┘
+            /      \
+       ┌────┐  ┌────┐
+       │ 18 │  │ 55 │
+       └────┘  └────┘
+
+Krok 4: 18 nemá deti → stop
+```
+
+---
+
+## 6.5 Heap: Sink Down (Implementácia)
+
+### Implementácia
+
+```cpp
+void sinkDown(int index) {
+    int maxIndex = index;
+    int size = heap.size();
+
+    while (true) {
+        int left = leftChild(index);
+        int right = rightChild(index);
+
+        // Nájdi index najväčšieho z trojice (rodič, ľavé, pravé)
+        if (left < size && heap[left] > heap[maxIndex]) {
+            maxIndex = left;
+        }
+        if (right < size && heap[right] > heap[maxIndex]) {
+            maxIndex = right;
+        }
+
+        // Ak je rodič najväčší, sme hotovi
+        if (maxIndex == index) {
+            return;
+        }
+
+        // Inak swap a pokračuj
+        swap(index, maxIndex);
+        index = maxIndex;
+    }
+}
+
+int remove() {
+    if (heap.empty()) return INT_MIN;
+    if (heap.size() == 1) {
+        int max = heap[0];
+        heap.pop_back();
+        return max;
+    }
+
+    int maxValue = heap[0];
+
+    // Nahraď root posledným prvkom
+    heap[0] = heap.back();
+    heap.pop_back();
+
+    // Sink Down
+    sinkDown(0);
+
+    return maxValue;
+}
+```
+
+**Časová zložitosť:** O(log n)
+
+---
+
+## 6.6 Heap: Priority Queues & Big O
+
+### Priority Queue (Prioritná fronta)
+
+**Priority Queue** je abstraktná dátová štruktúra, kde prvky majú priradenú **prioritu**.
+
+> "Heap je najefektívnejšia implementácia priority queue."
+
+### Príklady použitia:
+
+- **Plánovanie úloh v OS** - procesy s vyššou prioritou sa spúšťajú skôr
+- **Dijkstrov algoritmus** - hľadanie najkratšej cesty
+- **Huffmanovo kódovanie** - kompresia dát
+- **Event-driven simulácie** - spracovanie udalostí podľa času
+
+### Porovnanie implementácií Priority Queue:
+
+| Implementácia  | Insert   | Remove Max | Peek Max |
+| -------------- | -------- | ---------- | -------- |
+| **Heap**       | O(log n) | O(log n)   | O(1)     |
+| Unsorted Array | O(1)     | O(n)       | O(n)     |
+| Sorted Array   | O(n)     | O(1)       | O(1)     |
+| Linked List    | O(n)     | O(n)       | O(n)     |
+
+### Heap: Big O
+
+| Operácia | Časová zložitosť |
+| -------- | ---------------- |
+| Insert   | O(log n)         |
+| Remove   | O(log n)         |
+| Peek     | O(1)             |
+| Build    | O(n)             |
+
+### Prečo O(log n)?
+
+Výška kompletného binárneho stromu s n uzlami je **log₂(n)**. Pri insert aj remove prechádzame maximálne celú výšku stromu.
+
+---
+
+## ÚLOHA 11: Heap - Implementácia {#uloha-11-heap-implementacia}
+
+**Zadanie:** Dokončite implementáciu Max-Heap - dopracujte metódy `insert` a `remove`.
+
+```cpp
+#include <iostream>
+#include <vector>
+#include <climits>
+using namespace std;
+
+class MaxHeap {
+private:
+    vector<int> heap;
+
+    int parent(int index) {
+        return (index - 1) / 2;
+    }
+
+    int leftChild(int index) {
+        return 2 * index + 1;
+    }
+
+    int rightChild(int index) {
+        return 2 * index + 2;
+    }
+
+    void swap(int index1, int index2) {
+        int temp = heap[index1];
+        heap[index1] = heap[index2];
+        heap[index2] = temp;
+    }
+
+public:
+    void printHeap() {
+        cout << "[ ";
+        for (int num : heap) {
+            cout << num << " ";
+        }
+        cout << "]" << endl;
+    }
+
+    int getMax() {
+        if (heap.empty()) return INT_MIN;
+        return heap[0];
+    }
+
+    void insert(int value) {
+        // TODO: Implementujte insert
+        // 1. Pridajte hodnotu na koniec vectora (heap.push_back)
+        // 2. Bubble Up:
+        //    - current = posledný index
+        //    - Kým current > 0 AND heap[current] > heap[parent(current)]:
+        //      a) swap(current, parent(current))
+        //      b) current = parent(current)
+    }
+
+    void sinkDown(int index) {
+        // TODO: Implementujte sinkDown
+        // 1. maxIndex = index
+        // 2. V cykle:
+        //    a) left = leftChild(index), right = rightChild(index)
+        //    b) Ak left < size AND heap[left] > heap[maxIndex] → maxIndex = left
+        //    c) Ak right < size AND heap[right] > heap[maxIndex] → maxIndex = right
+        //    d) Ak maxIndex == index → return (sme hotovi)
+        //    e) swap(index, maxIndex), index = maxIndex
+    }
+
+    int remove() {
+        // TODO: Implementujte remove
+        // 1. Ak heap prázdny → return INT_MIN
+        // 2. Ak size == 1 → uložte, pop_back, vráťte
+        // 3. Uložte heap[0] (maximum)
+        // 4. heap[0] = heap.back(), heap.pop_back()
+        // 5. sinkDown(0)
+        // 6. Vráťte maximum
+    }
+};
+
+// Test:
+int main() {
+    MaxHeap* heap = new MaxHeap();
+
+    heap->insert(99);
+    heap->insert(72);
+    heap->insert(61);
+    heap->insert(58);
+    heap->printHeap();  // [ 99 72 61 58 ]
+
+    heap->insert(100);
+    heap->printHeap();  // [ 100 99 61 58 72 ]
+
+    heap->insert(75);
+    heap->printHeap();  // [ 100 99 75 58 72 61 ]
+
+    cout << "Max: " << heap->getMax() << endl;  // 100
+
+    cout << "Removed: " << heap->remove() << endl;  // 100
+    heap->printHeap();  // [ 99 72 75 58 ... ]
+
+    cout << "Removed: " << heap->remove() << endl;  // 99
+    heap->printHeap();
+
+    return 0;
+}
+```
+
+---
+
+## ÚLOHA 12: Heap - Priority Queue {#uloha-12-heap-priority-queue}
+
+**Zadanie:** Implementujte Priority Queue pre správu úloh s prioritou.
+
+```cpp
+#include <iostream>
+#include <vector>
+#include <string>
+using namespace std;
+
+class Task {
+public:
+    string name;
+    int priority;  // Vyššia hodnota = vyššia priorita
+
+    Task(string n, int p) : name(n), priority(p) {}
+};
+
+class TaskScheduler {
+private:
+    vector<Task> tasks;
+
+    int parent(int i) { return (i - 1) / 2; }
+    int leftChild(int i) { return 2 * i + 1; }
+    int rightChild(int i) { return 2 * i + 2; }
+
+    void swap(int i, int j) {
+        Task temp = tasks[i];
+        tasks[i] = tasks[j];
+        tasks[j] = temp;
+    }
+
+public:
+    void printTasks() {
+        cout << "Fronta úloh:" << endl;
+        for (auto& task : tasks) {
+            cout << "  [" << task.priority << "] " << task.name << endl;
+        }
+    }
+
+    void addTask(string name, int priority) {
+        // TODO: Implementujte pridanie úlohy
+        // 1. Vytvorte Task a pridajte do vectora
+        // 2. Bubble Up podľa priority
+        //
+        // Hint: Porovnávajte tasks[i].priority
+    }
+
+    Task processNextTask() {
+        // TODO: Implementujte spracovanie úlohy s najvyššou prioritou
+        // 1. Uložte úlohu s najvyššou prioritou (tasks[0])
+        // 2. Nahraďte ju poslednou, odstráňte poslednú
+        // 3. Sink Down
+        // 4. Vráťte spracovanú úlohu
+        //
+        // Ak je fronta prázdna, vráťte Task("EMPTY", -1)
+    }
+
+    bool isEmpty() {
+        return tasks.empty();
+    }
+
+    Task peek() {
+        // TODO: Vráťte úlohu s najvyššou prioritou bez odstránenia
+    }
+};
+
+// Test:
+int main() {
+    TaskScheduler* scheduler = new TaskScheduler();
+
+    // Pridávame úlohy s rôznymi prioritami
+    scheduler->addTask("Odoslať email", 3);
+    scheduler->addTask("Opraviť kritický bug", 10);
+    scheduler->addTask("Code review", 5);
+    scheduler->addTask("Meeting", 7);
+    scheduler->addTask("Dokumentácia", 2);
+
+    scheduler->printTasks();
+
+    cout << "\nSpracovanie úloh podľa priority:" << endl;
+    while (!scheduler->isEmpty()) {
+        Task t = scheduler->processNextTask();
+        cout << "Spracovávam: [" << t.priority << "] " << t.name << endl;
+    }
+
+    // Očakávaný výstup (úlohy podľa priority od najvyššej):
+    // [10] Opraviť kritický bug
+    // [7] Meeting
+    // [5] Code review
+    // [3] Odoslať email
+    // [2] Dokumentácia
+
+    return 0;
+}
+```
+
+---
+
+## Heap: Tabuľka časovej zložitosti
+
+| Operácia     | Časová zložitosť |
+| ------------ | ---------------- |
+| Insert       | O(log n)         |
+| Remove (max) | O(log n)         |
+| Peek (max)   | O(1)             |
+| Build Heap   | O(n)             |
+| Heapify      | O(log n)         |
+
+---
+
 # Súhrnná tabuľka: Všetky dátové štruktúry
 
 | Štruktúra             | Pridanie | Odstránenie  | Prístup  | Vyhľadávanie |
@@ -1768,6 +2324,7 @@ Graf:               BFS z A:              DFS z A:
 | **BST (balanced)**    | O(log n) | O(log n)     | O(log n) | O(log n)     |
 | **Hash Table**        | O(1)\*\* | O(1)\*\*     | O(1)\*\* | O(1)\*\*     |
 | **Graph (Adj. List)** | O(1)     | O(V+E)\*\*\* | -        | O(V+E)       |
+| **Heap**              | O(log n) | O(log n)     | O(1)     | O(n)         |
 
 \*Na začiatok/koniec
 **Priemerný prípad, najhorší je O(n) \***Odstránenie vrcholu
@@ -1788,6 +2345,8 @@ Graf:               BFS z A:              DFS z A:
 | 8   | Hash Table: Two Sum         | Optimalizovaný algoritmus s hash mapou                   | [Prejsť na úlohu](#uloha-8-hash-table-two-sum)         |
 | 9   | Graph: Implementácia        | Dopracujte removeVertex                                  | [Prejsť na úlohu](#uloha-9-graph-implementacia)        |
 | 10  | Graph: BFS a DFS            | Implementujte prehľadávanie grafu                        | [Prejsť na úlohu](#uloha-10-graph-bfs-dfs)             |
+| 11  | Heap: Implementácia         | Dopracujte insert, sinkDown, remove                      | [Prejsť na úlohu](#uloha-11-heap-implementacia)        |
+| 12  | Heap: Priority Queue        | Implementujte prioritnú frontu pre úlohy                 | [Prejsť na úlohu](#uloha-12-heap-priority-queue)       |
 
 ---
 
@@ -1823,6 +2382,15 @@ Graf:               BFS z A:              DFS z A:
 - [ ] Rozumiem algoritmom BFS a DFS
 - [ ] Viem kedy použiť BFS (najkratšia cesta) vs DFS (prehľadávanie všetkých ciest)
 
+## Heap
+
+- [ ] Viem vysvetliť rozdiel medzi Max-Heap a Min-Heap
+- [ ] Rozumiem reprezentácii heapu ako poľa (vzorce pre parent, leftChild, rightChild)
+- [ ] Viem implementovať insert (bubble up) a remove (sink down)
+- [ ] Rozumiem prečo je heap ideálny pre Priority Queue
+- [ ] Viem vysvetliť prečo je časová zložitosť operácií O(log n)
+
 ---
 
 **Autor:** Tom. Muc.
+**Verzia:** 2.2
