@@ -16,7 +16,7 @@
 ## Deadline
 
 > **Vypracované riešenie projektu je nutné odovzdať do:**
-> - **4.AT, 4.BI, 4.CI – 4.4.2026 23:59**
+> - **4.AT, IT – 4.4.2026 23:59**
 
 ---
 
