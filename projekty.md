@@ -161,6 +161,135 @@ V tomto zadaní budete hľadať najlacnejšiu cestu pre prepravu tovaru v logist
 
 > **Pozor:** Optimálna trasa bez zľavy nemusí byť rovnaká ako optimálna trasa so zľavou! Niekedy sa oplatí ísť dlhšou trasou s jednou veľmi drahou hranou, pretože po aplikovaní zľavy bude celková cena nižšia.
 
+### Podrobná vizualizácia a vysvetlenie
+
+Pre lepšie pochopenie si ukážeme detailný príklad.
+
+**Vstupné dáta:**
+```
+4
+0 -1 15 77
+-1 0 8 38
+15 8 0 -1
+77 38 -1 0
+0
+3
+```
+
+**Čo to znamená?**
+- 4 mestá (číslované 0, 1, 2, 3)
+- Matica udáva ceny prepravy (-1 = cesta neexistuje)
+- Chceme sa dostať z mesta **0** do mesta **3**
+
+**Vizualizácia grafu:**
+```
+        [0]
+        / \
+      15   77
+      /     \
+    [2]──8──[1]
+              \
+              38
+               \
+              [3]
+
+Legenda:
+- [0], [1], [2], [3] = mestá
+- čísla na hranách = cena prepravy
+- medzi [2] a [3] NIE JE priama cesta
+```
+
+---
+
+#### Krok 1: Hľadanie najlacnejšej cesty (BEZ zľavy)
+
+**Možné trasy z mesta 0 do mesta 3:**
+
+| Trasa | Výpočet | Celková cena |
+|-------|---------|--------------|
+| 0 → 3 (priamo) | 77 | **77** |
+| 0 → 2 → 1 → 3 | 15 + 8 + 38 | **61** ✓ |
+| 0 → 1 → 3 | neexistuje (0-1 nie je spojené priamo) | ✗ |
+
+**Najlacnejšia trasa BEZ zľavy:** `0 → 2 → 1 → 3` za **61**
+
+---
+
+#### Krok 2: Aplikácia zľavy (50% na najdrahšiu hranu)
+
+Teraz aplikujeme zľavu na nájdenú trasu:
+
+**Trasa:** `0 → 2 → 1 → 3`
+
+| Hrana | Cena | Je najdrahšia? | Cena po zľave |
+|-------|------|----------------|---------------|
+| 0 → 2 | 15 | nie | 15 |
+| 2 → 1 | 8 | nie | 8 |
+| 1 → 3 | **38** | **ÁNO** | **19** (50% zľava) |
+
+**Výpočet so zľavou:** 15 + 8 + 19 = **42**
+
+---
+
+#### Krok 3: Overenie alternatívnych trás so zľavou
+
+Musíme skontrolovať, či iná trasa so zľavou nie je lacnejšia:
+
+**Priama trasa:** `0 → 3`
+- Bez zľavy: 77
+- So zľavou (50% zo 77): **38.5**
+
+**Porovnanie:**
+| Trasa | Bez zľavy | So zľavou |
+|-------|-----------|-----------|
+| 0 → 2 → 1 → 3 | 61 | 42 |
+| 0 → 3 | 77 | **38.5** ✓ |
+
+**V tomto prípade je so zľavou lepšia PRIAMA trasa!**
+
+---
+
+#### Dôležitý princíp: Zľava môže zmeniť optimálnu trasu!
+
+```
+Príklad kde zľava MENÍ optimálnu trasu:
+
+        [0]
+       / | \
+      1  |  1
+     /   |   \
+   [1]  200  [2]
+     \       /
+      1     1
+       \   /
+        [3]
+
+BEZ zľavy:
+- Trasa 0→1→3 = 1+1 = 2  ✓ (najlacnejšia)
+- Trasa 0→2→3 = 1+1 = 2  ✓ (rovnako lacná)
+- Trasa 0→3 = 200
+
+SO zľavou:
+- Trasa 0→1→3 = 1+0.5 = 1.5
+- Trasa 0→2→3 = 1+0.5 = 1.5
+- Trasa 0→3 = 100 (50% z 200)
+
+Tu je stále lepšia krátka trasa.
+
+ALE keby bola priama cesta lacná a nepriama drahá:
+- Musíš VŽDY skontrolovať obe možnosti!
+```
+
+---
+
+#### Čo má váš program robiť?
+
+1. **Načítať graf** (maticu susednosti)
+2. **Nájsť najlacnejšiu trasu BEZ zľavy** (napr. Dijkstrov algoritmus)
+3. **Nájsť najlacnejšiu trasu SO zľavou** (pozor - môže byť iná ako bez zľavy!)
+4. **Vypísať obe ceny a trasy**
+5. Ak cesta neexistuje → vypísať `-1`
+
 ### Formát vstupu
 
 Textový súbor obsahujúci:
