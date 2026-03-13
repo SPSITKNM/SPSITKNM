@@ -16,7 +16,7 @@
 ## Deadline
 
 > **Vypracované riešenie projektu je nutné odovzdať do:**
-> - **4.AT, IT – 4.4.2026 23:59**
+> - **4.AT, 4.BI, 4.CI – 4.4.2026 23:59**
 
 ---
 
@@ -434,6 +434,94 @@ Vašou úlohou je nájsť všetky možné cesty daným labyrintom, ktoré:
 
 **Na štandardný výstup vypíšte počet nájdených ciest.**
 
+### Podrobná vizualizácia a vysvetlenie
+
+Pre lepšie pochopenie problému si ukážeme detailný príklad.
+
+**Vstupné dáta:**
+```
+start-A
+start-b
+A-c
+A-b
+b-d
+A-end
+b-end
+```
+
+**Vizualizácia grafu:**
+```
+                    ┌─────────────────────────────┐
+                    │                             │
+                    ▼                             │
+                 ┌─────┐                          │
+                 │start│                          │
+                 └──┬──┘                          │
+                   /│\                            │
+                  / │ \                           │
+                 /  │  \                          │
+                ▼   │   ▼                         │
+           ┌───┐    │    ┌───┐                    │
+           │ A │◄───┼───►│ b │──────►┌───┐        │
+           │(V)│    │    │(m)│       │ d │        │
+           └─┬─┘    │    └─┬─┘       │(m)│        │
+            /│\     │      │         └───┘        │
+           / │ \    │      │         (slepá       │
+          /  │  \   │      │          ulička)     │
+         ▼   │   ▼  │      │                      │
+      ┌───┐  │  ┌───┴──────┴──────────────────────┘
+      │ c │  │  │end│
+      │(m)│  │  └───┘
+      └───┘  │
+             │
+    (V) = VEĽKÁ jaskyňa (možno navštíviť viackrát)
+    (m) = malá jaskyňa (možno navštíviť max 1×)
+```
+
+**Zjednodušená schéma:**
+```
+         start
+          / \
+         /   \
+        A─────b───d
+       /|\    |
+      c │ \   │
+        │  \  │
+        │   end
+```
+
+**Kľúčové princípy:**
+
+1. **Veľká jaskyňa `A`** - môžeš cez ňu prejsť koľkokrát chceš
+2. **Malé jaskyne `b`, `c`, `d`** - každú môžeš navštíviť maximálne raz
+3. **Jaskyňa `d`** - je "slepá ulička", pretože:
+   - Ak ideš `start → b → d`, musíš sa vrátiť cez `b`
+   - Ale `b` si už navštívil → nemôžeš pokračovať
+   - Preto `d` nie je v žiadnej platnej ceste
+
+**Všetkých 10 platných ciest:**
+
+| # | Cesta | Vysvetlenie |
+|---|-------|-------------|
+| 1 | `start→A→end` | Priama cesta cez A |
+| 2 | `start→A→b→end` | Cez A, potom b do cieľa |
+| 3 | `start→A→b→A→end` | Cez A, b, späť cez A (A je veľká!) |
+| 4 | `start→A→b→A→c→A→end` | Veľká A umožňuje viacnásobný prechod |
+| 5 | `start→A→c→A→end` | Cez A, c, späť cez A |
+| 6 | `start→A→c→A→b→end` | A→c→A→b |
+| 7 | `start→A→c→A→b→A→end` | Využívame A ako "hub" |
+| 8 | `start→b→end` | Priamo cez b |
+| 9 | `start→b→A→end` | Cez b do A a do cieľa |
+| 10 | `start→b→A→c→A→end` | b→A→c→A (A viackrát, b a c len raz) |
+
+**Prečo NIE JE cesta cez `d`?**
+```
+start → b → d → ???
+              ↑
+              Tu uviazneš! Z d vedie cesta len späť do b,
+              ale b si už navštívil (je malá jaskyňa).
+```
+
 ### Formát vstupu
 
 Súbor, kde každý riadok obsahuje dvojicu názvov jaskýň spojených pomlčkou: `jaskyna1-jaskyna2`
@@ -444,7 +532,7 @@ Jedno číslo - počet nájdených ciest. (Voliteľne môžete vypísať aj samo
 
 ### Testovacie prípady
 
-#### Test 1: Základný príklad
+#### Test 1: Základný príklad (vysvetlený vyššie)
 **Vstup:**
 ```
 start-A
@@ -459,20 +547,6 @@ b-end
 **Očakávaný výstup:**
 ```
 10
-```
-
-**Všetky cesty:**
-```
-start,A,b,A,c,A,end
-start,A,b,A,end
-start,A,b,end
-start,A,c,A,b,A,end
-start,A,c,A,b,end
-start,A,c,A,end
-start,A,end
-start,b,A,c,A,end
-start,b,A,end
-start,b,end
 ```
 
 #### Test 2: Jednoduchý príklad
