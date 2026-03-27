@@ -46,6 +46,8 @@ Koncepty, ktoré sa naučíš v tomto workshope, sú **univerzálne** a aplikova
 
 ---
 
+# ČASŤ 1: Setup a základy
+
 ## 1. CLI vs GUI
 
 Mnoho AI asistentov funguje ako **CLI** nástroj.
@@ -94,7 +96,33 @@ Napíš 2 dôvody, prečo by si chcel začať novú session:
 
 ---
 
-## 3. Context Window - kľúčový koncept
+# ČASŤ 2: Base usage a IDE integrácia
+
+## 3. Konfigurácia AI Asistentov
+
+Väčšina AI asistentov má viacero úrovní nastavení.
+
+### Hierarchia nastavení (od najnižšej po najvyššiu prioritu)
+
+```
++----------------------------------------+
+|  3. LOKÁLNE (najvyššia priorita)       |  <- Moje osobné nastavenia
++----------------------------------------+
+|  2. PROJEKTOVÉ                         |  <- Zdieľané v tíme
++----------------------------------------+
+|  1. GLOBÁLNE (najnižšia priorita)      |  <- Platí všade
++----------------------------------------+
+```
+
+### Prečo existujú lokálne nastavenia?
+
+Lokálne nastavenia typicky **nie sú** súčasťou Git repozitára.
+
+Je to preto, lebo: _________________________________________________________________
+
+---
+
+## 4. Context Window a Tokeny
 
 ### Čo je context window?
 
@@ -135,31 +163,27 @@ Keď konverzácia presiahne limit, AI asistent vykoná **compaction**:
 
 ---
 
-## 4. Konfigurácia AI Asistentov
+## 5. IDE Integrácie
 
-Väčšina AI asistentov má viacero úrovní nastavení.
+Mnoho AI asistentov má integrácie s IDE (napr. VS Code).
 
-### Hierarchia nastavení (od najnižšej po najvyššiu prioritu)
+### Čo poskytujú?
 
-```
-+----------------------------------------+
-|  3. LOKÁLNE (najvyššia priorita)       |  <- Moje osobné nastavenia
-+----------------------------------------+
-|  2. PROJEKTOVÉ                         |  <- Zdieľané v tíme
-+----------------------------------------+
-|  1. GLOBÁLNE (najnižšia priorita)      |  <- Platí všade
-+----------------------------------------+
-```
+| Funkcia | Popis |
+|---------|-------|
+| Diff viewer | Porovnanie zmien pred/po |
+| Inline akceptácia | Schválenie zmien priamo v editore |
+| Sync | Synchronizácia medzi CLI a IDE |
 
-### Prečo existujú lokálne nastavenia?
+### Prečo ich používať?
 
-Lokálne nastavenia typicky **nie sú** súčasťou Git repozitára.
-
-Je to preto, lebo: _________________________________________________________________
+Ľahšie sa _________________________ zmeny pred ich akceptovaním.
 
 ---
 
-## 5. Permissions - bezpečnosť
+# ČASŤ 3: Advance Permissions Management
+
+## 6. Permissions - bezpečnosť
 
 AI asistent má prístup k tvojmu súborovému systému. To je **mocné, ale nebezpečné**.
 
@@ -183,7 +207,9 @@ AI asistent má prístup k tvojmu súborovému systému. To je **mocné, ale neb
 - _________________________
 - Operácie mimo projekt
 
-### Dangerous Mode
+---
+
+## 7. Dangerous Mode
 
 Niektorí asistenti ponúkajú režim, ktorý preskočí všetky povolenia.
 
@@ -192,19 +218,30 @@ Niektorí asistenti ponúkajú režim, ktorý preskočí všetky povolenia.
 - AI môže _________________________ súbory
 - AI môže spustiť _________________________ skripty
 
-### Sandbox - izolované prostredie
+### Kedy by sa to mohlo hodiť?
+
+Pri použití v kombinácii so _________________________ prostredím.
+
+---
+
+## 8. Sandbox - izolované prostredie
 
 **Sandbox** = izolované prostredie, kde AI môže pracovať bez rizika poškodenia systému.
 
-Existujú dva typy:
-- **Docker sandbox** - beh v Docker kontajneri
-- **Natívny sandbox** - vstavaný v AI asistentovi
+### Typy sandboxov
+
+| Typ | Popis |
+|-----|-------|
+| Docker sandbox | Beh v Docker kontajneri |
+| Natívny sandbox | Vstavaný v AI asistentovi |
 
 Predstav si sandbox ako: _________________________________________________________________
 
 ---
 
-## 6. Version Control a Undo
+# ČASŤ 4: Version Control a Undo
+
+## 9. Vracanie zmien
 
 ### Prečo je Git dôležitý pri práci s AI?
 
@@ -220,9 +257,75 @@ Predstav si sandbox ako: _______________________________________________________
 | IDE diff nástroje | Porovnanie "pred" a "po" |
 | Zabudované undo | Vlastný mechanizmus asistenta |
 
+### Dôležité
+
+Pred väčšími zmenami je **VŽDY** dobré urobiť _________________________.
+
 ---
 
-## 7. Projektové inštrukcie
+# ČASŤ 5: Plan Mode
+
+## 10. Plan Mode
+
+**Plan Mode** = plánovací režim pred implementáciou.
+
+### Ako to funguje?
+
+```
++-----------------------------------------------------------+
+|                     PLAN MODE                             |
+|                                                           |
+|  1. AI analyzuje požiadavku                               |
+|  2. Kladie upresňujúce otázky                             |
+|  3. Navrhuje plán riešenia                                |
+|  4. Čaká na tvoje schválenie                              |
+|  5. AŽ POTOM začne implementovať                          |
+|                                                           |
+|  POZOR: V Plan Mode AI NEMÔŽE robiť zmeny!                |
++-----------------------------------------------------------+
+```
+
+### Kedy použiť Plan Mode?
+
+- Pri _________________________ úlohách
+- Keď si _________________________ výsledkom
+- Pri úlohách ovplyvňujúcich _________________________
+
+### Výhody
+
+1. Predídeš zbytočným _________________________
+2. Môžeš ovplyvniť riešenie _________________________ než je implementované
+3. AI lepšie _________________________ tvoje požiadavky
+
+---
+
+# ČASŤ 6: Context Engineering a projektové inštrukcie
+
+## 11. Špecifické inštrukcie a SPEC.md
+
+### Čo je SPEC.md?
+
+SPEC.md = dokument so špecifikáciou projektu/funkcionality.
+
+### Rozdiel medzi inštrukciami a špecifikáciou
+
+| Súbor | Účel | Veľkosť |
+|-------|------|---------|
+| Inštrukcie (CLAUDE.md) | Pravidlá pre AI | Stručný |
+| SPEC.md | Detailný popis funkcionality | Môže byť dlhší |
+
+### Stratégia použitia
+
+V inštrukciách môžeš napísať:
+```
+Keď implementuješ novú funkcionalitu, pozri sa do @SPEC.md
+```
+
+**Prečo je to lepšie?** _________________________________________________________________
+
+---
+
+## 12. Projektové inštrukcie (CLAUDE.md)
 
 Väčšina AI asistentov podporuje súbor s inštrukciami (napr. `CLAUDE.md`, `.cursorrules`).
 
@@ -262,27 +365,7 @@ projekt/
 
 ---
 
-## 8. Špecifikačné dokumenty
-
-### Rozdiel medzi inštrukciami a špecifikáciou
-
-| Súbor | Účel | Veľkosť |
-|-------|------|---------|
-| CLAUDE.md | Pravidlá pre AI | Stručný |
-| SPEC.md | Detailný popis funkcionality | Môže byť dlhší |
-
-### Stratégia použitia
-
-V inštrukciách môžeš napísať:
-```
-Keď implementuješ novú funkcionalitu, pozri sa do @SPEC.md
-```
-
-**Prečo je to lepšie?** _________________________________________________________________
-
----
-
-## 9. Context Engineering
+## 13. Context Engineering
 
 **Context Engineering** = umenie poskytnúť AI správny kontext.
 
@@ -307,35 +390,25 @@ TypeError: Cannot read property 'map' of undefined
 
 ---
 
-## 10. Plan Mode
+# ČASŤ 7: Nástroje a rozšírenia
 
-**Plan Mode** = plánovací režim pred implementáciou.
+## 14. Nástroje (Tools)
 
-### Ako to funguje?
+AI asistenti môžu mať prístup k rôznym nástrojom:
 
-```
-+-----------------------------------------------------------+
-|                     PLAN MODE                             |
-|                                                           |
-|  1. AI analyzuje požiadavku                               |
-|  2. Kladie upresňujúce otázky                             |
-|  3. Navrhuje plán riešenia                                |
-|  4. Čaká na tvoje schválenie                              |
-|  5. AŽ POTOM začne implementovať                          |
-|                                                           |
-|  POZOR: V Plan Mode AI NEMÔŽE robiť zmeny!                |
-+-----------------------------------------------------------+
-```
+### Základné nástroje
 
-### Kedy použiť Plan Mode?
-
-- Pri _________________________ úlohách
-- Keď si _________________________ výsledkom
-- Pri úlohách ovplyvňujúcich _________________________
+| Nástroj | Čo robí |
+|---------|---------|
+| File Read | Číta obsah súborov |
+| File Write | Zapisuje/upravuje súbory |
+| Shell/Bash | Spúšťa terminálové príkazy |
+| Web Search | Vyhľadáva na internete |
+| Web Fetch | Načítava obsah webových stránok |
 
 ---
 
-## 11. Thinking Mode
+## 15. Thinking Mode
 
 **Thinking Mode** = režim, kde AI "premýšľa nahlas" a ukazuje svoj myšlienkový proces.
 
@@ -353,29 +426,45 @@ Pri _________________________ úlohách, kde nepotrebujeme detailné uvažovanie
 
 ---
 
-## 12. Nástroje (Tools)
+## 16. Práca s dokumentáciou
 
-AI asistenti môžu mať prístup k rôznym nástrojom:
+AI asistenti môžu pristupovať k externej dokumentácii:
 
-### Základné nástroje
+| Spôsob | Popis |
+|--------|-------|
+| Web search | AI vyhľadá na internete |
+| Web fetch | AI načíta konkrétnu URL |
+| MCP servery | Špecializované nástroje |
+| Copy-paste | Manuálne vložíš do promptu |
 
-| Nástroj | Čo robí |
-|---------|---------|
-| File Read | Číta obsah súborov |
-| File Write | Zapisuje/upravuje súbory |
-| Shell/Bash | Spúšťa terminálové príkazy |
-| Web Search | Vyhľadáva na internete |
-| Web Fetch | Načítava obsah webových stránok |
+### Tip: Markdown dokumentácia
 
-### MCP - Model Context Protocol
+Väčšina dokumentácií ponúka Markdown verziu. Je lepšia, pretože:
+- Menej "šumu"
+- Šetrí _________________________
+- Lepšie sa _________________________
+
+---
+
+## 17. MCP - Model Context Protocol
 
 **MCP** = štandard pre pridávanie nových nástrojov a zdrojov pre AI asistentov.
 
 Príklad: MCP server pre dokumentáciu umožňuje AI ľahšie _________________________.
 
+### Ako funguje?
+
+```
++------------------+     +------------------+     +------------------+
+|   AI ASISTENT    | <-> |   MCP SERVER     | <-> |  EXTERNÝ ZDROJ   |
++------------------+     +------------------+     +------------------+
+```
+
 ---
 
-## 13. Skills
+# ČASŤ 8: Skills a Custom Commands
+
+## 18. Skills
 
 **Skills** = rozšírené schopnosti AI asistenta pre špecifické úlohy.
 
@@ -398,11 +487,9 @@ Existujú platformy so zdieľanými skills (napr. skills.sh).
 
 **Výhoda používania hotových skills:** _________________________________________________________________
 
-**Dôležité:** Vždy si preštuduj skill predtým, než ho použiješ - môžeš ho upraviť podľa svojich potrieb.
-
 ---
 
-## 14. Custom Commands
+## 19. Custom Commands
 
 **Custom Commands** = znovu použiteľné prompty, ktoré si vytvoríš sám.
 
@@ -434,7 +521,9 @@ Command `/review` s argumentom:
 
 ---
 
-## 15. Hooks
+# ČASŤ 9: Hooks a Plugins
+
+## 20. Hooks
 
 **Hooks** = automatické reakcie na udalosti AI asistenta.
 
@@ -464,7 +553,7 @@ Po každej úprave súboru automaticky spustiť formátovač kódu.
 
 ---
 
-## 16. Plugins
+## 21. Plugins
 
 **Plugins** = hotové balíčky rozširujúce funkcionalitu AI asistenta.
 
@@ -485,7 +574,9 @@ Po každej úprave súboru automaticky spustiť formátovač kódu.
 
 ---
 
-## 17. Feedback Loops
+# ČASŤ 10: Feedback Loops a Multi-Agent systémy
+
+## 22. Feedback Loops
 
 **Feedback Loop** = mechanizmus, kde AI sama overuje svoju prácu.
 
@@ -519,7 +610,7 @@ Preto je dobré testy buď písať pred implementáciou alebo ich ______________
 
 ---
 
-## 18. Multi-Agent systémy (Ralph Loops)
+## 23. Multi-Agent systémy (Ralph Loops)
 
 **Multi-Agent systém** = viacero AI agentov pracujúcich spoločne alebo AI bežiaca v slučke.
 
@@ -566,45 +657,9 @@ Preto je dobré testy buď písať pred implementáciou alebo ich ______________
 
 ---
 
-## 19. IDE Integrácie
+# Zhrnutie
 
-Mnoho AI asistentov má integrácie s IDE (napr. VS Code).
-
-### Čo poskytujú?
-
-| Funkcia | Popis |
-|---------|-------|
-| Diff viewer | Porovnanie zmien pred/po |
-| Inline akceptácia | Schválenie zmien priamo v editore |
-| Sync | Synchronizácia medzi CLI a IDE |
-
-### Prečo ich používať?
-
-Ľahšie sa _________________________ zmeny pred ich akceptovaním.
-
----
-
-## 20. Práca s dokumentáciou
-
-AI asistenti môžu pristupovať k externej dokumentácii:
-
-| Spôsob | Popis |
-|--------|-------|
-| Web search | AI vyhľadá na internete |
-| Web fetch | AI načíta konkrétnu URL |
-| MCP servery | Špecializované nástroje |
-| Copy-paste | Manuálne vložíš do promptu |
-
-### Tip: Markdown dokumentácia
-
-Väčšina dokumentácií ponúka Markdown verziu. Je lepšia, pretože:
-- Menej "šumu"
-- Šetrí _________________________
-- Lepšie sa _________________________
-
----
-
-## 21. Zhrnutie konceptov
+## 24. Prehľad konceptov
 
 Spoj pojem s definíciou:
 
@@ -646,6 +701,159 @@ _________________________________________________________________
 _________________________________________________________________
 
 _________________________________________________________________
+
+---
+
+# Prehľad všetkých otázok
+
+> Klikni na otázku pre presmerovanie na príslušnú sekciu v dokumente.
+
+---
+
+## ČASŤ 1: Setup a základy
+
+### [1. CLI vs GUI](#1-cli-vs-gui)
+- [ ] Čo znamená CLI?
+- [ ] Cez čo komunikujeme s CLI nástrojom?
+- [ ] Čo znamená GUI?
+- [ ] Ako sa CLI ľahko... (automatizácia)?
+- [ ] Cez čo funguje CLI vzdialene?
+- [ ] Na čo je CLI menej náročné?
+
+### [2. Sessions](#2-sessions---konverzácie-s-ai)
+- [ ] Dva dôvody, prečo začať novú session
+
+---
+
+## ČASŤ 2: Base usage a IDE integrácia
+
+### [3. Konfigurácia](#3-konfigurácia-ai-asistentov)
+- [ ] Prečo lokálne nastavenia nie sú v Git repozitári?
+
+### [4. Context Window a Tokeny](#4-context-window-a-tokeny)
+- [ ] Čo je compaction?
+- [ ] Aká je nevýhoda compaction?
+
+### [5. IDE Integrácie](#5-ide-integrácie)
+- [ ] Prečo používať IDE integrácie? (ľahšie sa...)
+
+---
+
+## ČASŤ 3: Advance Permissions Management
+
+### [6. Permissions](#6-permissions---bezpečnosť)
+- [ ] Čo stále vyžaduje povolenie? (2 odpovede)
+
+### [7. Dangerous Mode](#7-dangerous-mode)
+- [ ] Čo môže AI urobiť s git históriou?
+- [ ] Čo môže AI urobiť so súbormi?
+- [ ] Aké skripty môže AI spustiť?
+- [ ] S akým prostredím sa dangerous mode kombinuje?
+
+### [8. Sandbox](#8-sandbox---izolované-prostredie)
+- [ ] Ako si predstaviť sandbox? (prirovnanie)
+
+---
+
+## ČASŤ 4: Version Control a Undo
+
+### [9. Vracanie zmien](#9-vracanie-zmien)
+- [ ] Dva dôvody, prečo je Git dôležitý pri práci s AI
+- [ ] Čo je dobré urobiť pred väčšími zmenami?
+
+---
+
+## ČASŤ 5: Plan Mode
+
+### [10. Plan Mode](#10-plan-mode)
+- [ ] Pri akých úlohách použiť Plan Mode?
+- [ ] Kedy si... výsledkom?
+- [ ] Aké úlohy ovplyvňujú...?
+- [ ] Čomu predídeš zbytočným...?
+- [ ] Kedy môžeš ovplyvniť riešenie?
+- [ ] Čo AI lepšie...?
+
+---
+
+## ČASŤ 6: Context Engineering a projektové inštrukcie
+
+### [11. SPEC.md](#11-špecifické-inštrukcie-a-specmd)
+- [ ] Prečo je lepšie odkazovať na SPEC.md z CLAUDE.md?
+
+### [12. Projektové inštrukcie](#12-projektové-inštrukcie-claudemd)
+- [ ] Súčasťou čoho sa stáva CLAUDE.md pri načítaní?
+- [ ] Prečo má byť CLAUDE.md stručný?
+
+### [13. Context Engineering](#13-context-engineering)
+- [ ] Aké informácie pridávať? (relevantnosť)
+- [ ] Čo šetríme stručnosťou?
+- [ ] Prečo používať formátovanie?
+- [ ] Prečo sú XML tagy lepšie?
+
+---
+
+## ČASŤ 7: Nástroje a rozšírenia
+
+### [15. Thinking Mode](#15-thinking-mode)
+- [ ] Čo spotrebuje thinking mode viac?
+- [ ] Aká je odpoveď s thinking mode?
+- [ ] Pri akých úlohách ho vypnúť?
+
+### [16. Práca s dokumentáciou](#16-práca-s-dokumentáciou)
+- [ ] Čo šetrí Markdown dokumentácia?
+- [ ] Ako sa lepšie... Markdown?
+
+### [17. MCP](#17-mcp---model-context-protocol)
+- [ ] Čo umožňuje MCP server pre dokumentáciu?
+
+---
+
+## ČASŤ 8: Skills a Custom Commands
+
+### [18. Skills](#18-skills)
+- [ ] Výhoda používania hotových skills?
+
+---
+
+## ČASŤ 9: Hooks a Plugins
+
+### [20. Hooks](#20-hooks)
+- [ ] Po čom sa hook spustí? (príklad)
+- [ ] Čo hook vykoná? (príklad)
+
+---
+
+## ČASŤ 10: Feedback Loops a Multi-Agent systémy
+
+### [22. Feedback Loops](#22-feedback-loops)
+- [ ] Čo robí AI v kroku 2 feedback loop?
+- [ ] Čo umožňuje Playwright?
+- [ ] Aká je nevýhoda feedback loops? (spotreba)
+- [ ] Aké testy má AI tendenciu písať?
+- [ ] Čo robiť s testami písanými AI?
+
+### [23. Multi-Agent systémy](#23-multi-agent-systémy-ralph-loops)
+- [ ] Pre čo sú Ralph Loops vhodné?
+- [ ] Čo je menšie pri Ralph Loops? (kontrola)
+- [ ] Čo stále potrebuješ? (plán)
+- [ ] 4 veci potrebné pre úspešný Ralph Loop
+
+---
+
+## Zhrnutie
+
+### [24. Prehľad konceptov](#24-prehľad-konceptov)
+- [ ] Spoj 8 pojmov s definíciami (A-H)
+
+### [Reflexia](#reflexia)
+- [ ] Čo ťa najviac zaujalo/prekvapilo?
+- [ ] Najväčšie výhody AI asistentov?
+- [ ] Najväčšie riziká?
+- [ ] Ako využiť vo svojich projektoch?
+
+---
+
+**Celkový počet otázok: 50+**
 
 ---
 
