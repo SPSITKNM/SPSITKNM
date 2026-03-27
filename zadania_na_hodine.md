@@ -1,6 +1,6 @@
 # AI Workshop - Pracovný list
 
-> Prejdite si dokument **AI_Workshop.pdf** a doplňte chýbajúce časti. Nebojte sa, nie je to test - je to nástroj na pochopenie konceptov.
+> Prejdite si dokument **AI_Workshop.pdf** a doplňte chýbajúce časti. Tento pracovný list vám pomôže pochopiť kľúčové koncepty práce s AI asistentmi.
 
 ---
 
@@ -9,10 +9,10 @@
 ### Architektúra
 
 ```
-┌─────────────┐     ┌──────────────────┐     ┌─────────────┐
-│  POUŽÍVATEĽ │ ←→  │   AI ASISTENT    │ ←→  │     LLM     │
-│             │     │   (interface)    │     │   (model)   │
-└─────────────┘     └──────────────────┘     └─────────────┘
++-------------+     +------------------+     +-------------+
+| POUZIVATEL  | <-> |   AI ASISTENT    | <-> |     LLM     |
+|             |     |   (interface)    |     |   (model)   |
++-------------+     +------------------+     +-------------+
      Ty                 Prostredník            "Mozog"
 ```
 
@@ -58,7 +58,7 @@ Mnoho AI asistentov funguje ako **CLI** nástroj.
 
 Doplň výhody:
 - Rýchlejšie pre skúsených používateľov
-- Ľahko sa _________________________  (automatizácia)
+- Ľahko sa _________________________ (automatizácia)
 - Funguje cez _________________________ (SSH)
 - Menej náročné na _________________________
 
@@ -92,8 +92,6 @@ Napíš 2 dôvody, prečo by si chcel začať novú session:
 
 2. _________________________________________________________________
 
-> **Hint:** Premýšľaj o situácii, keď sa AI "zasekne" alebo keď kontext narastie...
-
 ---
 
 ## 3. Context Window - kľúčový koncept
@@ -103,49 +101,37 @@ Napíš 2 dôvody, prečo by si chcel začať novú session:
 Context window = maximálne množstvo textu (tokenov), ktoré LLM "vidí" naraz.
 
 ```
-┌─────────────────────────────────────────────────────────┐
-│                    CONTEXT WINDOW                       │
-│  ┌─────────────────────────────────────────────────┐   │
-│  │ System prompt (inštrukcie pre AI)               │   │
-│  ├─────────────────────────────────────────────────┤   │
-│  │ Informácie o nástrojoch                         │   │
-│  ├─────────────────────────────────────────────────┤   │
-│  │ História konverzácie                            │   │
-│  ├─────────────────────────────────────────────────┤   │
-│  │ Tvoj aktuálny prompt                            │   │
-│  ├─────────────────────────────────────────────────┤   │
-│  │ [REZERVA pre odpoveď AI]                        │   │
-│  └─────────────────────────────────────────────────┘   │
-└─────────────────────────────────────────────────────────┘
++-----------------------------------------------------------+
+|                    CONTEXT WINDOW                         |
+|  +-----------------------------------------------------+  |
+|  | System prompt (inštrukcie pre AI)                   |  |
+|  +-----------------------------------------------------+  |
+|  | Informácie o nástrojoch                             |  |
+|  +-----------------------------------------------------+  |
+|  | História konverzácie                                |  |
+|  +-----------------------------------------------------+  |
+|  | Tvoj aktuálny prompt                                |  |
+|  +-----------------------------------------------------+  |
+|  | [REZERVA pre odpoveď AI]                            |  |
+|  +-----------------------------------------------------+  |
++-----------------------------------------------------------+
 ```
 
 ### Tokeny
 
-**Token** ≠ slovo. Token je jednotka, ktorú LLM spracováva.
+**Token** nie je to isté ako slovo. Token je jednotka, ktorú LLM spracováva.
 
-Približne: **1 token ≈ 4 znaky** alebo **100 tokenov ≈ 75 slov**
+Približne: **1 token = cca 4 znaky** alebo **100 tokenov = cca 75 slov**
 
-Príklad:
-```
-"Hello world" = 2 tokeny
-"Ahoj svet" = 3 tokeny (slovenčina je "drahšia")
-```
+### Compaction (komprimácia)
 
-### Čo sa stane, keď sa context window zaplní?
-
-Keď konverzácia presiahne limit, AI asistent vykoná **compaction** (komprimáciu):
+Keď konverzácia presiahne limit, AI asistent vykoná **compaction**:
 
 **Compaction** = _________________________
 
 **Výhoda:** AI môže pokračovať v práci
+
 **Nevýhoda:** _________________________ (niektoré detaily sa stratia)
-
-### Prečo je dôležité rozumieť context window?
-
-Doplň:
-- Príliš dlhé konverzácie vedú k _________________________
-- Nepotrebný kontext _________________________ tokeny
-- Čím viac tokenov použijeme, tým _________________________ to stojí
 
 ---
 
@@ -156,13 +142,13 @@ Väčšina AI asistentov má viacero úrovní nastavení.
 ### Hierarchia nastavení (od najnižšej po najvyššiu prioritu)
 
 ```
-┌────────────────────────────────────────┐
-│  3. LOKÁLNE (najvyššia priorita)       │  ← Moje osobné nastavenia
-├────────────────────────────────────────┤
-│  2. PROJEKTOVÉ                         │  ← Zdieľané v tíme
-├────────────────────────────────────────┤
-│  1. GLOBÁLNE (najnižšia priorita)      │  ← Platí všade
-└────────────────────────────────────────┘
++----------------------------------------+
+|  3. LOKÁLNE (najvyššia priorita)       |  <- Moje osobné nastavenia
++----------------------------------------+
+|  2. PROJEKTOVÉ                         |  <- Zdieľané v tíme
++----------------------------------------+
+|  1. GLOBÁLNE (najnižšia priorita)      |  <- Platí všade
++----------------------------------------+
 ```
 
 ### Prečo existujú lokálne nastavenia?
@@ -171,58 +157,74 @@ Lokálne nastavenia typicky **nie sú** súčasťou Git repozitára.
 
 Je to preto, lebo: _________________________________________________________________
 
-> **Príklad:** V tíme 5 programátorov môže mať každý vlastné lokálne nastavenia s osobnými preferenciami, ale zdieľajú spoločné projektové nastavenia.
-
 ---
 
 ## 5. Permissions - bezpečnosť
 
-AI asistent má prístup k tvojmu súborovému systému a môže spúšťať príkazy. To je **mocné, ale nebezpečné**.
+AI asistent má prístup k tvojmu súborovému systému. To je **mocné, ale nebezpečné**.
 
 ### Typy akcií podľa rizika
 
-| Riziko | Príklad akcie | Typicky vyžaduje povolenie? |
-|--------|---------------|------------------------------|
+| Riziko | Príklad akcie | Vyžaduje povolenie? |
+|--------|---------------|---------------------|
 | Nízke | Čítanie súborov | Nie |
 | Stredné | Editovanie súborov v projekte | Záleží na nastavení |
 | Vysoké | Spúšťanie shell príkazov | Áno |
-| Vysoké | Mazanie súborov | Áno |
 | Kritické | Git operácie (push, reset) | Áno |
 
 ### Auto-accept módy
 
-Mnoho AI asistentov ponúka režim, kde automaticky schvaľujú niektoré akcie.
-
-**Čo typicky môžu robiť bez pýtania:**
-- ✅ Čítať súbory
-- ✅ Editovať súbory v projekte
+**Čo typicky môže AI robiť bez pýtania:**
+- Čítať súbory
+- Editovať súbory v projekte
 
 **Čo stále vyžaduje povolenie:**
-- ❌ _________________________
-- ❌ _________________________
-- ❌ Operácie mimo projekt
+- _________________________
+- _________________________
+- Operácie mimo projekt
+
+### Dangerous Mode
+
+Niektorí asistenti ponúkajú režim, ktorý preskočí všetky povolenia.
+
+**Riziká:**
+- AI môže _________________________ git históriu
+- AI môže _________________________ súbory
+- AI môže spustiť _________________________ skripty
 
 ### Sandbox - izolované prostredie
 
 **Sandbox** = izolované prostredie, kde AI môže pracovať bez rizika poškodenia systému.
 
-Predstav si to ako: _________________________________________________________________
+Existujú dva typy:
+- **Docker sandbox** - beh v Docker kontajneri
+- **Natívny sandbox** - vstavaný v AI asistentovi
 
-> **Hint:** Pomysli na detské pieskovisko - dieťa sa môže hrať, ale piesok zostane v ohraničenom priestore.
+Predstav si sandbox ako: _________________________________________________________________
 
-### Prečo je Version Control (Git) dôležitý pri práci s AI?
+---
 
-Napíš 2 dôvody:
+## 6. Version Control a Undo
+
+### Prečo je Git dôležitý pri práci s AI?
 
 1. _________________________________________________________________
 
 2. _________________________________________________________________
 
+### Možnosti vrátenia zmien
+
+| Metóda | Popis |
+|--------|-------|
+| Git revert/reset | Klasické git príkazy |
+| IDE diff nástroje | Porovnanie "pred" a "po" |
+| Zabudované undo | Vlastný mechanizmus asistenta |
+
 ---
 
-## 6. Projektové inštrukcie
+## 7. Projektové inštrukcie
 
-Väčšina AI asistentov podporuje súbor s inštrukciami pre projekt (napr. `CLAUDE.md`, `AGENTS.md`, `.cursorrules`, atď.).
+Väčšina AI asistentov podporuje súbor s inštrukciami (napr. `CLAUDE.md`, `.cursorrules`).
 
 ### Čo obsahuje?
 
@@ -232,46 +234,67 @@ Stručný popis...
 
 # Pravidlá
 - Používaj TypeScript
-- Nepoužívaj any typ
 - Píš testy pre každú funkciu
 
 # Architektúra
 - /src - zdrojové súbory
 - /tests - testy
-- ...
 ```
 
 ### Kedy sa načíta?
 
-Tento súbor sa **automaticky načíta** pri každej novej session a stáva sa súčasťou _________________________.
+Tento súbor sa **automaticky načíta** pri každej session a stáva sa súčasťou _________________________.
 
 ### Prečo má byť stručný?
 
 _________________________________________________________________
 
-> **Hint:** Spomeň si na context window a tokeny...
+### Vnorené inštrukcie
+
+```
+projekt/
+  CLAUDE.md           <- načíta sa vždy
+  frontend/
+    CLAUDE.md         <- načíta sa len pri práci vo frontend/
+  backend/
+    CLAUDE.md         <- načíta sa len pri práci v backend/
+```
 
 ---
 
-## 7. Context Engineering
+## 8. Špecifikačné dokumenty
 
-**Context Engineering** = umenie poskytnúť AI správny kontext pre najlepší výsledok.
+### Rozdiel medzi inštrukciami a špecifikáciou
+
+| Súbor | Účel | Veľkosť |
+|-------|------|---------|
+| CLAUDE.md | Pravidlá pre AI | Stručný |
+| SPEC.md | Detailný popis funkcionality | Môže byť dlhší |
+
+### Stratégia použitia
+
+V inštrukciách môžeš napísať:
+```
+Keď implementuješ novú funkcionalitu, pozri sa do @SPEC.md
+```
+
+**Prečo je to lepšie?** _________________________________________________________________
+
+---
+
+## 9. Context Engineering
+
+**Context Engineering** = umenie poskytnúť AI správny kontext.
 
 ### Základné princípy
 
 | Princíp | Vysvetlenie |
 |---------|-------------|
 | Relevantnosť | Pridávaj len _________________________ informácie |
-| Stručnosť | Menej je viac - šetri _________________________ |
+| Stručnosť | Šetri _________________________ |
 | Štruktúra | Používaj formátovanie pre _________________________ |
 
-### Ako ukázať AI na konkrétny súbor?
-
-Väčšina asistentov podporuje syntax ako `@súbor.js` alebo explicitné "pozri sa na súbor X".
-
-### Štruktúrovaný vstup - XML tagy
-
-Keď vkladáš dlhší kód alebo chybovú hlášku, je dobré ho ohraničiť:
+### XML tagy pre štruktúru
 
 ```xml
 <error>
@@ -282,48 +305,57 @@ TypeError: Cannot read property 'map' of undefined
 
 **Prečo je to lepšie?** _________________________________________________________________
 
-> **Hint:** LLM modely boli trénované na veľkom množstve XML/HTML...
-
 ---
 
-## 8. Plan Mode - najprv premýšľaj, potom konaj
+## 10. Plan Mode
 
-Mnoho AI asistentov ponúka **Plan Mode** (plánovací režim).
+**Plan Mode** = plánovací režim pred implementáciou.
 
 ### Ako to funguje?
 
 ```
-┌─────────────────────────────────────────────────────────┐
-│                     PLAN MODE                           │
-│                                                         │
-│  1. AI analyzuje požiadavku                            │
-│  2. Kladie upresňujúce otázky                          │
-│  3. Navrhuje plán riešenia                             │
-│  4. Čaká na tvoje schválenie                           │
-│  5. AŽ POTOM začne implementovať                       │
-│                                                         │
-│  ⚠️  V Plan Mode AI NEMÔŽE robiť zmeny!                │
-└─────────────────────────────────────────────────────────┘
++-----------------------------------------------------------+
+|                     PLAN MODE                             |
+|                                                           |
+|  1. AI analyzuje požiadavku                               |
+|  2. Kladie upresňujúce otázky                             |
+|  3. Navrhuje plán riešenia                                |
+|  4. Čaká na tvoje schválenie                              |
+|  5. AŽ POTOM začne implementovať                          |
+|                                                           |
+|  POZOR: V Plan Mode AI NEMÔŽE robiť zmeny!                |
++-----------------------------------------------------------+
 ```
 
 ### Kedy použiť Plan Mode?
 
-Doplň situácie:
 - Pri _________________________ úlohách
 - Keď si _________________________ výsledkom
-- Pri úlohách, ktoré ovplyvňujú _________________________
-
-### Výhody
-
-1. Predídeš zbytočným _________________________
-2. Môžeš ovplyvniť riešenie _________________________ než je implementované
-3. AI lepšie _________________________ tvoje požiadavky
+- Pri úlohách ovplyvňujúcich _________________________
 
 ---
 
-## 9. Nástroje a rozšírenia
+## 11. Thinking Mode
 
-AI asistenti môžu mať prístup k rôznym **nástrojom (tools)**:
+**Thinking Mode** = režim, kde AI "premýšľa nahlas" a ukazuje svoj myšlienkový proces.
+
+### Výhody a nevýhody
+
+| Výhody | Nevýhody |
+|--------|----------|
+| Vidíš ako AI uvažuje | Spotrebuje viac _________________________ |
+| Kvalitnejšie odpovede | _________________________ odpoveď |
+| Odhalíš chyby v uvažovaní | |
+
+### Kedy ho vypnúť?
+
+Pri _________________________ úlohách, kde nepotrebujeme detailné uvažovanie.
+
+---
+
+## 12. Nástroje (Tools)
+
+AI asistenti môžu mať prístup k rôznym nástrojom:
 
 ### Základné nástroje
 
@@ -337,28 +369,255 @@ AI asistenti môžu mať prístup k rôznym **nástrojom (tools)**:
 
 ### MCP - Model Context Protocol
 
-**MCP** je štandard pre pridávanie nových nástrojov a zdrojov pre AI asistentov.
+**MCP** = štandard pre pridávanie nových nástrojov a zdrojov pre AI asistentov.
 
 Príklad: MCP server pre dokumentáciu umožňuje AI ľahšie _________________________.
 
-### Prečo sú nástroje dôležité?
+---
 
-Bez nástrojov je LLM len "chatbot". S nástrojmi sa stáva _________________________.
+## 13. Skills
+
+**Skills** = rozšírené schopnosti AI asistenta pre špecifické úlohy.
+
+### Čo sú skills?
+
+Skills sú v podstate "balíčky" obsahujúce:
+- Špecifické inštrukcie
+- Definované nástroje
+- Workflow pre konkrétnu úlohu
+
+### Ako fungujú?
+
+AI asistent ich môže:
+- Automaticky objaviť a použiť keď sú potrebné
+- Spustiť na základe tvojej výzvy
+
+### Third-party skills
+
+Existujú platformy so zdieľanými skills (napr. skills.sh).
+
+**Výhoda používania hotových skills:** _________________________________________________________________
+
+**Dôležité:** Vždy si preštuduj skill predtým, než ho použiješ - môžeš ho upraviť podľa svojich potrieb.
 
 ---
 
-## 10. Zhrnutie konceptov
+## 14. Custom Commands
+
+**Custom Commands** = znovu použiteľné prompty, ktoré si vytvoríš sám.
+
+### Prečo ich používať?
+
+Predstav si, že často robíš code review s rovnakým promptom. Namiesto opakovania môžeš vytvoriť command.
+
+### Štruktúra custom command
+
+```yaml
+description: Popis čo command robí
+allowed-tools: [Read]  # Obmedzenie nástrojov
+---
+Tvoj prompt tu...
+$ARGUMENTS  # Placeholder pre argumenty
+```
+
+### Príklad použitia
+
+Command `/review` s argumentom:
+```
+/review src/components/Button.js
+```
+
+### Kde ich uložiť?
+
+- **Lokálne** - v projekte (zdieľané s tímom)
+- **Globálne** - na tvojom počítači (osobné)
+
+---
+
+## 15. Hooks
+
+**Hooks** = automatické reakcie na udalosti AI asistenta.
+
+### Ako fungujú?
+
+```
++------------------+     +------------------+     +------------------+
+|  AI VYKONÁ       | --> |     HOOK SA      | --> |   SPUSTÍ SA      |
+|  AKCIU           |     |    AKTIVUJE      |     |   TVOJ KÓD       |
++------------------+     +------------------+     +------------------+
+```
+
+### Typy hookov
+
+| Typ | Kedy sa spustí |
+|-----|----------------|
+| PreToolUse | Pred použitím nástroja |
+| PostToolUse | Po použití nástroja |
+
+### Príklad použitia
+
+Po každej úprave súboru automaticky spustiť formátovač kódu.
+
+**Hook sa spustí po:** _________________________
+
+**Vykoná:** _________________________
+
+---
+
+## 16. Plugins
+
+**Plugins** = hotové balíčky rozširujúce funkcionalitu AI asistenta.
+
+### Čo môžu obsahovať?
+
+- MCP servery
+- Custom commands
+- Skills
+- Hooks
+
+### Kde ich nájsť?
+
+- Oficiálny marketplace
+- Interné firemné repozitáre
+- GitHub
+
+**Výhoda:** Nemusíš všetko nastavovať od začiatku - použiješ hotové riešenie.
+
+---
+
+## 17. Feedback Loops
+
+**Feedback Loop** = mechanizmus, kde AI sama overuje svoju prácu.
+
+### Prečo je to dôležité?
+
+AI môže robiť chyby. Feedback loop jej umožňuje:
+1. Vykonať zmenu
+2. _________________________ výsledok
+3. Opraviť chyby
+4. Opakovať
+
+### Typy feedback loops
+
+| Typ | Popis |
+|-----|-------|
+| Unit testy | AI spustí testy a opraví zlyhania |
+| Browser testing | AI otvorí prehliadač a skontroluje UI |
+| Linting | AI skontroluje kvalitu kódu |
+
+### Príklad: Playwright
+
+Playwright umožňuje AI otvoriť prehliadač a _________________________ webstránku.
+
+**Nevýhoda feedback loops:** Vyššia spotreba _________________________
+
+### Pozor na testy písané AI
+
+AI má tendenciu písať testy, ktoré _________________________.
+
+Preto je dobré testy buď písať pred implementáciou alebo ich _________________________.
+
+---
+
+## 18. Multi-Agent systémy (Ralph Loops)
+
+**Multi-Agent systém** = viacero AI agentov pracujúcich spoločne alebo AI bežiaca v slučke.
+
+### Ralph Loop - koncept
+
+```
++-----------------------------------------------------------+
+|                      RALPH LOOP                           |
+|                                                           |
+|  while (tasks_remaining && iterations < MAX):             |
+|      1. Agent si vyberie task zo zoznamu                  |
+|      2. Implementuje riešenie                             |
+|      3. Spustí testy                                      |
+|      4. Označí task ako hotový                            |
+|      5. Pokračuje na ďalší task                           |
+|                                                           |
++-----------------------------------------------------------+
+```
+
+### Ako to funguje?
+
+1. Vytvoríš zoznam úloh (napr. v PRD súbore)
+2. Spustíš agenta v slučke
+3. Agent si vyberá a plní úlohy automaticky
+4. Ty len kontroluješ výsledky
+
+### Výhody
+
+- Menej manuálnej práce
+- Vhodné pre _________________________
+
+### Nevýhody
+
+- Menšia _________________________ nad procesom
+- Agent sa môže "zaseknúť"
+- Stále potrebuješ dobrý _________________________ a jasné úlohy
+
+### Čo je potrebné pre úspešný Ralph Loop?
+
+1. Dobre definované _________________________
+2. Funkčné _________________________
+3. Sandbox prostredie pre _________________________
+4. Kvalitný project _________________________
+
+---
+
+## 19. IDE Integrácie
+
+Mnoho AI asistentov má integrácie s IDE (napr. VS Code).
+
+### Čo poskytujú?
+
+| Funkcia | Popis |
+|---------|-------|
+| Diff viewer | Porovnanie zmien pred/po |
+| Inline akceptácia | Schválenie zmien priamo v editore |
+| Sync | Synchronizácia medzi CLI a IDE |
+
+### Prečo ich používať?
+
+Ľahšie sa _________________________ zmeny pred ich akceptovaním.
+
+---
+
+## 20. Práca s dokumentáciou
+
+AI asistenti môžu pristupovať k externej dokumentácii:
+
+| Spôsob | Popis |
+|--------|-------|
+| Web search | AI vyhľadá na internete |
+| Web fetch | AI načíta konkrétnu URL |
+| MCP servery | Špecializované nástroje |
+| Copy-paste | Manuálne vložíš do promptu |
+
+### Tip: Markdown dokumentácia
+
+Väčšina dokumentácií ponúka Markdown verziu. Je lepšia, pretože:
+- Menej "šumu"
+- Šetrí _________________________
+- Lepšie sa _________________________
+
+---
+
+## 21. Zhrnutie konceptov
 
 Spoj pojem s definíciou:
 
 | Pojem | | Definícia |
 |-------|---|-----------|
 | Context Window | | A. Automatická kompresia konverzácie |
-| Token | | B. Izolované bezpečné prostredie |
-| Compaction | | C. Maximálna kapacita "pamäte" LLM |
-| Session | | D. Najmenšia jednotka textu pre LLM |
-| Sandbox | | E. Jedna súvislá konverzácia |
-| Plan Mode | | F. Režim plánovania pred implementáciou |
+| Compaction | | B. Izolované bezpečné prostredie |
+| Sandbox | | C. Maximálna kapacita "pamäte" LLM |
+| Skills | | D. Znovu použiteľné prompty |
+| Custom Commands | | E. Rozšírené schopnosti pre špecifické úlohy |
+| Hooks | | F. Automatické reakcie na udalosti |
+| Feedback Loop | | G. AI overuje svoju vlastnú prácu |
+| Ralph Loop | | H. Agent pracujúci v automatickej slučke |
 
 ---
 
@@ -370,7 +629,19 @@ _________________________________________________________________
 
 _________________________________________________________________
 
-**Ako by si mohol využiť AI asistenta vo svojich projektoch?**
+**Aké sú podľa teba najväčšie výhody používania AI asistentov?**
+
+_________________________________________________________________
+
+_________________________________________________________________
+
+**Aké sú podľa teba najväčšie riziká?**
+
+_________________________________________________________________
+
+_________________________________________________________________
+
+**Ako by si mohol využiť tieto koncepty vo svojich projektoch?**
 
 _________________________________________________________________
 
