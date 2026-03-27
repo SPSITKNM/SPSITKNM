@@ -1,6 +1,6 @@
 # AI Workshop - Pracovný list
 
-> Prejdite si materiály a doplňte chýbajúce časti. Tento pracovný list vám pomôže pochopiť kľúčové koncepty práce s AI asistentmi.
+> Prejdite si materiály a doplňte chýbajúce časti. Tento "pracovný list" vám pomôže pochopiť kľúčové koncepty práce s AI asistentmi.
 
 ### Primárne zdroje
 
