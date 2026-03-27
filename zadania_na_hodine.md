@@ -1,6 +1,14 @@
 # AI Workshop - Pracovný list
 
-> Prejdite si dokument **AI_Workshop.pdf** a doplňte chýbajúce časti. Tento pracovný list vám pomôže pochopiť kľúčové koncepty práce s AI asistentmi.
+> Prejdite si materiály a doplňte chýbajúce časti. Tento pracovný list vám pomôže pochopiť kľúčové koncepty práce s AI asistentmi.
+
+### Primárne zdroje
+
+| Zdroj | Odkaz |
+|-------|-------|
+| PDF dokument | **AI_Workshop.pdf** |
+| YouTube playlist | [Claude Code Workshop](https://youtube.com/playlist?list=PLJW-oHbyRDeL62yOcaqjex7cKnzcEYQXi&si=JUX_Bc2piFMk1NwJ) |
+| GitHub dokumentácia | [github.com/Kames003/Claude-](https://github.com/Kames003/Claude-) |
 
 ---
 
@@ -853,8 +861,5 @@ _________________________________________________________________
 
 ---
 
-**Celkový počet otázok: 50+**
 
----
-
-*AI Workshop | SPSIT*
+*AI Workshop | SPSIT | Tom. Muc.*
