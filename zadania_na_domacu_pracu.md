@@ -1,6 +1,4 @@
-# Opakovacie úlohy: Dátové štruktúry
-
-Každá úloha obsahuje popis, vizualizáciu a hinty. Implementuj metódy podľa zadania.
+# Test: Dátové štruktúry
 
 ---
 
@@ -18,7 +16,7 @@ Každá úloha obsahuje popis, vizualizáciu a hinty. Implementuj metódy podľa
 
 # Sekcia 1 – Linked List
 
-Pracuješ s touto základnou štruktúrou. Neupravuj ju – len dopĺňaj metódy.
+Pracuješ so streamovacou službou, ktorá uchováva prehrávaný playlist ako spájaný zoznam skladieb. Každý uzol predstavuje jednu skladbu.
 
 ```cpp
 class Node {
@@ -55,357 +53,268 @@ public:
 
 ## LL-1: Append
 
-Pridaj nový uzol na **koniec** zoznamu.
+Používateľ klikol na „Pridať na koniec playlistu". Implementuj metódu `append`, ktorá pridá novú skladbu na koniec zoznamu.
 
 ```
 PRED:
-head --> [3] --> [7] --> nullptr
-                  ^
-                 tail
+head --> [101] --> [237] --> nullptr
+                     ^
+                    tail
 
-VOLANIE: append(12)
+append(348)
 
 PO:
-head --> [3] --> [7] --> [12] --> nullptr
-                           ^
-                          tail
-length: 2 --> 3
+head --> [101] --> [237] --> [348] --> nullptr
+                               ^
+                              tail
 ```
 
-**Hinty:**
-1. Vytvor nový uzol pomocou `new Node(value)`.
-2. Ak je zoznam prázdny (`head == nullptr`), nový uzol sa stane zároveň `head` aj `tail`.
-3. Inak: `tail->next` ukazuje na nový uzol a `tail` sa aktualizuje na nový uzol.
-4. Nezabudni zvýšiť `length`.
+**Hint:** Mysli na to, čo sa stane keď je playlist úplne prázdny – vtedy nová skladba zastáva dve roly naraz.
 
 ```cpp
 void append(int value) {
-    // sem napíš kód
+
 }
 ```
 
 **Otestuj:**
 ```cpp
-LinkedList ll(3);
-ll.append(7);
-ll.append(12);
+LinkedList ll(101);
+ll.append(237);
+ll.append(348);
 ll.printList();
-// Výstup: 3  7  12
+// 101  237  348
 ```
 
 ---
 
 ## LL-2: Prepend
 
-Pridaj nový uzol na **začiatok** zoznamu.
+Počas prehrávania si používateľ vybral skladbu, ktorá má hrať ako nasledujúca – teda hneď na začiatku. Implementuj metódu `prepend`.
 
 ```
 PRED:
-head --> [7] --> [12] --> nullptr
+head --> [237] --> [348] --> nullptr
 
-VOLANIE: prepend(3)
+prepend(101)
 
 PO:
-head --> [3] --> [7] --> [12] --> nullptr
+head --> [101] --> [237] --> [348] --> nullptr
 ```
 
-**Hinty:**
-1. Vytvor nový uzol.
-2. Nastav `newNode->next = head`.
-3. `head` presmeruj na nový uzol.
-4. Ak bol zoznam prázdny, nový uzol je aj `tail`.
-5. Zvýš `length`.
+**Hint:** Nová skladba musí vedieť, kto bol pred ňou prvý.
 
 ```cpp
 void prepend(int value) {
-    // sem napíš kód
+
 }
 ```
 
 **Otestuj:**
 ```cpp
-LinkedList ll(7);
-ll.append(12);
-ll.prepend(3);
+LinkedList ll(237);
+ll.append(348);
+ll.prepend(101);
 ll.printList();
-// Výstup: 3  7  12
+// 101  237  348
 ```
 
 ---
 
 ## LL-3: Delete First
 
-Vymaž **prvý** uzol. Vráť ukazovateľ na vymazaný uzol (alebo `nullptr` ak je zoznam prázdny).
+Skladba dohrala – systém ju vyradí zo začiatku playlistu a vráti jej ID (napríklad pre štatistiky prehrávania). Implementuj metódu `deleteFirst`.
 
 ```
 PRED:
-head --> [3] --> [7] --> [12] --> nullptr
+head --> [101] --> [237] --> [348] --> nullptr
 
-VOLANIE: deleteFirst()
+deleteFirst()
 
 PO:
-head --> [7] --> [12] --> nullptr
-vrátená hodnota: ukazovateľ na [3]
+head --> [237] --> [348] --> nullptr
+vrátená hodnota: ukazovateľ na [101]
 ```
 
-**Hinty:**
-1. Ak je `head == nullptr`, vráť `nullptr`.
-2. Ulož `head` do dočasnej premennej `temp`.
-3. Posuň `head` na `head->next`.
-4. Nastav `temp->next = nullptr` (odpoj vymazaný uzol).
-5. Ak je zoznam po vymazaní prázdny, nastav `tail = nullptr`.
-6. Zmenši `length` a vráť `temp`.
+**Hint:** Čo sa stane s `tail` ak v playliste ostane len jedna skladba a tú vyradíš?
 
 ```cpp
 Node* deleteFirst() {
-    // sem napíš kód
+
 }
 ```
 
 **Otestuj:**
 ```cpp
-LinkedList ll(3);
-ll.append(7);
-ll.append(12);
-Node* deleted = ll.deleteFirst();
-cout << deleted->value << "\n";  // 3
-ll.printList();                  // 7  12
+LinkedList ll(101);
+ll.append(237);
+ll.append(348);
+Node* removed = ll.deleteFirst();
+cout << removed->value << "\n";  // 101
+ll.printList();                  // 237  348
 ```
 
 ---
 
 ## LL-4: Delete Last
 
-Vymaž **posledný** uzol. Vráť ukazovateľ na vymazaný uzol.
+Používateľ sa rozhodol odstrániť poslednú skladbu z playlistu. Implementuj metódu `deleteLast`, ktorá vráti ukazovateľ na vymazaný uzol.
 
 ```
 PRED:
-head --> [3] --> [7] --> [12] --> nullptr
-                           ^
-                          tail
+head --> [101] --> [237] --> [348] --> nullptr
+                               ^
+                              tail
 
-VOLANIE: deleteLast()
+deleteLast()
 
 PO:
-head --> [3] --> [7] --> nullptr
-                  ^
-                 tail
-vrátená hodnota: ukazovateľ na [12]
+head --> [101] --> [237] --> nullptr
+                     ^
+                    tail
 ```
 
-**Hinty:**
-1. Ak je zoznam prázdny, vráť `nullptr`.
-2. Ak má zoznam **jeden** uzol: nastav `head = tail = nullptr`, zmenši `length`, vráť uzol.
-3. Pre bežný prípad: prechádzaj zoznamom, kým nenájdeš **predposledný** uzol (ten, ktorého `next == tail`).
-4. Ulož `tail` do `temp`, nastav predposledný uzol ako nový `tail`, odpoj ho (`tail->next = nullptr`).
-5. Zmenši `length` a vráť `temp`.
+**Hint:** Na rozdiel od `deleteFirst` tu musíš nájsť predposledný uzol – `tail` sám o sebe nevie, kto je pred ním.
 
 ```
-Prechádzanie na predposledný uzol:
-
-pre --> [3] --> [7] --> [12] --> nullptr
-                ^
-          tu zastavíme (pre->next == tail)
+... --> [101] --> [237] --> [348] --> nullptr
+                   ^
+             tu zastavíš (tento->next == tail)
 ```
 
 ```cpp
 Node* deleteLast() {
-    // sem napíš kód
+
 }
 ```
 
 **Otestuj:**
 ```cpp
-LinkedList ll(3);
-ll.append(7);
-ll.append(12);
-Node* deleted = ll.deleteLast();
-cout << deleted->value << "\n";  // 12
-ll.printList();                  // 3  7
+LinkedList ll(101);
+ll.append(237);
+ll.append(348);
+Node* removed = ll.deleteLast();
+cout << removed->value << "\n";  // 348
+ll.printList();                  // 101  237
 ```
 
 ---
 
 ## LL-5: Get
 
-Vráť **ukazovateľ na uzol** na danom indexe (indexovanie od 0). Ak index neexistuje, vráť `nullptr`.
+Moderátor chce zobraziť skladbu na konkrétnej pozícii v playliste. Implementuj metódu `get(index)`, ktorá vráti ukazovateľ na uzol na danom indexe (od 0). Ak pozícia neexistuje, vráť `nullptr`.
 
 ```
-head --> [3] --> [7] --> [12] --> nullptr
-index:    0       1        2
+head --> [101] --> [237] --> [348] --> nullptr
+index:     0         1         2
 
-get(1)  -->  vráti ukazovateľ na uzol s hodnotou 7
-get(5)  -->  vráti nullptr
+get(1)  -->  ukazovateľ na uzol [237]
+get(9)  -->  nullptr
 ```
 
-**Hinty:**
-1. Ak je `index < 0` alebo `index >= length`, vráť `nullptr`.
-2. Začni s `temp = head` a prechádzaj cyklom `index`-krát.
-3. Po skončení cyklu `temp` ukazuje na hľadaný uzol.
+**Hint:** Prechádzaš od začiatku – koľkokrát musíš skočiť na `next`, aby si sa dostal na index `i`?
 
 ```cpp
 Node* get(int index) {
-    // sem napíš kód
-}
-```
 
-**Otestuj:**
-```cpp
-LinkedList ll(3);
-ll.append(7);
-ll.append(12);
-cout << ll.get(1)->value << "\n";  // 7
-cout << (ll.get(5) == nullptr) << "\n";  // 1 (true)
+}
 ```
 
 ---
 
 ## LL-6: Set
 
-**Zmeň hodnotu** uzla na danom indexe. Vráť `true` ak sa zmena podarila, inak `false`.
+Moderátor opravil chybné ID skladby na danej pozícii. Implementuj metódu `set(index, value)`, ktorá zmení hodnotu uzla. Vráť `true` ak sa zmena podarila.
 
 ```
 PRED:
-head --> [3] --> [7] --> [12] --> nullptr
+head --> [101] --> [237] --> [348] --> nullptr
 
-VOLANIE: set(1, 99)
+set(1, 999)
 
 PO:
-head --> [3] --> [99] --> [12] --> nullptr
+head --> [101] --> [999] --> [348] --> nullptr
 ```
 
-**Hinty:**
-1. Použi metódu `get(index)` na získanie uzla.
-2. Ak `get` vráti `nullptr`, vráť `false`.
-3. Inak zmeň `node->value` a vráť `true`.
+**Hint:** Nemusíš prechádzať zoznam znova – máš metódu, ktorá ti uzol nájde.
 
 ```cpp
 bool set(int index, int value) {
-    // sem napíš kód
-}
-```
 
-**Otestuj:**
-```cpp
-LinkedList ll(3);
-ll.append(7);
-ll.append(12);
-cout << ll.set(1, 99) << "\n";  // 1 (true)
-ll.printList();                 // 3  99  12
-cout << ll.set(5, 99) << "\n"; // 0 (false)
+}
 ```
 
 ---
 
 ## LL-7: Insert
 
-Vlož nový uzol na **daný index**. Vráť `true` ak sa operácia podarila.
+Redaktor chce vsunúť bonusovú skladbu na konkrétnu pozíciu v playliste, nie na začiatok ani koniec. Implementuj metódu `insert(index, value)`.
 
 ```
 PRED:
-head --> [3] --> [7] --> [12] --> nullptr
-index:    0       1        2
+head --> [101] --> [348] --> nullptr
+index:     0         1
 
-VOLANIE: insert(1, 50)
+insert(1, 237)
 
 PO:
-head --> [3] --> [50] --> [7] --> [12] --> nullptr
-index:    0        1       2        3
+head --> [101] --> [237] --> [348] --> nullptr
+index:     0         1         2
 ```
 
-**Hinty:**
-1. Ak je `index < 0` alebo `index > length`, vráť `false`.
-2. Ak `index == 0`, použi `prepend(value)` a vráť `true`.
-3. Ak `index == length`, použi `append(value)` a vráť `true`.
-4. Pre bežný prípad: získaj uzol na indexe `index - 1` pomocou `get`.
-5. Nastav `newNode->next = prev->next` a `prev->next = newNode`.
-6. Zvýš `length` a vráť `true`.
+**Hint:** Nová skladba sa musí „zapojiť" do reťaze – najprv prevezmie nasledovníka svojho predchodcu, až potom predchodca ukazuje na ňu. Na opačné poradie si daj pozor.
 
 ```
-prev = get(index - 1)
+prev->next = ?        (krok A)
+newNode->next = ?     (krok B)
 
-... --> [prev] --> [7] --> ...
-             \
-              [50] --> [7] --> ...
-
-Krok A: newNode->next = prev->next   (50 ukazuje na 7)
-Krok B: prev->next    = newNode      (3 ukazuje na 50)
+Záleží na poradí krokov A a B – ktorý ide ako prvý?
 ```
 
 ```cpp
 bool insert(int index, int value) {
-    // sem napíš kód
+
 }
 ```
 
 **Otestuj:**
 ```cpp
-LinkedList ll(3);
-ll.append(7);
-ll.append(12);
-ll.insert(1, 50);
-ll.printList();  // 3  50  7  12
+LinkedList ll(101);
+ll.append(348);
+ll.insert(1, 237);
+ll.printList();  // 101  237  348
 ```
 
 ---
 
 ## LL-8: Delete Node
 
-Vymaž uzol na **danom indexe**. Vráť ukazovateľ na vymazaný uzol.
+Skladba bola stiahnutá kvôli autorským právam – musí byť vymazaná z ľubovoľnej pozície v playliste. Implementuj metódu `deleteNode(index)`.
 
 ```
 PRED:
-head --> [3] --> [50] --> [7] --> [12] --> nullptr
+head --> [101] --> [237] --> [348] --> nullptr
 
-VOLANIE: deleteNode(1)
+deleteNode(1)
 
 PO:
-head --> [3] --> [7] --> [12] --> nullptr
-vrátená hodnota: ukazovateľ na [50]
+head --> [101] --> [348] --> nullptr
+vrátená hodnota: ukazovateľ na [237]
 ```
 
-**Hinty:**
-1. Ak `index == 0`, použi `deleteFirst()`.
-2. Ak `index == length - 1`, použi `deleteLast()`.
-3. Pre bežný prípad: získaj uzol na indexe `index - 1` (`prev`).
-4. Ulož `prev->next` (uzol na vymazanie) do `temp`.
-5. Nastav `prev->next = temp->next` (preskočí vymazávaný uzol).
-6. Odpoj: `temp->next = nullptr`.
-7. Zmenši `length` a vráť `temp`.
-
-```
-prev = get(index - 1)
-
-... --> [3] --> [50] --> [7] --> ...
-                  ^
-                temp
-
-prev->next = temp->next  -->  [3] --> [7] --> ...
-temp->next = nullptr         [50] --> nullptr  (odpojený)
-```
+**Hint:** Uzol pred vymazávaným musí „preskočiť" vymazávaný a ukazovať priamo na jeho nasledovníka. Pre krajné pozície (prvá, posledná) máš už hotové metódy.
 
 ```cpp
 Node* deleteNode(int index) {
-    // sem napíš kód
-}
-```
 
-**Otestuj:**
-```cpp
-LinkedList ll(3);
-ll.append(50);
-ll.append(7);
-ll.append(12);
-Node* del = ll.deleteNode(1);
-cout << del->value << "\n";  // 50
-ll.printList();              // 3  7  12
+}
 ```
 
 ---
 
-## LL-9: Reverse (stredne náročná)
+## LL-9: Reverse
 
-**Obráť** poradie uzlov v zozname in-place (bez vytvorenia nového zoznamu).
+Používateľ zapol režim „Prehrať playlist pozadu". Implementuj metódu `reverse`, ktorá obráti poradie skladieb priamo v existujúcom zozname bez vytvorenia nového.
 
 ```
 PRED:
@@ -419,37 +328,20 @@ head --> [4] --> [3] --> [2] --> [1] --> nullptr
                                  tail
 ```
 
-**Hinty:**
-1. Prehoď `head` a `tail`.
-2. Použi tri ukazovatele: `prev = nullptr`, `temp = head` (pôvodný head, teraz tail), `after`.
-3. V každej iterácii:
-   - Ulož `after = temp->next`
-   - Otočí šípku: `temp->next = prev`
-   - Posuň: `prev = temp`, `temp = after`
-4. Opakuj, kým `temp != nullptr`.
+**Hint:** Predstav si, že otáčaš šípky medzi uzlami jednu po druhej. Potrebuješ si vždy pamätať, kde si bol predtým, a kde ideš potom – inak stratíš zvyšok zoznamu.
 
 ```
-Vizualizácia otáčania šípok krok za krokom:
+Stav po každom kroku (tri ukazovatele: prev, temp, after):
 
-Štart:
-prev=null  temp=[1]  after=[2]
-
-Krok 1:  null <-- [1]   [2] --> [3] --> [4]
-         prev=[1]  temp=[2]  after=[3]
-
-Krok 2:  null <-- [1] <-- [2]   [3] --> [4]
-         prev=[2]  temp=[3]  after=[4]
-
-Krok 3:  null <-- [1] <-- [2] <-- [3]   [4]
-         prev=[3]  temp=[4]  after=null
-
+Krok 1:  null <-- [1]    [2] --> [3] --> [4]
+Krok 2:  null <-- [1] <-- [2]    [3] --> [4]
+Krok 3:  null <-- [1] <-- [2] <-- [3]    [4]
 Krok 4:  null <-- [1] <-- [2] <-- [3] <-- [4]
-         prev=[4]  temp=null  --> koniec
 ```
 
 ```cpp
 void reverse() {
-    // sem napíš kód
+
 }
 ```
 
@@ -469,8 +361,6 @@ ll.printList();  // 4  3  2  1
 
 # Sekcia 2 – Stack a Queue
 
-## Základná štruktúra (použi pre Stack aj Queue)
-
 ```cpp
 class Node {
 public:
@@ -484,17 +374,17 @@ public:
 
 ## SQ-1: Stack – Push
 
-Stack funguje na princípe **LIFO** (Last In, First Out). Implementuj metódu `push`, ktorá pridá prvok na **vrchol**.
+Textový editor si pamätá históriu zmien ako zásobník – každá nová zmena sa uloží na vrchol. Implementuj metódu `push`.
 
 ```
 PRED:
-top --> [2] --> [1] --> nullptr
+top --> [zmena2] --> [zmena1] --> nullptr
 height = 2
 
-VOLANIE: push(3)
+push(zmena3)
 
 PO:
-top --> [3] --> [2] --> [1] --> nullptr
+top --> [zmena3] --> [zmena2] --> [zmena1] --> nullptr
 height = 3
 ```
 
@@ -511,54 +401,35 @@ public:
     }
 
     void push(int value) {
-        // sem napíš kód
+
     }
 };
 ```
 
-**Hinty:**
-1. Vytvor nový uzol.
-2. Nastav `newNode->next = top`.
-3. `top` presmeruj na nový uzol.
-4. Zvýš `height`.
-
-**Otestuj:**
-```cpp
-Stack s(1);
-s.push(2);
-s.push(3);
-// top ukazuje na uzol s hodnotou 3
-```
+**Hint:** Zásobník rastie smerom nahor – nový prvok sa stáva vrcholom a ukazuje na pôvodný vrchol.
 
 ---
 
 ## SQ-2: Stack – Pop
 
-Implementuj metódu `pop`, ktorá **odoberie a vráti** hodnotu z vrcholu zásobníka.
+Používateľ stlačil Ctrl+Z. Editor odoberie poslednú zmenu z vrcholu zásobníka a vráti ju. Implementuj metódu `pop`.
 
 ```
 PRED:
-top --> [3] --> [2] --> [1] --> nullptr
-height = 3
+top --> [zmena3] --> [zmena2] --> [zmena1] --> nullptr
 
-VOLANIE: pop()
+pop()
 
 PO:
-top --> [2] --> [1] --> nullptr
-height = 2
-vrátená hodnota: 3
+top --> [zmena2] --> [zmena1] --> nullptr
+vrátená hodnota: hodnota zmena3
 ```
 
-**Hinty:**
-1. Ak je zásobník prázdny (`height == 0`), vráť `INT_MIN` alebo hoď výnimku.
-2. Ulož `top` do `temp`.
-3. Posuň `top` na `top->next`.
-4. Odpoj vymazaný uzol: `temp->next = nullptr`.
-5. Zmenši `height`, ulož hodnotu, vymaž `temp` (`delete temp`), vráť hodnotu.
+**Hint:** Uzol, ktorý odoberáš, musí byť pred vymazaním odpojený od zvyšku zásobníka.
 
 ```cpp
 int pop() {
-    // sem napíš kód
+
 }
 ```
 
@@ -575,22 +446,20 @@ cout << s.pop() << "\n";  // 2
 
 ## SQ-3: Queue – Enqueue
 
-Queue funguje na princípe **FIFO** (First In, First Out). Implementuj metódu `enqueue`, ktorá pridá prvok na **koniec** fronty.
+Na pokladni v kine sa tvoria rady. Každý nový zákazník sa zaradí na **koniec** fronty. Implementuj metódu `enqueue`.
 
 ```
 PRED:
-first --> [10] --> [20] --> nullptr
+first --> [A] --> [B] --> nullptr
                     ^
                    last
-length = 2
 
-VOLANIE: enqueue(30)
+enqueue(C)
 
 PO:
-first --> [10] --> [20] --> [30] --> nullptr
-                              ^
-                             last
-length = 3
+first --> [A] --> [B] --> [C] --> nullptr
+                            ^
+                           last
 ```
 
 ```cpp
@@ -608,46 +477,35 @@ public:
     }
 
     void enqueue(int value) {
-        // sem napíš kód
+
     }
 };
 ```
 
-**Hinty:**
-1. Vytvor nový uzol.
-2. Ak je fronta prázdna, nový uzol je zároveň `first` aj `last`.
-3. Inak: `last->next = newNode` a `last = newNode`.
-4. Zvýš `length`.
+**Hint:** Na rozdiel od stacku tu pridávaš na opačný koniec, ako odoberáš.
 
 ---
 
 ## SQ-4: Queue – Dequeue
 
-Implementuj metódu `dequeue`, ktorá **odoberie a vráti** hodnotu z **začiatku** fronty.
+Pokladník odbavil zákazníka z **čela** fronty. Implementuj metódu `dequeue`, ktorá ho odstráni a vráti jeho hodnotu.
 
 ```
 PRED:
-first --> [10] --> [20] --> [30] --> nullptr
-length = 3
+first --> [A] --> [B] --> [C] --> nullptr
 
-VOLANIE: dequeue()
+dequeue()
 
 PO:
-first --> [20] --> [30] --> nullptr
-length = 2
-vrátená hodnota: 10
+first --> [B] --> [C] --> nullptr
+vrátená hodnota: hodnota A
 ```
 
-**Hinty:**
-1. Ak je fronta prázdna, vráť `INT_MIN`.
-2. Ulož `first` do `temp`.
-3. Posuň `first` na `first->next`.
-4. Ak je fronta po odobratí prázdna, nastav `last = nullptr`.
-5. Odpoj `temp`, zmenši `length`, vráť hodnotu.
+**Hint:** Ak po odobratí fronta ostane prázdna, nezabudni aktualizovať aj `last`.
 
 ```cpp
 int dequeue() {
-    // sem napíš kód
+
 }
 ```
 
@@ -662,42 +520,35 @@ cout << q.dequeue() << "\n";  // 20
 
 ---
 
-## SQ-5: Overenie závoriek (stredne náročná)
+## SQ-5: Overenie závoriek
 
-Napíš funkciu `isBalanced(string s)`, ktorá pomocou zásobníka skontroluje, či sú závorky v reťazci správne spárované.
+Kompilátor kontroluje zdrojový kód – každá otvárajúca závorka musí mať svoju zatváraci dvojicu v správnom poradí. Napíš funkciu `isBalanced(string s)`, ktorá to overí pomocou zásobníka.
 
 ```
 "({[]})"  -->  true
-"({[})"   -->  false   (} zatvára [, nie {)
-"((())"   -->  false   (jeden ( zostal otvorený)
+"({[})"   -->  false
+"((())"   -->  false
 ```
 
-**Hinty:**
-1. Prechádzaj reťazec znak po znaku.
-2. Ak je znak otvárajúca závorka `(`, `[`, `{` – vlož ho na zásobník (`push`).
-3. Ak je znak zatvárajúca závorka `)`, `]`, `}`:
-   - Ak je zásobník prázdny, vráť `false`.
-   - Ober vrchol zásobníka (`pop`) a skontroluj, či zodpovedá aktuálnej zatvárajúcej závorke.
-   - Ak nie, vráť `false`.
-4. Na konci: ak je zásobník prázdny, vráť `true`, inak `false`.
+**Hint:** Zásobník tu funguje ako „pamäť" – otvárací znak si odložíš a keď narazíš na zatvárajúci, overíš, či sedí s tým, čo je na vrchole.
 
 ```
-Príklad pre "({[]})":
+Príklad "({[]})":
 
-Znak  |  Zásobník (top vľavo)
-------|----------------------
+Znak  |  Zásobník
+------|-----------
 (     |  (
 {     |  { (
 [     |  [ { (
-]     |  { (        (] páruje s [, pop)
-}     |  (          (} páruje s {, pop)
-)     |  prazdny    () páruje s (, pop)
-koniec -> zasobnik je prázdny -> true
+]     |  { (
+}     |  (
+)     |  prazdny
+--> true
 ```
 
 ```cpp
 bool isBalanced(string s) {
-    // sem napíš kód
+
 }
 ```
 
@@ -707,7 +558,7 @@ bool isBalanced(string s) {
 
 # Sekcia 3 – Binárny vyhľadávací strom (BST)
 
-## Základná štruktúra
+Knižnica buduje digitálny katalóg kníh. Každá kniha má unikátne katalógové číslo. Katalóg je uložený ako BST – vďaka tomu sa dá v ňom rýchlo vyhľadávať.
 
 ```cpp
 class Node {
@@ -729,56 +580,31 @@ public:
 
 ## BST-1: Insert
 
-Vlož hodnotu do BST. Ak hodnota už existuje, nič nerob (vráť `false`).
-
-**Pravidlo BST:** hodnoty menšie ako aktuálny uzol idú **doľava**, väčšie **doprava**.
+Nová kniha dorazila do knižnice. Zaraď jej katalógové číslo do BST. Ak číslo už existuje, nič nerob (vráť `false`).
 
 ```
-Vkladáme postupne: 47, 21, 76, 18, 52
+Zaraďujeme postupne: 47, 21, 76, 18, 52
 
-insert(47):         47
-
-insert(21):         47
-                   /
-                 21
-
-insert(76):         47
-                   /  \
-                 21    76
-
-insert(18):         47
-                   /  \
-                 21    76
-                /
-              18
-
-insert(52):         47
-                   /  \
-                 21    76
-                /      /
-              18      52
+        47
+       /  \
+     21    76
+    /      /
+  18      52
 ```
 
-**Hinty:**
-1. Vytvor nový uzol.
-2. Ak je strom prázdny (`root == nullptr`), nový uzol sa stane `root`.
-3. Inak: začni v `root` a prechádzaj stromom:
-   - Ak `value < current->value` choď doľava.
-   - Ak `value > current->value` choď doprava.
-   - Ak `value == current->value` vráť `false`.
-   - Ak je miesto voľné (`nullptr`), vlož tam nový uzol a vráť `true`.
+**Hint:** V každom uzle sa rozhoduješ – doľava alebo doprava. Prechádzaš stromom, kým nenarazíš na voľné miesto.
 
 ```
-Prechádzanie pre insert(52):
+Kde skončí číslo 52?
 
-current = 47  -->  52 > 47, choď doprava
-current = 76  -->  52 < 76, choď doľava
-current = nullptr  -->  vlož tu nový uzol [52]
+47 --> 52 > 47, idem doprava
+76 --> 52 < 76, idem doľava
+nullptr --> tu vlož nový uzol
 ```
 
 ```cpp
 bool insert(int value) {
-    // sem napíš kód
+
 }
 ```
 
@@ -790,19 +616,18 @@ bst.insert(21);
 bst.insert(76);
 bst.insert(18);
 bst.insert(52);
-cout << bst.root->value << "\n";          // 47
-cout << bst.root->left->value << "\n";    // 21
-cout << bst.root->right->value << "\n";   // 76
+cout << bst.root->value << "\n";         // 47
+cout << bst.root->left->value << "\n";   // 21
+cout << bst.root->right->value << "\n";  // 76
 ```
 
 ---
 
 ## BST-2: Contains
 
-Vráť `true` ak hodnota v strome existuje, inak `false`.
+Čitateľ hľadá knihu podľa katalógového čísla. Implementuj metódu `contains`, ktorá vráti `true` ak kniha v katalógu existuje.
 
 ```
-Strom:
         47
        /  \
      21    76
@@ -813,81 +638,54 @@ contains(52)  -->  true
 contains(99)  -->  false
 ```
 
-**Hinty:**
-1. Začni v `root`.
-2. Ak je `current == nullptr`, vráť `false` (hodnota neexistuje).
-3. Ak `value == current->value`, vráť `true`.
-4. Ak `value < current->value`, choď doľava (`current = current->left`).
-5. Ak `value > current->value`, choď doprava (`current = current->right`).
-6. Opakuj, kým nenájdeš hodnotu alebo nenarazíš na `nullptr`.
+**Hint:** Cesta stromom je rovnaká logika ako pri vkladaní – len namiesto vkladania hľadáš zhodu.
 
 ```
 Hľadanie 52:
-
-current = 47  -->  52 > 47, choď doprava
-current = 76  -->  52 < 76, choď doľava
-current = 52  -->  52 == 52, nashli sme! return true
+47 --> doprava
+76 --> doľava
+52 --> nashli sme
 ```
 
 ```cpp
 bool contains(int value) {
-    // sem napíš kód
-}
-```
 
-**Otestuj:**
-```cpp
-cout << bst.contains(52) << "\n";   // 1 (true)
-cout << bst.contains(99) << "\n";   // 0 (false)
-cout << bst.contains(21) << "\n";   // 1 (true)
+}
 ```
 
 ---
 
-## BST-3: Inorder traversal (stredne náročná)
+## BST-3: Inorder traversal
 
-Implementuj rekurzívny prechod stromom **Inorder** (doľava – koreň – doprava).
-Inorder BST vypíše hodnoty v **zoradenom poradí**.
+Knižnica potrebuje vypísať všetky katalógové čísla v zoradenom poradí pre tlač zoznamu. Implementuj rekurzívny Inorder prechod stromom (doľava – koreň – doprava).
 
 ```
-Strom:
         47
        /  \
      21    76
     /  \   /
   18   27 52
 
-Inorder: 18  21  27  47  52  76
+Inorder výpis: 18  21  27  47  52  76
 ```
 
-**Hinty:**
-1. Napíš pomocnú rekurzívnu funkciu `inorderHelper(Node* node)`.
-2. Základný prípad: ak `node == nullptr`, vráť sa.
-3. Inak:
-   - Volaj `inorderHelper(node->left)`
-   - Vypíš `node->value`
-   - Volaj `inorderHelper(node->right)`
+**Hint:** Rekurzia tu funguje prirodzene – každý uzol hovorí: „nechaj ľavú stranu vypísať sa, potom ja, potom pravá."
 
 ```
-Poradie volaní pre koreň 47:
-
 inorder(47)
   inorder(21)
-    inorder(18)
-      inorder(nullptr) --> return
-      print 18
-      inorder(nullptr) --> return
-    print 21
-    inorder(27)
-      ...
-  print 47
+    inorder(18) --> vypíše 18
+    vypíše 21
+    inorder(27) --> vypíše 27
+  vypíše 47
   inorder(76)
-    ...
+    inorder(52) --> vypíše 52
+    vypíše 76
 ```
 
 ```cpp
 void inorderHelper(Node* node) {
-    // sem napíš kód
+
 }
 
 void inorder() {
@@ -901,7 +699,7 @@ void inorder() {
 
 # Sekcia 4 – Hash Table
 
-## Základná štruktúra
+Sklad stavebnín eviduje zásoby tovaru. Každá položka má textový názov a počet kusov na sklade. Pre rýchly prístup podľa názvu používa sklad hašovaciu tabuľku.
 
 ```cpp
 class HashTable {
@@ -926,31 +724,27 @@ public:
 
 ## HT-1: Set
 
-Vlož dvojicu `(key, value)` do hašovacej tabuľky.
+Skladník zapíše novú položku do evidencie. Implementuj metódu `set(key, value)`.
 
 ```
-Tabuľka (SIZE = 7):
-
-set("nails", 1000)  -->  hash("nails") = 4
-set("tile",  400)   -->  hash("tile")  = 1
-set("lumber",3000)  -->  hash("lumber")= 4  (kolízia s "nails"!)
+set("nails",  1000)  -->  index 4
+set("tile",    400)  -->  index 1
+set("lumber", 3000)  -->  index 4  (kolízia!)
 
 Index 0: []
 Index 1: [("tile", 400)]
 Index 2: []
 Index 3: []
-Index 4: [("nails", 1000), ("lumber", 3000)]  <-- reťazec (chaining)
+Index 4: [("nails", 1000), ("lumber", 3000)]
 Index 5: []
 Index 6: []
 ```
 
-**Hinty:**
-1. Vypočítaj index pomocou `hash(key)`.
-2. Vlož `make_pair(key, value)` do `dataMap[index]` pomocou `push_back`.
+**Hint:** Kolízia nie je chyba – reťazec na danom indexe môže obsahovať viacero položiek.
 
 ```cpp
 void set(string key, int value) {
-    // sem napíš kód
+
 }
 ```
 
@@ -958,24 +752,19 @@ void set(string key, int value) {
 
 ## HT-2: Get
 
-Vráť hodnotu pre daný kľúč. Ak kľúč neexistuje, vráť `0`.
+Skladník hľadá, koľko kusov má na sklade od daného tovaru. Implementuj metódu `get(key)`. Ak tovar neexistuje, vráť `0`.
 
 ```
 get("tile")    -->  400
 get("lumber")  -->  3000
-get("cement")  -->  0   (neexistuje)
+get("cement")  -->  0
 ```
 
-**Hinty:**
-1. Vypočítaj index pomocou `hash(key)`.
-2. Prechádzaj cyklom cez `dataMap[index]` (môže tam byť viac párov – chaining).
-3. Pre každý pár skontroluj, či `pair.first == key`.
-4. Ak áno, vráť `pair.second`.
-5. Ak nenájdeš, vráť `0`.
+**Hint:** Na jednom indexe môže byť viac položiek – musíš prehľadať celý reťazec a porovnávať kľúče.
 
 ```cpp
 int get(string key) {
-    // sem napíš kód
+
 }
 ```
 
@@ -993,55 +782,37 @@ cout << ht.get("cement") << "\n";  // 0
 
 ## HT-3: Keys
 
-Vráť vektor všetkých kľúčov v tabuľke. Každý kľúč sa má objaviť len raz.
+Riaditeľ chce vidieť zoznam všetkého tovaru, ktorý je v evidencii. Implementuj metódu `keys()`, ktorá vráti vektor všetkých kľúčov.
 
 ```
 ht.keys()  -->  ["tile", "nails", "lumber"]
                (poradie môže byť rôzne)
 ```
 
-**Hinty:**
-1. Vytvor prázdny `vector<string> allKeys`.
-2. Prechádzaj cyklom cez všetky indexy `dataMap` (od 0 po SIZE).
-3. Pre každý index prechádzaj cyklom cez páry v reťazci.
-4. Vlož `pair.first` do `allKeys`.
-5. Vráť `allKeys`.
+**Hint:** Musíš prejsť každý index tabuľky a z každého reťazca zozbierať kľúče.
 
 ```cpp
 vector<string> keys() {
-    // sem napíš kód
+
 }
 ```
 
 ---
 
-## HT-4: Item in Common (stredne náročná)
+## HT-4: Item in Common
 
-Napíš funkciu `itemInCommon`, ktorá zistí, či majú dva vektory celých čísel aspoň jeden spoločný prvok.
-Riešenie musí mať časovú zložitosť **O(n)** – použi hašovaciu tabuľku (napr. `unordered_map` alebo `unordered_set`).
+Dva sklady majú každý svoj zoznam ID produktov. Centrála chce vedieť, či existuje aspoň jeden produkt, ktorý majú oba sklady spoločný. Napíš funkciu `itemInCommon`. Riešenie musí mať časovú zložitosť **O(n)**.
 
 ```
 {1, 3, 5, 7}  a  {2, 4, 5, 8}  -->  true   (spoločné: 5)
 {1, 3, 5, 7}  a  {2, 4, 6, 8}  -->  false
 ```
 
-**Hinty:**
-1. Prechádzaj prvý vektor a vlož každý prvok do `unordered_set<int>`.
-2. Prechádzaj druhý vektor a pre každý prvok skontroluj, či je v sete (`set.count(x) > 0`).
-3. Ak áno, vráť `true`. Ak po prechode všetkých prvkov nič nenájdeš, vráť `false`.
-
-```
-Prečo O(n) a nie O(n^2)?
-
-O(n^2) – dva vnorené cykly:          O(n) – set lookup je O(1):
-for každý x v A:                     vlož A do setu: O(n)
-  for každý y v B:                   for každý y v B:
-    if x == y: return true             if y v sete: return true
-```
+**Hint:** Namiesto porovnávania každého prvku s každým, ulož prvky prvého zoznamu do štruktúry, v ktorej je vyhľadávanie rýchle – potom stačí jeden prechod druhým zoznamom.
 
 ```cpp
 bool itemInCommon(vector<int> a, vector<int> b) {
-    // sem napíš kód
+
 }
 ```
 
@@ -1051,7 +822,7 @@ bool itemInCommon(vector<int> a, vector<int> b) {
 
 # Sekcia 5 – Graf
 
-## Základná štruktúra
+Mesto modeluje svoju cestnú sieť ako neorientovaný graf – každé mesto je vrchol, každá cesta medzi nimi je hrana.
 
 ```cpp
 class Graph {
@@ -1062,9 +833,9 @@ public:
     void printGraph() {
         for (auto& [vertex, edges] : adjList) {
             cout << vertex << ": [";
-            for (int i = 0; i < edges.size(); i++) {
+            for (int i = 0; i < (int)edges.size(); i++) {
                 cout << edges[i];
-                if (i < edges.size() - 1) cout << ", ";
+                if (i < (int)edges.size() - 1) cout << ", ";
             }
             cout << "]\n";
         }
@@ -1076,27 +847,24 @@ public:
 
 ## G-1: Add Vertex
 
-Pridaj nový vrchol do grafu. Ak vrchol už existuje, vráť `false`.
+Postavilo sa nové mesto. Pridaj ho do mapy siete. Ak mesto s týmto názvom už existuje, vráť `false`.
 
 ```
-addVertex("A")
-addVertex("B")
-addVertex("C")
+addVertex("Bratislava")
+addVertex("Trnava")
+addVertex("Nitra")
 
 adjList:
-A: []
-B: []
-C: []
+Bratislava: []
+Trnava:     []
+Nitra:      []
 ```
 
-**Hinty:**
-1. Skontroluj, či `adjList.count(vertex) > 0`. Ak áno, vráť `false`.
-2. Inak vlož `adjList[vertex] = {}` (prázdny vektor hrán).
-3. Vráť `true`.
+**Hint:** Nové mesto zatiaľ nemá žiadne cesty – jeho zoznam susedov je prázdny.
 
 ```cpp
 bool addVertex(string vertex) {
-    // sem napíš kód
+
 }
 ```
 
@@ -1104,82 +872,66 @@ bool addVertex(string vertex) {
 
 ## G-2: Add Edge
 
-Pridaj **neorientovanú** hranu medzi dva vrcholy. Ak niektorý vrchol neexistuje, vráť `false`.
+Medzi dvoma mestami vybudovali diaľnicu. Pridaj obojsmernú cestu medzi ne. Ak niektoré mesto neexistuje, vráť `false`.
 
 ```
-PRED:
-A: []
-B: []
-C: []
+addEdge("Bratislava", "Trnava")
+addEdge("Trnava", "Nitra")
 
-addEdge("A", "B")
-addEdge("B", "C")
-
-PO:
-A: [B]
-B: [A, C]
-C: [B]
+adjList:
+Bratislava: [Trnava]
+Trnava:     [Bratislava, Nitra]
+Nitra:      [Trnava]
 ```
 
-**Hinty:**
-1. Skontroluj, či obidva vrcholy existujú v `adjList`. Ak nie, vráť `false`.
-2. Pridaj `vertex2` do `adjList[vertex1]` (pomocou `push_back`).
-3. Pridaj `vertex1` do `adjList[vertex2]` (neorientovaný graf – pridáš z oboch strán).
-4. Vráť `true`.
+**Hint:** Cesta je obojsmerná – musíš ju zaznamenať v zozname susedov oboch miest.
 
 ```cpp
 bool addEdge(string vertex1, string vertex2) {
-    // sem napíš kód
+
 }
 ```
 
 **Otestuj:**
 ```cpp
 Graph g;
-g.addVertex("A");
-g.addVertex("B");
-g.addVertex("C");
-g.addEdge("A", "B");
-g.addEdge("B", "C");
+g.addVertex("Bratislava");
+g.addVertex("Trnava");
+g.addVertex("Nitra");
+g.addEdge("Bratislava", "Trnava");
+g.addEdge("Trnava", "Nitra");
 g.printGraph();
-// A: [B]
-// B: [A, C]
-// C: [B]
 ```
 
 ---
 
 ## G-3: Remove Edge
 
-Odstráň hranu medzi dvoma vrcholmi. Ak niektorý vrchol neexistuje, vráť `false`.
+Cesta medzi dvoma mestami bola uzavretá. Odstráň ju z mapy. Ak niektoré mesto neexistuje, vráť `false`.
 
 ```
 PRED:
-A: [B, C]
-B: [A, C]
-C: [A, B]
+Bratislava: [Trnava, Nitra]
+Trnava:     [Bratislava, Nitra]
+Nitra:      [Bratislava, Trnava]
 
-removeEdge("A", "C")
+removeEdge("Bratislava", "Nitra")
 
 PO:
-A: [B]
-B: [A, C]
-C: [B]
+Bratislava: [Trnava]
+Trnava:     [Bratislava, Nitra]
+Nitra:      [Trnava]
 ```
 
-**Hinty:**
-1. Skontroluj, či obidva vrcholy existujú.
-2. Z `adjList[vertex1]` odstráň `vertex2`.
-3. Z `adjList[vertex2]` odstráň `vertex1`.
-4. Na odstránenie prvku z vektora použi:
-   ```cpp
-   auto& vec = adjList[vertex1];
-   vec.erase(remove(vec.begin(), vec.end(), vertex2), vec.end());
-   ```
+**Hint:** Keďže je cesta obojsmerná, musíš ju odstrániť z oboch zoznamov. Na vymazanie prvku z vektora môžeš použiť:
+```cpp
+auto& vec = adjList[vertex1];
+vec.erase(remove(vec.begin(), vec.end(), vertex2), vec.end());
+```
 
 ```cpp
 bool removeEdge(string vertex1, string vertex2) {
-    // sem napíš kód
+
 }
 ```
 
@@ -1187,118 +939,70 @@ bool removeEdge(string vertex1, string vertex2) {
 
 ## G-4: Remove Vertex
 
-Odstráň vrchol **a všetky hrany** vedúce k nemu.
+Mesto bolo zrušené a vymazané z mapy – spolu s ním zaniknú aj všetky cesty, ktoré k nemu viedli. Implementuj metódu `removeVertex`.
 
 ```
 PRED:
-A: [B, C]
-B: [A, C]
-C: [A, B]
+Bratislava: [Trnava, Nitra]
+Trnava:     [Bratislava, Nitra]
+Nitra:      [Bratislava, Trnava]
 
-removeVertex("B")
+removeVertex("Trnava")
 
 PO:
-A: [C]
-C: [A]
+Bratislava: [Nitra]
+Nitra:      [Bratislava]
 ```
 
-**Hinty:**
-1. Skontroluj, či vrchol existuje. Ak nie, vráť `false`.
-2. Pre každého suseda odstraňovaného vrcholu: odstráň odstraňovaný vrchol zo susedovho zoznamu.
-   ```cpp
-   for (auto otherVertex : adjList[vertex]) {
-       // odstráň vertex z adjList[otherVertex]
-   }
-   ```
-3. Vymaz samotný vrchol z `adjList` pomocou `adjList.erase(vertex)`.
-4. Vráť `true`.
+**Hint:** Nestačí len vymazať mesto zo zoznamu – každé mesto, ku ktorému viedla cesta, si stále pamätá spojenie. Najprv uprac susedov, potom vymaz mesto.
 
 ```
-Pre removeVertex("B"):
+Susedia Trnava: [Bratislava, Nitra]
 
-Susedia B: [A, C]
-
-  Krok 1: z A odstráň B  -->  A: [C]
-  Krok 2: z C odstráň B  -->  C: [A]
-  Krok 3: vymaz B z adjList
+Krok 1: z Bratislava odstráň Trnava
+Krok 2: z Nitra odstráň Trnava
+Krok 3: vymaz Trnava z adjList
 ```
 
 ```cpp
 bool removeVertex(string vertex) {
-    // sem napíš kód
-}
-```
 
-**Otestuj:**
-```cpp
-Graph g;
-g.addVertex("A");
-g.addVertex("B");
-g.addVertex("C");
-g.addEdge("A", "B");
-g.addEdge("B", "C");
-g.addEdge("A", "C");
-g.removeVertex("B");
-g.printGraph();
-// A: [C]
-// C: [A]
+}
 ```
 
 ---
 
-## G-5: BFS – prehľadávanie do šírky (stredne náročná)
+## G-5: BFS – najkratšia cesta po počte zastávok
 
-Implementuj prehľadávanie grafu do šírky (Breadth-First Search) od daného vrcholu.
-Vypíš vrcholy v poradí, v akom sú navštívené.
-
-```
-Graf:
-A -- B -- D
-|    |
-C -- E
-
-BFS od "A":
-Navštívime: A, potom susedov A (B, C), potom susedov B (D, E)...
-
-Výstup: A  B  C  D  E
-(poradie susedov závisí od adj. listu)
-```
-
-**Hinty:**
-1. Vytvor `queue<string>` a `unordered_set<string> visited`.
-2. Vlož štartovací vrchol do fronty aj do `visited`.
-3. Kým fronta nie je prázdna:
-   - Ober prvý vrchol z fronty (`currentVertex = queue.front(); queue.pop()`).
-   - Vypíš ho.
-   - Pre každého suseda:
-     - Ak ešte nebol navštívený, vlož ho do `visited` a do fronty.
+Cestujúci stojí v meste `start` a chce sa dostať do čo najviac miest v čo najmenšom počte prestupov. Implementuj BFS, ktorý vypíše mestá v poradí, v akom by ich cestujúci navštívil.
 
 ```
-Vizualizácia BFS pre graf vyššie od "A":
+Sieť:
+Bratislava -- Trnava -- Nitra
+     |              |
+  Senec          Topolcany
 
-Fronta:   [A]          Visited: {A}
-Ober A -> vypíš A
-  Susedia A: B, C -> vlož do fronty
-Fronta:   [B, C]       Visited: {A, B, C}
+BFS od "Bratislava":
+Výstup: Bratislava  Trnava  Senec  Nitra  Topolcany
+```
 
-Ober B -> vypíš B
-  Susedia B: A (uz visited), D, E -> vlož D, E
-Fronta:   [C, D, E]    Visited: {A, B, C, D, E}
+**Hint:** BFS prirodzene prechádza najprv všetky mestá vzdialené 1 prestup, potom 2 prestupy atď. Potrebuješ sledovať, ktoré mestá si už navštívil – inak sa môžeš zacykliť.
 
-Ober C -> vypíš C
-  Susedia C: uz vsetci visited
-Fronta:   [D, E]
-
-Ober D -> vypíš D  ...
-Ober E -> vypíš E  ...
+```
+Fronta:   [Bratislava]
+Ober Bratislava -> susedia: Trnava, Senec
+Fronta:   [Trnava, Senec]
+Ober Trnava -> susedia: Nitra, Topcany (Bratislava uz navstivena)
+Fronta:   [Senec, Nitra, Topolcany]
+...
 ```
 
 ```cpp
 void bfs(string start) {
-    // sem napíš kód
+
 }
 ```
 
 ---
 
-*Opakovacie úlohy | Dátové štruktúry | SPSIT*
+*Test | Dátové štruktúry | SPSIT*
