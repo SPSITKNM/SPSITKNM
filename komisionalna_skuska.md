@@ -2,9 +2,6 @@
 **Škola:** Stredná priemyselná škola informačných technológií, Kysucké Nové Mesto  
 **Predmet:** SGX – SMART technológie  
 **Ročník:** 4.  
-**Meno a priezvisko:** _______________  
-**Trieda:** _______________  
-**Dátum:** _______________
 
 ---
 
