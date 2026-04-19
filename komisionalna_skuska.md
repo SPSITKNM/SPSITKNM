@@ -314,7 +314,7 @@ for (int i = 0; i < a; i++)
         cout << i * j;
 ```
 
-> **✏️ Odpoveď – zložitosti a zdôvodnenia:**
+> ** Odpoveď – zložitosti a zdôvodnenia:**
 >
 > (a) Zložitosť: ___ — Zdôvodnenie: *(Sem vpíš.)*
 >
@@ -357,7 +357,7 @@ Implementuj v C++ triedu `LinkedList` so všetkými nasledujúcimi metódami. Uz
 // ========================================
 ```
 
-> **✏️ Odpoveď – analytické doplnenie:**
+> ** Odpoveď – analytické doplnenie:**
 >
 > Prečo je `deleteLast()` O(n) a ako to rieši DLL?
 > *(Sem vpíš.)*
@@ -471,7 +471,7 @@ Pole umožňuje prístup v O(1), spájaný zoznam len v O(n). Napriek tomu exist
 ================================
 ```
 
-> **✏️ Odpoveď – postup inorderTraversal:**
+> ** Odpoveď – postup inorderTraversal:**
 >
 > *(Popíš poradie navštívených uzlov.)*
 
@@ -794,7 +794,7 @@ Napíš kompletný program v **jazyku C**: vytvor pipe, zavolaj `fork()`; rodič
 // =============================================
 ```
 
-> **✏️ Odpoveď – zombie proces:**
+> ** Odpoveď – zombie proces:**
 >
 > Čo je zombie proces, ako vzniká a akú rolu hrá `wait()`?
 > *(Sem vpíš.)*
@@ -813,7 +813,7 @@ Nakresli stavový diagram so stavmi `NEW → READY → RUNNING → WAITING → T
 =============================================
 ```
 
-> **✏️ Odpoveď – PCB a context switch:**
+> ** Odpoveď – PCB a context switch:**
 >
 > Čo obsahuje PCB (min. 5 položiek) a prečo ho OS potrebuje pri context switch?
 > *(Sem vpíš.)*
@@ -895,7 +895,7 @@ Napíš `Dockerfile` pre Python Flask API: base image `python:3.11-slim`, workdi
 # ========================================
 ```
 
-> **✏️ Odpoveď – layer cache:**
+> ** Odpoveď – layer cache:**
 >
 > Prečo kopírovať `requirements.txt` pred zvyšným kódom?
 > *(Sem vpíš.)*
