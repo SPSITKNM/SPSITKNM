@@ -2,6 +2,9 @@
 **Škola:** Stredná priemyselná škola informačných technológií, Kysucké Nové Mesto  
 **Predmet:** SGX – SMART technológie  
 **Ročník:** 4.  
+**Meno a priezvisko:** _______________  
+**Trieda:** _______________  
+**Dátum:** _______________
 
 ---
 
@@ -10,6 +13,8 @@
 Táto komisionálna skúška pokrýva celé preberané učivo predmetu **SGX – SMART technológie** za školský rok. Predmet je zameraný na moderné technológie v oblasti vývoja softvéru, správy systémov, virtualizácie, kontajnerizácie, verzovacích systémov, monitoringu a AI-asistovaného vývoja, vrátane teoretických základov programovania, objektovo-orientovaného prístupu a algoritmizácie.
 
 Vypracovanie nemá stanovené časové ani nástrojové obmedzenia. Študent je oprávnený zvoliť si programovací jazyk (C++ alebo C#, pokiaľ nie je stanovené inak), prostredie a formu záznamu riešenia podľa vlastného uváženia. Hodnotí sa správnosť riešenia, hĺbka pochopenia prezentovaných princípov a schopnosť komplexne obhájiť každé rozhodnutie obsiahnuté v odovzdanom vypracovaní. Komisia je oprávnená požiadať o ústne vysvetlenie ľubovoľnej časti riešenia.
+
+**Inštrukcie k odovzdaniu:** Klonuj tento repozitár, vypĺňaj odpovede priamo do tohto súboru na označené miesta a odovzdaj repozitár hodnotiacej komisii.
 
 **Dva piliere výučby**, z ktorých vychádzajú všetky okruhy tejto skúšky:
 
@@ -45,14 +50,23 @@ Vypracovanie nemá stanovené časové ani nástrojové obmedzenia. Študent je 
 
 **b)** Vysvetli rozdiel medzi **Stack** a **Heap** pamäťou. Kde sa alokujú lokálne premenné a kde objekty vytvorené cez `new`? Čo je **garbage collector** v C# a prečo ho C++ nemá?
 
+> **Odpoveď:**
+>
+> *(Sem vpíš svoju odpoveď.)*
+
 **c)** Aký je výsledok nasledujúcich výrazov? Zdôvodni (pozor na implicitné pretypovanie):
+
 ```csharp
-int a = 7 / 2;           // výsledok: ?
-double b = 7.0 / 2;      // výsledok: ?
-int c = (int)3.99;        // výsledok: ?
+int a = 7 / 2;                  // výsledok: ?
+double b = 7.0 / 2;             // výsledok: ?
+int c = (int)3.99;              // výsledok: ?
 string s = "Číslo: " + 5 + 3;  // výsledok: ?
-string t = "Číslo: " + (5 + 3); // výsledok: ?
+string t = "Číslo: " + (5 + 3);// výsledok: ?
 ```
+
+> **Odpoveď:**
+>
+> *(Doplň výsledky a zdôvodnenie pre každý výraz.)*
 
 ---
 
@@ -60,7 +74,16 @@ string t = "Číslo: " + (5 + 3); // výsledok: ?
 
 **a)** Napíš program, ktorý prečíta číslo `n` zo vstupu a vypíše násobilku od 1×n do 10×n. Ak je `n` záporné, program vypíše chybovú hlášku a skončí.
 
+```cpp
+// ===== TVOJE RIEŠENIE – násobilka =====
+
+
+
+// =======================================
+```
+
 **b)** Prepíš nasledujúci `if-else` reťazec na `switch` príkaz a ekvivalentne na **ternárny operátor** (ak to je možné):
+
 ```csharp
 if (skore >= 90) stupen = "A";
 else if (skore >= 75) stupen = "B";
@@ -68,7 +91,33 @@ else if (skore >= 60) stupen = "C";
 else stupen = "F";
 ```
 
-**c)** Čo je rozdiel medzi `while` a `do-while` cyklom? Napíš príklad, kde je `do-while` nevyhnutný (situácia, kde telo musí vykonať aspoň raz).
+```csharp
+// ===== TVOJE RIEŠENIE – switch =====
+
+
+
+// ====================================
+
+// ===== TVOJE RIEŠENIE – ternárny operátor =====
+
+
+
+// ===============================================
+```
+
+**c)** Čo je rozdiel medzi `while` a `do-while` cyklom? Napíš príklad, kde je `do-while` nevyhnutný.
+
+> **Odpoveď:**
+>
+> *(Sem vpíš svoju odpoveď.)*
+
+```cpp
+// ===== TVOJE RIEŠENIE – príklad do-while =====
+
+
+
+// =============================================
+```
 
 ---
 
@@ -76,9 +125,29 @@ else stupen = "F";
 
 **a)** Vysvetli rozdiel medzi **statickým poľom**, **dynamickým zoznamom (`List<T>`)**, **viacrozmerným poľom** a **jagged array**. Pre každé uveď jeden vhodný use-case.
 
-**b)** Implementuj metódu `int[] OtocPole(int[] vstup)`, ktorá vráti nové pole s prvkami v obrátenom poradí — **bez použitia vstavaných metód** (`Array.Reverse` a podobné sú zakázané). Napíš aj `Main()`, ktorý ju otestuje.
+> **Odpoveď:**
+>
+> *(Sem vpíš svoju odpoveď.)*
 
-**c)** Napíš program, ktorý inicializuje maticu 3×3 celých čísel hodnotami od 1 do 9 a vypíše ju naformátovane do konzoly. Potom vypočíta a vypíše súčet diagonálnych prvkov (prvky kde `riadok == stĺpec`).
+**b)** Implementuj metódu `int[] OtocPole(int[] vstup)`, ktorá vráti nové pole s prvkami v obrátenom poradí — **bez použitia vstavaných metód**. Napíš aj `Main()`, ktorý ju otestuje.
+
+```cpp
+// ===== TVOJE RIEŠENIE – OtocPole =====
+
+
+
+// =====================================
+```
+
+**c)** Napíš program, ktorý inicializuje maticu 3×3 hodnotami 1–9, vypíše ju naformátovane a vypočíta súčet diagonálnych prvkov (`riadok == stĺpec`).
+
+```cpp
+// ===== TVOJE RIEŠENIE – matica 3x3 =====
+
+
+
+// ========================================
+```
 
 ---
 
@@ -107,55 +176,81 @@ else stupen = "F";
 
 Navrhni a implementuj bankový systém podľa nasledujúcej špecifikácie:
 
-**Trieda `Klient`**
-- Atribúty: `kod` (int), `meno` (string)
-- Konštruktor, metóda `zobraz()`
+**Trieda `Klient`** — atribúty `kod` (int), `meno` (string); konštruktor, metóda `zobraz()`  
+**Trieda `Ucet`** *(abstraktná)* — atribúty `cislo`, `zostatok`, `majitel`; virtuálna metóda `moznoVybrat(double suma)` → bool; metóda `vyber(double suma)`  
+**Trieda `StandartnyUcet`** *(dedí od `Ucet`)* — `moznoVybrat()` vráti `true` ak `zostatok >= suma`  
+**Trieda `UverUcet`** *(dedí od `Ucet`)* — pridáva `uverLimit`; `moznoVybrat()` povolí výber do mínusu do výšky limitu  
+**Trieda `Banka`** — kolekcia `Ucet*`; metódy `pridajUcet()`, `spracujVybery(double suma)` *(demonštruj polymorfizmus)*
 
-**Trieda `Ucet`** *(abstraktná alebo s virtuálnou metódou)*
-- Atribúty: `cislo` (string), `zostatok` (double), `majitel` (Klient)
-- Konštruktor, metóda `zobraz()`
-- **Virtuálna / abstraktná** metóda `moznoVybrat(double suma)` → `bool`
-- Metóda `vyber(double suma)` — ak je výber povolený, odčíta ho; inak vypíše chybové hlásenie
+Povinné: destruktory kde treba (C++), UML diagram, heterogénna kolekcia v `Main()`.
 
-**Trieda `StandartnyUcet`** *(dedí od `Ucet`)*
-- `moznoVybrat()` vráti `true` ak `zostatok >= suma`
+```cpp
+// ===== TVOJE RIEŠENIE – bankový systém =====
 
-**Trieda `UverUcet`** *(dedí od `Ucet`)*
-- Pridáva `uverLimit` (double)
-- `moznoVybrat()` povolí výber do mínusu — maximálne do výšky `uverLimit`
 
-**Trieda `Banka`**
-- Uchováva kolekciu ukazateľov `Ucet*` (alebo references)
-- Metóda `pridajUcet(Ucet*)`
-- Metóda `spracujVybery(double suma)` — zavolá `vyber()` na každom účte *(demonštruj polymorfizmus)*
 
-**Povinné požiadavky:**
-1. V C++: implementuj destruktory tam, kde je potrebné; zdôvodni kde nie
-2. Nakresli **UML diagram** tried s vyznačením IS-A, HAS-A a viditeľnosťou členov
-3. V `Main()` vytvor heterogénnu kolekciu (`StandartnyUcet` aj `UverUcet`) a zavolaj `spracujVybery()`
+// ============================================
+```
+
+**UML diagram tried** (nakresli ASCII diagramom alebo popíš vzťahy):
+
+```
+===== UML DIAGRAM =====
+
+
+
+=======================
+```
 
 ---
 
 ### 2.2 – Statický čítač a správa pamäte
 
-Implementuj triedu `Spojenie` (napr. databázové spojenie), ktorá:
-- Statickým atribútom sleduje počet **aktívnych** inštancií (inkrementuje v konštruktore, dekrementuje v destruktore)
-- Poskytuje statickú metódu `getAktivnych()` → int
-- V C++: správne implementuje destruktor a uvoľňuje prípadné dynamicky alokované zdroje
+Implementuj triedu `Spojenie` so statickým čítačom aktívnych inštancií (inkrement v konštruktore, dekrement v destruktore) a statickou metódou `getAktivnych()`. Napíš `Main()` demonštrujúci správnosť.
 
-Napíš `Main()`, kde vytvoríš 3 objekty, jeden zrušíš (`delete` v C++ alebo pomocou scope v C#) a overíš správnosť počítadla.
+```cpp
+// ===== TVOJE RIEŠENIE – statický čítač =====
+
+
+
+// ============================================
+```
 
 ---
 
 ### 2.3 – Analytické otázky
 
-**a)** Vysvetli **Liskovej substitučný princíp (LSP)**. Napíš príklad triedy, ktorá **porušuje** LSP, a vysvetli, aký problém to spôsobí za behu programu.
+**a)** Vysvetli **Liskovej substitučný princíp (LSP)**. Napíš príklad triedy, ktorá LSP **porušuje**, a vysvetli, aký problém to spôsobí za behu.
 
-**b)** Porovnaj **dedičnosť (IS-A)** a **kompozíciu (HAS-A)**. Uveď konkrétny príklad z praxe, kde by použitie dedičnosti bolo nesprávne (napr. kde vzťah nie je skutočne IS-A) a kompozícia by bola správnym riešením.
+> **Odpoveď:**
+>
+> *(Sem vpíš svoju odpoveď.)*
 
-**c)** Aké problémy prináša **hlboká dedičnostná hierarchia** (5+ úrovní)? Prečo sa v modernom vývoji uprednostňuje kompozícia a rozhrania (interfaces) pred hlbokou dedičnosťou?
+```cpp
+// ===== PRÍKLAD porušenia LSP =====
 
-**d)** Prečo je **zapuzdrenie** základom udržiavateľného kódu? Popíš konkrétny scenár, kde verejné atribúty namiesto getterov/setterov spôsobia skrytú chybu pri rozširovaní systému.
+
+
+// ==================================
+```
+
+**b)** Porovnaj **dedičnosť (IS-A)** a **kompozíciu (HAS-A)**. Uveď konkrétny príklad z praxe, kde by dedičnosť bola nesprávna a kompozícia správna.
+
+> **Odpoveď:**
+>
+> *(Sem vpíš svoju odpoveď.)*
+
+**c)** Aké problémy prináša **hlboká dedičnostná hierarchia** (5+ úrovní)? Prečo sa v modernom vývoji uprednostňuje kompozícia a rozhrania?
+
+> **Odpoveď:**
+>
+> *(Sem vpíš svoju odpoveď.)*
+
+**d)** Prečo je **zapuzdrenie** základom udržiavateľného kódu? Popíš scenár, kde verejné atribúty spôsobia skrytú chybu pri rozširovaní systému.
+
+> **Odpoveď:**
+>
+> *(Sem vpíš svoju odpoveď.)*
 
 ---
 
@@ -168,10 +263,9 @@ Napíš `Main()`, kde vytvoríš 3 objekty, jeden zrušíš (`delete` v C++ aleb
 > │      Ucet       │
 > ├─────────────────┤
 > │ - cislo: string │   ← private
-> │ # zostatok: dbl │   ← protected (prístupné potomkom)
+> │ # zostatok: dbl │   ← protected
 > ├─────────────────┤
 > │ + zobraz()      │
-> │ + vyber()       │
 > │ {abstract}      │
 > │ + moznoVybrat() │
 > └───────┬─────────┘
@@ -180,11 +274,11 @@ Napíš `Main()`, kde vytvoríš 3 objekty, jeden zrušíš (`delete` v C++ aleb
 >   │            │
 > StandartnyUcet  UverUcet
 >
-> Banka ──◆── Ucet*   (HAS-A, agregácia)
-> Ucet  ──◆── Klient  (HAS-A, kompozícia)
+> Banka ──◆── Ucet*   (HAS-A)
+> Ucet  ──◆── Klient  (HAS-A)
 > ```
 >
-> *LSP jednoducho:* Kdekoľvek použiješ `Ucet*`, musí korektne fungovať `UverUcet*` aj `StandartnyUcet*` bez nutnosti testovať konkrétny typ (`instanceof` / `dynamic_cast` v produkčnom kóde = zápach).
+> *LSP jednoducho:* Kdekoľvek použiješ `Ucet*`, musí korektne fungovať aj `UverUcet*` — inak je návrh hierarchie chybný.
 
 ---
 
@@ -220,13 +314,27 @@ for (int i = 0; i < a; i++)
         cout << i * j;
 ```
 
-**Analytická otázka:** Prečo sa výraz `O(n² + n)` zjednodušuje na `O(n²)`? Je toto zjednodušenie vždy správne, alebo existujú situácie kde na nezanedbávanom člene záleží?
+> **✏️ Odpoveď – zložitosti a zdôvodnenia:**
+>
+> (a) Zložitosť: ___ — Zdôvodnenie: *(Sem vpíš.)*
+>
+> (b) Zložitosť: ___ — Zdôvodnenie: *(Sem vpíš.)*
+>
+> (c) Zložitosť: ___ — Zdôvodnenie: *(Sem vpíš.)*
+>
+> (d) Zložitosť: ___ — Zdôvodnenie: *(Sem vpíš.)*
+
+**Analytická otázka:** Prečo sa `O(n² + n)` zjednodušuje na `O(n²)`? Je toto zjednodušenie vždy správne?
+
+> **Odpoveď:**
+>
+> *(Sem vpíš svoju odpoveď.)*
 
 ---
 
-### 3.2 – Implementácia: Spájaný zoznam (Singly Linked List)
+### 3.2 – Implementácia: Singly Linked List
 
-Implementuj v C++ triedu `LinkedList` so všetkými nasledujúcimi metódami. Každý uzol alokuj dynamicky (`new`), v destruktore pamäť uvoľni.
+Implementuj v C++ triedu `LinkedList` so všetkými nasledujúcimi metódami. Uzly alokuj dynamicky, v destruktore pamäť uvoľni.
 
 | Metóda | Zložitosť | Poznámka |
 |---|---|---|
@@ -241,70 +349,91 @@ Implementuj v C++ triedu `LinkedList` so všetkými nasledujúcimi metódami. Ka
 | `reverse()` | O(n) | Obrať zoznam in-place |
 | `print()` | O(n) | Vypíš celý zoznam |
 
-Po implementácii písomne odpovedz:
-- Prečo je `deleteLast()` O(n) pri jednoduchom LL a ako to rieši **dvojito spájaný zoznam (DLL)**?
-- Aký je rozdiel medzi **DLL** a **kruhovým spájaným zoznamom (circular LL)**? Kedy je každý vhodný?
+```cpp
+// ===== TVOJE RIEŠENIE – LinkedList =====
+
+
+
+// ========================================
+```
+
+> **✏️ Odpoveď – analytické doplnenie:**
+>
+> Prečo je `deleteLast()` O(n) a ako to rieši DLL?
+> *(Sem vpíš.)*
+>
+> Rozdiel medzi DLL a circular LL, kedy je každý vhodný?
+> *(Sem vpíš.)*
 
 ---
 
 ### 3.3 – Implementácia: Stack — overenie zátvorkového výrazu
 
-Implementuj funkciu `bool jeVyvazeny(string vyraz)`, ktorá pomocou **vlastnej implementácie Stack** (nie `std::stack`) overí, či je zátvorkový výraz správne uzavretý. Funkcia musí spracovať kombináciu `()`, `[]`, `{}`.
+Implementuj `bool jeVyvazeny(string vyraz)` pomocou **vlastnej implementácie Stack** (nie `std::stack`). Spracuj kombináciu `()`, `[]`, `{}`.
 
-Príklady vstupu a očakávaného výstupu:
-- `"{[()]}"` → `true`
-- `"{[(])}"` → `false`  
-- `"((("` → `false`
-- `""` → `true`
+Príklady: `"{[()]}"` → `true` | `"{[(])}"` → `false` | `"((("` → `false` | `""` → `true`
+
+```cpp
+// ===== TVOJE RIEŠENIE – Stack + jeVyvazeny() =====
+
+
+
+// =================================================
+```
 
 ---
 
 ### 3.4 – Implementácia: Queue — simulácia frontu
 
-Implementuj program simulujúci **front tlačových úloh** s vlastnou triedou `Queue`:
-- `TlacovaUloha`: atribúty `id`, `nazov`, `pocetStran`
-- `TlacovaFronta`: operácie `enqueue()`, `dequeue()`, `peek()`, `isEmpty()`
-- `Main()`: pridaj 5 úloh, postupne ich spracuj (vypíš poradie) — demonštruj FIFO správanie
+Implementuj simuláciu frontu tlačových úloh s vlastnou triedou `Queue`. Trieda `TlacovaUloha`: atribúty `id`, `nazov`, `pocetStran`. Trieda `TlacovaFronta`: operácie `enqueue()`, `dequeue()`, `peek()`, `isEmpty()`. V `Main()` pridaj 5 úloh a postupne ich spracuj — demonštruj FIFO.
+
+```cpp
+// ===== TVOJE RIEŠENIE – Queue + tlačový front =====
+
+
+
+// ==================================================
+```
 
 ---
 
 ### 3.5 – Analytická otázka
 
-Pole (`std::vector`) umožňuje prístup k prvku v O(1), spájaný zoznam len v O(n). Napriek tomu existujú scenáre, kde je spájaný zoznam výhodnejší. Uveď **dva konkrétne scenáre** s odôvodnením, prečo je tu LL lepší než pole.
+Pole umožňuje prístup v O(1), spájaný zoznam len v O(n). Napriek tomu existujú scenáre kde je LL výhodnejší. Uveď **dva konkrétne scenáre** s odôvodnením.
+
+> **Odpoveď:**
+>
+> Scenár 1: *(Sem vpíš.)*
+>
+> Scenár 2: *(Sem vpíš.)*
 
 ---
 
 > **Mohlo by sa hodiť**
 >
-> *Vizualizácia uzla a zoznamov:*
+> *Vizualizácia:*
 > ```
 > Singly LL:   head → [10|•] → [20|•] → [30|/] ← tail
->
 > DLL:         head → [/|10|•] ⇄ [•|20|•] ⇄ [•|30|/] ← tail
->
 > Circular LL: head → [10|•] → [20|•] → [30|•] ──┐
 >                └──────────────────────────────────┘
 > ```
 >
-> *Algoritmus `reverse()` — three-pointer technika:*
+> *Three-pointer reverse:*
 > ```cpp
 > Node *prev = nullptr, *curr = head, *next = nullptr;
 > while (curr != nullptr) {
->     next = curr->next;   // ulož nasledovníka
->     curr->next = prev;   // otočíš šípku
->     prev = curr;         // posuň prev
->     curr = next;         // posuň curr
+>     next = curr->next;
+>     curr->next = prev;
+>     prev = curr;
+>     curr = next;
 > }
 > head = prev;
 > ```
 >
-> *Rastová tabuľka zložitostí (n = 1000):*
+> *Rastová tabuľka (n = 1000):*
 > ```
-> O(1)      →         1 op.
-> O(log n)  →        10 op.
-> O(n)      →     1 000 op.
-> O(n log n)→    10 000 op.
-> O(n²)     → 1 000 000 op.
+> O(1) → 1 op. | O(log n) → 10 | O(n) → 1 000 | O(n²) → 1 000 000
 > ```
 
 ---
@@ -316,31 +445,77 @@ Pole (`std::vector`) umožňuje prístup k prvku v O(1), spájaný zoznam len v 
 
 ### 4.1 – Binary Search Tree (BST)
 
-**a)** Vysvetli invariant BST: aká podmienka musí platiť pre každý uzol (vzťah k ľavému a pravému podstromu)?
+**a)** Vysvetli invariant BST — aká podmienka musí platiť pre každý uzol?
 
-**b)** Implementuj triedu `BST` s nasledujúcimi metódami:
-- `insert(int val)` — vloží hodnotu na správne miesto, O(log n) priemerný prípad
-- `contains(int val)` → bool — vyhľadá hodnotu
-- `inorderTraversal()` — vypíše všetky hodnoty **vzostupne** (využi rekurziu)
+> **Odpoveď:**
+>
+> *(Sem vpíš svoju odpoveď.)*
 
-**c)** Vlož do BST (v tomto poradí) čísla: `50, 30, 70, 20, 40, 60, 80`. Nakresli výsledný strom a popiš postup `inorderTraversal()` — v akom poradí sa uzly navštívia?
+**b)** Implementuj triedu `BST` s metódami `insert(int val)`, `contains(int val)` → bool, `inorderTraversal()` (vzostupný výpis, rekurzia).
 
-**d)** Analytická otázka: Čo je **degenerovaný BST** a kedy k nemu dôjde? Aká je jeho časová zložitosť a ako ho možno riešiť (uveď pojem, nie implementáciu)?
+```cpp
+// ===== TVOJE RIEŠENIE – BST =====
+
+
+
+// ================================
+```
+
+**c)** Vlož do BST čísla `50, 30, 70, 20, 40, 60, 80`. Nakresli výsledný strom a popiš postup `inorderTraversal()`.
+
+```
+===== DIAGRAM – BST strom =====
+
+
+
+================================
+```
+
+> **✏️ Odpoveď – postup inorderTraversal:**
+>
+> *(Popíš poradie navštívených uzlov.)*
+
+**d)** Čo je **degenerovaný BST**, kedy k nemu dôjde a ako sa rieši (uveď pojem)?
+
+> **Odpoveď:**
+>
+> *(Sem vpíš svoju odpoveď.)*
 
 ---
 
 ### 4.2 – Hash Tabuľka
 
-**a)** Vysvetli princíp hash tabuľky: čo je **hash funkcia**, **bucket** a **kolízia**? Ako sa kolízie riešia metódou **separate chaining**?
+**a)** Vysvetli pojmy **hash funkcia**, **bucket**, **kolízia** a riešenie kolízií metódou **separate chaining**.
 
-**b)** Implementuj jednoduchú hash tabuľku v C++ s metódami:
-- `set(string key, int value)` — uloží dvojicu kľúč-hodnota (zvládni kolízie)
-- `get(string key)` → int — vráti hodnotu pre daný kľúč (-1 ak neexistuje)
-- `keys()` → vypíše všetky unikátne kľúče
+> **Odpoveď:**
+>
+> *(Sem vpíš svoju odpoveď.)*
 
-**c)** Implementuj funkciu `bool maSpolognyPrvok(int[] a, int[] b)`, ktorá zistí, či majú dve polia spoločný prvok — **v čase O(n)** (nie O(n²)). Využi hash tabuľku alebo `unordered_set`.
+**b)** Implementuj jednoduchú hash tabuľku s metódami `set(string key, int value)`, `get(string key)` → int, `keys()`.
 
-**d)** Analytická otázka: Prečo je priemerná zložitosť operácie `get()` v hash tabuľke O(1), ale v najhoršom prípade O(n)? Kedy nastáva najhorší prípad?
+```cpp
+// ===== TVOJE RIEŠENIE – HashTable =====
+
+
+
+// ========================================
+```
+
+**c)** Implementuj `bool maSpolognyPrvok(int[] a, int[] b)` v čase **O(n)** (nie O(n²)) pomocou hash tabuľky alebo `unordered_set`.
+
+```cpp
+// ===== TVOJE RIEŠENIE – maSpolognyPrvok =====
+
+
+
+// ============================================
+```
+
+**d)** Prečo je priemerná zložitosť `get()` O(1), ale v najhoršom prípade O(n)? Kedy nastáva najhorší prípad?
+
+> **Odpoveď:**
+>
+> *(Sem vpíš svoju odpoveď.)*
 
 ---
 
@@ -348,91 +523,130 @@ Pole (`std::vector`) umožňuje prístup k prvku v O(1), spájaný zoznam len v 
 
 **a)** Vysvetli rozdiel medzi **orientovaným** a **neorientovaným** grafom. Čo je **adjacency list** a prečo sa preferuje pred **adjacency matrix** pri riedkych grafoch?
 
-**b)** Implementuj triedu `Graf` reprezentujúcu neorientovaný graf pomocou adjacency listu (`unordered_map<string, vector<string>>`):
-- `addVertex(string nazov)`
-- `addEdge(string od, string do)`
-- `removeEdge(string od, string do)`
-- `removeVertex(string nazov)` — odstráni aj všetky hrany
+> **Odpoveď:**
+>
+> *(Sem vpíš svoju odpoveď.)*
 
-**c)** Implementuj metódu `bfsTraversal(string start)`, ktorá vypíše všetky uzly dosiahnuteľné z `start` pomocou **prehľadávania do šírky (BFS)**. Použij `Queue` ako pomocnú štruktúru.
+**b)** Implementuj triedu `Graf` (neorientovaný, adjacency list: `unordered_map<string, vector<string>>`) s metódami `addVertex()`, `addEdge()`, `removeEdge()`, `removeVertex()`.
 
-**d)** Analytická otázka: Prečo BFS využíva Queue a nie Stack? Čo by sa stalo, ak by sme Stack použili namiesto Queue (aký algoritmus by sme dostali)?
+```cpp
+// ===== TVOJE RIEŠENIE – Graf =====
+
+
+
+// ==================================
+```
+
+**c)** Implementuj `bfsTraversal(string start)` — BFS prehľadávanie s využitím Queue.
+
+```cpp
+// ===== TVOJE RIEŠENIE – BFS =====
+
+
+
+// =================================
+```
+
+**d)** Prečo BFS využíva Queue a nie Stack? Čo by sme dostali so Stackom?
+
+> **Odpoveď:**
+>
+> *(Sem vpíš svoju odpoveď.)*
 
 ---
 
 ### 4.4 – Triediace algoritmy
 
-Pre každý algoritmus:
-1. Vysvetli princíp (slovne alebo pseudokódom)
-2. Uveď časovú zložitosť (best / average / worst case)
-3. Uveď priestorovú zložitosť
+Doplň tabuľku:
 
-| Algoritmus | Princíp | Best | Average | Worst | Priestor |
+| Algoritmus | Princíp (stručne) | Best case | Average | Worst case | Priestor |
 |---|---|---|---|---|---|
 | **Bubble Sort** | | | | | |
 | **Quick Sort** | | | | | |
 | **Merge Sort** | | | | | |
 
-**Implementačná úloha:** Implementuj **Merge Sort** pre pole celých čísel. Demonštruj funkčnosť na poli `{38, 27, 43, 3, 9, 82, 10}` — nakresli diagram postupu delenia a spájania.
+**Implementačná úloha:** Implementuj **Merge Sort** pre pole celých čísel. Nakresli diagram postupu delenia a spájania pre vstup `{38, 27, 43, 3, 9, 82, 10}`.
 
-**Analytická otázka:** Prečo je Merge Sort preferovaný pred Quick Sort pre triedenie **spájaných zoznamov**? (Nápoveda: myslí na prístup k pamäti.)
+```cpp
+// ===== TVOJE RIEŠENIE – Merge Sort =====
+
+
+
+// ========================================
+```
+
+```
+===== DIAGRAM – Merge Sort delenie/spájanie =====
+
+
+
+=================================================
+```
+
+**Analytická otázka:** Prečo je Merge Sort preferovaný pred Quick Sort pre triedenie **spájaných zoznamov**?
+
+> **Odpoveď:**
+>
+> *(Sem vpíš svoju odpoveď.)*
 
 ---
 
 ### 4.5 – Makefile
 
-**a)** Vysvetli štruktúru Makefile pravidla: čo je **target**, **dependency** a **command**? Prečo musí command začínať TABulátorom?
+**a)** Vysvetli štruktúru Makefile pravidla: čo je **target**, **dependency**, **command**? Prečo musí command začínať TABulátorom?
 
-**b)** Napíš `Makefile` pre C++ projekt s týmito súbormi: `main.cpp`, `LinkedList.cpp`, `LinkedList.h`. Makefile musí:
-- Skompilovať každý `.cpp` zvlášť na `.o` (objektový súbor)
-- Linkovať objektové súbory do spustiteľného súboru `app`
-- Obsahovať target `clean` na zmazanie `.o` súborov a `app`
-- Používať premenné `CC = g++` a `CFLAGS = -Wall -std=c++17`
+> **Odpoveď:**
+>
+> *(Sem vpíš svoju odpoveď.)*
 
-**c)** Aký je rozdiel medzi `make` a `make clean`? Čo robí automatická premenná `$@` a `$^`?
+**b)** Napíš `Makefile` pre projekt s `main.cpp`, `LinkedList.cpp`, `LinkedList.h` — kompilácia po `.o`, linkovanie do `app`, target `clean`, premenné `CC` a `CFLAGS`.
+
+```makefile
+# ===== TVOJE RIEŠENIE – Makefile =====
+
+
+
+# ========================================
+```
+
+**c)** Čo robí automatická premenná `$@` a `$^`?
+
+> **Odpoveď:**
+>
+> *(Sem vpíš svoju odpoveď.)*
 
 ---
 
 > **Mohlo by sa hodiť**
 >
-> *BST invariant vizuálne:*
+> *BST vizuálne:*
 > ```
 >         50
 >        /  \
 >       30   70
 >      / \  / \
 >     20 40 60 80
->
-> Inorder: 20 → 30 → 40 → 50 → 60 → 70 → 80  (vzostupne!)
+> Inorder: 20→30→40→50→60→70→80
 > ```
 >
-> *BFS postup — využíva Queue:*
+> *BFS — Queue postup:*
 > ```
-> Začiatok: Queue = [A]
-> Spracuj A → pridaj susedov B, C → Queue = [B, C]
-> Spracuj B → pridaj susedov D, E → Queue = [C, D, E]
-> ...
+> Queue=[A] → spracuj A, pridaj B,C → Queue=[B,C] → spracuj B...
 > ```
 >
-> *Merge Sort diagram:*
+> *Merge Sort:*
 > ```
-> [38,27,43,3]   →  [38,27] + [43,3]
-> [38,27]        →  [38] + [27]  →  merge → [27,38]
-> [43,3]         →  [43] + [3]   →  merge → [3,43]
-> final merge    →  [3,27,38,43]
+> [38,27,43,3] → [38,27]+[43,3] → [27,38]+[3,43] → [3,27,38,43]
 > ```
 >
-> *Makefile — základná štruktúra:*
+> *Makefile kostra:*
 > ```makefile
-> CC = g++
-> CFLAGS = -Wall -std=c++17
->
+> CC=g++
+> CFLAGS=-Wall -std=c++17
 > app: main.o LinkedList.o
 > 	$(CC) $(CFLAGS) -o $@ $^
->
 > %.o: %.cpp
 > 	$(CC) $(CFLAGS) -c $<
->
 > clean:
 > 	rm -f *.o app
 > ```
@@ -448,52 +662,92 @@ Pre každý algoritmus:
 
 Pre každý krok nasledujúceho scenára napíš presný git príkaz (alebo sériu príkazov):
 
-1. Inicializuj lokálny repozitár a pripoj ho k vzdialenému originu `https://gitlab.com/skola/projekt.git`
-2. Vytvor vetvu `feature/user-auth` a prepni sa na ňu
-3. Pridaj všetky zmenené súbory do staging area a vytvor commit so správou `"feat: add JWT authentication"`
-4. Odošli vetvu na vzdialený server (prvý push novej vetvy)
-5. Na vetve `main` nastala zmena; integruj ju do svojej feature vetvy **bez vytvorenia merge commitu**
-6. Pri zlúčení nastane konflikt v súbore `auth.cpp` — popiš postup riešenia krok po kroku
-7. Po schválení merge requestu zmaž lokálnu aj vzdialenú vetvu `feature/user-auth`
+```bash
+# Krok 1 – inicializuj lokálny repozitár a pripoj k https://gitlab.com/skola/projekt.git
+
+
+# Krok 2 – vytvor vetvu feature/user-auth a prepni sa na ňu
+
+
+# Krok 3 – pridaj všetky zmeny do staging area, commit "feat: add JWT authentication"
+
+
+# Krok 4 – odošli vetvu na vzdialený server (prvý push)
+
+
+# Krok 5 – integruj zmeny z main do feature vetvy BEZ merge commitu
+
+
+# Krok 6 – nastane konflikt v auth.cpp; popiš postup riešenia krok po kroku:
+# (a)
+# (b)
+# (c)
+
+
+# Krok 7 – zmaž lokálnu aj vzdialenú vetvu feature/user-auth
+
+
+```
 
 ---
 
 ### 5.2 – Návrh CI/CD pipeline
 
-Napíš funkčný `.gitlab-ci.yml` pre C++ projekt s týmito požiadavkami:
-- **Fáza `build`:** skompilovanie projektu pomocou `make`
-- **Fáza `test`:** spustenie testov (napr. `./run_tests.sh`)
-- **Fáza `deploy`:** spustí sa **iba na vetve `main`**; nasadí artefakt (môže byť symbolické)
-- Nastav image `gcc:latest`
-- Artefakty z `build` fázy (skompilovaný binárny súbor) odovzdaj do `test` fázy
+Napíš funkčný `.gitlab-ci.yml` pre C++ projekt: fázy `build` (make), `test` (./run_tests.sh), `deploy` (len na `main`); image `gcc:latest`; artefakty z build do test.
+
+```yaml
+# ===== TVOJE RIEŠENIE – .gitlab-ci.yml =====
+
+
+
+# ============================================
+```
 
 ---
 
 ### 5.3 – Identifikácia anti-patterns
 
-V nasledujúcom git workflow sú **3 závažné chyby**. Identifikuj každú a vysvetli, prečo je problematická a ako ju opraviť:
+V nasledujúcom git workflow sú **3 závažné chyby**. Identifikuj každú, vysvetli prečo je problematická a ako ju opraviť:
 
 ```bash
 git checkout main
-# ... vývojár upravuje súbory ...
 git add .
 git commit -m "fix"
 git push origin main
-
-# Kolega sa pokúša synchronizovať a nastane konflikt:
-git reset --hard origin/main   # zahodí vlastné zmeny
-git push --force origin main   # prepíše vzdialenú históriu
+# Kolega dostane konflikt:
+git reset --hard origin/main
+git push --force origin main
 ```
+
+> **Odpoveď:**
+>
+> Chyba 1: *(Sem vpíš — čo je zlé a prečo.)*
+>
+> Chyba 2: *(Sem vpíš.)*
+>
+> Chyba 3: *(Sem vpíš.)*
 
 ---
 
 ### 5.4 – Analytické otázky
 
-**a)** `git merge` vs `git rebase` — vysvetli rozdiel vo výslednej git histórii. Uveď **konkrétnu situáciu** pre každý príkaz, kde je jeho použitie optimálne.
+**a)** `git merge` vs `git rebase` — vysvetli rozdiel vo výslednej histórii. Uveď konkrétnu situáciu pre každý príkaz, kde je optimálny.
 
-**b)** Čo je **CI/CD** a aký **business benefit** prináša oproti manuálnemu nasadzovaniu — argumentuj nie len technicky, ale z pohľadu organizácie/biznisu.
+> **Odpoveď:**
+>
+> *(Sem vpíš svoju odpoveď.)*
 
-**c)** `git fetch` stiahne zmeny zo vzdialeného repozitára, ale neaplikuje ich. `git pull` stiahne a okamžite aplikuje. V akej situácii je `git fetch` + manuálny `git merge` bezpečnejšia voľba ako `git pull`?
+**b)** Čo je **CI/CD** a aký **business benefit** prináša oproti manuálnemu nasadzovaniu?
+
+> **Odpoveď:**
+>
+> *(Sem vpíš svoju odpoveď.)*
+
+**c)** V akej situácii je `git fetch` + manuálny `git merge` bezpečnejšia voľba ako `git pull`?
+
+> **Odpoveď:**
+>
+> *(Sem vpíš svoju odpoveď.)*
 
 ---
 
@@ -501,27 +755,20 @@ git push --force origin main   # prepíše vzdialenú históriu
 >
 > *Git flow schéma:*
 > ```
-> main     ──●──────────────────────────●── (merge commit)
->             \                        /
-> feature      ●──●──●──●──●──●──●──●
+> main    ──●──────────────────────────●── (merge commit)
+>            \                        /
+> feature     ●──●──●──●──●──●──●──●
 > ```
 >
-> *`.gitlab-ci.yml` — základná kostra:*
+> *`.gitlab-ci.yml` kostra:*
 > ```yaml
-> stages:
->   - build
->   - test
->   - deploy
->
+> stages: [build, test, deploy]
 > build-job:
 >   stage: build
 >   image: gcc:latest
->   script:
->     - make
+>   script: [make]
 >   artifacts:
->     paths:
->       - app
->
+>     paths: [app]
 > deploy-job:
 >   stage: deploy
 >   rules:
@@ -537,93 +784,97 @@ git push --force origin main   # prepíše vzdialenú históriu
 
 ### 6.1 – Implementácia: fork() a pipe() v jazyku C
 
-Napíš kompletný program v **jazyku C**, ktorý:
-1. Vytvorí komunikačný kanál (`pipe()`)
-2. Zavolá `fork()` na vytvorenie potomka
-3. **Rodič** zapíše do pipe správu vo formáte `"Správa od rodiča PID=<PID>"` a zatvorí write-end
-4. **Potomok** prečíta správu z pipe, vypíše ju na `stdout` a zatvorí read-end
-5. **Rodič** počká na ukončenie potomka (`wait()`) a vypíše jeho návratový kód
+Napíš kompletný program v **jazyku C**: vytvor pipe, zavolaj `fork()`; rodič zapíše `"Správa od rodiča PID=<PID>"` a zatvorí write-end; potomok prečíta, vypíše a zatvorí read-end; rodič počká cez `wait()` a vypíše návratový kód. Ošetri zlyhanie `fork()` a zbytočne otvorené fd.
 
-Program musí korektne zatvárať neupotrené file descriptory a ošetriť zlyhanie `fork()`.
+```c
+// ===== TVOJE RIEŠENIE – fork() + pipe() =====
 
-**Po implementácii odpovedz:** Čo je **zombie proces**? Ako vzniká a akú rolu hrá `wait()` pri jeho prevencii?
+
+
+// =============================================
+```
+
+> **✏️ Odpoveď – zombie proces:**
+>
+> Čo je zombie proces, ako vzniká a akú rolu hrá `wait()`?
+> *(Sem vpíš.)*
 
 ---
 
 ### 6.2 – Stavový diagram procesu
 
-Nakresli stavový diagram procesu so stavmi `NEW → READY → RUNNING → WAITING → TERMINATED`. Pre každý prechod (šípku) uveď **konkrétnu udalosť**, ktorá ho spôsobuje.
+Nakresli stavový diagram so stavmi `NEW → READY → RUNNING → WAITING → TERMINATED`. Pre každý prechod uveď konkrétnu udalosť.
 
-Doplň: Čo obsahuje **PCB (Process Control Block)** a prečo ho OS potrebuje pri **prepínaní kontextu (context switch)**? Vymenuj minimálne 5 položiek PCB.
+```
+===== DIAGRAM – stavový diagram procesu =====
+
+
+
+=============================================
+```
+
+> **✏️ Odpoveď – PCB a context switch:**
+>
+> Čo obsahuje PCB (min. 5 položiek) a prečo ho OS potrebuje pri context switch?
+> *(Sem vpíš.)*
 
 ---
 
 ### 6.3 – Linux príkazy: scenáre
 
-Pre každý scenár napíš presný príkaz (prípadne reťazec pomocou `|`):
+Doplň príkaz pre každý scenár:
 
 | Scenár | Príkaz |
 |---|---|
 | Zobraz bežiace procesy: PID, USER, CPU%, MEM%, CMD | |
 | Nájdi všetky riadky s `ERROR` v `system.log` a ulož ich do `chyby.txt` | |
-| Sleduj koniec `system.log` v reálnom čase (nové záznamy) | |
+| Sleduj koniec `system.log` v reálnom čase | |
 | Rekurzívne nájdi všetky súbory `.conf` v `/etc` | |
 | Nastav práva `deploy.sh` na `rwxr-xr--` (octal) | |
 | Zobraz aktívne sieťové rozhrania a IP adresy | |
 | Ukonči proces s názvom `nginx` bez znalosti PID | |
 | Zoraď riadky `data.csv` podľa druhého stĺpca (oddelovač `,`) | |
-| Skopíruj adresár `projekt/` na vzdialený server `192.168.1.10:/home/admin/` | |
+| Skopíruj adresár `projekt/` na `192.168.1.10:/home/admin/` | |
 | Zobraz veľkosť adresárov v `/var/log` od najväčšieho | |
 
 ---
 
 ### 6.4 – Analytické otázky
 
-**a)** Porovnaj **pipe** a **zdieľanú pamäť (shared memory)** ako dva IPC mechanizmy — výhody, nevýhody, typické use-cases.
+**a)** Porovnaj **pipe** a **zdieľanú pamäť (shared memory)** ako IPC mechanizmy — výhody, nevýhody, typické use-cases.
 
-**b)** Čo sú **file descriptory** 0, 1, 2? Čo sa stane ak program uzavrie `stdout` (`close(1)`) a následne otvorí nový súbor — aký file descriptor dostane a prečo?
+> **Odpoveď:**
+>
+> *(Sem vpíš svoju odpoveď.)*
 
-**c)** Prečo je `fork()` v Unixe navrhnutý tak, aby skopíroval celý adresný priestor rodiča? Aký mechanizmus operačný systém využíva na optimalizáciu tejto kopírovej operácie (`copy-on-write`)?
+**b)** Čo sú file descriptory 0, 1, 2? Čo sa stane ak program uzavrie `stdout` (`close(1)`) a otvorí nový súbor?
+
+> **Odpoveď:**
+>
+> *(Sem vpíš svoju odpoveď.)*
+
+**c)** Prečo `fork()` kopíruje adresný priestor rodiča a aký mechanizmus OS používa na optimalizáciu tejto operácie?
+
+> **Odpoveď:**
+>
+> *(Sem vpíš svoju odpoveď.)*
 
 ---
 
 > **Mohlo by sa hodiť**
 >
-> *Kostra programu s `fork()` a `pipe()`:*
+> *Kostra fork() + pipe():*
 > ```c
-> #include <unistd.h>
-> #include <sys/wait.h>
-> #include <stdio.h>
-> #include <string.h>
->
-> int main() {
->     int pipefd[2];           // [0]=read end, [1]=write end
->     pipe(pipefd);
->     pid_t pid = fork();
->     if (pid < 0)  { /* chyba */ }
->     else if (pid == 0) {
->         close(pipefd[1]);    // potomok nepíše
->         // read(pipefd[0], ...)
->     } else {
->         close(pipefd[0]);    // rodič nečíta
->         // write(pipefd[1], ...)
->         wait(NULL);
->     }
-> }
+> int pipefd[2];   // [0]=read, [1]=write
+> pipe(pipefd);
+> pid_t pid = fork();
+> if (pid == 0) { close(pipefd[1]); /* čítaj */ }
+> else          { close(pipefd[0]); /* píš */ wait(NULL); }
 > ```
 >
-> *File descriptory:*
-> ```
-> 0 = stdin   (klávesnica)
-> 1 = stdout  (terminál)
-> 2 = stderr  (chybový výstup)
-> ```
+> *File descriptory:* `0=stdin` `1=stdout` `2=stderr`
 >
-> *Práva a octal:*
-> ```
-> rwxr-xr-- = 754
-> r=4, w=2, x=1  →  rwx=7, r-x=5, r--=4
-> ```
+> *Octal práva:* `rwxr-xr-- = 754` (r=4, w=2, x=1)
 
 ---
 
@@ -634,60 +885,102 @@ Pre každý scenár napíš presný príkaz (prípadne reťazec pomocou `|`):
 
 ### 7.1 – Dockerfile pre produkčnú aplikáciu
 
-Napíš `Dockerfile` pre **Python Flask API** s týmito požiadavkami:
-- Základný image: `python:3.11-slim`
-- Pracovný adresár: `/app`
-- Skopíruje `requirements.txt` a nainštaluje závislosti **pred** kopírovaním zdrojového kódu
-- Skopíruje celý zdrojový kód
-- Nastaví premennú prostredia `FLASK_ENV=production`
-- Exponuje port `5000`
-- Spustí: `flask run --host=0.0.0.0`
+Napíš `Dockerfile` pre Python Flask API: base image `python:3.11-slim`, workdir `/app`, skopíruj `requirements.txt` a inštaluj závislosti **pred** kódom, skopíruj kód, nastav `FLASK_ENV=production`, exponuj port `5000`, spusti `flask run --host=0.0.0.0`.
 
-**Po implementácii vysvetli:** Prečo je výhodné kopírovať `requirements.txt` **pred** zvyšným kódom? (Súvisí s Docker layer cache.)
+```dockerfile
+# ===== TVOJE RIEŠENIE – Dockerfile =====
+
+
+
+# ========================================
+```
+
+> **✏️ Odpoveď – layer cache:**
+>
+> Prečo kopírovať `requirements.txt` pred zvyšným kódom?
+> *(Sem vpíš.)*
 
 ---
 
 ### 7.2 – Docker Compose: viacservisná aplikácia
 
-Napíš `docker-compose.yml` pre systém:
-- Služba `web`: tvoj Flask image (port 5000 → host 8080)
-- Služba `db`: `postgres:15` s premennými `POSTGRES_USER`, `POSTGRES_PASSWORD`, `POSTGRES_DB`
-- Obidve v spoločnej sieti `backend-net`
-- Dáta DB sú perzistentné cez named volume `pgdata`
-- `web` čaká na `db` (`depends_on`)
+Napíš `docker-compose.yml`: služba `web` (Flask, port 5000→8080), služba `db` (postgres:15, premenné prostredia), spoločná sieť `backend-net`, named volume `pgdata`, `web` čaká na `db`.
+
+```yaml
+# ===== TVOJE RIEŠENIE – docker-compose.yml =====
+
+
+
+# ================================================
+```
 
 ---
 
 ### 7.3 – VBoxManage automatizácia
 
-Napíš sekvenciu `VBoxManage` príkazov, ktorá automatizovane:
-1. Vytvorí VM `TestVM` (typ Linux, variant Ubuntu_64)
-2. Nastaví 2048 MB RAM a 2 CPU
-3. Vytvorí dynamicky alokovaný VDI disk 20 GB a pripojí ho
-4. Nastaví sieťový adaptér na bridged režim
-5. Spustí VM v headless režime
+Napíš sekvenciu `VBoxManage` príkazov:
+
+```bash
+# 1 – vytvor VM TestVM (Linux, Ubuntu_64)
+
+# 2 – nastav 2048 MB RAM a 2 CPU
+
+# 3 – vytvor dynamicky alokovaný VDI disk 20 GB a pripoj ho
+
+# 4 – nastav sieťový adaptér na bridged
+
+# 5 – spusti VM v headless režime
+
+```
 
 ---
 
 ### 7.4 – KVM konfigurácia
 
-Napíš príkazy (jeden riadok každý), ktoré:
-1. Overia podporu HW virtualizácie (VT-x / AMD-V)
-2. Skontrolujú načítanie KVM kernel modulov
-3. Overia vhodnosť systému pre QEMU/KVM hosting
-4. Nastavia optimalizačný profil `virtual-host`
+```bash
+# 1 – over podporu HW virtualizácie (VT-x / AMD-V)
+
+# 2 – skontroluj načítanie KVM kernel modulov
+
+# 3 – over vhodnosť systému pre QEMU/KVM hosting
+
+# 4 – nastav optimalizačný profil virtual-host
+
+```
 
 ---
 
 ### 7.5 – Analytické otázky
 
-**a)** Porovnaj **kontajner (Docker)** a **virtuálny stroj (VM)** z hľadiska: (1) izolácie, (2) výkonnostného overheadu, (3) vhodného use-case.
+**a)** Porovnaj **kontajner (Docker)** a **virtuálny stroj (VM)** z hľadiska: izolácie, výkonnostného overheadu, vhodného use-case.
 
-**b)** Vysvetli Docker **layer caching** — ako Docker rozhoduje, ktoré vrstvy rebuildiť? Prečo `COPY . .` na začiatku Dockerfile je anti-pattern?
+> **Odpoveď:**
+>
+> *(Sem vpíš svoju odpoveď.)*
 
-**c)** Prečo sa KVM preferuje pred VirtualBoxom na produkčných serveroch? Uveď aspoň 2 technické dôvody súvisiace s typom hypervisora.
+**b)** Vysvetli Docker **layer caching** — ako Docker rozhoduje, ktoré vrstvy rebuildiť? Prečo `COPY . .` na začiatku je anti-pattern?
 
-**d)** Aké sú **4 sieťové režimy VirtualBoxu** (NAT, NAT Network, Bridged, Host-only)? Pre každý uveď typický scenár použitia.
+> **Odpoveď:**
+>
+> *(Sem vpíš svoju odpoveď.)*
+
+**c)** Prečo sa KVM preferuje pred VirtualBoxom na produkčných serveroch? Uveď aspoň 2 technické dôvody.
+
+> **Odpoveď:**
+>
+> *(Sem vpíš svoju odpoveď.)*
+
+**d)** Aké sú **4 sieťové režimy VirtualBoxu**? Pre každý uveď typický scenár použitia.
+
+> **Odpoveď:**
+>
+> NAT: *(Sem vpíš.)*
+>
+> NAT Network: *(Sem vpíš.)*
+>
+> Bridged: *(Sem vpíš.)*
+>
+> Host-only: *(Sem vpíš.)*
 
 ---
 
@@ -695,17 +988,17 @@ Napíš príkazy (jeden riadok každý), ktoré:
 >
 > *Docker architektúra:*
 > ```
-> Docker CLI ──(REST API)──► Docker Daemon
->                              ├── Images   (read-only vrstvy)
->                              ├── Containers (bežiace inštancie)
->                              └── Volumes  (perzistentné úložisko)
+> Docker CLI ──► Docker Daemon
+>                  ├── Images (read-only vrstvy)
+>                  ├── Containers (bežiace inštancie)
+>                  └── Volumes (perzistentné úložisko)
 > ```
 >
-> *Dockerfile — layer cache princíp:*
+> *Layer cache — logika:*
 > ```
-> COPY requirements.txt .   ← invaliduje cache len ak sa zmení requirements.txt
-> RUN pip install ...        ← reexekvuje len ak predchádzajúca vrstva je nová
-> COPY . .                   ← invaliduje cache pri každej zmene kódu
+> COPY requirements.txt .  ← cache miss len pri zmene requirements.txt
+> RUN pip install ...
+> COPY . .                 ← cache miss pri každej zmene kódu
 > ```
 >
 > *KVM príkazy:*
@@ -725,14 +1018,23 @@ Napíš príkazy (jeden riadok každý), ktoré:
 
 ### 8.1 – Návrh observability stratégie
 
-Máš trojvrstvovú webovú aplikáciu: `frontend (React)` → `api (Python REST)` → `databaza (PostgreSQL)`.
+Máš trojvrstvovú aplikáciu: `frontend (React)` → `api (Python REST)` → `databaza (PostgreSQL)`. Navrhni komplexnú observability stratégiu — pre každú vrstvu uveď čo sledovať cez Traces, aké Metrics (min. 3 pre `api`) a aké Logs (s úrovňou INFO/WARN/ERROR). Každé rozhodnutie zdôvodni.
 
-Navrhni komplexnú observability stratégiu s využitím OpenTelemetry. Pre každú vrstvu uveď:
-- Čo budeš sledovať pomocou **Traces** a prečo práve traces (nie metriky)?
-- Aké konkrétne **Metrics** nastavíš pre vrstvu `api` (min. 3 metriky s popisom čo merajú)
-- Aké udalosti budú zaznamenávané ako **Logs** a na akej severity úrovni (`INFO`, `WARN`, `ERROR`)
-
-Každé rozhodnutie zdôvodni.
+> **Odpoveď:**
+>
+> **Frontend:**
+> - Traces: *(Sem vpíš.)*
+> - Logs: *(Sem vpíš.)*
+>
+> **API:**
+> - Traces: *(Sem vpíš.)*
+> - Metrics (min. 3): *(Sem vpíš.)*
+> - Logs: *(Sem vpíš.)*
+>
+> **Databáza:**
+> - Traces: *(Sem vpíš.)*
+> - Metrics: *(Sem vpíš.)*
+> - Logs: *(Sem vpíš.)*
 
 ---
 
@@ -747,47 +1049,67 @@ Každé rozhodnutie zdôvodni.
                                                            ┘
 ```
 
-**a)** Kde nastáva bottleneck? Zdôvodni na základe čísel v trace.
+**a)** Kde nastáva bottleneck? Zdôvodni číslami.
 
-**b)** Aké sú **aspoň 3 hypotézy**, prečo `db.query_user` trvá 775ms?
+> **Odpoveď:**
+>
+> *(Sem vpíš svoju odpoveď.)*
 
-**c)** Aké metriky na databázovej vrstve by si monitoroval, aby si tieto hypotézy potvrdil alebo vyvrátil?
+**b)** Uveď **aspoň 3 hypotézy**, prečo `db.query_user` trvá 775ms.
+
+> **Odpoveď:**
+>
+> 1. *(Sem vpíš.)*
+>
+> 2. *(Sem vpíš.)*
+>
+> 3. *(Sem vpíš.)*
+
+**c)** Aké metriky by si monitoroval na DB vrstve na potvrdenie/vyvrátenie týchto hypotéz?
+
+> **Odpoveď:**
+>
+> *(Sem vpíš svoju odpoveď.)*
 
 ---
 
 ### 8.3 – Analytické otázky
 
-**a)** Kedy použiješ **auto-instrumentáciu** a kedy **manuálnu instrumentáciu**? Porovnaj development effort vs. granularitu dát.
+**a)** Kedy použiješ **auto-instrumentáciu** a kedy **manuálnu**? Porovnaj development effort vs. granularitu dát.
 
-**b)** Prečo nestačí samotné logovanie (Logs) na diagnostiku výkonnostných problémov v distribuovanom systéme? Čo Traces pridávajú navyše?
+> **Odpoveď:**
+>
+> *(Sem vpíš svoju odpoveď.)*
 
-**c)** Vysvetli mechanizmus **context propagation** — ako distribuovaný trace prepája spany naprieč viacerými službami a procesmi?
+**b)** Prečo samotné Logs nestačia na diagnostiku výkonnostných problémov v distribuovanom systéme? Čo Traces pridávajú?
+
+> **Odpoveď:**
+>
+> *(Sem vpíš svoju odpoveď.)*
+
+**c)** Vysvetli mechanizmus **context propagation** — ako trace prepája spany naprieč viacerými službami?
+
+> **Odpoveď:**
+>
+> *(Sem vpíš svoju odpoveď.)*
 
 ---
 
 > **Mohlo by sa hodiť**
 >
-> *Tri piliere observability — kedy ktorý:*
+> *Tri piliere — kedy ktorý:*
 > ```
-> Traces  → Prečo je požiadavka pomalá? Kde je bottleneck?
-> Metrics → Ako sa mení trend v čase? Rastie počet chýb?
+> Traces  → Kde je bottleneck? Prečo je požiadavka pomalá?
+> Metrics → Aký je trend? Rastie počet chýb?
 > Logs    → Čo presne sa stalo? Aká bola chybová správa?
 > ```
 >
-> *Schéma distribuovaného trace:*
+> *Schéma context propagation:*
 > ```
-> request → [frontend span]
->                │ HTTP header: traceparent
->                ▼
->           [api span]
->                │ DB connection
->                ▼
->           [db span]
+> request → [api span] ──traceparent header──► [db span]
 > ```
 >
-> *Nástroje ekosystému:*
-> Prometheus (scraping), Grafana (vizualizácia), Jaeger / Zipkin (trace UI),
-> Datadog (all-in-one komerčné), OpenTelemetry Collector (agregácia + routing)
+> *Nástroje:* Prometheus, Grafana, Jaeger, Zipkin, Datadog, OTel Collector
 
 ---
 
@@ -798,75 +1120,136 @@ Každé rozhodnutie zdôvodni.
 
 ### 9.1 – Základné koncepty
 
-**a)** Vysvetli rozdiel medzi **CLI** a **GUI** rozhraním AI asistenta. Uveď aspoň 2 výhody CLI prístupu pri práci s kódom (napr. automatizácia, SSH).
+**a)** Vysvetli rozdiel medzi **CLI** a **GUI** rozhraním AI asistenta. Uveď aspoň 2 výhody CLI prístupu pri práci s kódom.
 
-**b)** Čo je **context window** (kontextové okno)? Čo je **compaction** a aká je jeho nevýhoda pri dlhých konverzáciách?
+> **Odpoveď:**
+>
+> *(Sem vpíš svoju odpoveď.)*
 
-**c)** Prečo sa lokálne nastavenia Claude (napr. `settings.local.json`) **nezahŕňajú do git repozitára**? Aké riziká by to prinieslo?
+**b)** Čo je **context window**? Čo je **compaction** a aká je jeho nevýhoda?
+
+> **Odpoveď:**
+>
+> *(Sem vpíš svoju odpoveď.)*
+
+**c)** Prečo sa lokálne nastavenia (`settings.local.json`) nezahŕňajú do git repozitára?
+
+> **Odpoveď:**
+>
+> *(Sem vpíš svoju odpoveď.)*
 
 ---
 
 ### 9.2 – Permissions a bezpečnosť
 
-**a)** Aké typy akcií v Claude Code **stále vyžadujú manuálne potvrdenie** napriek udeleniam oprávnení? (Uveď aspoň 2 príklady.)
+**a)** Aké akcie v Claude Code stále vyžadujú manuálne potvrdenie? Uveď aspoň 2 príklady.
 
-**b)** Čo je **sandbox** v kontexte Claude Code? S čím ho možno prirovnať z bežného IT sveta?
+> **Odpoveď:**
+>
+> *(Sem vpíš svoju odpoveď.)*
 
-**c)** Čo môže AI urobiť s git históriou a súbormi v tzv. **dangerous / dangerouslySkipPermissions** režime? Prečo je tento režim rizikový?
+**b)** Čo je **sandbox** v kontexte Claude Code? S čím ho možno prirovnať?
+
+> **Odpoveď:**
+>
+> *(Sem vpíš svoju odpoveď.)*
+
+**c)** Čo môže AI urobiť v **dangerous** režime a prečo je to rizikové?
+
+> **Odpoveď:**
+>
+> *(Sem vpíš svoju odpoveď.)*
 
 ---
 
 ### 9.3 – Plan Mode a Context Engineering
 
-**a)** Na aké typy úloh je vhodné použiť **Plan Mode** (režim plánovania)? Uveď aspoň 3 scenáre, kedy ho má vývojár aktivovať pred tým, ako AI začne robiť zmeny.
+**a)** Na aké typy úloh je vhodné použiť **Plan Mode**? Uveď aspoň 3 scenáre.
 
-**b)** Čo je `CLAUDE.md` a prečo je výhodné do neho zahrnúť iba referenciu na `SPEC.md` namiesto priameho kopírovania obsahu?
+> **Odpoveď:**
+>
+> 1. *(Sem vpíš.)*
+>
+> 2. *(Sem vpíš.)*
+>
+> 3. *(Sem vpíš.)*
 
-**c)** Vysvetli 2 princípy **Context Engineering** pri práci s AI:
-- Čo sa myslí pod „poskytni relevantnú informáciu"?
-- Prečo je stručnosť (`brevity`) dôležitá pri práci s kontextovým oknom?
+**b)** Čo je `CLAUDE.md` a prečo je výhodné zahrnúť referenciu na `SPEC.md` namiesto kopírovania obsahu?
+
+> **Odpoveď:**
+>
+> *(Sem vpíš svoju odpoveď.)*
+
+**c)** Vysvetli 2 princípy **Context Engineering**: čo znamená „poskytni relevantnú informáciu" a prečo je stručnosť dôležitá?
+
+> **Odpoveď:**
+>
+> *(Sem vpíš svoju odpoveď.)*
 
 ---
 
 ### 9.4 – Pokročilé funkcie
 
-**a)** Čo sú **MCP (Model Context Protocol) servery** a aký typ funkcionality umožňujú AI asistentovi, ktorý by bez nich nemal?
+**a)** Čo sú **MCP servery** a akú funkcionalitu umožňujú AI asistentovi?
 
-**b)** Čo sú **Hooks** v Claude Code? Uveď príklad udalosti, ktorá hook spúšťa, a príklad akcie, ktorú hook vykoná.
+> **Odpoveď:**
+>
+> *(Sem vpíš svoju odpoveď.)*
 
-**c)** Vysvetli koncept **Feedback Loop** pri AI-asistovanom vývoji. Prečo je dôležité používať nástroje ako **Playwright** na verifikáciu výsledkov? Aká je hlavná nevýhoda feedback loop prístupu?
+**b)** Čo sú **Hooks**? Uveď príklad udalosti, ktorá hook spúšťa, a príklad akcie, ktorú vykoná.
 
-**d)** Čo je **Multi-Agent systém (Ralph Loop)**? Pre aký typ pracovného zaťaženia (`workload`) je najvhodnejší a aký aspekt kontroly sa pri ňom znižuje?
+> **Odpoveď:**
+>
+> *(Sem vpíš svoju odpoveď.)*
+
+**c)** Vysvetli **Feedback Loop**. Prečo je dôležité používať nástroje ako Playwright na verifikáciu? Aká je hlavná nevýhoda?
+
+> **Odpoveď:**
+>
+> *(Sem vpíš svoju odpoveď.)*
+
+**d)** Čo je **Multi-Agent systém (Ralph Loop)**? Pre aký typ workloadu je najvhodnejší a čo sa znižuje?
+
+> **Odpoveď:**
+>
+> *(Sem vpíš svoju odpoveď.)*
 
 ---
 
 ### 9.5 – Analytická otázka
 
-Na základe všetkého, čo si sa naučil o AI-asistovanom vývoji:
-
 **a)** Aké sú **3 najväčšie výhody** integrácie AI asistenta do vývojového procesu?
+
+> **Odpoveď:**
+>
+> 1. *(Sem vpíš.)*  2. *(Sem vpíš.)*  3. *(Sem vpíš.)*
 
 **b)** Aké sú **3 najväčšie riziká** — technické, bezpečnostné alebo organizačné?
 
-**c)** Prečo je **verzovací systém (Git)** obzvlášť dôležitý pri práci s AI asistentom, ktorý môže robiť rozsiahle zmeny v kóde?
+> **Odpoveď:**
+>
+> 1. *(Sem vpíš.)*  2. *(Sem vpíš.)*  3. *(Sem vpíš.)*
+
+**c)** Prečo je **Git** obzvlášť dôležitý pri práci s AI asistentom, ktorý môže robiť rozsiahle zmeny?
+
+> **Odpoveď:**
+>
+> *(Sem vpíš svoju odpoveď.)*
 
 ---
 
 > **Mohlo by sa hodiť**
 >
-> *Kľúčové pojmy a ich prepojenie:*
+> *Kľúčové pojmy:*
 > ```
-> CLAUDE.md  → projektové inštrukcie (súčasť kontextu každej konverzácie)
+> CLAUDE.md  → projektové inštrukcie (v kontexte každej konverzácie)
 > SPEC.md    → špecifikácia projektu (referovaná z CLAUDE.md)
-> Plan Mode  → AI navrhuje, človek schvaľuje pred vykonaním
+> Plan Mode  → AI navrhuje, človek schvaľuje pred vykonaním zmien
 > Hooks      → shell príkazy spúšťané automaticky pri udalostiach
 > MCP        → rozšírenia umožňujúce AI prístup k externým systémom
 > ```
 >
-> *Prečo Git + AI = nevyhnutnosť:*
-> AI môže urobiť rozsiahle zmeny v desiatich súboroch naraz.
-> Bez commitu pred zmenou nie je možnosť vrátiť sa k predchádzajúcemu stavu.
-> `git commit` pred AI akciou = záchranná sieť.
+> *Git + AI:* AI môže zmeniť 10 súborov naraz. `git commit` pred AI akciou = záchranná sieť.
 
 ---
 
@@ -888,6 +1271,7 @@ Na základe všetkého, čo si sa naučil o AI-asistovanom vývoji:
 *(Bodovanie je orientačné — komisia môže upraviť váhu jednotlivých úloh.)*
 
 **Klasifikačná stupnica:**
+
 | Percentá | Klasifikácia |
 |---|---|
 | 90 – 100 % | 1 – výborný |
