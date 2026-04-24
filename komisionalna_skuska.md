@@ -1,4 +1,4 @@
-# Komisionálna skúška – SGX (SMART technológie)
+# Komisionálna skúška – SGX (SMART technológie) - Programovanie
 **Škola:** Stredná priemyselná škola informačných technológií, Kysucké Nové Mesto  
 **Predmet:** SGX – SMART technológie  
 **Ročník:** 4.  
