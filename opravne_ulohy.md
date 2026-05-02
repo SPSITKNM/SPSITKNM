@@ -1,4 +1,4 @@
-# C++ OOP - Opravné úlohy :)
+# C++ OOP - Opravné úlohy
 Dátové štruktúry (Linked Lists) + Triediace algoritmy
 
 Pre študentov: Tieto úlohy sú navrhnuté tak, aby ste si precvičili OOP princípy, linked listy a sorting. Každá úloha má povinné minimum (75% bodov) a kreatívne rozšírenia (25% bodov + bonusy).
@@ -9,7 +9,7 @@ Pre študentov: Tieto úlohy sú navrhnuté tak, aby ste si precvičili OOP prin
 
 | Číslo | Názov | Téma | Body |
 |-------|-------|------|------|
-| 1 | Student Database | Doubly Linked List + Bubble Sort | 25 (+5) |
+| 1 | Student Database | Doubly Linked List + Bubble Sort | 25 (+5) | 
 | 2 | Warehouse Manager | Singly Linked List + 3 Sorting Algorithms | 25 (+7) |
 | 3 | Music Playlist | Circular Linked List + QuickSort | 25 (+8) |
 | 4 | Task Manager | Linked List + Merge Sort | 25 (+7) |
