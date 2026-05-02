@@ -1085,8 +1085,8 @@ priezvisko_uloha_X.zip
 [Edupage]
 
 ### Termín
-[23:59 - 25.1]
+**23:59 - 4.5.2026**
 
 ---
 
-### Designed by Tom. Muc. 
+### Designed by Tom. Muc.
