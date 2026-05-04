@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PRO — Programovanie | SPSITKNM</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/marked@12/marked.min.js"></script>
+  <style>
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    :root {
+      --bg:#030712; --surface:rgba(15,23,42,0.65); --s2:rgba(30,41,59,0.5);
+      --border:rgba(99,102,241,0.18); --ba:rgba(99,102,241,0.55);
+      --accent:#6366f1; --a2:#4f46e5; --glow:rgba(99,102,241,0.4);
+      --cyan:#06b6d4; --em:#10b981;
+      --text:#f1f5f9; --muted:#94a3b8; --faint:#475569;
+      --mono:'Fira Code',monospace; --sans:'Inter',system-ui,sans-serif;
+    }
+    html{scroll-behavior:smooth;}
+    body{background:var(--bg);color:var(--text);font-family:var(--sans);overflow-x:hidden;}
+    ::-webkit-scrollbar{width:5px;}
+    ::-webkit-scrollbar-track{background:var(--bg);}
+    ::-webkit-scrollbar-thumb{background:var(--accent);border-radius:3px;}
+
+    /* BG */
+    .bg{position:fixed;inset:0;z-index:0;overflow:hidden;background:radial-gradient(ellipse 80% 50% at 50% -5%,rgba(99,102,241,0.1),transparent);}
+    .orb{position:absolute;border-radius:50%;filter:blur(130px);opacity:0.25;}
+    .o1{width:600px;height:600px;background:radial-gradient(circle,#4f46e5,transparent);top:-200px;left:-150px;animation:ob 25s ease-in-out infinite;}
+    .o2{width:400px;height:400px;background:radial-gradient(circle,#0891b2,transparent);bottom:0;right:-100px;animation:ob 20s ease-in-out infinite reverse;}
+    .grid-ov{position:absolute;inset:0;background-image:linear-gradient(rgba(99,102,241,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(99,102,241,0.03) 1px,transparent 1px);background-size:60px 60px;}
+    @keyframes ob{0%,100%{transform:translate(0,0)}50%{transform:translate(60px,-80px)}}
+
+    /* NAV */
+    nav{position:fixed;top:0;left:0;right:0;z-index:200;height:60px;display:flex;align-items:center;justify-content:space-between;padding:0 2rem;background:rgba(3,7,18,0.8);backdrop-filter:blur(24px);border-bottom:1px solid rgba(99,102,241,0.1);}
+    .nav-l{display:flex;align-items:center;gap:1rem;}
+    .back{display:flex;align-items:center;gap:0.4rem;font-size:0.8rem;color:var(--muted);text-decoration:none;transition:color 0.2s;padding:0.3rem 0.7rem;border-radius:6px;border:1px solid var(--border);}
+    .back:hover{color:var(--text);border-color:var(--ba);}
+    .nav-sep{color:var(--faint);}
+    .nav-subj{font-family:var(--mono);font-size:0.8rem;color:var(--accent);font-weight:500;}
+    .nav-r{display:flex;gap:0.65rem;}
+    .btn{padding:0.4rem 1rem;border-radius:7px;font-size:0.8rem;font-weight:600;text-decoration:none;border:none;cursor:pointer;display:inline-flex;align-items:center;gap:0.35rem;transition:all 0.2s;}
+    .btn-g{background:transparent;border:1px solid var(--border);color:var(--muted);}
+    .btn-g:hover{border-color:var(--ba);color:var(--text);background:rgba(99,102,241,0.08);}
+    .btn-p{background:var(--accent);color:#fff;box-shadow:0 0 20px var(--glow);}
+    .btn-p:hover{background:var(--a2);box-shadow:0 0 35px var(--glow);transform:translateY(-1px);}
+
+    /* MAIN */
+    main{position:relative;z-index:10;padding-top:60px;}
+
+    /* HERO */
+    .hero{padding:4.5rem 2rem 3.5rem;max-width:1180px;margin:0 auto;display:grid;grid-template-columns:1fr auto;gap:3rem;align-items:center;}
+    .hero-tag{display:inline-flex;align-items:center;gap:0.45rem;padding:0.3rem 0.85rem;border-radius:100px;background:rgba(99,102,241,0.1);border:1px solid rgba(99,102,241,0.25);font-family:var(--mono);font-size:0.7rem;color:var(--accent);margin-bottom:1rem;letter-spacing:0.06em;}
+    .pdot{width:6px;height:6px;border-radius:50%;background:var(--em);animation:pdot 2s ease-in-out infinite;}
+    @keyframes pdot{0%,100%{box-shadow:0 0 0 0 rgba(16,185,129,0.6)}50%{box-shadow:0 0 0 5px rgba(16,185,129,0)}}
+    .hero-h{font-size:clamp(2.4rem,6vw,5rem);font-weight:900;letter-spacing:-0.03em;line-height:1.05;margin-bottom:0.75rem;}
+    .grad{background:linear-gradient(135deg,#818cf8,#06b6d4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+    .hero-desc{font-size:1rem;color:var(--muted);line-height:1.75;max-width:520px;margin-bottom:2rem;}
+    .hero-stats{display:flex;gap:2.5rem;}
+    .hst-n{font-family:var(--mono);font-size:1.8rem;font-weight:800;color:var(--accent);display:block;}
+    .hst-l{font-size:0.72rem;color:var(--muted);}
+    .hero-badge{background:rgba(99,102,241,0.08);border:1px solid rgba(99,102,241,0.18);border-radius:20px;padding:2.5rem 2rem;text-align:center;flex-shrink:0;min-width:160px;}
+    .big-ic{font-size:4rem;display:block;margin-bottom:0.75rem;}
+    .badge-lbl{font-family:var(--mono);font-size:0.7rem;color:var(--muted);line-height:1.6;}
+
+    /* DIVIDER */
+    .div{height:1px;background:linear-gradient(90deg,transparent,rgba(99,102,241,0.3),transparent);margin:0 2rem;}
+
+    /* SECTION */
+    .section{padding:3.5rem 2rem;max-width:1180px;margin:0 auto;}
+    .sec-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.75rem;flex-wrap:wrap;gap:0.75rem;}
+    .sec-title{font-size:1.2rem;font-weight:700;display:flex;align-items:center;gap:0.6rem;}
+    .live-badge{display:inline-flex;align-items:center;gap:0.3rem;padding:0.18rem 0.55rem;border-radius:100px;background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.3);font-family:var(--mono);font-size:0.62rem;color:var(--em);}
+    .live-badge::before{content:'●';font-size:0.45rem;animation:live-pulse 1.5s ease-in-out infinite;}
+    @keyframes live-pulse{0%,100%{opacity:1}50%{opacity:0.3}}
+
+    /* AKTUALITY */
+    .ak-card{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:2rem;backdrop-filter:blur(20px);transition:border-color 0.3s;}
+    .ak-card:hover{border-color:var(--ba);}
+    .md-c{color:var(--muted);line-height:1.8;font-size:0.91rem;}
+    .md-c h1,.md-c h2,.md-c h3{color:var(--text);margin:1.2rem 0 0.6rem;}
+    .md-c h1{font-size:1.3rem;} .md-c h2{font-size:1.1rem;} .md-c h3{font-size:1rem;}
+    .md-c p{margin-bottom:0.75rem;}
+    .md-c ul,.md-c ol{margin-left:1.5rem;margin-bottom:0.75rem;}
+    .md-c li{margin-bottom:0.3rem;}
+    .md-c strong{color:var(--text);}
+    .md-c a{color:var(--accent);text-decoration:none;}
+    .md-c a:hover{text-decoration:underline;}
+    .md-c code{font-family:var(--mono);font-size:0.8rem;background:rgba(99,102,241,0.1);padding:0.1em 0.35em;border-radius:3px;color:#a5d6ff;}
+    .md-c pre{background:#0d1117;border:1px solid rgba(99,102,241,0.15);border-radius:10px;padding:1rem;overflow-x:auto;margin:0.75rem 0;}
+    .md-c pre code{background:none;padding:0;}
+    .md-c blockquote{border-left:3px solid var(--accent);padding-left:1rem;margin:0.75rem 0;color:var(--faint);}
+    .md-c table{width:100%;border-collapse:collapse;font-size:0.85rem;margin:0.75rem 0;}
+    .md-c th{background:rgba(99,102,241,0.1);padding:0.5rem 0.75rem;text-align:left;color:var(--text);border:1px solid var(--border);}
+    .md-c td{padding:0.5rem 0.75rem;border:1px solid var(--border);}
+    .md-c hr{border:none;border-top:1px solid var(--border);margin:1.25rem 0;}
+    .skel{background:linear-gradient(90deg,rgba(99,102,241,0.07) 25%,rgba(99,102,241,0.14) 50%,rgba(99,102,241,0.07) 75%);background-size:200% 100%;animation:shim 1.5s infinite;border-radius:5px;height:13px;margin-bottom:10px;}
+    @keyframes shim{0%{background-position:200% 0}100%{background-position:-200% 0}}
+    .skel:nth-child(1){width:75%}.skel:nth-child(2){width:100%}.skel:nth-child(3){width:60%}.skel:nth-child(4){width:88%}.skel:nth-child(5){width:50%}
+
+    /* PINNED */
+    .pin-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;}
+    .pin{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:1.75rem;backdrop-filter:blur(20px);text-decoration:none;color:inherit;display:block;transition:all 0.3s;position:relative;overflow:hidden;}
+    .pin::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 100% 60% at 0 0,rgba(99,102,241,0.12),transparent);opacity:0;transition:opacity 0.3s;}
+    .pin:hover{transform:translateY(-4px);border-color:var(--ba);box-shadow:0 16px 50px rgba(0,0,0,0.4);}
+    .pin:hover::before{opacity:1;}
+    .pin-ic{font-size:2rem;margin-bottom:0.9rem;display:block;}
+    .pin-title{font-size:0.95rem;font-weight:700;margin-bottom:0.4rem;}
+    .pin-desc{font-size:0.8rem;color:var(--muted);line-height:1.6;margin-bottom:1.25rem;}
+    .pin-go{font-size:0.78rem;font-weight:600;color:var(--accent);display:flex;align-items:center;gap:0.3rem;transition:gap 0.2s;}
+    .pin:hover .pin-go{gap:0.55rem;}
+
+    /* MATERIALS */
+    .mat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:0.9rem;}
+    .mat{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1.1rem 1.3rem;text-decoration:none;color:inherit;display:flex;align-items:center;gap:0.9rem;transition:all 0.25s;}
+    .mat:hover{border-color:var(--ba);transform:translateX(5px);background:rgba(15,23,42,0.9);}
+    .mat-ic{font-size:1.4rem;flex-shrink:0;width:36px;text-align:center;}
+    .mat-nm{font-size:0.88rem;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+    .mat-tp{font-family:var(--mono);font-size:0.65rem;color:var(--faint);margin-top:0.12rem;}
+    .mat-arr{margin-left:auto;color:var(--muted);font-size:0.75rem;flex-shrink:0;transition:color 0.2s,transform 0.2s;}
+    .mat:hover .mat-arr{color:var(--accent);transform:translateX(4px);}
+
+    /* FOOTER */
+    footer{border-top:1px solid rgba(99,102,241,0.1);padding:2.5rem 2rem;max-width:1180px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;}
+    .fb{font-family:var(--mono);font-size:0.78rem;color:var(--faint);}
+    .fb b{color:var(--accent);}
+    .fl{display:flex;gap:1.5rem;}
+    .fl a{font-size:0.78rem;color:var(--faint);text-decoration:none;transition:color 0.2s;}
+    .fl a:hover{color:var(--text);}
+
+    /* REVEAL */
+    .rv{opacity:0;transform:translateY(22px);transition:opacity 0.55s ease,transform 0.55s ease;}
+    .rv.in{opacity:1;transform:translateY(0);}
+    .d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}
+
+    @media(max-width:768px){
+      nav{padding:0 1rem;}
+      .nav-subj{display:none;}
+      .hero{grid-template-columns:1fr;}
+      .hero-badge{display:none;}
+      .pin-grid{grid-template-columns:1fr;}
+      .section{padding:2.5rem 1.25rem;}
+    }
+  </style>
+</head>
+<body>
+
+<div class="bg">
+  <div class="orb o1"></div>
+  <div class="orb o2"></div>
+  <div class="grid-ov"></div>
+</div>
+
+<nav>
+  <div class="nav-l">
+    <a href="https://spsitknm.github.io" class="back">← Hub</a>
+    <span class="nav-sep">/</span>
+    <span class="nav-subj">PRO — Programovanie</span>
+  </div>
+  <div class="nav-r">
+    <a href="https://discord.gg/eSQDsna4d7/" target="_blank" class="btn btn-g">⌘ Discord</a>
+    <a href="https://github.com/SPSITKNM/SPSITKNM" target="_blank" class="btn btn-p">GitHub →</a>
+  </div>
+</nav>
+
+<main>
+
+  <div class="hero">
+    <div>
+      <div class="hero-tag">
+        <span class="pdot"></span>
+        ⌨️ &nbsp;PRO — Programovanie &nbsp;·&nbsp; 4. ročník
+      </div>
+      <h1 class="hero-h">
+        Objektovo<br>
+        <span class="grad">orientované</span><br>
+        programovanie.
+      </h1>
+      <p class="hero-desc">
+        Skripty, zadania, projekty a poznámky k predmetu PRO.
+        C#, C++, algoritmizácia a dátové štruktúry — všetko tu, vždy aktuálne.
+      </p>
+      <div class="hero-stats">
+        <div>
+          <span class="hst-n">14</span>
+          <div class="hst-l">Dokumentov</div>
+        </div>
+        <div>
+          <span class="hst-n">C#</span>
+          <div class="hst-l">Primárny jazyk</div>
+        </div>
+        <div>
+          <span class="hst-n">4.</span>
+          <div class="hst-l">Ročník</div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-badge">
+      <span class="big-ic">⌨️</span>
+      <div class="badge-lbl">PRO<br>SPSITKNM<br>2024–25</div>
+    </div>
+  </div>
+
+  <div class="div"></div>
+
+  <!-- AKTUALITY -->
+  <div class="section">
+    <div class="sec-hd">
+      <div class="sec-title">
+        📢 Aktuality
+        <span class="live-badge">live</span>
+      </div>
+      <a href="https://github.com/SPSITKNM/SPSITKNM/blob/main/aktuality.md" target="_blank" class="btn btn-g" style="font-size:0.72rem">Upraviť na GitHub →</a>
+    </div>
+    <div class="ak-card rv">
+      <div id="ak">
+        <div class="skel"></div><div class="skel"></div><div class="skel"></div>
+        <div class="skel"></div><div class="skel"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RÝCHLY PRÍSTUP -->
+  <div class="section">
+    <div class="sec-hd">
+      <div class="sec-title">📌 Rýchly prístup</div>
+    </div>
+    <div class="pin-grid">
+      <a href="https://github.com/SPSITKNM/SPSITKNM/blob/main/zadania_na_hodine.md" target="_blank" class="pin rv">
+        <span class="pin-ic">📋</span>
+        <div class="pin-title">Zadania na hodine</div>
+        <p class="pin-desc">Pracovné listy, AI workshopy a zadania priamo z hodiny.</p>
+        <div class="pin-go">Otvoriť →</div>
+      </a>
+      <a href="https://github.com/SPSITKNM/SPSITKNM/blob/main/projekty.md" target="_blank" class="pin rv d1">
+        <span class="pin-ic">🏆</span>
+        <div class="pin-title">Projekty</div>
+        <p class="pin-desc">Zadania projektov, deadliny a všeobecné pokyny pre 2. polrok.</p>
+        <div class="pin-go">Otvoriť →</div>
+      </a>
+      <a href="https://github.com/SPSITKNM/SPSITKNM/blob/main/komisionalna_skuska.md" target="_blank" class="pin rv d2">
+        <span class="pin-ic">🎓</span>
+        <div class="pin-title">Komisionálna skúška</div>
+        <p class="pin-desc">Pokyny pre študenta, rozsah učiva a hodnotenie.</p>
+        <div class="pin-go">Otvoriť →</div>
+      </a>
+    </div>
+  </div>
+
+  <div class="div"></div>
+
+  <!-- VŠETKY MATERIÁLY -->
+  <div class="section">
+    <div class="sec-hd">
+      <div class="sec-title">📂 Všetky materiály</div>
+    </div>
+    <div class="mat-grid">
+      <a href="https://github.com/SPSITKNM/SPSITKNM/blob/main/poznamky.md" target="_blank" class="mat rv">
+        <span class="mat-ic">📝</span>
+        <div><div class="mat-nm">Poznámky z hodín</div><div class="mat-tp">poznamky.md</div></div>
+        <span class="mat-arr">→</span>
+      </a>
+      <a href="https://github.com/SPSITKNM/SPSITKNM/blob/main/algoritmizacia.md" target="_blank" class="mat rv d1">
+        <span class="mat-ic">⚙️</span>
+        <div><div class="mat-nm">Algoritmizácia</div><div class="mat-tp">algoritmizacia.md</div></div>
+        <span class="mat-arr">→</span>
+      </a>
+      <a href="https://github.com/SPSITKNM/SPSITKNM/blob/main/nalezitosti.md" target="_blank" class="mat rv d2">
+        <span class="mat-ic">📌</span>
+        <div><div class="mat-nm">Náležitosti predmetu</div><div class="mat-tp">nalezitosti.md</div></div>
+        <span class="mat-arr">→</span>
+      </a>
+      <a href="https://github.com/SPSITKNM/SPSITKNM/blob/main/zadania_na_domacu_pracu.md" target="_blank" class="mat rv">
+        <span class="mat-ic">🏠</span>
+        <div><div class="mat-nm">Domáce úlohy</div><div class="mat-tp">zadania_na_domacu_pracu.md</div></div>
+        <span class="mat-arr">→</span>
+      </a>
+      <a href="https://github.com/SPSITKNM/SPSITKNM/blob/main/opravne_ulohy.md" target="_blank" class="mat rv d1">
+        <span class="mat-ic">🔧</span>
+        <div><div class="mat-nm">Opravné úlohy</div><div class="mat-tp">opravne_ulohy.md</div></div>
+        <span class="mat-arr">→</span>
+      </a>
+      <a href="https://github.com/SPSITKNM/SPSITKNM/blob/main/GitHub_vs_GitLab.md" target="_blank" class="mat rv d2">
+        <span class="mat-ic">⚖️</span>
+        <div><div class="mat-nm">GitHub vs GitLab</div><div class="mat-tp">GitHub_vs_GitLab.md</div></div>
+        <span class="mat-arr">→</span>
+      </a>
+      <a href="https://github.com/SPSITKNM/SPSITKNM/blob/main/Linux%20Commands%20Cheat%20Sheet.md" target="_blank" class="mat rv">
+        <span class="mat-ic">💻</span>
+        <div><div class="mat-nm">Linux Commands</div><div class="mat-tp">Linux Commands Cheat Sheet.md</div></div>
+        <span class="mat-arr">→</span>
+      </a>
+      <a href="https://github.com/SPSITKNM/SPSITKNM/blob/main/Makefile.md" target="_blank" class="mat rv d1">
+        <span class="mat-ic">🔨</span>
+        <div><div class="mat-nm">Makefile</div><div class="mat-tp">Makefile.md</div></div>
+        <span class="mat-arr">→</span>
+      </a>
+      <a href="https://github.com/SPSITKNM/SPSITKNM/blob/main/Syst%C3%A9mov%C3%A1%20anal%C3%BDza%20projektu.md" target="_blank" class="mat rv d2">
+        <span class="mat-ic">📐</span>
+        <div><div class="mat-nm">Systémová analýza projektu</div><div class="mat-tp">Systémová analýza projektu.md</div></div>
+        <span class="mat-arr">→</span>
+      </a>
+      <a href="https://github.com/SPSITKNM/SPSITKNM/blob/main/S%C3%BA%C5%A5a%C5%BE.md" target="_blank" class="mat rv">
+        <span class="mat-ic">🏅</span>
+        <div><div class="mat-nm">Súťaž</div><div class="mat-tp">Súťaž.md</div></div>
+        <span class="mat-arr">→</span>
+      </a>
+      <a href="https://github.com/SPSITKNM/oop_opakovanie/blob/main/oop_opakovanie.md" target="_blank" class="mat rv d1">
+        <span class="mat-ic">🔁</span>
+        <div><div class="mat-nm">OOP Opakovanie</div><div class="mat-tp">oop_opakovanie.md</div></div>
+        <span class="mat-arr">→</span>
+      </a>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <div class="fb"><b>PRO — Programovanie</b> · SPSITKNM · Tomaš Mucha</div>
+  <div class="fl">
+    <a href="https://spsitknm.github.io">← Hub</a>
+    <a href="https://discord.gg/eSQDsna4d7/" target="_blank">Discord</a>
+    <a href="https://www.youtube.com/channel/UC0TOfJp6MtFlLSgfdhnlS9g" target="_blank">YouTube</a>
+    <a href="https://github.com/SPSITKNM/SPSITKNM" target="_blank">GitHub</a>
+  </div>
+</footer>
+
+<script>
+const obs = new IntersectionObserver(es => es.forEach(e => {
+  if(e.isIntersecting){e.target.classList.add('in'); obs.unobserve(e.target);}
+}), {threshold:0.06});
+document.querySelectorAll('.rv').forEach(el => obs.observe(el));
+
+window.addEventListener('scroll', () => {
+  document.querySelector('nav').style.background =
+    window.scrollY > 10 ? 'rgba(3,7,18,0.96)' : 'rgba(3,7,18,0.8)';
+});
+
+async function loadAktuality() {
+  try {
+    const r = await fetch('https://raw.githubusercontent.com/SPSITKNM/SPSITKNM/main/aktuality.md');
+    if(!r.ok) throw new Error();
+    const md = await r.text();
+    document.getElementById('ak').innerHTML = '<div class="md-c">' + marked.parse(md) + '</div>';
+  } catch {
+    document.getElementById('ak').innerHTML =
+      '<p style="color:var(--muted);font-size:0.9rem">Aktuality nie sú momentálne dostupné. ' +
+      '<a href="https://github.com/SPSITKNM/SPSITKNM/blob/main/aktuality.md" target="_blank" style="color:var(--accent)">Otvoriť na GitHub →</a></p>';
+  }
+}
+loadAktuality();
+</script>
+</body>
+</html>
