@@ -1,8 +1,13 @@
+# Poznámky z hodín — C#
+
+Poznámky z predmetu PRO — základy jazyka C#: syntax, premenné, dátové typy,
+riadenie toku, práca s pamäťou a polia.
+
 Úvod do programovania pre 4. ročník 
 
 V tomto repozitári pre predemt PRO pre 4.ročník nájdete stručnú oporu vo formáte skrípt k preberanej problematike na hodinách PRO... Ďalšou podstatnou oporou je YT kanál nášho predmetu na ktorom teoretické poznatky aplikujeme v praxi tak aby študent bol schopný zvládnuť úlohy a projekty v priebehu roka... 
 
-## Čo nás čaká v najbližších hodinách ? 
+### Čo nás čaká v najbližších hodinách ?
 
 - [ ] **Syntax** 
 - [ ]  Výrazy 
@@ -50,13 +55,13 @@ class Program
 }
 
 ```
-## Komentáre 
+### Komentáre
 
 Aby sme mohli v nasledujúcich sekciách popisovať kusy kódu, ukážeme si teraz komentáre. Ide o text v zdrojovom kóde, ktorý je určený pre programátorov, a nie pre prekladač, ktorý ich úplne ignoruje. Bez komentárov by sme nemohli do zdrojového kódu dodávať poznámky, pretože prekladač by inak mal snahu ich interpretovať ako C# kód. Komentáre v kóde zvyčajne spoznáte ľahko, pretože ich váš editor bude vykresľovať inou farbou ako zvyšok kódu.
 
 Na našich hodinách budeme používať extension pre farebnosť so znakmy ako ! či ? 
 
-## Jednoriadkový komentár
+### Jednoriadkový komentár
 
 ```csharp
 class Program
@@ -68,7 +73,7 @@ class Program
     }
 }
 ```
-## Viacriadkový komentár 
+### Viacriadkový komentár
 
 ```csharp
 class Program
@@ -83,7 +88,7 @@ class Program
     }
 }
 ```
-## Kľúčové slová 
+### Kľúčové slová
 
 Kľúčové slová (keywords) sú vstavané názvy, ktorým prekladač priraďuje špeciálny význam. V textovom editore ich typicky spoznáte tak, že budú zafarbené inou farbou ako názvy vytvorené programátorom. Napríklad v tomto kóde sú int a return kľúčové slová:
 
@@ -97,34 +102,34 @@ class Program
 }
 
 ```
-## Špeciálne znaky
+### Špeciálne znaky
 
 Pri programovaní (ako už v C, tak aj v iných jazykoch) budete používať množstvo symbolov, ktoré bežne asi často nevyužívate (napríklad [, ], {, }, <, >, =, %, #, &, *, ;, \, ", '). Obzvlášť ak pre programovanie budete používať českú klávesnicu, je dobré si zo začiatku nájsť nejaký ťahák (napr. tento), aby ste nemuseli zakaždým zdĺhavo spomínať, na ktorom klávese sa daný znak nachádza.
 
-# Vykonávanie programu 
+# Vykonávanie programu
 
 Ako už vieme, programy sú sekvencie príkazov pre počítač, ktorý ich vykonáva inštrukciu po inštrukcii (resp. riadok po riadku). Akonáhle počítač vykoná jeden riadok vášho programu, tak skočí na riadok nižšie, kým nedôjde na koniec programu. 
 
-## Výrazy 
+### Výrazy
 
 Ako už vyplýva z jeho názvu, hlavnou funkciou počítača je niečo počítať. Jedným zo základných konštrukcií prog jazyka C# (aj iných programovacích jazykov, ktoré si na hodinách ukážeme) tak je možnosť vypočítať rôzne hodnoty. Niečo, čo sa dá vypočítať (tak, aby výsledkom bola nejaká hodnota), sa nazýva výraz (expression). Príkladom asi najjednoduchšieho výrazu je číslo, napr. 5. Takýto výraz už nie je nutné ďalej vyhodnocovať, jeho hodnota je jednoducho 5. Ak v programe použijete priamo hodnotu nejakého čísla (popr. niečoho iného, ​​ako uvidíme neskôr), tak sa takýto výraz označuje ako literál (literal).
 
 V C# môžeme s výrazmi vykonávať rôzne operácie pomocou operátorov. Môžeme napríklad použiť operátor + s dvoma výrazmi, čím vznikne zložitejší výraz: 5 + 5, ktorý sa v programe vyhodnotí na hodnotu 10. O operátoroch si viac povieme v kapitole o dátových typoch.
 
-## Výpis výrazov 
+### Výpis výrazov
 
 Aby ste si zo začiatku mohli jednoducho zobraziť hodnoty výrazov, tak si ukážeme kód, pomocou ktorého môžete vypísať text na výstup programu (do terminálu). Na výpis textu môžete použiť jednu z týchto metód : 
 
 V C#, je viacero metód ako vypísať výraz do konzoly. Tu je zhrnutie tých najčastejších :
 
-### 1. `Console.WriteLine()`
+#### 1. `Console.WriteLine()`
 Vytlačí zadanú hodnotu a presunie kurzor na ďalší riadok.
 
 **Príklad 1**:
 ```csharp
 Console.WriteLine("Hello, World!");
 ```
-### 2. `Console.Write()`
+#### 2. `Console.Write()`
 Vytlačí zadanú hodnotu bez presunu kurzora na nový riadok. Ďalší výstup bude pokračovať na rovnakom riadku.
 
 **Príklad 3**:
@@ -132,7 +137,7 @@ Vytlačí zadanú hodnotu bez presunu kurzora na nový riadok. Ďalší výstup 
 Console.Write("Hello, ");
 Console.Write("World!");
 ```
-### 3. `String.Format()`
+#### 3. `String.Format()`
 Vloží premenné alebo výrazy do reťazca. Často sa kombinuje s Console.WriteLine().
 
 **Príklad 4**:
@@ -140,20 +145,19 @@ Vloží premenné alebo výrazy do reťazca. Často sa kombinuje s Console.Write
 int age = 25;
 Console.WriteLine(String.Format("I am {0} years old.", age));
 ```
-### 4. `Pužitie string interpolacie`
+#### 4. `Pužitie string interpolacie`
 **Príklad 5**:
 ```csharp
 int age = 25;
 Console.WriteLine($"I am {age} years old.");
 
 ```
-# Premenné 
+# Premenné
 
-# Premenné v Programovaní
 
 Aby programy mohli riešiť nejaký úkol, tak si skoro vždy musím niečo zapamätať. K tomu slúži tzv. **premenné** (variables). Premenné nám umožňujú pracovať s pamäťou počítača (RAM) intuitívnym spôsobom - časť pamäte si pomenujeme nejakým menom a ďalej sa na ňu týmto menom odkazujeme. Do tejto zmeny potom môžeme uložiť nejakú hodnotu, čím si ju počítač "zapamätá". Túto hodnotu môžeme neskôr v programe prečítať alebo ju zmeniť.
 
-## Príklady použitia premenných:
+### Príklady použitia premenných:
 
 1. **Webová aplikácia**: Číselná premenná si pamätá počet návštevníkov. Pri zobrazení stránok sa hodnota zvyšuje o 1.
    
@@ -161,7 +165,7 @@ Aby programy mohli riešiť nejaký úkol, tak si skoro vždy musím niečo zapa
 
 3. **Terminál**: Premenná reprezentujúca znaky si pamätá text, ktorý bol zadaný na klávesnici.
 
-## Definícia 
+### Definícia
 
 Premenné sú z najzákladnejších a najčastejšie používaných stavebných kameňov väčšinou programov, počas semestra sa s nimi budeme neustále setkávať. Nie je tak náhodou, že jeden z najzákladnejších príkazov v C je práve vytvorenie proměnné. Tím povieme počítač, aby vyčlenil (tzv. naalokoval) miesto v pamäti, ktoré si v programe nejako pomenujeme a ďalej sa naňho pomocou jeho mien môžeme odkazovať1.
 
@@ -172,11 +176,11 @@ int age;
 ```
 Hneď teraz nadefinujeme, tak z nej môžeme buď čítať alebo zapisovať pamäť, ktorú táto premenná reprezentuje, podľa jej názvu (zde vek).
 
-## Dátový typ 
+### Dátový typ
 
 int pred promennými udáva jej datový typ, o ktorom pojednáva nasledujúcu kapitolu. Prozatím si řekněme, že int je zkratka pro integer, tedy celé číslo. Tím říkáme programu, že má túto premennú (resp. pamäť, ktorú premenná reprezentuje) interpretovať ako celé číslo sa známym.
 
-## Inicializácia 
+### Inicializácia
 
 Do premennej by sme mali pri jej vytvorení rovno uložiť nejaký výraz, ktorý musí byť rovnakého dátového typu ako je typ premennej:
 
@@ -191,17 +195,17 @@ Obecná syntax pre definíciu premennej je :
 ```
 ! Nikdy nezabudnúť bodkočiarku na konci príkazu ! 
 
-## Vždy inicializujte premenné 
+### Vždy inicializujte premenné
 
 Je naozaj dôležité do premennej vždy pri jej definícii priradiť nejakú úvodnú hodnotu. Pokiaľ to neurobíme, tak jej hodnota bude nedefinovaná (undefined). Čítanie hodnoty takejto nedefinovanej premennej spôsobuje nedefinované správanie (undefined behaviour, UB)2 programu. Pokiaľ k tomu dôjde, tak si prekladač s vaším programom môže urobiť, čo sa mu zachce, a váš program sa potom môže správať nepredvídateľne.
 
-## Definícia viacerých premenných rovnakého typu
+### Definícia viacerých premenných rovnakého typu
 
 ```csharp
 <int x = 10, y = 20, z = 30;
 ```
 
-## Konštanty 
+### Konštanty
 
 V určitých prípadoch môžeme chcieť mať premenné s konštantnou hodnotou, ktoré by sa nemali v priebehu programu meniť. Také premenné sa nazývajú konštanty (constants).
 
@@ -211,7 +215,7 @@ Aby sme zamedzili nechcenej zmene hodnoty konštanty, môžeme dátový typ prem
 const int a = 5;
 a = a + 1; // chyba nejde preložiť 
 ```
-### Dôvod používania konštant
+#### Dôvod používania konštant
 
 V programoch niekedy opakovane používame konštantné hodnoty, ktoré majú pevne danú hodnotu. Pri čítaní zdrojového kódu nemusí byť jasné, čo také hodnoty znamenajú (v takom prípade sa hanlivo označujú ako "magické konštanty"). 
 
@@ -247,7 +251,7 @@ float vypocitaj_odvod(float celkova_cena, bool dph) {
 ```
 Druhá varianta kódu je jasne čitatelnejšia 
 
-# Zložený zápis 
+## Zložený zápis
 
 Často potrebujeme hodnotu premennej iba trochu poupraviť, a nie do nej vyložene zapísať novú hodnotu. Bežná je napríklad operácia zvýšenia hodnoty premennej o 1 (tzv. inkrementácia premennej). Na to môžeme použiť tento príkaz:
 
@@ -269,7 +273,7 @@ pocet += 1;   // rovnaké ako pocet = pocet + 1;
 pocet *= 3;   // rovnaké ako pocet = pocet * 3; 
 
 ```
-# Inkrementácia a dekriminácia 
+## Inkrementácia a dekriminácia
 
 Špeciálnym prípadom zloženého zápisu je tzv. inkrementácia (zvýšenie hodnoty premennej o jedničku) a dekrementácia (zníženie hodnoty premennej o jedničku). Tieto operácie sú tak časté, že C# obsahuje špeciálne "skratky" na ich vykonanie. Aby to nebolo také jednoduché, tak tieto skratky existujú v dvoch variantoch:
 
@@ -287,9 +291,9 @@ int b = ++a;
 ```
 Dekriminácia sa chová totožne ako inkriminácia, len s tým rodielom, že sa použije --         
 
-# Pomenovanie premenných 
+# Pomenovanie premenných
 
-# Pravidlá pre Pomenovanie Premenných v C#
+## Pravidlá pre Pomenovanie Premenných v C
 
 V C# existujú určité pravidlá pre pomenovanie premenných:
 
@@ -299,15 +303,15 @@ V C# existujú určité pravidlá pre pomenovanie premenných:
 
 3. **Názov premennej nesmie začínať číslicou**: Tj. `5x` nie je validný názov premennej.
 
-## Dôležité Praktiky pri Pomenovaní Premenných
+### Dôležité Praktiky pri Pomenovaní Premenných
 
 V programoch je nutné neustále priraďovať názvy, čo zďaleka nie je také jednoduché, ako sa môže na prvý pohľad zdať. Okrem vyššie uvedených pravidiel je vhodné voliť názvy tak, aby boli prehľadné pre vás (a ostatných programátorov, ktorí váš zdrojový kód budú čítať). Názvy premenných ako `a` alebo `x` sú nič nehovoriace a kód s podobnými názvami je potom zložitejšie pochopiť.
 
-### Porovnanie Kódu s Rôznymi Názvami Premenných
+#### Porovnanie Kódu s Rôznymi Názvami Premenných
 
 Porovnajte nasledujúce dva úseky kódu, ktoré sa líšia iba v použitých názvoch premenných:
 
-#### Príklad 1: Nezrozumiteľné názvy
+##### Príklad 1: Nezrozumiteľné názvy
 ```csharp
 int a = 5;
 int b = 10;
@@ -321,9 +325,9 @@ int zakladna_cena = 1337;
 int  zakladna_cena =  zakladna_cena - zľava;
 int finalna_cenaa = zlavnena_cena * dph;
 ```
-# Viacslovne názvy
+## Viacslovne názvy
 
-# Štylistické Konvencie pre Názvy v C#
+## Štylistické Konvencie pre Názvy v C
 
 Existuje niekoľko zabehnutých štylistických spôsobov na zápis názvov v C, ktoré obsahujú viac slov. Tu je zoznam najpoužívanejších konvencií:
 
@@ -339,7 +343,7 @@ Existuje niekoľko zabehnutých štylistických spôsobov na zápis názvov v C,
 4. **Screaming Snake Case**: `MUJ_UCET`, `PRVNI_KLIK_UZIVATELE`
    - Všetky písmená sú veľké a slová sú oddelené podčiarknutím.
 
-## Používanie Štylov v C# 
+### Používanie Štylov v C
 
 Rôzne konštrukcie v C môžu využívať rôzne štýly. Napríklad:
 
@@ -354,13 +358,12 @@ Pamäť počítača pracuje s jednotlivými bytmi, avšak pre ľudí je žiaduce
 
 Presne na to slúžia `dátové typy`, ktoré popisujú, ako budeme interpretovať konkrétne hodnoty daného typu v pamäti, koľko bytov budú zaberať a aké operácie nad nimi budeme môcť vykonávať. Jazyk Najprv sa pozrieme na niekoľko dátových typov, ktoré sú vstavané v jazyku C#, a neskôr si ukážeme, ako si vytvoriť svoje vlastné dátové typy.
 
-# Celočíselné datové typy
+## Celočíselné datové typy
 
-# Celočíselné dátové typy v C#
 
 V jazyku C# sa bežne používajú celočíselné dátové typy na prácu s celými číslami. Tieto typy majú rôznu veľkosť v bajtoch, čo určuje rozsah hodnôt, ktoré môžu obsahovať. Tu je prehľad základných celočíselných typov v C#:
 
-## Dátové typy a ich rozsahy
+### Dátové typy a ich rozsahy
 
 | Názov      | Počet bajtov | Rozsah hodnôt                              | Znamienko     |
 |------------|--------------|-------------------------------------------|---------------|
@@ -375,7 +378,7 @@ V jazyku C# sa bežne používajú celočíselné dátové typy na prácu s cel�
 
 **Poznámka:** V C# sú všetky celočíselné typy implicitne so znamienkom, okrem `byte`, `ushort`, `uint` a `ulong`, ktoré sú bez znamienka.
 
-## Operácie s celočíselnými typmi
+### Operácie s celočíselnými typmi
 
 V C# je možné vykonávať bežné aritmetické operácie s celočíselnými typmi:
 
@@ -385,11 +388,11 @@ V C# je možné vykonávať bežné aritmetické operácie s celočíselnými ty
 - **Delenie:** `a / b` (celé číslo, zaokrúhlené nadol)
 - **Zvyšok po delení:** `a % b`
 
-### Pozor na pretečenie
+#### Pozor na pretečenie
 
 Pri operáciách s celočíselnými typmi môže dôjsť k pretečeniu (overflow), ak výsledok operácie presiahne maximálnu alebo minimálnu hodnotu typu. V C# môžete použiť metódy ako `checked` a `unchecked` na riadenie toho, ako sa pretečenie bude spracovávať.
 
-### Bitové operácie
+#### Bitové operácie
 
 C# tiež podporuje bitové operácie:
 
@@ -400,20 +403,20 @@ C# tiež podporuje bitové operácie:
 - **Bitový posun vľavo:** `a << b`
 - **Bitový posun vpravo:** `a >> b`
 
-## Dôležité poznámky
+### Dôležité poznámky
 
 - **Implicitná konverzia:** C# vykonáva implicitnú konverziu medzi kompatibilnými celočíselnými typmi, ale môže byť potrebné vykonať explicitnú konverziu.
 - **Priorita operátorov:** Rovnako ako v matematike, operátory majú rôznu prioritu, ktorá ovplyvňuje poradie, v ktorom sa operácie vykonávajú. Používajte zátvorky na jasné určenie poradia operácií.
 
 Tento prehľad by mal poskytnúť základný prehľad o celočíselných typoch a operáciách v C#.
 
-# Desatinné číselné typy v C#
+## Desatinné číselné typy v C
 
 Ak chcete vykonávať výpočty s desatinnými číslami, môžete využiť dátové typy s tzv. plávajúcou desatinnou čiarkou (floating point numbers). Hodnoty týchto dátových typov umožňujú pracovať s číslami, ktoré sa skladajú z celej a desatinnej časti. Tieto čísla dokážu reprezentovať veľmi malé i veľmi veľké hodnoty, avšak za cenu nižšej presnosti desatinnej časti.
 
 V C# sú dva základné zabudované dátové typy pre prácu s desatinnými číslami, ktoré sa líšia veľkosťou (a teda aj presnosťou, s ktorou dokážu reprezentovať desatinné čísla). Oba typy sú znamienkové:
 
-## Dátové typy a ich rozsahy
+### Dátové typy a ich rozsahy
 
 | Názov    | Počet bajtov | Rozsah hodnôt                         | Presnosť        | Znamienko     |
 |----------|--------------|--------------------------------------|-----------------|---------------|
@@ -422,11 +425,11 @@ V C# sú dva základné zabudované dátové typy pre prácu s desatinnými čí
 
 Slovo `double` pochádza z pojmu "double precision" (dvojitá presnosť). Typ `float` sa niekedy označuje ako "single precision" (jednoduchá presnosť).
 
-## Používanie desatinných čísel
+### Používanie desatinných čísel
 
 Ak chcete v programe vytvoriť výraz dátového typu `double`, stačí napísať desatinné číslo (ako desatinný oddeľovač sa používa bod, nie čiarka): `10.5`, `-0.73`. Ak chcete vytvoriť výraz typu `float`, pridajte za číslo znak `f`: `10.5f`, `-0.73f`.
 
-## Formátovaný výstup desatinných čísel
+### Formátovaný výstup desatinných čísel
 
 Ak chcete vypísať hodnotu dátového typu `float` alebo `double`, môžete použiť formátovací reťazec:
 
@@ -434,7 +437,7 @@ Ak chcete vypísať hodnotu dátového typu `float` alebo `double`, môžete pou
 Console.WriteLine("Desatinné číslo: {0:F}", 1.0);
 ```
 
-# Pravdivostní typy
+## Pravdivostní typy
 
 Posledným základným dátovým typom, ktorý si ukážeme, je pravdivostný typ Booleovskej logiky. Hodnoty tohto dátového typu majú iba dve možné varianty - pravda (true) alebo nepravda (false). Tento typ sa hodí najmä pre rôzne logické operácie, napríklad porovnávanie hodnôt (Je a menšie ako b? - áno/nie).
 
@@ -460,9 +463,9 @@ class Program
 
 Ako je možné v ukážke vyššie vidieť, true reprezentuje pravdivý Booleovský výraz a false nepravdivý Booleovský výraz a bool hodnoty je možné vytlačiť na výstup rovnakým spôsobom ako celočíselné hodnoty.1 Hodnoty Booleovského typu obvykle zaberajú v pamäti jeden byte.
 
-# Logické operácie
+## Logické operácie
 
-## Logické operace
+### Logické operace
 
 V (Booleovské) logice existují tři základní operátory:
 
@@ -470,7 +473,7 @@ V (Booleovské) logice existují tři základní operátory:
 - **Logický součet (OR):** Platí X nebo Y.
 - **Logická negace (NOT):** Neplatí X.
 
-### Operátory v C#
+#### Operátory v C
 
 V jazyce C# se tyto logické operace provádějí pomocí následujících operátorů:
 
@@ -478,7 +481,7 @@ V jazyce C# se tyto logické operace provádějí pomocí následujících oper�
 - **OR:** `||`
 - **NOT:** `!`
 
-### Příklad použití v C#
+#### Příklad použití v C
 
 ```csharp
 using System;
@@ -502,7 +505,7 @@ class Program
     }
 }
 ```
-## Pravdivostná tabuľka
+### Pravdivostná tabuľka
 
 Pre pripomenutie, tu je pravdivostná tabuľka pre logické operátory:
 
@@ -515,7 +518,7 @@ Pre pripomenutie, tu je pravdivostná tabuľka pre logické operátory:
 
 Táto tabuľka zobrazuje výsledky logických operácií AND, OR a NOT pre všetky možné kombinácie vstupných hodnôt `X` a `Y`.
 
-## Porovnávanie hodnôt
+### Porovnávanie hodnôt
 
 Pri programovaní často potrebujete porovnať hodnoty medzi sebou:
 
@@ -535,7 +538,7 @@ Na tento účel slúži šesť základných porovnávacích operátorov:
 
 Porovnávať medzi sebou môžete akékoľvek hodnoty dvoch rovnakých dátových typov. Výsledkom porovnania je výraz dátového typu `bool`.
 
-### Príklad v C#
+#### Príklad v C
 
 ```csharp
 using System;
@@ -562,15 +565,15 @@ class Program
 }
 ```
 
-## Pozor na použitie operátorov
+### Pozor na použitie operátorov
 
 Dávajte si ovšem pozor na to, že iba operátory `==` a `!=` môžete použiť univerzálne na všetky dátové typy. Napríklad použiť operátor `<` pre porovnanie dvoch Booleovských hodnôt obvykle nedáva veľký zmysel. Operátory `<`, `<=`, `>` a `>=` sú obvykle využívané iba pre porovnanie čísel.
 
-## Kombinovanie porovnávania s logickými operátormi
+### Kombinovanie porovnávania s logickými operátormi
 
 Porovnávanie hodnôt môžete kombinovať s logickými operátormi pre vyhodnocovanie komplexných pravdivostných výrazov:
 
-### Príklad v C#
+#### Príklad v C
 
 ```csharp
 using System;
@@ -591,7 +594,7 @@ class Program
     }
 }
 ```
-## Tabuľka logických operátorov
+### Tabuľka logických operátorov
 
 Pre lepšiu orientáciu je tu tabuľka s logickými operátormi. Typ výsledku týchto operátorov je vždy `bool`.
 
@@ -607,7 +610,7 @@ Pre lepšiu orientáciu je tu tabuľka s logickými operátormi. Typ výsledku t
 | `<`      | Menší než                        | `a < 5`                     |
 | `<=`     | Menší alebo rovný                | `a <= 5`                    |
 
-## Skrátené vyhodnocovanie
+### Skrátené vyhodnocovanie
 
 Pri vyhodnocovaní Booleovských výrazov s logickými operátormi sa v jazyku C používa tzv. skrátané vyhodnocovanie (short-circuit evaluation). Napríklad, ak sa vyhodnocuje výraz `a || b`, môže dôjsť k nasledujúcej situácii:
 
@@ -617,23 +620,23 @@ Pri vyhodnocovaní Booleovských výrazov s logickými operátormi sa v jazyku C
 
 Toto správanie môže zrýchliť vykonávanie programu, pretože preskočí vykonávanie zbytočných príkazov. Môže to však tiež spôsobiť neočakávané chyby. Ak by napríklad vyhodnocovanie výrazu `b` obsahovalo nejaké vedľajšie efekty, ktoré sa prejavia pri jeho vykonaní (napríklad zmena hodnoty v pamäti), môže byť problém, ak sa vyhodnotenie tohto výrazu úplne preskočí. Ak si pamätáte na inkrementáciu, tá je jedným z prípadov výrazov, ktoré majú vedľajší efekt (zmenu hodnoty premennej).
 
-# Riadenie toku 
+# Riadenie toku
 
 Ak by počítače program vždy iba vykonávali od začiatku do konca a vykonávali by zakaždým tie isté operácie, neboli by veľmi užitočné. Síce by zvládli niečo rýchlo vypočítať, ale už by sa nevedeli rozhodnúť, akú operáciu majú vykonať, alebo vykonať operáciu opakovane, čo sú veľmi užitočné vlastnosti.
 
 Inštrukcie programu sa bežne vykonávajú ("tečú") jedna po druhej ("zhora nadol"). Jazyk C# obsahuje príkazy na tzv. riadenie toku (control flow), ktoré môžu toto vykonávanie inštrukcií ovplyvniť:
 
-## Podmienky
+### Podmienky
 Podmienky umožňujú vykonať kus kódu iba vtedy, ak platí nejaký výraz (Booleovského typu). Vďaka tomu sa program môže rozhodnúť, či má nejakú operáciu vykonať alebo nie, v závislosti od vstupu.
 
-## Cykly
+### Cykly
 Cykly umožňujú vykonávať kus kódu opakovane. Vďaka tomu môžeme napríklad vykonať nejakú operáciu pre všetky prvky zo vstupu programu alebo ju vykonávať, až kým nedôjde k splneniu nejakej podmienky.
 
 Aj keď sa to možno nezdá, tak použitie výrazov, premenných, podmienok a cyklov bohato stačí na to, aby ste boli schopní napísať ľubovoľný počítačový program. Pomocou týchto troch jednoduchých konštrukcií by ste tak teoreticky mohli vytvoriť napríklad textový editor, hru alebo aj celý operačný systém.
 
 Avšak, ak by sme využívali iba tieto konštrukcie, vo väčších programoch by bolo náročné sa orientovať a boli by dosť neefektívne. V nasledujúcich sekciách sa preto dozviete o niekoľkých ďalších konštrukciách, ktoré vám môžu programovanie uľahčiť.
 
-# Podmienky
+## Podmienky
 
 V programoch sa často potrebujeme rozhodnúť, čo by sa malo stať v závislosti od hodnoty nejakého výrazu:
 
@@ -643,7 +646,7 @@ V programoch sa často potrebujeme rozhodnúť, čo by sa malo stať v závislos
 
 V jazyku C# môžeme vykonávať takéto rozhodnutia pomocou podmienených príkazov (`if` a `switch`), prípadne pomocou ternárneho operátora.
 
-# Príkaz if v C#
+## Príkaz if v C
 
 Základným príkazom pre tzv. podmienené vykonanie kódu v C# je príkaz `if`:
 
@@ -669,11 +672,11 @@ Booleovské výrazy použité v podmienených príkazoch sa označujú ako podmi
 
 Anglické slovo `if` znamená v slovenčine "Ak". Všimnite si, že kód vyššie môžete prečítať ako vetu: Ak je dĺžka hesla väčšia než päť, tak vykonaj kód v bloku.
 
-# Prevod medzi rôznymi dátovými typmi
+## Prevod medzi rôznymi dátovými typmi
 
 Niekedy je potrebné previesť hodnoty medzi rôznymi dátovými typmi. Na tento účel slúži operátor pretypovania (cast operator), ktorý má syntax `(typ) výraz` a prevedie výraz na daný dátový typ. Napríklad `(short)1` prevedie výraz `1` z typu `int` na `short`. Je dobré si uvedomiť, čo sa môže stať pri prevode medzi rôznymi dátovými typmi:
 
-## Oseknutie hodnoty pri menšom cieľovom dátovom type
+### Oseknutie hodnoty pri menšom cieľovom dátovom type
 
 Ak je cieľový dátový typ menší a prevádzanú hodnotu v ňom nemožno reprezentovať, dôjde k oseknutiu hodnoty. V dôsledku spôsobu reprezentácie hodnôt v počítači táto operácia zodpovedá zvyšku po delení:
 
@@ -682,7 +685,7 @@ ushort a = 256;
 byte b = (byte)a; // hodnota tohto výrazu je 0 (256 % 256)
 ```
 
-# Vykonávanie alternatív v C#
+## Vykonávanie alternatív v C
 
 Často v programe chceme vykonať práve jednu z dvoch (alebo viacerých) alternatív, opäť v závislosti od hodnoty nejakého výrazu (podmienky). To síce môžeme vykonať pomocou niekoľkých `if` príkazov za sebou:
 
@@ -715,7 +718,7 @@ if (body > 90) {
 ```
 Ak platí `body > 90`, vykoná sa blok A, ak nie, vykoná sa blok B. V oboch prípadoch bude program ďalej vykonávať kód od bodu X.
 
-## Ďalšia podmienka if, ktorá je opäť vyhodnotená:
+### Ďalšia podmienka if, ktorá je opäť vyhodnotená:
 
 Takýchto podmienok môže nasledovať ľubovoľný počet:
 
@@ -732,7 +735,7 @@ if (body > 90) {
 ```
 Takéto spojené podmienky sa vyhodnocujú postupne zhora nadol. Prvá podmienka `if`, ktorej výraz je vyhodnotený ako `true`, spôsobí, že sa vykoná blok tejto podmienky, a následne program pokračuje za celou spojenou podmienkou (bod X).
 
-## Použitie else na konci:
+### Použitie else na konci:
 
 Na koniec spojenej podmienky môžete pridať kľúčové slovo else s blokom bez podmienky. Tento blok sa vykoná iba v prípade, že žiadna z predchádzajúcich podmienok nie je splnená:
 
@@ -750,7 +753,7 @@ if (body > 90) {
 Tento kód môžeme prečítať ako vetu: Ak je počet bodov vyšší než 90, vykonaj A. Ak nie, ale je vyšší než 80, vykonaj B. Inak vykonaj C.
 
 
-# Príkaz `switch` v C#
+## Príkaz `switch` v C
 
 V prípade, že by ste chceli vykonať odlišný kód v závislosti od hodnoty nejakého výrazu, a tento výraz (napr. hodnota premennej) môže nadobúdať väčšie množstvo rôznych hodnôt, môže byť zdĺhavé použiť množstvo `if` príkazov:
 
@@ -783,7 +786,7 @@ switch (a) {
 ```
 Tento príkaz vyhodnotí výraz v zátvorke za kľúčovým slovom `switch`. Ak sa v bloku kódu nachádza klauzula `case` s hodnotou zodpovedajúcou hodnote výrazu, program začne vykonávať blok kódu, ktorý nasleduje za touto klauzulou `case`. Potom program pokračuje sekvenčne až do konca bloku switch. Toto správanie sa nazýva `fallthrough`.
 
-## Príklad
+### Príklad
 
 ```csharp
 int a = 5;
@@ -800,7 +803,7 @@ switch (a) {
 ```
 Tento program vypíše `52`, pretože výraz má hodnotu `5`, takže program skočí na blok za klauzulou `case 5` a vykoná príkaz `Console.WriteLine(52)`;.
 
-## Kľúčové slovo `default`
+### Kľúčové slovo `default`
 
 Do bloku príkazu `switch` je možné pridať blok označený ako `default`, na ktorý program skočí v prípade, že sa nenájde žiadna klauzula `case` s odpovedajúcou hodnotou:
 
@@ -816,7 +819,7 @@ switch (a) {
 ```
 Ak hodnota premennej `a` nie je `1`, vykoná sa blok `default` a vypíše "Iná hodnota".
 
-## Kľúčové slovo `default
+### Kľúčové slovo `default
 
 Veľmi často chceme vykonať iba jeden blok kódu u jedného `case ` a nepokračovať ďalej až do konca celého bloku `switch `. Preto sa bežne za každým blokom case používa príkaz `break`, ktorý ukončí vykonávanie celého príkazu `switch`:
 
@@ -836,23 +839,23 @@ switch (a) {
 ```
 Ak hodnota premennej `a` je `0`, vykoná sa prvý blok a program následne ukončí príkaz `switch` príkazom `break`.
 
-## Hodnota za case
+### Hodnota za case
 
 Hodnota za kľúčovým slovom `case` musí byť konštantná, čo znamená, že musí byť známa už v čase prekladu programu, napríklad literál. Za `case` teda nemôže byť uvedený výraz obsahujúci názov premennej.
 
-## Použitie príkazu switch
+### Použitie príkazu switch
 
 Použitie príkazu switch
 
 Výraz v zátvorke za `switch` musí byť vstavaný dátový typ, v podstate sa tu dá použiť iba celé číslo. Nie je možné ho použiť napríklad na porovnávanie štruktúr či reťazcov. Jeho správanie môže byť tiež mätúce, ak sa za jednotlivými klauzulami `case` nepoužije príkaz break. Preto odporúčame na podmienené vykonávanie na začiatku používať skôr príkaz `if`.
 
-## Ternárny operátor 
+### Ternárny operátor
 
 Preklad do slovenčiny:
 
 Občas sa nám môže hodiť vytvoriť výraz, ktorý bude mať hodnotu jedného z dvoch konkrétnych výrazov, v závislosti od hodnoty nejakej podmienky. Napríklad, ak by sme chceli priradiť minimum z dvoch hodnôt do premennej, môžeme to napísať takto:
 
-# Ternárny operátor v C#
+## Ternárny operátor v C
 
 Občas sa nám môže hodiť vytvoriť výraz, ktorý bude mať hodnotu jedného z dvoch konkrétnych výrazov, v závislosti od hodnoty nejakej podmienky. Napríklad, ak by sme chceli priradiť minimum z dvoch hodnôt do premennej, môžeme to napísať takto:
 
@@ -879,7 +882,7 @@ Keďže je táto situácia relatívne častá a jej riešenie pomocou príkazu `
 
 Ak je výraz `X` pravdivý, ternárny operátor sa vyhodnotí ako hodnota výrazu `A`. V opačnom prípade sa vyhodnotí ako hodnota výrazu `B`.
 
-## Príklad
+### Príklad
 
 Uhádnete, čo vypíše nasledujúci program?
 
@@ -894,7 +897,7 @@ Console.WriteLine(c);  // Výstup: 1
 
 V tomto príklade ternárny operátor porovnáva hodnoty `a` a `b`. Ak je `a` menšie ako `b`, tak sa do premennej `c` priradí hodnota `a`. Inak sa priradí hodnota `b`.
 
-# Cykly
+## Cykly
 
 Vo svojich programoch budete často chcieť vykonávať nejakú operáciu opakovane, napríklad:
 
@@ -920,7 +923,7 @@ Preto programovacie jazyky ponúkajú tzv. `cykly` (loops), pomocou ktorých mô
 
 Ďalšou motiváciou pre využitie cyklov je to, že moderné procesory počítačov majú bežne frekvencie od 1 do 4 GHz, takže za sekundu zvládnu vykonať niekoľko miliárd `taktov` a počas každého taktu navyše až `desiatky` rôznych operácií. Iste si dokážete predstaviť, že s iba sekvenčným zápisom kódu by sme tento potenciál nemohli naplno využiť. Aj keď jeden riadok C# kódu môže byť preložený až na desiatky procesorových inštrukcií, tak aj keby sme zvládli napísať program so stovkami miliónov riadkov, stále by sme takýmto programom „zabavili“ procesor na iba jednu sekundu. Bežiace programy tak obvykle trávia väčšinu času práve vykonávaním nejakého cyklu.
 
-# Cyklus while
+## Cyklus while
 
 Najjednoduchším cyklom v C je cyklus `while` ("dokým"):
 
@@ -935,7 +938,7 @@ Tu je aktualizovaný obsah naformátovaný do .md súboru:
 
 md
 Kopírovať kód
-# Cyklus while
+## Cyklus while
 
 Najjednoduchším cyklom v C je cyklus `while` ("dokým"):
 
@@ -970,7 +973,7 @@ Tento kód opäť môžeme prečítať ako vetu: Dokým je hodnota premennej `po
 
 Ak výraz za `while` nie je vyhodnotený ako pravdivý v momente, keď sa `while` začne vykonávať, tak sa telo cyklu nemusí vykonať ani raz (t.j. bude mať nula iterácií).
 
-# Nekonečný cyklus
+## Nekonečný cyklus
 
 Je dôležité dávať si pozor na to, aby cyklus, ktorý použijeme, nebol nechcene nekonečný (infinite loop), inak by náš program nikdy neskončil. Skúste v kóde vyššie zakomentovať alebo odstrániť riadok `pocet = pocet + 1;` a skúste program spustiť. Keďže sa hodnota premennej `pocet` nebude nijak meniť, tak výraz `pocet < 5` bude stále pravdivý a cyklus sa bude vykonávať neustále dokola. Této situácii sa ľudovo hovorí "zacyklenie".
 
@@ -978,7 +981,7 @@ Ak program spúšťate v termináli a zacyklí sa, môžete ho prerušiť pomoco
 
 Ak sa vám niekedy stalo, že sa program, ktorý ste práve používali, "zasekol" a prestal reagovať na váš vstup, mohlo to byť práve tým, že v ňom nechcene došlo k vykonaniu nekonečného cyklu (došlo k zacykleniu).
 
-# Riadiaca premenná
+## Riadiaca premenná
 
 Vykonávať úplne identický kód opakovane sa niekedy hodí, ale väčšinou chceme vykonať v tele cyklu trochu iné príkazy, v závislosti na tom, ktorá iterácia sa práve vykonáva. Na tento účel môžeme použiť premennú, ktorá si bude pamätať, v akej iterácii cyklu sa nachádzame, a podľa nej sa potom vykoná príslušná operácia. Takáto premenná sa zvyčajne označuje ako riadiaca premenná (index variable).
 
@@ -998,7 +1001,7 @@ while (i < 5) {
 
 Riadiaca premenná je v tomto prípade `i` – tento názov sa pre riadiace premenné často používa z dôvodu jednoduchosti.
 
-# Riadenie toku cyklu
+## Riadenie toku cyklu
 
 V cykloch môžete využiť dva špeciálne príkazy, ktoré fungujú iba vnútri tela (bloku kódu) nejakého cyklu:
 
@@ -1043,9 +1046,9 @@ for (int i = 0; i < 10; i++) {
     Console.WriteLine($"Hodnota i={i}");
 }
 ```
-## Typ pre návh cyklu while
+### Typ pre návh cyklu while
 
-# Riadenie toku cyklu
+## Riadenie toku cyklu
 
 Príkaz `break` môžete tiež niekedy použiť na uľahčenie návrhu cyklov. Ak potrebujete napísať `while` cyklus s nejakou zložitou podmienkou ukončenia, z ktorej sa vám točí hlava, skúste najprv vytvoriť "nekonečný" cyklus pomocou `while (1) { … }`, ďalej vytvorte telo cyklu a až nakoniec vymyslite podmienku, ktorá cyklus ukončí pomocou príkazu `break`:
 
@@ -1063,7 +1066,7 @@ Nemusíte hneď zo začiatku vymýšľať výraz pre `while`, na čom by ste sa 
 
 Namiesto `while (1)` môžete použiť aj `while (true)`. Nezabudnite ale na vloženie príkazu `break` na ukončenie cyklu, keď bude podmienka splnená.
 
-# Vnorovanie cyklov
+## Vnorovanie cyklov
 
 Rovnako ako podmienky, aj cykly sú príkazy a môžete ich používať ľubovoľne v blokoch C kódu a tiež ich vnoriať. Chovanie vnorených cyklov môže byť zo začiatku trochu neintuitívne, preto je dobré si ich precvičiť. Skúste si pomocou debuggéra krokovať nasledujúci kód, aby ste pochopili, ako sa vykonáva, a skúste odhadnúť, aké hodnoty budú postupne nabývať premenné `i` a `j`. Potom odkomentujte výpisy `printf` a overte, či bol váš odhad správny:
 
@@ -1085,7 +1088,7 @@ Console.WriteLine("Konec programu");
 ```
 Pre každú iteráciu "vonkajšieho" cyklu while sa vykonajú štyri iterácie "vnútorného" cyklu while. Dohromady sa tak vykoná celkom 3 * 4 iterácií
 
-# Cyklus do while v C#
+## Cyklus do while v C
 
 Cyklus `while` má aj alternatívu nazvanú `do while`. Tento cyklus má nasledujúcu syntaxu:
 
@@ -1102,7 +1105,7 @@ Jediný rozdiel medzi while a do `while` je ten, že v cykle `do while` sa výra
 
 Ak na to nemáte zvláštny dôvod, asi nie je potrebné tento typ cyklu používať.
 
-# Cyklus for 
+## Cyklus for
 
 V programoch veľmi často potrebujeme vykonať nejaký blok kódu presne n-krát:
 
@@ -1161,7 +1164,7 @@ for (;;)
 }
 ```
 
-# Relatívna cesta
+## Relatívna cesta
 
 Cesta k súboru zadávaná v `#include` by mala byť relatívna, čiže nie je dobrý nápad používať niečo podobné ako:
 
@@ -1171,7 +1174,7 @@ Cesta k súboru zadávaná v `#include` by mala byť relatívna, čiže nie je d
 
 Takýto program by totiž určite nefungoval na inom počítači než na vašom. Z ktorého adresára sa táto relatívna cesta vyhodnotí, je popísané nižšie.
 
-# Rozdiel medzi `#include <…>` a `#include "…"`
+## Rozdiel medzi `#include <…>` a `#include "…"`
 
 Rozdiel medzi týmito dvoma variantami nie je pevne definovaný, avšak väčšina preprocesorov (resp. prekladačov) funguje nasledovne:
 
@@ -1195,22 +1198,22 @@ V sekcii o pamäti sme sa dozvedeli, že operačnú pamäť počítača je možn
 Práca s pamäťou je kľúčovou časťou programovacích jazykov, ako je napríklad C. V jazyku C# však správa pamäte funguje odlišne vďaka automatickému uvoľňovaniu pamäte (*garbage collection*). V C# sa o alokáciu a uvoľňovanie pamäte stará práve tento mechanizmus, čím odpadá potreba manuálne riadiť pamäť ako v jazyku C. Napriek tomu je dôležité chápať základy správy pamäte, aby vaše programy fungovali efektívne a správne.
 
 
-# Adresný priestor programu
+## Adresný priestor programu
 
 Keď spustíte svoj program, operačný systém pre neho vytvorí tzv. adresný priestor (*address space*), čo je oblasť pamäte, s ktorou môže program pracovať. Tento priestor je vďaka mechanizmu virtuálnej pamäte súkromný pre váš bežiaci program – ostatné bežiace programy do neho nemajú prístup, pokiaľ im to výslovne nepovolíte.
 
 Typicky je tento priestor rozdelený na niekoľko častí, pričom každá z nich slúži pre rôzne typy dát. Rôzne operačné systémy alebo behové prostredia môžu umiestňovať jednotlivé oblasti v adresnom priestore rôzne, preto je obrázok adresného priestoru iba ilustratívny.
 
-### Zásobník
+#### Zásobník
 Táto časť uchováva automaticky spravované dáta, najmä lokálne premenné a parametre funkcií. Túto oblasť popisuje sekcia o automatickej pamäti.
 
-### Halda
+#### Halda
 Túto časť môžete využiť na dynamickú alokáciu pamäte. To nám umožňujú ukazovatele, vďaka ktorým môžeme explicitne pracovať s adresami v pamäti. Túto oblasť adresného priestoru popisuje sekcia o dynamickej pamäti.
 
-### Globálne dáta
+#### Globálne dáta
 Táto časť obsahuje globálne premenné, ktoré žijú počas celej doby behu programu.
 
-### Inštrukcie programu
+#### Inštrukcie programu
 Do tejto časti pamäte sa pri spustení programu skopírujú jeho inštrukcie zo spustiteľného súboru na disku. Nachádza sa v nej preložený kód funkcií vášho programu. Procesor potom číta inštrukcie, ktoré má vykonať, práve z tejto časti pamäte. Táto pamäť je obvykle chránená proti zápisu a slúži iba na čítanie.
 
 # Pole
@@ -1223,7 +1226,7 @@ Teraz už poznáme základy alokovania pamäte v jazyku C, avšak stále pracuje
 
 V jazyku C# môžeme pracovať s týmito veľkými objemami dát pomocou polí. Pole je dátová štruktúra, ktorá nám umožňuje uchovávať viacero hodnôt rovnakého typu pohromade a pristupovať k nim pomocou indexov.
 
-#### Príklad použitia poľa v C#:
+##### Príklad použitia poľa v C#:
 
 ```csharp
 using System;
@@ -1268,7 +1271,7 @@ Chceli by sme teda napísať kód, ktorý zvládne spracovať ľubovoľný poče
 
 Najjednoduchším a najbežnejším spôsobom, ako v pamäti počítača uchovávať väčšie množstvo hodnôt, je uložiť ich jednu za druhou v pamäti. Tento koncept ukladania dát sa nazýva **pole** (*array*), a je tak bežný, že ho programovacie jazyky priamo podporujú vo svojej syntaxi. Jazyk C#, podobne ako jazyk C, nie je výnimkou.
 
-# Statické polia
+## Statické polia
 
 Polia v automatickej pamäti (na zásobníku) sa označujú ako **statické polia** (*static arrays*). Môžeme ich vytvoriť tak, že pri definícii premennej za jej názov pridáme hranaté zátvorky s číslom udávajúcim počet prvkov v poli. Napríklad takto vytvoríme pole celých čísel s tromi prvkami:
 
@@ -1276,25 +1279,25 @@ Polia v automatickej pamäti (na zásobníku) sa označujú ako **statické poli
 int[] pole = new int[3];
 ```
 
-# Statické polia
+## Statické polia
 
 Takáto premenná bude obsahovať pamäť pre 3 celé čísla (teda pravdepodobne na vašom počítači dohromady 12 bajtov). Počet prvkov v poli sa označuje ako jeho veľkosť (*size*).
 
 Dôležité je si dávať pozor, že hranaté zátvorky sa uvádzajú za názov premennej, nie za názov dátového typu. Preto je `int[3] pole;` nesprávne.
 
-#### Príklad:
+##### Príklad:
 
 ```csharp
 int[] pole = new int[3]; // Správne: deklarácia poľa s 3 prvkami
 ```
 
-# Statické polia
+## Statické polia
 
 V určitom zmysle je pole iba zobecnením bežnej premennej. Ak vytvoríte pole o veľkosti jedna (`int a[1];`), v pamäti bude reprezentované úplne rovnako ako klasická premenná (`int a;`).
 
 Pole je možné vytvoriť aj na halde pomocou dynamickej alokácie pamäte. Všetky nižšie popísané koncepty sú platné aj pre dynamické polia, avšak budeme ich demonštrovať na statických poliach, pretože ich je jednoduchšie vytvoriť.
 
-# Statické polia
+## Statické polia
 
 Hodnota zadaná v hranatých zátvorkách by mala byť **konstantným výrazom**, teda buď priamo číselná hodnota, alebo číselná hodnota pochádzajúca z makra. Ak budete potrebovať pole dynamickej veľkosti, mali by ste použiť dynamickú alokáciu pamäte.
 
@@ -1308,17 +1311,17 @@ int[] pole = new int[velikost];
 ```
 Táto funkcionalita, nazývaná VLA (variable-length array), je však určená pre veľmi špecifické použitie a nesie so sebou rôzne nevýhody.
 
-# Počítanie od nuly
+## Počítanie od nuly
 
 Pozície jednotlivých prvkov v poli sa označujú ako ich **indexy** (*array indices*). Tieto pozície sa číslujú od hodnoty 0 (teda nie od jednotky, ako možno poznáte z iných oblastí). Prvý prvok poľa je teda na nultej pozícii (indexe), druhý na prvej pozícii atď. (pozri obrázok vyššie). Počítanie od nuly (*zero-based indexing*) je vo svete programovania bežné a budete si naň musieť zvyknúť. Jeden z dôvodov, prečo sa prvky počítajú práve od nuly, sa dozviete nižšie.
 
 Z tohto vyplýva jedna dôležitá vlastnosť: posledný prvok poľa je vždy na indexe `<veľkosť poľa> - 1`. Ak by ste sa pokúsili pristúpiť k prvku na indexe `<veľkosť poľa>`, pristupujete mimo pamäť poľa, čo spôsobí pamäťovú chybu.
 
-# Inicializácia poľa
+## Inicializácia poľa
 
 Rovnako ako pri bežných lokálnych premenných platí, že ak pole neinicializujete, bude obsahovať nedefinované hodnoty. V takom prípade nesmiete hodnoty v poli žiadnym spôsobom čítať, inak by došlo k nedefinovanému správaniu 💣! Na inicializáciu poľa môžete použiť zložené zátvorky so zoznamom hodnôt oddelených čiarkami, ktoré budú do poľa uložené. Ak nezadáte dostatok hodnôt na vyplnenie celého poľa, zvyšok hodnôt bude nastavený na nulu.
 
-#### Príklady:
+##### Príklady:
 
 ```csharp
 int[] a = new int[3];         // pole bez definovanej hodnoty, nepoužívať!
@@ -1334,13 +1337,13 @@ Ak využijete inicializáciu statického poľa, môžete vynechať veľkosť po�
 int[] p = { 1, 2, 3 }; // p je pole s tromi číslami, kompilátor si odvodí int p[3]
 ```
 
-# Prístup k prvkom poľa
+## Prístup k prvkom poľa
 
 Aby sme využili toho, že nám pole umožňuje vytvoriť väčšie množstvo pamäte naraz, musíme mať možnosť pristupovať k jednotlivým prvkom v poli. V C# sa na prístup k prvkom poľa používa priamo syntaktická notácia s hranatými zátvorkami.
 
 V C# sa pole správa ako sekvencia prvkov a každý prvok je prístupný pomocou indexu. Prvok na i-tom indexe môžeme získať prístupom cez hranaté zátvorky. Napríklad, ak máme pole `pole` a chceme pristúpiť k prvku na druhom indexe, použijeme `pole[2]`.
 
-#### Príklad v C#:
+##### Príklad v C#:
 
 ```csharp
 int[] pole = { 10, 20, 30, 40, 50 };
@@ -1363,7 +1366,7 @@ Indexovanie od nuly má svoje výhody, najmä pri práci s ukazateľmi v nižš�
 
 V C# to však zjednodušuje prístup k prvkom a prácu s poľami, pretože sa nevyžaduje manuálne spravovanie ukazateľov.
 
-# Operátor prístupu k poľu
+## Operátor prístupu k poľu
 
 V C# sa prístup k prvkom poľa uskutočňuje pomocou operátora prístupu k poľu, ktorý využíva hranaté zátvorky. Tento operátor, známy ako "array subscription operator", umožňuje jednoducho a prehľadne pristupovať k jednotlivým prvkom v poli. 
 
@@ -1393,13 +1396,13 @@ Používanie hranatých zátvoriek je prehľadnejšie a jednoduchšie než použ
 
 Je dôležité si uvedomiť, že operátor prístupu k poľu a definícia poľa používajú hranaté zátvorky, ale ide o odlišné kontexty. Zatiaľ čo hranaté zátvorky pri definícii poľa určujú veľkosť poľa, pri prístupe k prvkom poľa označujú konkrétny index.
 
-# Použitie polí s cyklami
+## Použitie polí s cyklami
 
 Ak by sme k poľu pristupovali po jednotlivých prvkoch, nemohli by sme využiť jeho plný potenciál. Aj keď môžeme jedným riadkom kódu vytvoriť napríklad 100 rôznych hodnôt (napr. `int[] pole = new int[100];`), ak by sme museli písať `pole[0]`, `pole[1]` atď. pre prístup k jednotlivým prvkom, efektívna práca s poľom by bola veľmi zložitá. Účelom polí je umožniť spracovanie veľkého množstva dát jednotným spôsobom pomocou krátkeho kódu. Inými slovami, chceme mať rovnaký kód, ktorý dokáže spracovať pole veľkosti 2 aj 1000. K tomu môžeme efektívne využiť cykly.
 
 Často je praktické použiť riadiacu premennú cyklu na indexovanie poľa. Napríklad, ak máme pole s veľkosťou 10, môžeme ho "prechádzať" pomocou cyklu `for`:
 
-#### Príklad v C#:
+##### Príklad v C#:
 
 ```csharp
 int[] pole = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
@@ -1418,7 +1421,7 @@ V tomto príklade:
       
 Situácie, kedy pomocou cyklu prechádzame pole, sú veľmi časté a určite sa s nimi mnohokrát stretnete a využijete ich. Odporúča sa túto techniku precvičiť napríklad pomocou rôznych úloh.
 
-# Predávanie polí do funkcií
+## Predávanie polí do funkcií
 
 Pole môžeme (rovnako ako hodnoty iných dátových typov) predávať ako argumenty do funkcií. Pri tom si však musíme dávať pozor najmä na dve veci:
 
@@ -1426,7 +1429,7 @@ Pole môžeme (rovnako ako hodnoty iných dátových typov) predávať ako argum
 
 2. **Nemáme informáciu o veľkosti poľa**: Funkcia, ktorá prijíma pole ako argument, nepozná jeho veľkosť. Je na nás, aby sme veľkosť poľa predali ako samostatný argument alebo použili iný spôsob, ako funkcii oznámiť, ako dlho má s poľom pracovať.
 
-# Výpočet veľkosti poľa
+## Výpočet veľkosti poľa
 
 Aby ste pri zmene veľkosti statického poľa nemuseli ručne upravovať jeho veľkosť na viacerých miestach v kóde, môžete vo funkcii, kde definujete statické pole, vypočítať jeho veľkosť pomocou operátora `sizeof`:
 
@@ -1455,13 +1458,13 @@ V tomto príklade:
 
 `Poznámka` : V C# sa operátor sizeof používa na získanie veľkosti základných dátových typov, ale nie na polia. Preto v C# na získanie počtu prvkov v poli použijeme vlastnosť Length poľa.
 
-# Dynamické pole v C#
+## Dynamické pole v C
 
 V C# se dynamická pole vytvářejí pomocí kolekcí z .NET knihovny, jako je `List<T>`. Na rozdíl od C, kde se dynamická paměť alokuje přímo na haldě pomocí funkce `malloc`, C# poskytuje vyšší úroveň abstrakce a automatickou správu paměti.
 
-## Příklady použití `List<T>`:
+### Příklady použití `List<T>`:
 
-### 1. Vytvoření a inicializace dynamického pole:
+#### 1. Vytvoření a inicializace dynamického pole:
 
 ```csharp
 using System;
@@ -1488,15 +1491,15 @@ class Program
 }
 ```
 
-# Viacerozměrná pole v C#
+## Viacerozměrná pole v C
 
 Někdy potřebujeme v programech reprezentovat struktury, které jsou přirozeně vícerozměrné. Typickým příkladem jsou obrázky, které lze reprezentovat jako dvourozměrnou mřížku pixelů. V C# to lze jednoduše dosáhnout pomocí vícerozměrných polí.
 
 Paměťové adresy mají pouze jeden rozměr, protože jsou reprezentovány jedním číslem. Jak tedy můžeme do jednorozměrné paměti uložit vícerozměrné hodnoty? Jednoduchým způsobem je "vyskládat" jednotlivé rozměry za sebou v paměti. Například, pokud máme dvojrozměrné pole s rozměry 5x5, uložíme data do paměti řádek po řádku.
 
-## Příklady:
+### Příklady:
 
-### 1. Dvourozměrné pole
+#### 1. Dvourozměrné pole
 
 ```csharp
 using System;
@@ -1530,7 +1533,7 @@ class Program
 }
 ```
 
-# Spôsob vyskladania dimenzií v C#
+## Spôsob vyskladania dimenzií v C
 
 Pri práci s viacrozmernými poľami môžeme zvoliť rôzne spôsoby, ako ich uložiť do pamäte. Dva najbežnejšie prístupy sú:
 
@@ -1542,9 +1545,9 @@ Pri práci s viacrozmernými poľami môžeme zvoliť rôzne spôsoby, ako ich u
 
 Oba prístupy majú svoje výhody a nevýhody, ale je dôležité sa držať jedného prístupu, aby sa predišlo zmätkom v indexovaní. Nižšie predpokladáme používanie `row major ordering`.
 
-## Příklady:
+### Příklady:
 
-### 1. Row Major Ordering
+#### 1. Row Major Ordering
 
 ```csharp
 using System;
@@ -1580,11 +1583,11 @@ class Program
 }
 ```
 
-# Indexovanie v C#
+## Indexovanie v C
 
 Pri práci s viacrozmernými poľami musíme často prevádzať medzi viacrozmerným a jednorozmerným indexom. Tento postup je dôležitý, keď pracujeme s 1D poliami v jazykoch, ktoré ukladajú viacrozmerné polia ako jednorozmerné polia. Pre ilustráciu si ukážeme, ako prevádzať medzi 2D a 1D indexmi.
 
-## Prevody medzi 2D a 1D indexmi
+### Prevody medzi 2D a 1D indexmi
 
 **Prevádzanie z 2D do 1D**
 
@@ -1601,9 +1604,9 @@ Pre prevod 1D indexu na 2D index použijeme nasledujúci vzorec:
 
 Tento vzorec nám umožňuje zistiť, na akom riadku a stĺpci sa nachádzame, ak máme jednorozmerný index a počet stĺpcov.
 
-## Příklady v C#
+### Příklady v C
 
-### Prevádzanie z 2D do 1D
+#### Prevádzanie z 2D do 1D
 
 ```csharp
 using System;
@@ -1627,11 +1630,11 @@ class Program
 }
 ```
 
-# Viacrozmerné pole na zásobníku v C#
+## Viacrozmerné pole na zásobníku v C
 
 V C# môžeme vytvárať viacrozmerné polia podobným spôsobom ako v C. Ak poznáme rozmer a veľkosť viacrozmerného poľa v čase prekladu, môžeme použiť viacrozmerné statické polia. Tieto polia sa vytvárajú pomocou hranatých zátvoriek pre každý rozmer.
 
-## Vytváranie a používanie viacrozmerného poľa
+### Vytváranie a používanie viacrozmerného poľa
 
 Ak chceme vytvoriť 2D pole s rozmermi 3x3, môžeme to urobiť nasledovne:
 
@@ -1670,11 +1673,11 @@ Viacrozmerné polia sú v pamäti uložené postupne podľa jednotlivých dimenz
 - [ ] pole[1, 0], pole[1, 1], pole[1, 2]
 - [ ] pole[2, 0], pole[2, 1], pole[2, 2]
 
-# Viacrozmerné pole na halde v C#
+## Viacrozmerné pole na halde v C
 
 Ak potrebujeme dynamické viacrozmerné pole, môžeme alokovať pamäť na haldě pre všetky rozměry. V C# sa používa dynamická alokácia pamäti pre viacrozmerné polia trochu odlišne než v C. Tu je spôsob, ako môžeme vytvoriť dynamické viacrozmerné pole a manipulovať s ním.
 
-## Vytvorenie dynamického 2D poľa
+### Vytvorenie dynamického 2D poľa
 
 V C# sa na alokáciu pamäti pre viacrozmerné polia používa `new` operátor. Môžeme vytvoriť dynamické 2D pole, ktoré umožňuje priradiť hodnoty a pristupovať k nim podobne ako v C.
 
@@ -1714,17 +1717,17 @@ class Program
 }
 ```
 
-# Zubaté pole v C#
+## Zubaté pole v C
 
 Občas môžete naraziť na situáciu, kedy potrebujete vytvoriť viacrozmerné pole, kde niektoré dimenzie nemajú fixnú veľkosť. Napríklad, prvý riadok môže mať dva stĺpce, druhý riadok tri stĺpce, tretí riadok žiadny stĺpec a pod.
 
 V takom prípade môžete vytvoriť tzv. zubaté pole (jagged array alebo ragged array). Zubaté pole je v podstate "pole polí" – vytvoríte (dynamické) pole riadkov, pričom každý riadok bude opäť dynamické pole stĺpcov. 
 
-## Vytvorenie a prístup k zubatému poľu
+### Vytvorenie a prístup k zubatému poľu
 
 V C# sa zubaté pole vytvára pomocou dvojitého syntaxu poľa. Najprv vytvoríte pole riadkov a potom každému riadku priradíte pole stĺpcov.
 
-### Príklad vytvorenia a použitia zubatého poľa
+#### Príklad vytvorenia a použitia zubatého poľa
 
 Nasledujúci kód vytvorí pole piatich študentov, kde každý študent má rôzny počet ID predmetov:
 
@@ -1759,7 +1762,7 @@ class Program
 }
 ```
 
-## Prístup k prvkom zubatého poľa
+### Prístup k prvkom zubatého poľa
 
 K prvkom zubatého poľa pristupujeme klasicky cez hranaté zátvorky. Napríklad studenti[2] vráti pole predmetov tretieho študenta, a nad týmto poľom môžeme opäť použiť hranaté zátvorky na prístup k konkrétnemu predmetu.
 
@@ -1767,7 +1770,7 @@ K prvkom zubatého poľa pristupujeme klasicky cez hranaté zátvorky. Napríkla
 int tretieID = studenti[1][2];  // Získa tretí predmet druhého študenta (ID = 203)
 ```
 
-## Uvoľňovanie pamäti
+### Uvoľňovanie pamäti
 
 V C# sa správa o pamäť vykonáva automaticky prostredníctvom garbage collectora, takže nie je potrebné manuálne uvoľňovať pamäť ako v C. Je však dobré mať na pamäti, že ak vytvárate a manipulujete s dynamickými poľami, garbage collector sa postará o uvoľnenie pamäti, keď už nebude používaná.
 
