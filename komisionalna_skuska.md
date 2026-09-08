@@ -1,6 +1,6 @@
-# Komisionálna skúška – SGX (SMART technológie) - Programovanie
+# Komisionálna skúška – SXG (SMART technológie) - Programovanie
 **Škola:** Stredná priemyselná škola informačných technológií, Kysucké Nové Mesto  
-**Predmet:** SGX – SMART technológie  
+**Predmet:** SXG – SMART technológie  
 **Ročník:** 4.  
 
 
@@ -8,7 +8,7 @@
 
 ## Pokyny pre študenta
 
-Táto komisionálna skúška pokrýva celé preberané učivo predmetu **SGX – SMART technológie** za školský rok. Predmet je zameraný na moderné technológie v oblasti vývoja softvéru, správy systémov, virtualizácie, kontajnerizácie, verzovacích systémov, monitoringu a AI-asistovaného vývoja, vrátane teoretických základov programovania, objektovo-orientovaného prístupu a algoritmizácie.
+Táto komisionálna skúška pokrýva celé preberané učivo predmetu **SXG – SMART technológie** za školský rok. Predmet je zameraný na moderné technológie v oblasti vývoja softvéru, správy systémov, virtualizácie, kontajnerizácie, verzovacích systémov, monitoringu a AI-asistovaného vývoja, vrátane teoretických základov programovania, objektovo-orientovaného prístupu a algoritmizácie.
 
 Vypracovanie nemá stanovené časové ani nástrojové obmedzenia. Študent je oprávnený zvoliť si programovací jazyk (C++ alebo C#, pokiaľ nie je stanovené inak), prostredie a formu záznamu riešenia podľa vlastného uváženia. Hodnotí sa správnosť riešenia, hĺbka pochopenia prezentovaných princípov a schopnosť komplexne obhájiť každé rozhodnutie obsiahnuté v odovzdanom vypracovaní. Komisia je oprávnená požiadať o ústne vysvetlenie ľubovoľnej časti riešenia.
 
@@ -1280,6 +1280,6 @@ Máš trojvrstvovú aplikáciu: `frontend (React)` → `api (Python REST)` → `
 
 ---
 
-*Autor: Tomáš Mucha | Predmet: SGX – SMART technológie | SPSIT KNM*  
+*Autor: Tomáš Mucha | Predmet: SXG – SMART technológie | SPSIT KNM*  
 *Repozitáre: github.com/SPSITKNM/{SPSITKNM, oop\_opakovanie, SXG}*  
 *Videosériál (oba piliere výučby): https://youtube.com/playlist?list=PLJW-oHbyRDeJt24tw-RaHJwxbXUCh3GrQ*
