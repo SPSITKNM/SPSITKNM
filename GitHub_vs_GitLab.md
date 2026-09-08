@@ -149,7 +149,7 @@ ssh-keygen -t ed25519 -C "tomasmucha@railsformers.com"
 cat ~/.ssh/id_ed25519.pub
 ```
 
-➡️ Tento public key pridaj do GitLab:
+Tento public key pridaj do GitLab:
 - GitLab → Settings → SSH Keys → vlož tam výstup z `cat`.
 
 ---

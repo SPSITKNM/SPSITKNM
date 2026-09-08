@@ -4,12 +4,12 @@
 
 dovoľujem si Vás informovať o konaní obhajob Vašich videoherných projektov počas vianočných prázdnin. Táto udalosť je skvelou príležitosťou ukázať svoju prácu, kreativitu a nadšenie pre herný vývoj, ktorý ste vložili do tvorby Vášho projektu.
 
-🌐 **Kde?**
-🕒 **Kedy?**
+**Kde?**
+**Kedy?**
 
 Online formou – odkaz na pripojenie a podrobnosti o prezentácií Vám zašlem prostredníctvom **EduPage**, **GitHub**, alebo na **Discord školskom serveri**.
 
-🎮 **Na čo sa treba pripraviť?**
+**Na čo sa treba pripraviť?**
 
 - Prezentácie herných konceptov, mechaník a grafiky.
 - Ukážky funkčných herných prototypov.

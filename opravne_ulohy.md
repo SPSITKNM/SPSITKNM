@@ -690,14 +690,14 @@ Search by: [T]itle | [A]uthor | [G]enre | [S]ort | [Q]uit
 
 Na rozdiel od ostatných úloh, tu máš voľné pole pôsobnosti:
 
-#### 1️⃣ Vyber si TYP Linked Listu:
+#### 1. Vyber si TYP Linked Listu:
 - Singly Linked List - jednoduchší, ale stačí
 - Doubly Linked List - môžeš ísť dozadu, o niečo náročnejšie
 - Circular Linked List - cool, ale treba si rozmyslieť prečo
 
  Rada: Doubly je dobrá voľba - umožní ti implementovať "predošlá kniha" feature.
 
-#### 2️⃣ Vyber si SORTING algoritmus:
+#### 2. Vyber si SORTING algoritmus:
 Musíš implementovať ASPOŇ JEDEN, ale môžeš aj viac!
 
 - Bubble Sort - najjednoduchší, ale pomalý

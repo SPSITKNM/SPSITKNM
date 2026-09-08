@@ -1319,7 +1319,7 @@ Z tohto vyplýva jedna dôležitá vlastnosť: posledný prvok poľa je vždy na
 
 ## Inicializácia poľa
 
-Rovnako ako pri bežných lokálnych premenných platí, že ak pole neinicializujete, bude obsahovať nedefinované hodnoty. V takom prípade nesmiete hodnoty v poli žiadnym spôsobom čítať, inak by došlo k nedefinovanému správaniu 💣! Na inicializáciu poľa môžete použiť zložené zátvorky so zoznamom hodnôt oddelených čiarkami, ktoré budú do poľa uložené. Ak nezadáte dostatok hodnôt na vyplnenie celého poľa, zvyšok hodnôt bude nastavený na nulu.
+Rovnako ako pri bežných lokálnych premenných platí, že ak pole neinicializujete, bude obsahovať nedefinované hodnoty. V takom prípade nesmiete hodnoty v poli žiadnym spôsobom čítať, inak by došlo k nedefinovanému správaniu! Na inicializáciu poľa môžete použiť zložené zátvorky so zoznamom hodnôt oddelených čiarkami, ktoré budú do poľa uložené. Ak nezadáte dostatok hodnôt na vyplnenie celého poľa, zvyšok hodnôt bude nastavený na nulu.
 
 ##### Príklady:
 
