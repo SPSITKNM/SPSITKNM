@@ -1,3 +1,11 @@
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)"  srcset="assets/banner-pro-dark.png">
+    <source media="(prefers-color-scheme: light)" srcset="assets/banner-pro-light.png">
+    <img alt="PRO — Programovanie · spsitknm.github.io" src="assets/banner-pro-light.png" width="900">
+  </picture>
+</p>
+
 # PRO — Programovanie
 
 Repozitár predmetu **PRO** na SPŠ IT Kysucké Nové Mesto (4. ročník). Obsahuje skriptá,

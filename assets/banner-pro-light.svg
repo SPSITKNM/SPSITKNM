@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="320" viewBox="0 0 1280 320" role="img" aria-label="PRO — Programovanie · spsitknm.github.io">
+  <rect width="1280" height="320" fill="#f6f3ec"></rect>
+  <path d="M-20,300 C150,270 290,318 440,288 C590,258 740,304 890,274 C1040,244 1170,288 1300,262" fill="none" stroke="#ded6c6" stroke-width="1"></path>
+  <path d="M-20,272 C150,242 290,290 440,260 C590,230 740,276 890,246 C1040,216 1170,260 1300,234" fill="none" stroke="#ded6c6" stroke-width="1"></path>
+  <path d="M-20,244 C150,214 290,262 440,232 C590,202 740,248 890,218 C1040,188 1170,232 1300,206" fill="none" stroke="#bcb2a0" stroke-width="1"></path>
+  <path d="M-20,216 C150,186 290,234 440,204 C590,174 740,220 890,190 C1040,160 1170,204 1300,178" fill="none" stroke="#ded6c6" stroke-width="1"></path>
+  <path d="M-20,188 C150,158 290,206 440,176 C590,146 740,192 890,162 C1040,132 1170,176 1300,150" fill="none" stroke="#4338ca" stroke-width="1.4" opacity="0.9"></path>
+  <path d="M-20,160 C150,130 290,178 440,148 C590,118 740,164 890,134 C1040,104 1170,148 1300,122" fill="none" stroke="#ded6c6" stroke-width="1"></path>
+  <path d="M-20,132 C150,102 290,150 440,120 C590,90 740,136 890,106 C1040,76 1170,120 1300,94" fill="none" stroke="#ded6c6" stroke-width="1"></path>
+  <path d="M-20,104 C150,74 290,122 440,92 C590,62 740,108 890,78 C1040,48 1170,92 1300,66" fill="none" stroke="#ded6c6" stroke-width="1"></path>
+  <text x="56" y="152" font-family="'IBM Plex Mono',ui-monospace,'SFMono-Regular',Menlo,Consolas,monospace" font-weight="500" font-size="13" letter-spacing="2.1" fill="#5b6167">SPŠ IT KYSUCKÉ NOVÉ MESTO · 4. ROČNÍK</text>
+  <text x="56" y="222" font-family="Newsreader,ui-serif,Georgia,'Times New Roman',serif" font-weight="400" font-size="72" letter-spacing="-1.4" fill="#17191a">Programovanie</text>
+  <text x="56" y="256" font-family="'IBM Plex Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="19" fill="#4c5257">Skriptá · algoritmy · projekty · komisionálna skúška</text>
+  <text x="56" y="296" font-family="'IBM Plex Mono',ui-monospace,'SFMono-Regular',Menlo,Consolas,monospace" font-size="13" fill="#5b6167">spsitknm.github.io/predmet.html?s=pro</text>
+</svg>
