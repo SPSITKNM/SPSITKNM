@@ -14,9 +14,9 @@ Repozitár predmetu **PRO** na SPŠ IT Kysucké Nové Mesto (4. ročník). Skrip
 
 <table>
 <tr>
-<td width="33%" valign="top"><a href="https://spsitknm.github.io/citacka.html?s=pro&doc=poznamky"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/card-pro-1-dark.png"><img alt="Trať 01 — Jazyk: poznamky.md, nalezitosti.md, zadania_na_hodine.md" src="assets/card-pro-1-light.png" width="100%"></picture></a></td>
-<td width="33%" valign="top"><a href="https://spsitknm.github.io/citacka.html?s=pro&doc=algoritmizacia"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/card-pro-2-dark.png"><img alt="Trať 02 — Štruktúry: algoritmizacia.md, zadania_na_domacu_pracu.md, opravne_ulohy.md" src="assets/card-pro-2-light.png" width="100%"></picture></a></td>
-<td width="33%" valign="top"><a href="https://spsitknm.github.io/citacka.html?s=pro&doc=projekty"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/card-pro-3-dark.png"><img alt="Trať 03 — Projekt a skúška: projekty.md, Systémová analýza projektu.md, komisionalna_skuska.md" src="assets/card-pro-3-light.png" width="100%"></picture></a></td>
+<td width="33%" valign="top"><a href="https://spsitknm.github.io/citacka.html?s=pro&doc=poznamky"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/card-pro-1-dark.png"><img alt="Trať 01 — Jazyk: poznamky.md, nalezitosti.md, zadania_na_hodine.md" src="assets/card-pro-1-light.png" width="420"></picture></a></td>
+<td width="33%" valign="top"><a href="https://spsitknm.github.io/citacka.html?s=pro&doc=algoritmizacia"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/card-pro-2-dark.png"><img alt="Trať 02 — Štruktúry: algoritmizacia.md, zadania_na_domacu_pracu.md, opravne_ulohy.md" src="assets/card-pro-2-light.png" width="420"></picture></a></td>
+<td width="33%" valign="top"><a href="https://spsitknm.github.io/citacka.html?s=pro&doc=projekty"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/card-pro-3-dark.png"><img alt="Trať 03 — Projekt a skúška: projekty.md, Systémová analýza projektu.md, komisionalna_skuska.md" src="assets/card-pro-3-light.png" width="420"></picture></a></td>
 </tr>
 </table>
 
