@@ -20,7 +20,9 @@
 11. Scenáre (Implementácia Use Case)
 12. Sekvenčný diagram
 13. Triedny diagram
-14. Záver
+14. Aktivitný diagram — *bonus*
+15. BPMN diagram — *bonus*
+16. Záver
 
 ---
 
@@ -153,6 +155,38 @@ Systém bude implementovaný ako samostatné riešenie, ktoré nebude závislé 
 
 ## Triedny diagram
 - Zobraziť triedy ako `Vehicle`, `ECUDiagnosticTool`, `OBD2_Codes` a ich vzťahy.
+
+---
+
+## Aktivitný diagram — *bonus*
+
+> Nie je povinný. Za dobre spracovaný diagram sú **plusové body**.
+
+Vezmite **jeden zložitejší scenár** z kapitoly *Scenáre* (ideálne taký, kde je
+vetvenie alebo viac krokov za sebou) a rozkreslite jeho tok ako **diagram aktivít**:
+
+- počiatočný uzol → akcie → **rozhodovací uzol** s podmienkami `[…]` → koncový uzol
+- ak v scenári niečo prebieha súbežne, použite **fork / join**
+- ak je pri akcii jasné, kto ju vykonáva (mechanik vs systém), rozdeľte akcie do **plaveckých dráh**
+
+Notácia a hotový príklad: [Úvod do softvérového inžinierstva → Diagram aktivít](/citacka.html?s=oop&doc=uvod-do-si#diagram-aktivit)
+
+---
+
+## BPMN diagram — *bonus*
+
+> Nie je povinný. Za dobre spracovaný diagram sú **plusové body**.
+
+BPMN nie je súčasťou UML — je to štandard na modelovanie **biznis procesu**, do
+ktorého systém zapadá. Ukážte **jeden proces** okolo vášho systému (napr. „príjem
+vozidla do servisu a diagnostika") a zamerajte sa na:
+
+- **bazén a dráhy** — kto je účastník (zákazník, mechanik, systém)
+- **typy úloh** — čo robí človek cez systém (*user task*) vs čo systém automaticky (*service task*)
+- **brány** — kde sa proces vetví (`×` exkluzívna brána)
+- **štartovú a koncové udalosti**
+
+Notácia, typy úloh a hotový príklad: [Úvod do softvérového inžinierstva → BPMN](/citacka.html?s=oop&doc=uvod-do-si#bpmn-procesny-pohlad)
 
 ---
 
