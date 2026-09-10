@@ -22,7 +22,8 @@
 13. Triedny diagram
 14. Aktivitný diagram — *bonus*
 15. BPMN diagram — *bonus*
-16. Záver
+16. Wireframe kľúčových obrazoviek — *bonus*
+17. Záver
 
 ---
 
@@ -187,6 +188,23 @@ vozidla do servisu a diagnostika") a zamerajte sa na:
 - **štartovú a koncové udalosti**
 
 Notácia, typy úloh a hotový príklad: [Úvod do softvérového inžinierstva → BPMN](/citacka.html?s=oop&doc=uvod-do-si#bpmn-procesny-pohlad)
+
+---
+
+## Wireframe kľúčových obrazoviek — *bonus*
+
+> Nie je povinný. Za dobre spracovaný wireframe sú **plusové body**.
+
+Načrtnite **2–3 kľúčové obrazovky** vášho systému — nízkofidelitný wireframe
+(rozloženie prvkov, žiadne farby ani finálny dizajn). Každú obrazovku viažte na
+konkrétny use case (napr. formulár novej žiadanky = UC „vytvoriť žiadanku",
+zoznam so stavmi = UC „sledovať stav").
+
+Toto je zároveň **návrh aplikácie, ktorú budete postupne implementovať** na
+hodinách programovania — oplatí sa navrhnúť niečo, čo naozaj chcete mať hotové.
+
+Úrovne (wireframe → mockup → prototyp) a hotový príklad:
+[Úvod do softvérového inžinierstva → Wireframe a mockup](/citacka.html?s=oop&doc=uvod-do-si#wireframe-a-mockup)
 
 ---
 
