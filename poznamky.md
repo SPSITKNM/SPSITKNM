@@ -1216,6 +1216,235 @@ Táto časť obsahuje globálne premenné, ktoré žijú počas celej doby behu 
 #### Inštrukcie programu
 Do tejto časti pamäte sa pri spustení programu skopírujú jeho inštrukcie zo spustiteľného súboru na disku. Nachádza sa v nej preložený kód funkcií vášho programu. Procesor potom číta inštrukcie, ktoré má vykonať, práve z tejto časti pamäte. Táto pamäť je obvykle chránená proti zápisu a slúži iba na čítanie.
 
+# Ukazovatele (pointers)
+
+V sekcii o halde sme si povedali, že prácu s adresami v pamäti nám umožňujú **ukazovatele** (*pointers*). V jazyku C# sa s nimi bežne nestretnete – o alokáciu aj uvoľňovanie pamäte sa stará garbage collector, takže priamy prístup k adresám nie je (mimo špeciálneho tzv. `unsafe` kódu) potrebný. Napriek tomu je dôležité tomuto konceptu rozumieť, pretože vysvetľuje, čo sa deje "pod kapotou" aj v jazykoch ako C#, a je základom jazykov C a C++. Preto je celá táto sekcia demonštrovaná v jazyku **C++**.
+
+## Čo je to ukazovateľ
+
+Každá premenná vo vašom programe je uložená niekde v pamäti, na konkrétnej **adrese**. Doteraz sme s touto adresou nikdy priamo nepracovali – iba sme premennej dávali meno (napr. `a`) a kompilátor si za nás pamätal, kde presne v pamäti sa nachádza.
+
+**Ukazovateľ** je premenná, ktorá namiesto bežnej hodnoty (čísla, znaku...) uchováva **adresu inej premennej**. Vďaka tomu vieme k tej istej premennej pristupovať aj nepriamo – "cez" jej adresu.
+
+Na získanie adresy premennej slúži operátor `&` (*address-of*, "adresa premennej"):
+
+```cpp
+int a = 2;
+int* ptr_a = &a; // ptr_a obsahuje ADRESU premennej a, nie jej hodnotu
+```
+
+Rozklad zápisu `int* ptr_a`:
+- `int*` — typ premennej `ptr_a`, čiže "ukazovateľ na int" (ukazuje na miesto v pamäti, kde je uložený `int`)
+- `ptr_a` — meno premennej
+
+**Dôležité:** typ ukazovateľa sa musí zhodovať s typom premennej, na ktorú ukazuje. `int*` môže ukazovať iba na `int`, `double*` iba na `double`, atď. — inak je to typová chyba.
+
+```cpp
+double d = 5.5;
+int* zly_ptr = &d; // CHYBA (typy sa nezhodujú)
+```
+
+## Dereferencovanie — operátor `*`
+
+Ak máme adresu, potrebujeme sa vedieť dostať aj k hodnote, ktorá sa na nej nachádza. Na to slúži **dereferencovanie**, teda operátor `*` použitý pred menom ukazovateľa:
+
+```cpp
+int a = 2;
+int* ptr_a = &a;
+
+cout << ptr_a;   // vypíše ADRESU (napr. 0x7ffee3a1b2c4)
+cout << *ptr_a;  // vypíše HODNOTU na tej adrese, teda 2
+```
+
+Cez dereferenciu vieme aj hodnotu **zmeniť** — a keďže `ptr_a` ukazuje na `a`, zmeníme tým nepriamo aj `a` samotné:
+
+```cpp
+*ptr_a = 3;
+cout << a; // vypíše 3, hoci sme priamo nezapisovali do "a"
+```
+
+**Pozor na rozdiel:**
+
+| Výraz | Typ | Význam |
+|---|---|---|
+| `ptr_a` | `int*` | adresa, kde sa hodnota nachádza |
+| `*ptr_a` | `int` | samotná hodnota na tej adrese |
+
+```cpp
+ptr_a = 3; // CHYBA — 3 je hodnota (int), nie adresa, nedá sa priradiť do int*
+```
+
+- [ ] `&premenna` získa adresu premennej
+- [ ] `*ukazovatel` sa dostane k hodnote na danej adrese (dereferencovanie)
+- [ ] typ ukazovateľa sa musí zhodovať s typom, na ktorý ukazuje
+
+## Ukazovateľ môže smerovať na stack aj na heap
+
+Bežná mylná predstava je, že ukazovateľ slúži iba na prácu s haldou. V skutočnosti môže obsahovať adresu **hocijakej** premennej, teda pokojne aj lokálnej premennej na zásobníku:
+
+```cpp
+int a = 2;
+int* ptr_a = &a; // ptr_a ukazuje na STACK, nie na heap
+```
+
+Toto je úplne v poriadku — pokiaľ ukazovateľ nepoužijete potom, čo premenná, na ktorú ukazuje, prestala existovať (viď nižšie, *dangling pointer*).
+
+## Dynamická alokácia — `new` a `delete`
+
+Zatiaľ sme pracovali len s premennými, ktoré vznikali automaticky na zásobníku a automaticky aj zanikali (na konci funkcie/bloku). Niekedy ale potrebujeme pamäť, ktorá **prežije** aj koniec funkcie, v ktorej vznikla — na to slúži halda a operátor `new`:
+
+```cpp
+int* suma(int a, int b)
+{
+    int* vysledok = new int;    // alokuje 4 bajty na HEAPE, vráti ich adresu
+    *vysledok = a + b;          // do tejto pamäte zapíšeme výsledok
+    return vysledok;            // vraciame adresu — tá bude platná aj po skončení funkcie
+}
+```
+
+Prečo to funguje: `new` vyžiada pamäť **na heape**, ktorá nie je viazaná na životnosť funkcie ako lokálne (stack) premenné. Preto ju môžeme bezpečne vrátiť von a používať aj mimo funkcie, v ktorej vznikla.
+
+```cpp
+int* v = suma(2, 3);
+cout << *v; // 5
+```
+
+**Táto pamäť sa ale neuvoľní sama** — na rozdiel od stacku, halda nemá žiadny automatický "upratovací" mechanizmus (žiadny garbage collector ako v C#). Ak ju prestanete používať, musíte ju sami uvoľniť príkazom `delete`:
+
+```cpp
+delete v; // vráti pamäť späť, v je odteraz "dangling" (neplatný)
+```
+
+Ak `delete` zabudnete zavolať, pamäť zostane alokovaná (nedosiahnuteľná, nepoužiteľná) po celý zvyšok behu programu — tomu sa hovorí **memory leak** (únik pamäte). Pri jednej premennej je to zanedbateľné, ale v programe, ktorý alokuje v cykle, môže postupne minúť všetku dostupnú pamäť.
+
+## Dangling pointer
+
+Presný opak správneho postupu vyššie — nikdy nevracajte (ani si inak neuchovávajte) adresu **lokálnej** (stack) premennej mimo funkcie, v ktorej vznikla:
+
+```cpp
+int* zla_funkcia(int a, int b)
+{
+    int vysledok = a + b; // toto je na STACKU
+    return &vysledok;      // vraciam adresu premennej, ktorá o chvíľu zanikne!
+}
+```
+
+Po skončení funkcie sa pamäť pre `vysledok` na zásobníku uvoľní (a čoskoro ju prepíše niečo iné). Vrátená adresa teda ukazuje na **už neplatnú** pamäť — to sa nazýva **dangling pointer**. Jeho použitie je nedefinované správanie (*undefined behavior*) — program môže "náhodou" fungovať, spadnúť, alebo vypísať nezmyselné dáta, a nedá sa na to spoľahnúť.
+
+- [ ] `new` alokuje pamäť na heape, ktorá prežije aj koniec funkcie
+- [ ] za každé `new` patrí jedno `delete`, inak vzniká memory leak
+- [ ] nikdy nevracajte adresu lokálnej (stack) premennej — vznikne dangling pointer
+
+## Return by value vs. by pointer vs. by reference
+
+Na funkcii, ktorá sčíta dve čísla, si ukážme tri spôsoby, ako môže funkcia vrátiť výsledok von.
+
+##### Return by value (predvolený spôsob)
+
+```cpp
+int sum_up(int a, int b)
+{
+    int vysledok = a + b;
+    return vysledok; // vracia sa KÓPIA hodnoty
+}
+
+int vysledok = sum_up(5, 3);
+```
+
+Lokálna premenná `vysledok` zanikne s koncom funkcie, preto sa pri `return` vytvorí jej **kópia**, ktorá sa pošle von. Najbezpečnejšia a najčastejšie používaná možnosť.
+
+##### Return by pointer
+
+```cpp
+int* sum_up_ptr(int a, int b)
+{
+    int* vysledok = new int(a + b); // alokácia na heape
+    return vysledok;
+}
+
+int* vysledok = sum_up_ptr(5, 3);
+cout << *vysledok; // dereferencia
+delete vysledok;    // treba si upratať sám
+```
+
+Vracia sa **adresa**, nie kópia hodnoty. Aby to bolo bezpečné, adresa musí smerovať na heap (`new`), nikdy nie na lokálnu premennú.
+
+##### Return by reference
+
+```cpp
+int& sum_up_ref(int& a, int& b)
+{
+    a = a + b;
+    return a; // referencia na existujúcu premennú (parameter a)
+}
+
+int x = 5, y = 3;
+int& vysledok = sum_up_ref(x, y);
+```
+
+Referencia je "iné meno" pre existujúcu premennú — nevytvára sa žiadna kópia. Bezpečné je vrátiť referenciu iba na niečo, čo prežije koniec funkcie (napr. parameter odovzdaný referenciou), nikdy nie na lokálnu premennú funkcie.
+
+| Spôsob | Čo sa vracia | Kópia? | Riziko |
+|---|---|---|---|
+| **by value** | hodnota | áno | žiadne (predvolené, najbezpečnejšie) |
+| **by pointer** | adresa | nie | dangling pointer, nutnosť manuálneho `delete` |
+| **by reference** | "alias" na premennú | nie | dangling reference pri lokálnej premennej |
+
+## Pokročilejšie veci o ukazovateľoch
+
+**Neinicializovaný (*wild*) ukazovateľ** — ukazuje na náhodnú adresu, kým mu adresu nepriradíte:
+
+```cpp
+int* ptr; // nebezpečné! ukazuje "kamsi"
+*ptr = 5;  // undefined behavior
+```
+
+Vždy ukazovateľ inicializujte — buď platnou adresou, alebo hodnotou `nullptr` ("neukazuje nikam"), a pred dereferenciou to môžete overiť:
+
+```cpp
+int* ptr = nullptr;
+if (ptr != nullptr) {
+    *ptr = 5; // bezpečné
+}
+```
+
+**Ukazovateľová aritmetika** — používa sa hlavne pri poliach; posun o 1 znamená posun o `sizeof(typ)` bajtov:
+
+```cpp
+int arr[3] = {10, 20, 30};
+int* p = arr;      // pole sa "rozpadne" na ukazovateľ na prvý prvok
+cout << *p;         // 10
+cout << *(p + 1);   // 20 -> presne toto robí pole[i] "pod kapotou": pole[i] == *(pole + i)
+```
+
+**`sizeof` ukazovateľa** je vždy rovnaký bez ohľadu na typ, na ktorý ukazuje (na bežnom 64-bitovom systéme 8 bajtov) — ukazovateľ je predsa len adresa:
+
+```cpp
+sizeof(int*)    // 8
+sizeof(double*) // 8
+```
+
+**`const` s ukazovateľmi** (často mätúce, ale dôležité):
+
+```cpp
+const int* p1 = &a;       // hodnota, na ktorú ukazuje, sa nedá meniť (*p1 = 5; -> chyba)
+int* const p2 = &a;       // samotný ukazovateľ (adresa) sa nedá meniť po inicializácii
+const int* const p3 = &a; // ani jedno z toho
+```
+
+**Ukazovateľ na ukazovateľ** — existuje, používa sa zriedkavejšie:
+
+```cpp
+int a = 5;
+int* p = &a;
+int** pp = &p; // pp ukazuje na p, ktorý ukazuje na a
+```
+
+- [ ] neinicializovaný ukazovateľ vždy nastavte na `nullptr`, kým mu nedáte platnú adresu
+- [ ] `p + 1` posunie adresu o `sizeof(typ)` bajtov, nie o 1 bajt
+- [ ] `sizeof` ukazovateľa nezávisí od typu, na ktorý ukazuje
+- [ ] C++ **nemá** garbage collector — moderné C++ preto rieši správu pamäte cez tzv. smart pointery (`std::unique_ptr`, `std::shared_ptr`), ktoré `delete` zavolajú za vás automaticky
+
 # Pole
 
 Teraz už poznáme základy alokovania pamäte v jazyku C, avšak stále pracujeme iba s jednotlivými premennými. Počítače slúžia na (rýchle) spracovanie veľkého objemu dát a aby sme ich naplno využili, potrebujeme spracovávať mnoho premenných naraz. Napríklad:
