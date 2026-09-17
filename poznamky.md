@@ -1317,6 +1317,99 @@ void nekonecnaRekurzia() {
 
 Toto spôsobí **stack overflow** — zásobník narazí na svoju hranicu a program spadne.
 
+## Naprogramujme si jednoduchý zásobník sami
+
+Presne tak, ako sme si predtým naprogramovali triviálny alokátor pre halohovú pamäť, poďme si sami postaviť aj zásobník. Uvidíte, že je to výrazne **jednoduchšie** než halda — a práve v tejto jednoduchosti je dôvod, prečo je zásobník taký rýchly. Rovnako ako predtým, aj tu si vystačíme s obyčajným poľom bajtov namiesto skutočnej pamäte OS.
+
+```cpp
+const int VELKOST_ZASOBNIKA = 1024;
+char nasZasobnik[VELKOST_ZASOBNIKA]; // 1024 bajtov — naša "pamäť zásobníka"
+int vrchZasobnika = 0;                  // vrch (top) — jediná vec, čo potrebujeme sledovať!
+```
+
+Všimnite si rozdiel oproti halde už teraz: **žiadna hlavička, žiadny zoznam blokov** — iba jedno číslo, ktoré hovorí, kde je momentálne vrch.
+
+### Krok 1 — `push`: pridanie na vrch
+
+```cpp
+void* zasobnikPush(int velkost)
+{
+    if (vrchZasobnika + velkost > VELKOST_ZASOBNIKA) {
+        return nullptr; // presne toto je "stack overflow"
+    }
+    void* adresa = &nasZasobnik[vrchZasobnika];
+    vrchZasobnika += velkost;
+    return adresa;
+}
+```
+
+### Krok 2 — `pop`: odobratie z vrchu
+
+```cpp
+void zasobnikPop(int velkost)
+{
+    vrchZasobnika -= velkost;
+}
+```
+
+Všimnite si, že `zasobnikPop` **nepotrebuje vedieť nič o tom, čo uvoľňuje** — ani veľkosť netreba hľadať (na rozdiel od haldy, kde sme museli prejsť zoznam hlavičiek). Stačí vrch jednoducho posunúť späť. Toto funguje **len preto**, že zásobník sa používa striktne v poradí LIFO — vždy uvoľňujeme presne to, čo sme naposledy pridali.
+
+### Krok 3 — simulácia volania funkcií
+
+Teraz si tým istým mechanizmom nasimulujme presne to, čo sme si kreslili vyššie — vnorené volania `main → funkciaA → funkciaB`:
+
+```cpp
+void funkciaB()
+{
+    int* x = (int*)zasobnikPush(sizeof(int)); // "vstup" do funkcie B
+    *x = 10;
+
+    zasobnikPop(sizeof(int)); // "koniec" funkcie B
+}
+
+void funkciaA()
+{
+    int* y = (int*)zasobnikPush(sizeof(int)); // "vstup" do funkcie A
+    *y = 5;
+
+    funkciaB();
+
+    zasobnikPop(sizeof(int)); // "koniec" funkcie A
+}
+```
+
+```
+main()                             vrchZasobnika = 0
+  volanie funkciaA()
+    zasobnikPush(4) pre "y"        vrchZasobnika = 4
+    ┌────────────┬─────────────────────────┐
+    │  y = 5 (4B) │      voľné miesto          │
+    └────────────┴─────────────────────────┘
+    volanie funkciaB()
+      zasobnikPush(4) pre "x"      vrchZasobnika = 8
+      ┌────────────┬────────────┬───────────────┐
+      │  y = 5 (4B) │  x = 10(4B) │  voľné miesto   │
+      └────────────┴────────────┴───────────────┘
+      zasobnikPop(4) -- koniec B  vrchZasobnika = 4
+      ┌────────────┬─────────────────────────┐
+      │  y = 5 (4B) │      voľné miesto          │
+      └────────────┴─────────────────────────┘
+    zasobnikPop(4) -- koniec A     vrchZasobnika = 0
+```
+
+Presne toto (v skutočnom programe automaticky, za nás) robí kompilátor s reálnym zásobníkom — `vrchZasobnika` je tu naša vlastná, zjednodušená verzia **stack pointera** (SP) z predchádzajúcej sekcie.
+
+### Prečo je toto rýchlejšie než halda
+
+Pripomeňte si z predchádzajúcej podkapitoly, čo musí robiť allocator na halde pri `new`/`delete` — hľadať voľný blok vhodnej veľkosti a viesť si o všetkých blokoch záznamy. Náš `zasobnikPop` oproti tomu **iba odpočíta jedno číslo**. Žiadne hľadanie, žiadne hlavičky, žiadny zoznam — pretože LIFO poradie mu to jednoducho nikdy nedovolí zamotať:
+
+| | `zasobnikPush` / `zasobnikPop` (stack) | `new` / `delete` (heap) |
+|---|---|---|
+| Čo si pamätáme | 1 číslo (vrch) | záznamy o všetkých blokoch (veľkosť, stav...) |
+| Ako sa alokuje | posun vrchu | hľadanie voľného bloku vhodnej veľkosti |
+| Ako sa uvoľňuje | posun vrchu späť | nájsť daný blok, označiť ako voľný |
+| Poradie | musí byť LIFO | ľubovoľné |
+
 - [ ] zásobník = LIFO, spravovaný automaticky, veľmi rýchly, malá kapacita
 - [ ] lifetime premennej na stacku = presne trvanie bloku `{}`, v ktorom vznikla
 - [ ] príliš hlboká rekurzia alebo príliš veľké lokálne dáta → stack overflow
