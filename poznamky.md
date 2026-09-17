@@ -1360,6 +1360,182 @@ Presne toto "hľadanie + účtovníctvo" je dôvod, prečo je alokácia na halde
 - [ ] lifetime dát na halde nezávisí od scope — trvá, kým nezavoláme `delete`
 - [ ] fragmentácia = rozdrobenie voľnej pamäte na malé nesúvislé kúsky, spomaľuje ďalšie alokácie
 
+## Naprogramujme si jednoduchú haldu sami
+
+`new` a `delete` sú "čierna skrinka" — niekto (štandardná knižnica) ich za nás už naprogramoval. Aby sme naozaj pochopili, čo sa vnútri deje, poďme si triviálny alokátor postaviť sami, krok po kroku. Namiesto skutočnej pamäte OS si vystačíme s obyčajným poľom bajtov — tomu poľu budeme hovoriť **naša halda**.
+
+```cpp
+const int VELKOST_HALDY = 1024;
+char nasaHalda[VELKOST_HALDY]; // 1024 bajtov — toto BUDE naša "halda"
+```
+
+### Krok 1 — najjednoduchší možný alokátor (bump allocator)
+
+Najjednoduchšie, čo môžeme urobiť, je viesť si jednu premennú — **vodoznak** (*watermark*) —, ktorá hovorí, dokiaľ je pamäť už obsadená. Alokácia = jednoducho posunúť vodoznak o toľko bajtov, koľko sme si vypýtali.
+
+```cpp
+int volnyOffset = 0; // vodoznak: všetko PRED týmto indexom je obsadené
+
+void* mojNew(int velkost)
+{
+    if (volnyOffset + velkost > VELKOST_HALDY) {
+        return nullptr; // naša halda je plná
+    }
+    void* adresa = &nasaHalda[volnyOffset];
+    volnyOffset += velkost;
+    return adresa;
+}
+```
+
+```cpp
+int* a = (int*)mojNew(sizeof(int)); // 4 bajty
+int* b = (int*)mojNew(sizeof(int)); // ďalšie 4 bajty
+```
+
+```
+nasaHalda:
+┌────────────┬────────────┬───────────────────────────────┐
+│  blok A 4B  │  blok B 4B  │          voľné miesto           │
+└────────────┴────────────┴───────────────────────────────┘
+0            4            8                              1024
+                           ↑
+                    volnyOffset (vodoznak)
+```
+
+**Problém:** takto vieme alokovať, ale nikdy nič neuvoľníme — nevieme povedať "blok A už nepotrebujem, môžeš to miesto dať niekomu inému". Vodoznak vie ísť len dopredu. Potrebujeme vedieť, aké bloky existujú a či sú voľné.
+
+### Krok 2 — pridáme hlavičku (Hlavicka) ku každému bloku
+
+Aby sme mohli bloky sledovať, uložíme si tesne pred každý blok dát malú **hlavičku** s informáciami o ňom — presne toto robí aj skutočný allocator.
+
+```cpp
+struct Hlavicka
+{
+    int velkost;      // koľko bajtov dát blok obsahuje
+    bool volny;         // je tento blok momentálne voľný?
+    Hlavicka* dalsi;    // ukazovateľ na ĎALŠIU hlavičku v poradí (spojový zoznam)
+};
+
+Hlavicka* prvyBlok = nullptr;             // začiatok zoznamu blokov
+char* koniecPouzitejPamate = nasaHalda;    // vodoznak, teraz ako ukazovateľ
+```
+
+Hlavičky a dáta budú uložené v `nasaHalda` pekne za sebou a hlavičky si medzi sebou navzájom "podávajú ruky" cez `dalsi` — presne ako spojový zoznam (*linked list*), o ktorom sme sa bavili v algoritmizácii:
+
+```
+nasaHalda:
+┌───────────┬──────────┬───────────┬──────────┬─────────────────┐
+│ Hlavicka A │ DATA A   │ Hlavicka B │ DATA B   │   voľné miesto    │
+│ volny=false│ (4B)      │ volny=false│ (4B)      │                    │
+└───────────┴──────────┴───────────┴──────────┴─────────────────┘
+      └──────────────dalsi────────────►
+```
+
+### Krok 3 — `mojNew`: najprv skús nájsť voľný blok, inak vytvor nový
+
+Teraz už `mojNew` nemôže iba slepo posúvať vodoznak — najprv musí **prehľadať existujúci zoznam** hlavičiek, či niektorá nie je náhodou voľná a dosť veľká (tzv. **first-fit** stratégia — vezme prvú vyhovujúcu). Až keď nič vhodné nenájde, pridá úplne nový blok na koniec.
+
+```cpp
+void* mojNew(int velkost)
+{
+    // 1. skús nájsť existujúci VOĽNÝ blok, ktorý sa zmestí
+    Hlavicka* aktualny = prvyBlok;
+    while (aktualny != nullptr) {
+        if (aktualny->volny && aktualny->velkost >= velkost) {
+            aktualny->volny = false;
+            return (void*)(aktualny + 1); // dáta sú hneď ZA hlavičkou
+        }
+        aktualny = aktualny->dalsi;
+    }
+
+    // 2. nič vhodné sa nenašlo -> pridaj nový blok na koniec (ako v Kroku 1)
+    int potrebnaVelkost = sizeof(Hlavicka) + velkost;
+    if (koniecPouzitejPamate + potrebnaVelkost > nasaHalda + VELKOST_HALDY) {
+        return nullptr; // naša halda je plná
+    }
+
+    Hlavicka* novyBlok = (Hlavicka*)koniecPouzitejPamate;
+    novyBlok->velkost = velkost;
+    novyBlok->volny = false;
+    novyBlok->dalsi = nullptr;
+
+    if (prvyBlok == nullptr) {
+        prvyBlok = novyBlok;
+    } else {
+        Hlavicka* posledny = prvyBlok;
+        while (posledny->dalsi != nullptr) {
+            posledny = posledny->dalsi;
+        }
+        posledny->dalsi = novyBlok;
+    }
+
+    koniecPouzitejPamate += potrebnaVelkost;
+    return (void*)(novyBlok + 1);
+}
+```
+
+Všimnite si trik `(aktualny + 1)` — keďže `aktualny` je typu `Hlavicka*`, pripočítanie `1` ho posunie presne o `sizeof(Hlavicka)` bajtov ďalej (pointer aritmetika z predchádzajúcej sekcie!) — čiže presne na miesto, kde začínajú dáta hneď za hlavičkou.
+
+### Krok 4 — `mojDelete`: uvoľnenie bloku
+
+Uvoľnenie je jednoduché — netreba nič fyzicky mazať, stačí blok **označiť ako voľný**, aby ho `mojNew` mohol nabudúce znovu nájsť a použiť.
+
+```cpp
+void mojDelete(void* ukazovatel)
+{
+    Hlavicka* hlavicka = (Hlavicka*)ukazovatel - 1; // hlavička je TESNE PRED dátami
+    hlavicka->volny = true;
+}
+```
+
+Rovnaký trik naopak: keď máme ukazovateľ na dáta, hlavičku k nim nájdeme tak, že sa vrátime o `sizeof(Hlavicka)` bajtov späť (`- 1` na `Hlavicka*`).
+
+### Vyskúšajme si to celé spolu
+
+```cpp
+int* a = (int*)mojNew(sizeof(int));
+*a = 42;
+
+int* b = (int*)mojNew(sizeof(int));
+*b = 7;
+
+mojDelete(a); // blok "a" označíme ako voľný
+
+int* c = (int*)mojNew(sizeof(int)); // c znovu POUŽIJE práve uvoľnený blok "a"!
+*c = 99;
+```
+
+```
+po mojDelete(a):
+┌───────────┬──────────┬───────────┬──────────┬─────────────────┐
+│ Hlavicka A │ DATA A   │ Hlavicka B │ DATA B   │   voľné miesto    │
+│ volny=TRUE │ (42)      │ volny=false│ (7)       │                    │
+└───────────┴──────────┴───────────┴──────────┴─────────────────┘
+
+po mojNew(sizeof(int)) -> c:
+      first-fit nájde Hlavicku A (volny=true, veľkosť sedí) a znovu ju použije,
+      namiesto toho, aby sa vodoznak posúval ďalej a plytval miestom
+┌───────────┬──────────┬───────────┬──────────┬─────────────────┐
+│ Hlavicka A │ DATA A   │ Hlavicka B │ DATA B   │   voľné miesto    │
+│ volny=FALSE│ (99)      │ volny=false│ (7)       │                    │
+└───────────┴──────────┴───────────┴──────────┴─────────────────┘
+       ↑ toto je teraz "c"
+```
+
+### Čo sme si zjednodušili (bonus na zamyslenie)
+
+Táto implementácia je **naschvál triviálna**, aby ukázala hlavnú myšlienku — skutočné allocátory (napr. v štandardnej knižnici C++) navyše riešia:
+
+- **Zlučovanie (*coalescing*)** susedných voľných blokov naspäť do jedného väčšieho, aby sa znížila fragmentácia
+- **Zarovnanie (*alignment*)** — dáta sa neukladajú "hocikam", ale na adresy, ktoré sú násobkom napr. 8 alebo 16, kvôli výkonu procesora
+- **Rôzne stratégie hľadania** — namiesto *first-fit* napr. *best-fit* (nájdi najmenší vyhovujúci blok) alebo *worst-fit*
+- **Thread-safety** — ak viacero vlákien programu alokuje naraz, treba to zosynchronizovať
+
+- [ ] najjednoduchší alokátor = vodoznak (bump allocator), ktorý sa vie len posúvať dopredu
+- [ ] hlavička pred každým blokom (veľkosť, stav, ukazovateľ na ďalší) = ako allocator "vie", čo kde je
+- [ ] `mojNew` = najprv hľadaj voľný blok (first-fit), inak pridaj nový na koniec
+- [ ] `mojDelete` = iba označí blok ako voľný, fyzicky nič nemaže
+
 ## Porovnanie zásobníka a haldy
 
 | | Zásobník (Stack) | Halda (Heap) |
