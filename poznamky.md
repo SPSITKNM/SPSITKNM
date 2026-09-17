@@ -1216,6 +1216,186 @@ Táto časť obsahuje globálne premenné, ktoré žijú počas celej doby behu 
 #### Inštrukcie programu
 Do tejto časti pamäte sa pri spustení programu skopírujú jeho inštrukcie zo spustiteľného súboru na disku. Nachádza sa v nej preložený kód funkcií vášho programu. Procesor potom číta inštrukcie, ktoré má vykonať, práve z tejto časti pamäte. Táto pamäť je obvykle chránená proti zápisu a slúži iba na čítanie.
 
+## Adresný priestor — celkový pohľad
+
+Predtým, než sa pozrieme na zásobník a haldu do hĺbky, skúsme si celý adresný priestor predstaviť naraz ako jeden obrázok. Toto je klasické (zjednodušené) rozloženie pamäte bežiaceho programu:
+
+```
+ vysoké adresy
+┌─────────────────────────────┐
+│        ZÁSOBNÍK (stack)      │  rastie SMEROM DOLE ↓
+│  lokálne premenné, parametre │
+│  funkcií, návratové adresy   │
+├─────────────────────────────┤
+│              ↓                │
+│         (voľné miesto)        │
+│              ↑                │
+├─────────────────────────────┤
+│         HALDA (heap)          │  rastie SMEROM HORE ↑
+│     new / delete, malloc      │
+├─────────────────────────────┤
+│        globálne dáta          │
+├─────────────────────────────┤
+│     inštrukcie programu       │
+└─────────────────────────────┘
+ nízke adresy
+```
+
+Všimnite si, že **zásobník a halda rastú oproti sebe** — zásobník "zhora nadol", halda "zdola nahor" — smerom do toho istého voľného priestoru medzi nimi. Práve preto vie program dynamicky meniť, koľko pamäte z ktorej strany minie, bez toho, aby si museli vopred pevne rozdeliť, koľko miesta bude patriť ktorej z nich.
+
+## Zásobník (Stack) do hĺbky
+
+Zásobník funguje na princípe **LIFO** (*Last In, First Out* — posledný dnu, prvý von), presne ako stoh tanierov: pridávaš aj berieš vždy len z vrchu.
+
+### Stack frame — čo sa deje pri volaní funkcie
+
+Pri každom volaní funkcie sa na vrch zásobníka pridá nový **stack frame** (rámec), ktorý obsahuje jej parametre, lokálne premenné a návratovú adresu (kam sa má program vrátiť po skončení).
+
+```cpp
+void funkciaB() {
+    int x = 10;
+}
+
+void funkciaA() {
+    int y = 5;
+    funkciaB();
+}
+
+int main() {
+    funkciaA();
+}
+```
+
+```
+  vrch zásobníka (top) — naposledy pridané
+┌──────────────────────────┐
+│  funkciaB()                │
+│    x = 10                   │
+├──────────────────────────┤
+│  funkciaA()                 │
+│    y = 5                    │
+├──────────────────────────┤
+│  main()                     │
+│    ...                      │
+└──────────────────────────┘
+  spodok zásobníka (dno) — vzniklo prvé
+```
+
+Keď `funkciaB()` skončí, jej rámec sa jednoducho "sundá" z vrchu — všetky jej lokálne premenné (`x`) zaniknú naraz.
+
+### Prečo je to také rýchle — stack pointer
+
+Zásobník si nemusí pamätať nič zložité — stačí mu **jediná hodnota**, tzv. **stack pointer** (SP), ktorá ukazuje, kde presne je momentálne vrch.
+
+```
+            stack pointer (SP)
+                    │
+                    ▼
+┌────────┬─────────┬─────────┬────────┐
+│  main   │ funkciaA │ funkciaB │ voľné  │
+└────────┴─────────┴─────────┴────────┘
+
+ volanie funkciaB() → SP sa posunie doprava (o veľkosť jej rámca)
+ koniec funkciaB()   → SP sa posunie späť doľava
+```
+
+- **Alokácia** (vznik premennej/rámca) = posunúť SP o pár bajtov
+- **Dealokácia** (koniec funkcie) = posunúť SP späť
+
+Žiadne hľadanie voľného miesta, žiadne rozhodovanie — vždy presne na vrch. Preto je práca so zásobníkom v podstate len jedna aritmetická operácia, a teda extrémne rýchla.
+
+### Stack overflow
+
+Zásobník má obmedzenú (pomerne malú) veľkosť — typicky rádovo jednotky MB. Ak naň dáme príliš veľa dát alebo príliš hlbokú/nekonečnú rekurziu, minie sa miesto:
+
+```cpp
+void nekonecnaRekurzia() {
+    int a[1000];          // veľké lokálne pole, znova a znova
+    nekonecnaRekurzia();   // chýba podmienka na zastavenie!
+}
+```
+
+Toto spôsobí **stack overflow** — zásobník narazí na svoju hranicu a program spadne.
+
+- [ ] zásobník = LIFO, spravovaný automaticky, veľmi rýchly, malá kapacita
+- [ ] lifetime premennej na stacku = presne trvanie bloku `{}`, v ktorom vznikla
+- [ ] príliš hlboká rekurzia alebo príliš veľké lokálne dáta → stack overflow
+
+## Halda (Heap) do hĺbky
+
+Halda je oblasť určená na **dynamickú alokáciu** (viď nasledujúca sekcia o ukazovateľoch a `new`/`delete`) — na rozdiel od zásobníka sa o jej správu (v C++) staráme **manuálne**.
+
+### Prečo je halda pomalšia — interné "účtovníctvo"
+
+Halda si musí viesť záznamy o tom, ktoré bloky pamäte sú voľné, ktoré obsadené a akej sú veľkosti — o toto sa stará tzv. **allocator** (správca pamäte). Keď zavoláme `new`, allocator musí:
+
+1. **nájsť** voľný blok dostatočnej veľkosti,
+2. **označiť** ho ako obsadený a vrátiť jeho adresu,
+3. pri `delete` ho naspäť označiť ako voľný (a podľa možnosti zlúčiť so susednými voľnými blokmi).
+
+```cpp
+int* p1 = new int(5);   // alokácia #1
+int* p2 = new int(10);  // alokácia #2
+delete p1;                // uvoľní sa #1, p2 zostáva platné
+```
+
+```
+new int(5) -> p1     new int(10) -> p2
+┌────────┬────────┬────────┬────────┐
+│  p1: 5  │  p2: 10 │  voľné │  voľné │
+└────────┴────────┴────────┴────────┘
+
+                delete p1;
+                    ↓
+┌────────┬────────┬────────┬────────┐
+│  VOĽNÉ  │  p2: 10 │  voľné │  voľné │   <- "diera" v obsadenej pamäti
+└────────┴────────┴────────┴────────┘
+```
+
+Ak sa takéto "diery" časom nahromadia a rozdrobia na malé nesúvislé kúsky, hovoríme o **fragmentácii pamäte** — môže sa stať, že voľnej pamäte je spolu dosť, ale žiadny jednotlivý kúsok nie je dosť veľký na požadovanú alokáciu, a allocator si musí vypýtať ďalšiu pamäť priamo od operačného systému (ešte drahšia operácia).
+
+Presne toto "hľadanie + účtovníctvo" je dôvod, prečo je alokácia na halde pomalšia než na zásobníku, kde stačí posunúť jeden ukazovateľ.
+
+- [ ] halda = manuálna správa (`new`/`delete`), pomalšia, veľká kapacita (limitovaná RAM)
+- [ ] lifetime dát na halde nezávisí od scope — trvá, kým nezavoláme `delete`
+- [ ] fragmentácia = rozdrobenie voľnej pamäte na malé nesúvislé kúsky, spomaľuje ďalšie alokácie
+
+## Porovnanie zásobníka a haldy
+
+| | Zásobník (Stack) | Halda (Heap) |
+|---|---|---|
+| Správa pamäte | automatická | manuálna (`new` / `delete`) |
+| Rýchlosť | veľmi rýchla (posun ukazovateľa) | pomalšia (hľadanie + účtovníctvo) |
+| Veľkosť | malá, pevne daná (rádovo MB) | veľká, limitovaná RAM |
+| Lifetime | viazaný na scope (blok `{}`) | trvá, kým nezavoláme `delete` |
+| Poradie alokácie/dealokácie | striktne LIFO | ľubovoľné |
+| Typické riziko | stack overflow | memory leak, dangling pointer, fragmentácia |
+| Prístup k dátam | priamo cez meno premennej | cez ukazovateľ / referenciu |
+
+## Príklad, ktorý spája oboje
+
+```cpp
+int* vytvorPole(int velkost)
+{
+    int lokalnaPremenna = 100;         // STACK — zanikne na konci funkcie
+    int* pole = new int[velkost];       // HEAP — prežije koniec funkcie
+
+    for (int i = 0; i < velkost; i++) {  // "i" je tiež na STACKU
+        pole[i] = i;
+    }
+
+    return pole; // vraciame adresu na heap — bezpečné
+} // tu zanikajú "lokalnaPremenna" a "i" (stack); dáta v "pole" (heap) žijú ďalej
+
+int main() {
+    int* p = vytvorPole(5);
+    // ... používame p ...
+    delete[] p; // musíme si to sami upratať (všimnite si [] pri poli!)
+}
+```
+
+Presne toto je dôvod, prečo pri `return by pointer` musíme alokovať na halde (`new`) — keby `pole` bolo obyčajné pole na zásobníku, po `return` by ukazovateľ smeroval na už zaniknutú pamäť (*dangling pointer*).
+
 # Ukazovatele (pointers)
 
 V sekcii o halde sme si povedali, že prácu s adresami v pamäti nám umožňujú **ukazovatele** (*pointers*). V jazyku C# sa s nimi bežne nestretnete – o alokáciu aj uvoľňovanie pamäte sa stará garbage collector, takže priamy prístup k adresám nie je (mimo špeciálneho tzv. `unsafe` kódu) potrebný. Napriek tomu je dôležité tomuto konceptu rozumieť, pretože vysvetľuje, čo sa deje "pod kapotou" aj v jazykoch ako C#, a je základom jazykov C a C++. Preto je celá táto sekcia demonštrovaná v jazyku **C++**.
