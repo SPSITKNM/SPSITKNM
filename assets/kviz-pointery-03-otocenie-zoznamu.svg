@@ -1,0 +1,142 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="722" viewBox="0 0 720 722" role="img" aria-label="Otočenie zoznamu po krokoch">
+  <style>
+    :root{ --stroke:#334155; --text:#1e293b; --node:#ffffff; --band:#eef2f7; --accent:#7c3aed; --muted:#64748b; --cls:#f4f1fb; --pub:#15803d; --priv:#b91c1c; --prot:#b45309; --note:#fffbeb; --obj:#eef6ff; }
+    @media (prefers-color-scheme: dark){
+      :root{ --stroke:#cbd5e1; --text:#e2e8f0; --node:#1e293b; --band:#1e2739; --accent:#a78bfa; --muted:#94a3b8; --cls:#1c1930; --pub:#4ade80; --priv:#f87171; --prot:#fbbf24; --note:#2a2412; --obj:#152238; }
+    }
+    text{fill:var(--text); font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;}
+    .cls{fill:var(--cls); stroke:var(--stroke); stroke-width:1.5;}
+    .obj{fill:var(--obj); stroke:var(--stroke); stroke-width:1.5;}
+    .sep{stroke:var(--stroke); stroke-width:1.2;}
+    .name{font-size:13px; font-weight:700; text-anchor:middle;}
+    .oname{font-size:12.5px; font-weight:700; text-anchor:middle; text-decoration:underline;}
+    .stereo{font-size:10.5px; fill:var(--muted); text-anchor:middle;}
+    .mem{font-size:11.5px; font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; white-space:pre;}
+    .tag{font-size:9.5px; fill:var(--muted); text-anchor:end; font-style:italic;}
+    .pub{fill:var(--pub); font-weight:700;} .priv{fill:var(--priv); font-weight:700;} .prot{fill:var(--prot); font-weight:700;}
+    .lbl{font-size:11px;} .lblc{font-size:11px; text-anchor:middle;}
+    .mut{font-size:10.5px; fill:var(--muted);} .mutc{font-size:10.5px; fill:var(--muted); text-anchor:middle;}
+    .ttl{font-size:12.5px; font-weight:700; fill:var(--accent);} .ttlc{font-size:12.5px; font-weight:700; fill:var(--accent); text-anchor:middle;}
+    .code{font-size:11px; font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;}
+    .okt{fill:var(--pub); font-weight:700;} .badt{fill:var(--priv); font-weight:700;}
+    .ok{stroke:var(--pub); stroke-width:1.6; fill:none; marker-end:url(#mok);}
+    .bad{stroke:var(--priv); stroke-width:1.6; fill:none; stroke-dasharray:5 4;}
+    .edge{stroke:var(--stroke); stroke-width:1.4; fill:none; marker-end:url(#mopen);}
+    .dep{stroke:var(--stroke); stroke-width:1.3; fill:none; stroke-dasharray:5 4; marker-end:url(#mopen);}
+    .gen{stroke:var(--stroke); stroke-width:1.5; fill:none; marker-end:url(#mtri);}
+    .genl{stroke:var(--stroke); stroke-width:1.5; fill:none;}
+    .real{stroke:var(--stroke); stroke-width:1.5; fill:none; stroke-dasharray:6 4; marker-end:url(#mtri);}
+    .reall{stroke:var(--stroke); stroke-width:1.5; fill:none; stroke-dasharray:6 4;}
+    .node{fill:var(--node); stroke:var(--stroke); stroke-width:1.4;}
+    .note{fill:var(--note); stroke:var(--muted); stroke-width:1; stroke-dasharray:4 3;}
+    .hl{fill:var(--accent); opacity:.16;}
+    .brk{stroke:var(--muted); stroke-width:1.3; fill:none;}
+    .grid{stroke:var(--stroke); stroke-width:1; fill:none;}
+    .hdr{fill:var(--band); stroke:var(--stroke); stroke-width:1;}
+  </style>
+  <defs>
+    <marker id="mopen" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10" fill="none" stroke="var(--stroke)" stroke-width="1.4"/>
+    </marker>
+    <marker id="mtri" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="13" markerHeight="13" orient="auto">
+      <path d="M1,1 L11,6 L1,11 z" fill="var(--node)" stroke="var(--stroke)" stroke-width="1.4"/>
+    </marker>
+    <marker id="mok" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="var(--pub)"/>
+    </marker>
+  </defs>
+
+  <text class="ttl" x="30" y="24">Začiatok:  prev = nullptr,  curr = a</text>
+  <rect class="obj" x="70" y="82" width="100" height="52" rx="4"/>
+  <text class="lblc" x="120" y="100" text-anchor="middle" style="font-weight:700">a : 10</text>
+  <line class="sep" x1="70" y1="106" x2="170" y2="106"/>
+  <text class="mut" x="80" y="125" text-anchor="start">dalsi</text>
+  <rect class="obj" x="250" y="82" width="100" height="52" rx="4"/>
+  <text class="lblc" x="300" y="100" text-anchor="middle" style="font-weight:700">b : 20</text>
+  <line class="sep" x1="250" y1="106" x2="350" y2="106"/>
+  <text class="mut" x="260" y="125" text-anchor="start">dalsi</text>
+  <rect class="obj" x="430" y="82" width="100" height="52" rx="4"/>
+  <text class="lblc" x="480" y="100" text-anchor="middle" style="font-weight:700">c : 30</text>
+  <line class="sep" x1="430" y1="106" x2="530" y2="106"/>
+  <text class="mut" x="440" y="125" text-anchor="start">dalsi</text>
+  <path class="ok" d="M170,120 L248,120"/>
+  <path class="ok" d="M350,120 L428,120"/>
+  <path class="ok" d="M530,120 L558,120"/>
+  <text class="mut" x="576" y="124" text-anchor="middle" style="font-family:ui-monospace,Menlo,monospace">null</text>
+  <rect class="node" x="116" y="32" width="40" height="22" rx="5"/>
+  <text class="lblc" x="136" y="48" text-anchor="middle" style="font-weight:700">curr</text>
+  <path class="ok" d="M136,54 L136,80"/>
+  <text class="mut" x="560" y="46" text-anchor="start" style="font-family:ui-monospace,Menlo,monospace">prev = nullptr</text>
+  <text class="ttl" x="30" y="184">Po 1. kroku:  a-&gt;dalsi = prev;  prev = a;  curr = b</text>
+  <rect class="obj" x="70" y="242" width="100" height="52" rx="4"/>
+  <text class="lblc" x="120" y="260" text-anchor="middle" style="font-weight:700">a : 10</text>
+  <line class="sep" x1="70" y1="266" x2="170" y2="266"/>
+  <text class="mut" x="80" y="285" text-anchor="start">dalsi</text>
+  <rect class="obj" x="250" y="242" width="100" height="52" rx="4"/>
+  <text class="lblc" x="300" y="260" text-anchor="middle" style="font-weight:700">b : 20</text>
+  <line class="sep" x1="250" y1="266" x2="350" y2="266"/>
+  <text class="mut" x="260" y="285" text-anchor="start">dalsi</text>
+  <rect class="obj" x="430" y="242" width="100" height="52" rx="4"/>
+  <text class="lblc" x="480" y="260" text-anchor="middle" style="font-weight:700">c : 30</text>
+  <line class="sep" x1="430" y1="266" x2="530" y2="266"/>
+  <text class="mut" x="440" y="285" text-anchor="start">dalsi</text>
+  <path class="ok" d="M170,280 L198,280"/>
+  <text class="mut" x="216" y="284" text-anchor="middle" style="font-family:ui-monospace,Menlo,monospace">null</text>
+  <path class="ok" d="M350,280 L428,280"/>
+  <path class="ok" d="M530,280 L558,280"/>
+  <text class="mut" x="576" y="284" text-anchor="middle" style="font-family:ui-monospace,Menlo,monospace">null</text>
+  <rect class="node" x="68" y="192" width="40" height="22" rx="5"/>
+  <text class="lblc" x="88" y="208" text-anchor="middle" style="font-weight:700">prev</text>
+  <path class="ok" d="M88,214 L88,240"/>
+  <rect class="node" x="296" y="192" width="40" height="22" rx="5"/>
+  <text class="lblc" x="316" y="208" text-anchor="middle" style="font-weight:700">curr</text>
+  <path class="ok" d="M316,214 L316,240"/>
+  <text class="ttl" x="30" y="344">Po 2. kroku:  b-&gt;dalsi = prev;  prev = b;  curr = c</text>
+  <rect class="obj" x="70" y="402" width="100" height="52" rx="4"/>
+  <text class="lblc" x="120" y="420" text-anchor="middle" style="font-weight:700">a : 10</text>
+  <line class="sep" x1="70" y1="426" x2="170" y2="426"/>
+  <text class="mut" x="80" y="445" text-anchor="start">dalsi</text>
+  <rect class="obj" x="250" y="402" width="100" height="52" rx="4"/>
+  <text class="lblc" x="300" y="420" text-anchor="middle" style="font-weight:700">b : 20</text>
+  <line class="sep" x1="250" y1="426" x2="350" y2="426"/>
+  <text class="mut" x="260" y="445" text-anchor="start">dalsi</text>
+  <rect class="obj" x="430" y="402" width="100" height="52" rx="4"/>
+  <text class="lblc" x="480" y="420" text-anchor="middle" style="font-weight:700">c : 30</text>
+  <line class="sep" x1="430" y1="426" x2="530" y2="426"/>
+  <text class="mut" x="440" y="445" text-anchor="start">dalsi</text>
+  <path class="ok" d="M170,440 L198,440"/>
+  <text class="mut" x="216" y="444" text-anchor="middle" style="font-family:ui-monospace,Menlo,monospace">null</text>
+  <path class="ok" d="M300,454 C300,498 120,498 120,456"/>
+  <path class="ok" d="M530,440 L558,440"/>
+  <text class="mut" x="576" y="444" text-anchor="middle" style="font-family:ui-monospace,Menlo,monospace">null</text>
+  <rect class="node" x="248" y="352" width="40" height="22" rx="5"/>
+  <text class="lblc" x="268" y="368" text-anchor="middle" style="font-weight:700">prev</text>
+  <path class="ok" d="M268,374 L268,400"/>
+  <rect class="node" x="476" y="352" width="40" height="22" rx="5"/>
+  <text class="lblc" x="496" y="368" text-anchor="middle" style="font-weight:700">curr</text>
+  <path class="ok" d="M496,374 L496,400"/>
+  <text class="ttl" x="30" y="504">Po 3. kroku:  c-&gt;dalsi = prev;  prev = c;  curr = nullptr</text>
+  <rect class="obj" x="70" y="562" width="100" height="52" rx="4"/>
+  <text class="lblc" x="120" y="580" text-anchor="middle" style="font-weight:700">a : 10</text>
+  <line class="sep" x1="70" y1="586" x2="170" y2="586"/>
+  <text class="mut" x="80" y="605" text-anchor="start">dalsi</text>
+  <rect class="obj" x="250" y="562" width="100" height="52" rx="4"/>
+  <text class="lblc" x="300" y="580" text-anchor="middle" style="font-weight:700">b : 20</text>
+  <line class="sep" x1="250" y1="586" x2="350" y2="586"/>
+  <text class="mut" x="260" y="605" text-anchor="start">dalsi</text>
+  <rect class="obj" x="430" y="562" width="100" height="52" rx="4"/>
+  <text class="lblc" x="480" y="580" text-anchor="middle" style="font-weight:700">c : 30</text>
+  <line class="sep" x1="430" y1="586" x2="530" y2="586"/>
+  <text class="mut" x="440" y="605" text-anchor="start">dalsi</text>
+  <path class="ok" d="M170,600 L198,600"/>
+  <text class="mut" x="216" y="604" text-anchor="middle" style="font-family:ui-monospace,Menlo,monospace">null</text>
+  <path class="ok" d="M300,614 C300,658 120,658 120,616"/>
+  <path class="ok" d="M480,614 C480,658 300,658 300,616"/>
+  <rect class="node" x="428" y="512" width="40" height="22" rx="5"/>
+  <text class="lblc" x="448" y="528" text-anchor="middle" style="font-weight:700">prev</text>
+  <path class="ok" d="M448,534 L448,560"/>
+  <text class="mut" x="560" y="526" text-anchor="start" style="font-family:ui-monospace,Menlo,monospace">curr = nullptr  (koniec)</text>
+  <rect class="note" x="30" y="658" width="660" height="44" rx="3"/>
+  <text class="lbl" x="40" y="678">Každý krok len prepíše jeden odkaz dalsi, aby ukazoval dozadu. Nakoniec je hlava zoznamu prev (uzol c),</text>
+  <text class="lbl" x="40" y="694">takže výpis prev-&gt;hodnota, prev-&gt;dalsi-&gt;hodnota, ... dá 30 20 10.</text>
+</svg>

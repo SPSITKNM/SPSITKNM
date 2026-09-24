@@ -1718,6 +1718,499 @@ int** pp = &p; // pp ukazuje na p, ktorý ukazuje na a
 - [ ] `sizeof` ukazovateľa nezávisí od typu, na ktorý ukazuje
 - [ ] C++ **nemá** garbage collector — moderné C++ preto rieši správu pamäte cez tzv. smart pointery (`std::unique_ptr`, `std::shared_ptr`), ktoré `delete` zavolajú za vás automaticky
 
+## Kvíz: sranda s ukazovateľmi
+
+Ukazovatele sa najlepšie učia na hádankách. Tento kvíz je určený na **začiatok hodiny**: premietne sa kód **bez odpovede**, študenti tipujú, čo sa vypíše, a až potom sa ukáže odpoveď aj s vysvetlením, **na čo sa ukazuje**.
+
+**Pravidlá hry**
+- Kód **sa nespúšťa**, tipuje sa v hlave (alebo na papier).
+- Predpokladáme `#include <iostream>`, `using namespace std;` a bežný 64-bitový systém.
+- Každá správna odpoveď je **1 bod**, v *Boss level* **2 body**. Maximum je **27 bodov**.
+- Odpovede sú vždy pod hádankou, pri ťažších je postup s diagramom.
+
+| Body | Titul |
+|---|---|
+| 0 – 8 | Ukazovateľový nováčik |
+| 9 – 17 | Adresár |
+| 18 – 24 | Dereferenčný ninja |
+| 25 – 27 | Pán pointerov |
+
+Ako čítať odpovede: šípka `p ──► a` znamená „`p` ukazuje na `a`“ (drží jeho adresu).
+
+---
+
+### Zahrievacie kolo (5 × 1 bod)
+
+#### Úloha 1: Hodnota na adrese
+
+```cpp
+int a = 5;
+int* ptr_a = &a;
+cout << *ptr_a;
+```
+
+**Otázka:** Čo sa vypíše?
+
+**Odpoveď:** `5`
+
+`ptr_a` ukazuje na `a`, `*ptr_a` je hodnota na tej adrese.
+
+```
+ptr_a ──► a [ 5 ]
+```
+
+#### Úloha 2: Zápis cez ukazovateľ
+
+```cpp
+int a = 5;
+int* ptr_a = &a;
+*ptr_a = 10;
+cout << a;
+```
+
+**Otázka:** Čo sa vypíše?
+
+**Odpoveď:** `10`
+
+Cez `*ptr_a` sme zapísali priamo do premennej `a`. `ptr_a` ukazuje na `a` a `a` sa zmenilo, hoci sme ju nikde nespomenuli.
+
+```
+ptr_a ──► a [ 10 ]
+```
+
+#### Úloha 3: Dvaja ukazovatelia, jedna premenná
+
+```cpp
+int a = 1;
+int* p = &a;
+int* q = p;
+*q = 7;
+cout << *p << " " << a;
+```
+
+**Otázka:** Čo sa vypíše?
+
+**Odpoveď:** `7 7`
+
+`q = p` skopíroval **adresu**, takže `p` aj `q` ukazujú na tú istú premennú `a`. Zápis cez `q` je vidno cez `p` aj cez `a`.
+
+```
+p ──┐
+    ├──► a [ 7 ]
+q ──┘
+```
+
+#### Úloha 4: Presmerovanie
+
+```cpp
+int a = 1, b = 2;
+int* p = &a;
+p = &b;
+*p = 9;
+cout << a << " " << b;
+```
+
+**Otázka:** Čo sa vypíše?
+
+**Odpoveď:** `1 9`
+
+`p` najprv ukazoval na `a`, potom sme ho **presmerovali** na `b` (`p = &b`). Zápis `*p = 9` teda išiel do `b`, kým `a` ostalo nedotknuté.
+
+```
+p ──► b [ 9 ]        a [ 1 ]  (nikto naň neukazuje)
+```
+
+#### Úloha 5: Kópia hodnoty nie je odkaz
+
+```cpp
+int a = 3;
+int* p = &a;
+int c = *p;
+c = 100;
+cout << a << " " << *p << " " << c;
+```
+
+**Otázka:** Čo sa vypíše?
+
+**Odpoveď:** `3 3 100`
+
+`int c = *p;` skopíroval **hodnotu**, nie adresu. `c` je nová samostatná premenná, jej zmena nič nemení na `a`.
+
+```
+p ──► a [ 3 ]        c [ 100 ]  (samostatná kópia)
+```
+
+---
+
+### Pasce (5 × 1 bod)
+
+#### Úloha 6: Dve podobné hviezdičky
+
+```cpp
+int pole[3] = {10, 20, 30};
+int* p = pole;
+cout << *p++ << " ";
+cout << *p << " ";
+cout << (*p)++ << " ";
+cout << *p << " ";
+cout << pole[0] << " " << pole[1] << " " << pole[2];
+```
+
+**Otázka:** Čo sa vypíše? (Pozor na `*p++` a `(*p)++`.)
+
+**Odpoveď:** `10 20 20 21 10 21 30`
+
+Krok za krokom (`pole` je `{10, 20, 30}`, na začiatku `p ──► pole[0]`):
+
+| Výraz | Čo sa stane | Vypíše | `p` ukazuje na |
+|---|---|---|---|
+| `*p++` | prečíta sa hodnota na **starej** adrese a potom sa **ukazovateľ** posunie | `10` | `pole[1]` |
+| `*p` | hodnota na `pole[1]` | `20` | `pole[1]` |
+| `(*p)++` | zvýši sa **hodnota**, na ktorú `p` ukazuje. Vypíše sa stará hodnota. | `20` | `pole[1]` |
+| `*p` | `pole[1]` je teraz 21 | `21` | `pole[1]` |
+| na konci | `pole` je `{10, 21, 30}` | `10 21 30` | |
+
+Pravidlo: `*p++` posúva **ukazovateľ**, `(*p)++` mení **hodnotu**.
+
+#### Úloha 7: Posun adresy
+
+```cpp
+int pole[5] = {2, 4, 6, 8, 10};
+int* p = pole + 1;
+cout << *p << " ";
+cout << *(p + 2) << " ";
+cout << p[1] << " ";
+cout << p - pole;
+```
+
+**Otázka:** Čo sa vypíše?
+
+**Odpoveď:** `4 8 6 1`
+
+`p = pole + 1` ukazuje na `pole[1]`.
+
+```
+index:   0   1   2   3   4
+pole:  [ 2 ][ 4 ][ 6 ][ 8 ][10 ]
+             ▲
+             p
+```
+
+- `*p` je `pole[1]`, teda `4`,
+- `*(p + 2)` je `pole[3]`, teda `8`,
+- `p[1]` je to isté ako `*(p + 1)`, teda `pole[2]`, čiže `6`,
+- `p - pole` je vzdialenosť **v prvkoch**, nie v bajtoch, teda `1`.
+
+#### Úloha 8: Ukazovateľ na text
+
+```cpp
+const char* s = "ahoj svet";
+cout << *s << " ";
+cout << *(s + 5) << " ";
+cout << s + 5 << " ";
+cout << s[1];
+```
+
+**Otázka:** Čo sa vypíše?
+
+**Odpoveď:** `a s svet h`
+
+```
+index:   0   1   2   3   4   5   6   7   8   9
+s:     [ a ][ h ][ o ][ j ][   ][ s ][ v ][ e ][ t ][\0]
+         ▲                       ▲
+         s                      s + 5
+```
+
+- `*s` je prvý znak, `a`,
+- `*(s + 5)` je znak na indexe 5, `s`,
+- `s + 5` je **adresa** znaku `s`. `cout` vypíše text od tej adresy po koniec reťazca: `svet`,
+- `s[1]` je `h`.
+
+#### Úloha 9: Koľko miesta zaberie ukazovateľ
+
+```cpp
+char c = (char)120;
+double d = 1.5;
+long long ll = 1;
+cout << sizeof(&c) << " " << sizeof(&d) << " " << sizeof(&ll) << " " << sizeof(c) << " " << sizeof(d);
+```
+
+**Otázka:** Čo sa vypíše? (Tip: hovorili sme o veľkosti ukazovateľa.)
+
+**Odpoveď:** `8 8 8 1 8`
+
+Všetky tri ukazovatele (`char*`, `double*`, `long long*`) majú **rovnakú veľkosť 8 bajtov**, lebo držia len adresu. Veľkosť tých, na čo ukazujú, je iná (`char` je 1 bajt, `double` 8 bajtov).
+
+#### Úloha 10: `const` a ukazovatele
+
+```cpp
+int a = 1, b = 2;
+const int* p1 = &a;
+int* const p2 = &a;
+
+p1 = &b;      // (A)
+*p1 = 5;      // (B)
+p2 = &b;      // (C)
+*p2 = 5;      // (D)
+```
+
+**Otázka:** Ktoré dva riadky neprejdú prekladačom?
+
+**Odpoveď:** **(B)** a **(C)**. Riadky (A) a (D) sú v poriadku.
+
+| Riadok | Prečo |
+|---|---|
+| (A) `p1 = &b;` | OK, `p1` sa môže presmerovať |
+| (B) `*p1 = 5;` | CHYBA, cez `p1` sa hodnota **nedá meniť** (`const int*`) |
+| (C) `p2 = &b;` | CHYBA, `p2` sa **nedá presmerovať** (`int* const`) |
+| (D) `*p2 = 5;` | OK, hodnotu meniť smieme |
+
+Prekladač hlási `read-only variable is not assignable` (B) a `cannot assign to variable 'p2' with const-qualified type 'int *const'` (C).
+
+Ako si to pamätať: **čítaj sprava doľava.**
+- `const int* p1`: `p1` je ukazovateľ na `const int` (hodnota je zamknutá),
+- `int* const p2`: `p2` je `const` ukazovateľ na `int` (adresa je zamknutá).
+
+---
+
+### Detektív: čo je tu zle? (3 × 1 bod)
+
+Tieto úryvky **nikdy nespúšťajte naostro**, správanie je nedefinované. Otázka je vždy: *Čo je zle a ako to opraviť?*
+
+#### Úloha 11 (a): Použitie po `delete`
+
+```cpp
+int* p = new int(5);
+int* q = p;
+delete p;
+cout << *q;
+```
+
+**Odpoveď:** `p` aj `q` ukazujú na tú istú pamäť. Po `delete p;` je táto pamäť vrátená systému a `q` ukazuje na **zmazané miesto** (dangling pointer). Čítanie `*q` je nedefinované správanie: môže vypísať `5`, smeti alebo program spadne. Nástroj AddressSanitizer to zahlási ako `heap-use-after-free`.
+
+**Oprava:** po `delete` nepoužívať ani `p`, ani `q`. Dobrý zvyk: `p = nullptr;`.
+
+#### Úloha 11 (b): Stratená pamäť
+
+```cpp
+int* p = new int(1);
+p = new int(2);
+delete p;
+```
+
+**Odpoveď:** Prvý `int` s hodnotou `1` sa **stratil**: adresu sme prepísali druhým `new` a nikto na ňu už neukazuje, takže sa nedá zmazať. Je to **únik pamäte** (memory leak).
+
+**Oprava:** pred prepísaním `delete p;`, alebo použiť `std::unique_ptr`.
+
+#### Úloha 11 (c): Adresa lokálnej premennej
+
+```cpp
+int* zle() {
+    int x = 5;
+    return &x;
+}
+```
+
+**Odpoveď:** `x` je lokálna premenná na **stacku** a po skončení funkcie zaniká. Vrátený ukazovateľ ukazuje na miesto, ktoré už nepatrí `x` (dangling pointer). Prekladač to zahlási: `address of stack memory associated with local variable 'x' returned`.
+
+**Oprava:** vrátiť hodnotu (`int`), alebo pamäť vytvoriť cez `new` (a niekto ju potom musí zmazať).
+
+---
+
+### Boss level (4 × 2 body)
+
+#### Úloha 12: Ukazovateľ na ukazovateľ
+
+```cpp
+int a = 1;
+int* p = &a;
+int** pp = &p;
+**pp = 42;
+int b = 7;
+*pp = &b;
+**pp = 99;
+cout << a << " " << b << " " << *p;
+```
+
+**Otázka:** Čo sa vypíše?
+
+**Odpoveď:** `42 99 99`
+
+Postup, hodnoty po každom riadku:
+
+| Riadok | `pp` | `p` | `a` | `b` |
+|---|---|---|---|---|
+| `int a = 1;` | | | 1 | |
+| `int* p = &a;` | | `&a` | 1 | |
+| `int** pp = &p;` | `&p` | `&a` | 1 | |
+| `**pp = 42;` | `&p` | `&a` | **42** | |
+| `int b = 7;` | `&p` | `&a` | 42 | 7 |
+| `*pp = &b;` | `&p` | **`&b`** | 42 | 7 |
+| `**pp = 99;` | `&p` | `&b` | 42 | **99** |
+
+- `*pp` je **`p`** (jeden krok po šípke), `**pp` je to, na čo ukazuje `p`.
+- `*pp = &b;` prepísal `p`, teda `p` teraz ukazuje na `b`.
+- Na konci: `a = 42`, `b = 99` a `*p` je hodnota v `b`, teda `99`.
+
+![Ukazovateľ na ukazovateľ — pred a po prepísaní p](https://cdn.jsdelivr.net/gh/SPSITKNM/SPSITKNM@main/assets/kviz-pointery-01-ukazovatel-na-ukazovatel.svg)
+
+#### Úloha 13: Prechod zoznamom
+
+```cpp
+struct Uzol {
+    int hodnota;
+    Uzol* dalsi;
+};
+
+int main() {
+    Uzol c = {30, nullptr};
+    Uzol b = {20, &c};
+    Uzol a = {10, &b};
+
+    Uzol* p = &a;
+    cout << p->dalsi->hodnota << " ";
+    p = p->dalsi;
+    p->dalsi->hodnota = 99;
+    cout << c.hodnota << " ";
+    cout << p->hodnota << " ";
+    cout << (p->dalsi->dalsi == nullptr);
+}
+```
+
+**Otázka:** Čo sa vypíše?
+
+**Odpoveď:** `20 99 20 1`
+
+| Riadok | `p` ukazuje na | Výsledok |
+|---|---|---|
+| `Uzol* p = &a;` | `a` | |
+| `p->dalsi->hodnota` | `a`, potom `a.dalsi` = `b` | vypíše `20` |
+| `p = p->dalsi;` | **`b`** | |
+| `p->dalsi->hodnota = 99;` | `b`, potom `b.dalsi` = `c` | `c.hodnota` je teraz `99` |
+| `c.hodnota` | | vypíše `99` |
+| `p->hodnota` | `b` | vypíše `20` |
+| `p->dalsi->dalsi == nullptr` | `b`, `c`, potom `c.dalsi` | `1` (pravda) |
+
+Každá šípka `->` je jeden skok po odkaze. `p->dalsi->hodnota` = „choď na uzol, na ktorý ukazuje `p`, potom na ďalší a prečítaj jeho hodnotu“.
+
+![Prechod jednosmerným zoznamom cez ukazovatele](https://cdn.jsdelivr.net/gh/SPSITKNM/SPSITKNM@main/assets/kviz-pointery-02-zoznam-prechod.svg)
+
+#### Úloha 14: Otočenie zoznamu
+
+```cpp
+struct Uzol {
+    int hodnota;
+    Uzol* dalsi;
+};
+
+int main() {
+    Uzol c = {30, nullptr};
+    Uzol b = {20, &c};
+    Uzol a = {10, &b};
+
+    Uzol* prev = nullptr;
+    Uzol* curr = &a;
+    while (curr != nullptr) {
+        Uzol* next = curr->dalsi;
+        curr->dalsi = prev;
+        prev = curr;
+        curr = next;
+    }
+
+    cout << prev->hodnota << " " << prev->dalsi->hodnota << " " << prev->dalsi->dalsi->hodnota;
+}
+```
+
+**Otázka:** Čo sa vypíše?
+
+**Odpoveď:** `30 20 10`
+
+Slučka **otáča odkazy**, aby každý uzol ukazoval na predchádzajúci namiesto nasledujúceho. Stav po každom kroku:
+
+| Krok | `next` | `a.dalsi` | `b.dalsi` | `c.dalsi` | `prev` | `curr` |
+|---|---|---|---|---|---|---|
+| začiatok | | `b` | `c` | `nullptr` | `nullptr` | `a` |
+| 1 | `b` | `nullptr` | `c` | `nullptr` | `a` | `b` |
+| 2 | `c` | `nullptr` | `a` | `nullptr` | `b` | `c` |
+| 3 | `nullptr` | `nullptr` | `a` | `b` | `c` | `nullptr` |
+
+- Riadok `next = curr->dalsi;` si odloží zvyšok zoznamu **pred** prepísaním `curr->dalsi`. Bez neho by sme odkaz na ďalší uzol stratili.
+- Po slučke je hlava nového zoznamu `prev` (uzol `c`), takže `prev->hodnota` je `30`, `prev->dalsi->hodnota` je `20` a `prev->dalsi->dalsi->hodnota` je `10`.
+
+![Otočenie zoznamu po krokoch](https://cdn.jsdelivr.net/gh/SPSITKNM/SPSITKNM@main/assets/kviz-pointery-03-otocenie-zoznamu.svg)
+
+#### Úloha 15: Kto sa ozve? (polymorfizmus)
+
+```cpp
+class Zviera {
+public:
+    virtual void zvuk() { cout << "..."; }
+    virtual ~Zviera() {}
+};
+class Pes : public Zviera {
+public:
+    void zvuk() override { cout << "Haf"; }
+};
+class Macka : public Zviera {
+public:
+    void zvuk() override { cout << "Mnau"; }
+};
+
+int main() {
+    Zviera* z[3] = { new Pes(), new Macka(), new Zviera() };
+
+    Zviera* t = z[0];
+    z[0] = z[1];
+    z[1] = t;
+
+    for (int i = 0; i < 3; i++) {
+        z[i]->zvuk();
+        cout << " ";
+    }
+
+    for (int i = 0; i < 3; i++) {
+        delete z[i];
+    }
+}
+```
+
+**Otázka:** Čo sa vypíše?
+
+**Odpoveď:** `Mnau Haf ...`
+
+- Pole `z` drží **ukazovatele** na tri objekty na heape (`Pes`, `Macka`, `Zviera`).
+- Trojica riadkov s `t` **prehodila len ukazovatele** `z[0]` a `z[1]`. Objekty sa nepohli.
+- Teda `z[0]` ukazuje na objekt `Macka`, `z[1]` na `Pes` a `z[2]` ostal na `Zviera`.
+- Slučka volá `z[i]->zvuk()`. Vďaka `virtual` sa vyberie verzia **objektu, na ktorý ukazovateľ ukazuje** (nie podľa typu `Zviera*`): `Mnau`, `Haf`, `...`.
+
+![Prehodenie dvoch ukazovateľov v poli](https://cdn.jsdelivr.net/gh/SPSITKNM/SPSITKNM@main/assets/kviz-pointery-04-prehodenie-ukazovatelov.svg)
+
+Súvisí to s kapitolou *Polymorfizmus* v [poznámkach k OOP](https://spsitknm.github.io/citacka.html?s=oop&doc=oop-opakovanie).
+
+---
+
+### Rýchle kolo: pravda alebo nepravda (6 × 1 bod)
+
+1. `int*` zaberá menej miesta v pamäti ako `double*`.
+2. Po `delete p;` je hodnota `p` automaticky `nullptr`.
+3. `p + 1` posunie ukazovateľ o presne jeden bajt.
+4. Dereferencia ukazovateľa `nullptr` je bezpečná, vráti `0`.
+5. Dva ukazovatele môžu ukazovať na tú istú premennú.
+6. Cez ukazovateľ na predka (`Zviera*`) môžeme zavolať aj metódu, ktorú má len potomok (`Pes`).
+
+**Odpovede:**
+1. **Nepravda.** Oba majú 8 bajtov (pozri úlohu 9). Ukazovateľ drží len adresu.
+2. **Nepravda.** `p` ostane s pôvodnou adresou, ktorá už neplatí (dangling). Preto sa píše `p = nullptr;`.
+3. **Nepravda.** Posunie o `sizeof(typ)` bajtov. Pre `int*` o 4, pre `double*` o 8.
+4. **Nepravda.** Je to nedefinované správanie, program typicky spadne.
+5. **Pravda.** Pozri úlohu 3.
+6. **Nepravda.** Cez `Zviera*` vidno len to, čo je deklarované v `Zviera`. Volanie metódy len z `Pes` je chyba pri preklade (`no member named ... in 'Zviera'`).
+
+---
+
+Spočítaj body a pozri tabuľku titulov na začiatku kvízu.
+
 # Pole
 
 Teraz už poznáme základy alokovania pamäte v jazyku C, avšak stále pracujeme iba s jednotlivými premennými. Počítače slúžia na (rýchle) spracovanie veľkého objemu dát a aby sme ich naplno využili, potrebujeme spracovávať mnoho premenných naraz. Napríklad:
